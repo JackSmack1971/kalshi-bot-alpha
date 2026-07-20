@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot.local/schemas/markout-toxicity.schema.json",
+  "title": "MarkoutToxicityClassification",
+  "description": "Shape of a per-fill markout and toxicity classification record (blueprint SS15.1). Every classification must preserve its rules version and input evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "rules_version",
+    "fill_id",
+    "realized_spread_by_horizon",
+    "classification",
+    "input_evidence_ids"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "rules_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "fill_id": { "type": "string", "minLength": 1 },
+    "realized_spread_by_horizon": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Realized_Spread_t = s * 2 * (P_fill - M_t), s=+1 for sell, s=-1 for buy, at multiple horizons.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["horizon_seconds", "realized_spread"],
+        "properties": {
+          "horizon_seconds": { "type": "number", "exclusiveMinimum": 0 },
+          "realized_spread": { "type": "number" }
+        }
+      }
+    },
+    "median_realized_spread": { "type": "number" },
+    "p10_realized_spread": { "type": "number" },
+    "p25_realized_spread": { "type": "number" },
+    "expected_shortfall": { "type": "number" },
+    "positive_markout_frequency": { "type": "number", "minimum": 0, "maximum": 1 },
+    "market_archetype_id": { "type": "string", "minLength": 1 },
+    "time_to_close_seconds": { "type": "number", "minimum": 0 },
+    "classification": {
+      "type": "string",
+      "enum": ["BENIGN", "TOXIC", "STALE_QUOTE", "LIFECYCLE", "INVENTORY_REBALANCING", "AMBIGUOUS"]
+    },
+    "input_evidence_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

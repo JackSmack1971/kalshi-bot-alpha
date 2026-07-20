@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot.local/schemas/order-state.schema.json",
+  "title": "OrderStateRecord",
+  "description": "Shape of one order-state-machine transition record (blueprint SS5.11). State changes must be driven by exchange evidence, not assumptions; every record must cite the evidence that justified the transition.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "order_id",
+    "client_order_id",
+    "state",
+    "previous_state",
+    "transitioned_at",
+    "evidence_reference"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "order_id": { "type": "string", "minLength": 1 },
+    "client_order_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID-based client order ID (blueprint SS5.10)."
+    },
+    "state": { "$ref": "#/$defs/orderState" },
+    "previous_state": {
+      "anyOf": [{ "$ref": "#/$defs/orderState" }, { "type": "null" }],
+      "description": "Null only for the initial INTENT_CREATED transition."
+    },
+    "transitioned_at": { "type": "string", "format": "date-time" },
+    "evidence_reference": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Identifier of the deterministic exchange evidence (API response, reconciliation record) that justified this transition. Never an assumption or AI-authored value."
+    },
+    "market_ticker": { "type": "string", "minLength": 1 }
+  },
+  "$defs": {
+    "orderState": {
+      "type": "string",
+      "enum": [
+        "INTENT_CREATED",
+        "RISK_APPROVED",
+        "SUBMISSION_PENDING",
+        "REJECTED",
+        "OUTCOME_UNKNOWN",
+        "RECONCILING",
+        "ACKNOWLEDGED",
+        "OPEN",
+        "PARTIALLY_FILLED",
+        "FILLED",
+        "CANCEL_PENDING",
+        "CANCELLED",
+        "EXPIRED"
+      ]
+    }
+  }
+}

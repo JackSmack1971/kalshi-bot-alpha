@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot.local/schemas/statistical-sufficiency.schema.json",
+  "title": "StatisticalSufficiencyOutcome",
+  "description": "Shape of the deterministic evaluation-policy outcome for one strategy evaluation (blueprint SS15.2). Every strategy evaluation concludes with exactly one decision_state; no AI agent may promote or reinterpret these states.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evaluation_id",
+    "experiment_id",
+    "decision_state",
+    "sample_size",
+    "effective_sample_size",
+    "diversity_gate_passed",
+    "clustering_unit",
+    "multiple_comparison_correction_applied",
+    "confidence_intervals",
+    "assigned_at",
+    "assigned_by"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "evaluation_id": { "type": "string", "minLength": 1 },
+    "experiment_id": { "type": "string", "minLength": 1 },
+    "decision_state": {
+      "type": "string",
+      "enum": [
+        "OPERATIONALLY_INVALID",
+        "ECONOMICALLY_NEGATIVE",
+        "INCONCLUSIVE",
+        "PROMISING_EXPLORATORY",
+        "CONFIRMATORY_PASS"
+      ]
+    },
+    "sample_size": { "type": "integer", "minimum": 0 },
+    "effective_sample_size": {
+      "type": "number",
+      "minimum": 0,
+      "description": "Accounts for autocorrelation and repeated observations from the same market."
+    },
+    "diversity_gate_passed": { "type": "boolean" },
+    "clustering_unit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The resampling cluster unit, e.g. market or settlement event."
+    },
+    "multiple_comparison_correction_applied": { "type": "string", "minLength": 1 },
+    "confidence_intervals": {
+      "type": "object",
+      "description": "Confidence intervals for the metrics named in blueprint 'Experiment registry and statistical discipline'.",
+      "additionalProperties": false,
+      "properties": {
+        "fill_rate": { "$ref": "#/$defs/interval" },
+        "positive_markout_rate": { "$ref": "#/$defs/interval" },
+        "net_edge": { "$ref": "#/$defs/interval" },
+        "pnl": { "$ref": "#/$defs/interval" },
+        "tail_loss": { "$ref": "#/$defs/interval" },
+        "cancellation_efficiency": { "$ref": "#/$defs/interval" }
+      }
+    },
+    "assigned_at": { "type": "string", "format": "date-time" },
+    "assigned_by": {
+      "type": "string",
+      "const": "deterministic_evaluation_policy",
+      "description": "Fixed to the deterministic evaluation policy; this state is never assigned by an AI agent."
+    }
+  },
+  "$defs": {
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["low", "high"],
+      "properties": {
+        "low": { "type": "number" },
+        "high": { "type": "number" }
+      }
+    }
+  }
+}

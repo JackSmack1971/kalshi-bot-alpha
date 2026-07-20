@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot.local/schemas/queue-calibration.schema.json",
+  "title": "QueueStateCalibration",
+  "description": "Shape of a queue-position research record for one passive order (blueprint SS5.6 queue-state model). Because exchange data may not identify individual queue priority, estimates must include lower and upper bounds, assumptions, and a versioned calibration method.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "calibration_method_version",
+    "order_id",
+    "displayed_size_ahead_at_submission",
+    "queue_position_lower_bound",
+    "queue_position_upper_bound",
+    "estimated_cancellations_ahead",
+    "fill_probability_conditional"
+  ],
+  "properties": {
+    "schema_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "calibration_method_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "order_id": { "type": "string", "minLength": 1 },
+    "displayed_size_ahead_at_submission": { "type": "number", "minimum": 0 },
+    "same_price_displayed_size_history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observed_at", "displayed_size"],
+        "properties": {
+          "observed_at": { "type": "string", "format": "date-time" },
+          "displayed_size": { "type": "number", "minimum": 0 }
+        }
+      }
+    },
+    "trades_executed_at_level": { "type": "number", "minimum": 0 },
+    "estimated_cancellations_ahead": { "type": "number", "minimum": 0 },
+    "queue_position_lower_bound": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Lower bound of the bounded queue-position percentile interval."
+    },
+    "queue_position_upper_bound": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Upper bound of the bounded queue-position percentile interval. Must be >= queue_position_lower_bound (enforced by application logic; not expressible in this schema)."
+    },
+    "queue_completion_ratio": {
+      "type": "number",
+      "minimum": 0,
+      "description": "QCR = estimated volume consumed ahead / displayed size ahead at entry."
+    },
+    "fill_probability_conditional": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Fill probability conditional on queue state, market archetype, and time to close."
+    },
+    "market_archetype_id": { "type": "string", "minLength": 1 },
+    "time_to_close_seconds": { "type": "number", "minimum": 0 }
+  }
+}
