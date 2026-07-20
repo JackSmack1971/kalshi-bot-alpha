@@ -1,0 +1,35 @@
+[project]
+name = "kalshi-bot"
+version = "0.0.0"
+description = "Deterministic, demo-only Kalshi crypto paper-trading bot. Phase 0: contracts and safety model only — no trading code."
+readme = "docs/ARCHITECTURE.md"
+requires-python = ">=3.12"
+license = { text = "Proprietary" }
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.5",
+    "mypy>=1.10",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kalshi_bot"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+src = ["src", "scripts", "tests"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+mypy_path = "src"

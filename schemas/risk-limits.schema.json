@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot-alpha.invalid/schemas/risk-limits.schema.json",
+  "title": "RiskLimits",
+  "description": "Frozen schema for deterministic risk-limit configuration (blueprint §5.9; docs/RISK_MODEL.md). Instances: config/risk/*.yaml. Changing limit values requires durable human approval. Monetary values are fixed-point decimal strings.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "risk_limits_version",
+    "bankroll",
+    "order",
+    "market",
+    "portfolio",
+    "scenario",
+    "execution_budget",
+    "kill_switch"
+  ],
+  "properties": {
+    "risk_limits_version": { "type": "integer", "minimum": 1 },
+    "bankroll": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["paper_bankroll_usd"],
+      "properties": {
+        "paper_bankroll_usd": { "$ref": "#/$defs/usdAmount" }
+      }
+    },
+    "order": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["max_risk_per_order_usd", "max_open_orders"],
+      "properties": {
+        "max_risk_per_order_usd": { "$ref": "#/$defs/usdAmount" },
+        "max_open_orders": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "market": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_exposure_per_market_usd",
+        "min_minutes_before_close",
+        "max_market_data_age_seconds"
+      ],
+      "properties": {
+        "max_exposure_per_market_usd": { "$ref": "#/$defs/usdAmount" },
+        "min_minutes_before_close": { "type": "integer", "minimum": 0 },
+        "max_market_data_age_seconds": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "portfolio": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_aggregate_exposure_usd",
+        "max_daily_paper_loss_usd",
+        "max_strategy_drawdown_pct"
+      ],
+      "properties": {
+        "max_aggregate_exposure_usd": { "$ref": "#/$defs/usdAmount" },
+        "max_daily_paper_loss_usd": { "$ref": "#/$defs/usdAmount" },
+        "max_strategy_drawdown_pct": { "$ref": "#/$defs/decimalString" }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "correlation_groups_version",
+        "max_correlated_scenario_loss_usd",
+        "max_single_market_liability_usd"
+      ],
+      "properties": {
+        "correlation_groups_version": {
+          "type": ["string", "null"],
+          "description": "Version of the reviewed, deterministic correlation-group definitions. Null only while no strategy is active; must be frozen before Phase 5 activation."
+        },
+        "max_correlated_scenario_loss_usd": { "$ref": "#/$defs/usdAmount" },
+        "max_single_market_liability_usd": { "$ref": "#/$defs/usdAmount" }
+      }
+    },
+    "execution_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_outstanding_request_age_seconds",
+        "order_rate_budget_per_minute"
+      ],
+      "properties": {
+        "max_outstanding_request_age_seconds": { "type": "number", "exclusiveMinimum": 0 },
+        "order_rate_budget_per_minute": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "kill_switch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "const": true,
+          "description": "The kill switch may never be disabled by configuration."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "usdAmount": { "type": "string", "pattern": "^[0-9]+\\.[0-9]{2,6}$" },
+    "decimalString": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" }
+  }
+}

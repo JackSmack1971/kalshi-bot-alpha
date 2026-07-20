@@ -1,0 +1,39 @@
+# Conservative risk limits — engineering defaults, not recommended financial
+# limits (blueprint §5.9). Validated against schemas/risk-limits.schema.json.
+# Changing any value requires durable human approval
+# (.claude/rules/governance-and-approvals.md).
+
+risk_limits_version: 1
+
+bankroll:
+  paper_bankroll_usd: "1000.00"
+
+order:
+  max_risk_per_order_usd: "5.00"
+  max_open_orders: 10
+
+market:
+  max_exposure_per_market_usd: "25.00"
+  min_minutes_before_close: 30
+  max_market_data_age_seconds: 2
+
+portfolio:
+  max_aggregate_exposure_usd: "100.00"
+  max_daily_paper_loss_usd: "25.00"
+  max_strategy_drawdown_pct: "5.0"
+
+scenario:
+  # Correlated scenario-risk contract: docs/RISK_MODEL.md.
+  # Groups and scenarios are deterministic, reviewed, versioned.
+  correlation_groups_version: null # frozen before Phase 5 activation
+  max_correlated_scenario_loss_usd: "50.00"
+  max_single_market_liability_usd: "25.00"
+
+execution_budget:
+  max_outstanding_request_age_seconds: 10
+  order_rate_budget_per_minute: 30
+
+kill_switch:
+  # Deterministic runtime control; cancels managed orders and blocks new
+  # submissions. Never operated by AI.
+  enabled: true

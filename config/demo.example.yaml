@@ -1,0 +1,59 @@
+# Example runtime configuration — DEMO ONLY.
+# Sensitive values are environment-variable references, never literals.
+# The runtime must fail closed if `environment.mode` is not exactly "demo"
+# or if any endpoint differs from the demo allowlist below.
+
+config_version: 1
+
+environment:
+  mode: demo # the only legal value; there is no production mode in this project
+  rest_base_url: "https://external-api.demo.kalshi.co/trade-api/v2"
+  websocket_url: "wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2"
+
+credentials:
+  access_key_env: KALSHI_DEMO_ACCESS_KEY
+  private_key_path_env: KALSHI_DEMO_PRIVATE_KEY_PATH
+  max_clock_drift_ms: 2000
+
+market_selection:
+  # Human-approved series only. Additions require durable approval
+  # (docs/SAFETY_MODEL.md §5). Keyword matching alone is forbidden.
+  allowlisted_series: []
+  min_remaining_minutes: 30
+  max_spread_cents: null # strategy-specific; must be set before Phase 5
+  require_visible_depth: true
+
+market_data:
+  max_data_age_seconds: 2
+  orderbook_depth_levels: 100
+
+strategy:
+  active_strategy: null # no strategy is active before Phase 5
+  config_path: config/strategies/passive_spread.yaml
+
+risk:
+  limits_path: config/risk/conservative.yaml
+
+execution:
+  post_only: true
+  max_outstanding_request_age_seconds: 10
+
+persistence:
+  database_path: var/kalshi_bot_demo.sqlite3
+
+observability:
+  log_path: var/log/
+  # Operator-visible status must permanently display: DEMO MODE
+  status_banner: "DEMO MODE"
+
+external_reference:
+  enabled: false # observational only when enabled; never trading authority
+
+market_archetypes:
+  classifier_version: null # frozen in Phase 2
+
+expectancy_model:
+  edge_model_version: null # frozen in Phase 5
+
+experiment_registry:
+  registry_path: var/experiments/

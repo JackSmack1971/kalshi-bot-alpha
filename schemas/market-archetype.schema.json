@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot-alpha.invalid/schemas/market-archetype.schema.json",
+  "title": "MarketArchetype",
+  "description": "Deterministic, versioned market classification (blueprint §5.5.1). Every feature snapshot, strategy intent, order, fill, and evaluation record preserves the archetype ID used at decision time; reporting segments by archetype before any aggregate.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "market_archetype_id",
+    "classifier_version",
+    "underlying_asset",
+    "contract_structure",
+    "threshold_distance_bucket",
+    "time_to_settlement_bucket",
+    "market_age_bucket",
+    "time_of_day_bucket",
+    "day_of_week_bucket",
+    "spread_regime",
+    "visible_depth_regime",
+    "external_reference_volatility_regime",
+    "event_driven",
+    "classified_at"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "market_archetype_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Deterministic function of classifier_version and the dimension values below."
+    },
+    "classifier_version": { "type": "string", "minLength": 1 },
+    "underlying_asset": { "type": "string", "minLength": 1 },
+    "contract_structure": {
+      "enum": ["directional", "threshold", "range", "other_reviewed"]
+    },
+    "threshold_distance_bucket": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Volatility- and time-normalized strike distance bucket; 'not_applicable' for non-threshold structures."
+    },
+    "time_to_settlement_bucket": { "type": "string", "minLength": 1 },
+    "market_age_bucket": { "type": "string", "minLength": 1 },
+    "time_of_day_bucket": { "type": "string", "minLength": 1 },
+    "day_of_week_bucket": { "type": "string", "minLength": 1 },
+    "spread_regime": { "enum": ["tight", "moderate", "wide", "unavailable"] },
+    "visible_depth_regime": { "enum": ["deep", "moderate", "thin", "unavailable"] },
+    "external_reference_volatility_regime": {
+      "enum": ["low", "moderate", "high", "unavailable"],
+      "description": "'unavailable' is an explicit state; missing reference data is never coerced to a value."
+    },
+    "event_driven": { "type": "boolean" },
+    "classified_at": { "type": "string", "format": "date-time" }
+  }
+}

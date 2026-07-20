@@ -1,0 +1,31 @@
+# Passive spread capture — configuration schema example.
+# NOT ACTIVE. Strategy implementation and activation belong to Phase 5 and
+# require durable human approval. This file freezes the configuration shape
+# only (blueprint §5.8).
+
+strategy_id: passive_spread
+strategy_version: "0.1.0"
+enabled: false
+
+quoting:
+  post_only: true
+  time_in_force: good_till_canceled
+  quote_at_or_behind_best_bid: true
+  never_cross_spread: true
+  min_price_move_before_reprice_cents: 1
+  max_quote_age_seconds: 30
+  stop_quoting_minutes_before_close: 30
+
+eligibility:
+  max_spread_cents: 3
+  min_visible_depth_contracts: 50
+
+inventory:
+  max_inventory_per_outcome_contracts: 25
+
+edge:
+  # Binding quote-expectancy contract: docs/STRATEGY_SPEC.md.
+  # A quote requires estimated net edge >= fees + safety buffer.
+  edge_model_version: null # must reference a frozen model before activation
+  min_net_edge_over_fees_cents: 1
+  record_expectancy_decomposition: true # mandatory; may not be disabled

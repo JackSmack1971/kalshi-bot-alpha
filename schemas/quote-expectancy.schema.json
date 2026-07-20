@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot-alpha.invalid/schemas/quote-expectancy.schema.json",
+  "title": "QuoteExpectancyRecord",
+  "description": "Versioned expectancy decomposition persisted for every passive quote (blueprint §5.8): EV = P(fill) × (gross spread − fees − adverse selection − inventory cost − settlement risk) − cancel/reprice cost. A visible spread is not edge. Recording this decomposition is mandatory and may not be disabled.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "quote_expectancy_id",
+    "intent_id",
+    "market_ticker",
+    "market_archetype_id",
+    "queue_state_snapshot_id",
+    "edge_model_version",
+    "signal_confidence",
+    "fill_probability",
+    "fill_probability_lower_bound",
+    "fill_probability_upper_bound",
+    "gross_spread_usd",
+    "fee_cost_usd",
+    "adverse_selection_usd",
+    "inventory_cost_usd",
+    "settlement_risk_usd",
+    "cancel_reprice_cost_usd",
+    "expected_net_edge_usd",
+    "calibration_method_version",
+    "calibration_sample_size",
+    "calibration_confidence",
+    "assumptions",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "quote_expectancy_id": { "type": "string", "format": "uuid" },
+    "intent_id": { "type": "string", "format": "uuid" },
+    "market_ticker": { "type": "string", "minLength": 1 },
+    "market_archetype_id": { "type": "string", "minLength": 1 },
+    "queue_state_snapshot_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Queue-state snapshot in effect at quote time. Must not postdate order submission."
+    },
+    "edge_model_version": { "type": "string", "minLength": 1 },
+    "signal_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Separate from fill probability and expected profitability by contract."
+    },
+    "fill_probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fill_probability_lower_bound": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fill_probability_upper_bound": { "type": "number", "minimum": 0, "maximum": 1 },
+    "gross_spread_usd": { "$ref": "#/$defs/usdAmount" },
+    "fee_cost_usd": { "$ref": "#/$defs/usdAmount" },
+    "adverse_selection_usd": { "$ref": "#/$defs/usdAmount" },
+    "inventory_cost_usd": { "$ref": "#/$defs/usdAmount" },
+    "settlement_risk_usd": { "$ref": "#/$defs/usdAmount" },
+    "cancel_reprice_cost_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_net_edge_usd": { "$ref": "#/$defs/signedUsdAmount" },
+    "calibration_method_version": { "type": "string", "minLength": 1 },
+    "calibration_sample_size": { "type": "integer", "minimum": 0 },
+    "calibration_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Explicit queue/latency/fill assumptions backing the estimates."
+    },
+    "created_at": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "usdAmount": { "type": "string", "pattern": "^[0-9]+\\.[0-9]{2,6}$" },
+    "signedUsdAmount": { "type": "string", "pattern": "^-?[0-9]+\\.[0-9]{2,6}$" }
+  }
+}
