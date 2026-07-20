@@ -4,6 +4,23 @@ Normative Phase 0 contract for domain models, the order state machine,
 the ledger, and traceability invariants. Sources: blueprint §5.6, §5.8,
 §5.11–§5.14; `.claude/rules/accounting-and-domain-models.md`.
 
+This document owns the order-state and ledger shapes directly (§3–§4)
+and does not duplicate the sibling contracts it depends on. For the
+full definitions, see:
+
+- Quote-expectancy decomposition — `docs/STRATEGY_SPEC.md` §3,
+  `schemas/quote-expectancy.schema.json`.
+- Market archetype — `docs/MICROSTRUCTURE_CONTRACT.md` §1,
+  `schemas/market-archetype.schema.json`.
+- Experiment registry entry — `docs/RESEARCH_PROTOCOL.md` §1,
+  `schemas/experiment-registration.schema.json`.
+- Risk limits and correlated scenario risk — `docs/RISK_MODEL.md`,
+  `schemas/risk-limits.schema.json`.
+- AI evidence bundles — referenced by `docs/RESEARCH_PROTOCOL.md` and
+  `docs/SAFETY_MODEL.md` §3, §6; no evidence-bundle schema is frozen
+  yet, since it requires the reconciliation and ledger models this
+  document defines and no evidence-producing runtime exists in Phase 0.
+
 ## 1. Value conventions
 
 - **Prices and money are exact fixed-point decimals** (cents for Kalshi
@@ -133,3 +150,13 @@ migrations, never ahead of the phase that uses them.
   deterministic tool result.
 - Every confirmatory experiment is preregistered before its scored data
   window begins and is immutable afterwards.
+
+## Phase 0 scope
+
+No ORM, database, or Alembic migration exists yet; `migrations/` is a
+placeholder (see `docs/IMPLEMENTATION_STATUS.md`). This document fixes
+the shapes and invariants that the phase introducing persistence must
+implement without weakening. `trade-intent.schema.json` and the
+sibling schemas listed above are the only frozen, machine-checkable
+contracts as of Phase 0; the persistence table list in §5 is a target
+schema, not an implemented one.

@@ -21,7 +21,36 @@ STRATEGY_BEHAVIOR_ANOMALY       intents violating declared strategy contract
 
 AI may analyze incidents; it can never mark one `RESOLVED`.
 
-## 2. Failure modes and required responses
+## 2. Category mapping and Phase 0 status
+
+Each failure mode in §3 maps onto one or more of the following
+cross-cutting categories. All categories are **contract-only in Phase
+0**: no runtime, transport, strategy, risk gateway, execution engine,
+reconciliation service, or agent workflow exists yet to raise any of
+these incidents (see `docs/IMPLEMENTATION_STATUS.md`). The only
+executable check today is the static demo-endpoint scan
+(`scripts/verify_demo_only.py`), which is a safety-policy-violation
+check, not an incident-taxonomy runtime.
+
+| Category | Failure modes in §3 |
+| --- | --- |
+| Validation | Malformed/impossible order-state transitions (`IMPOSSIBLE_STATE`); schema/structured-output validation failures under "OpenRouter or agent failure" |
+| Configuration | Authentication failure (malformed/unsafe credentials); demo-endpoint / environment-mode misconfiguration (`docs/SAFETY_MODEL.md` §1) |
+| Data freshness | WebSocket disconnect (stale books); subscription overflow |
+| Transport | Rate limiting; WebSocket disconnect and reconnect handling |
+| Execution uncertainty | Uncertain mutation outcome (`OUTCOME_UNKNOWN`); duplicate or slow cancels |
+| Reconciliation | Reconciliation mismatch (`TRADING_SUSPENDED_RECONCILIATION_REQUIRED`) |
+| Accounting | Ledger mismatch requiring `ADJUSTMENT_RECONCILED`; database failure during ledger flush |
+| Research integrity | OpenRouter/agent failure (budget, schema, fallback invalidation); preregistration and multiple-testing violations (`docs/RESEARCH_PROTOCOL.md` §4) |
+| Safety-policy violation | Agent policy or privacy violation; demo-endpoint or credential-boundary violation (`docs/SAFETY_MODEL.md`) |
+
+This mapping is descriptive, not a second incident-class enumeration:
+the six `SYSTEM_ANOMALY`…`STRATEGY_BEHAVIOR_ANOMALY` classes in §1
+remain the authoritative machine-facing taxonomy: `runtime_incidents`
+records one of those six values, never a category name from this
+table.
+
+## 3. Failure modes and required responses
 
 ### WebSocket disconnect
 Mark all streamed books stale immediately → suspend new orders → apply
@@ -82,7 +111,7 @@ storing the detected secret material** → revoke the result's binding
 status → never broaden tools or evidence to complete the request →
 require operator review before re-execution.
 
-## 3. Shutdown contract
+## 4. Shutdown contract
 
 1. Disable new strategy intents.
 2. Cancel managed open orders.
@@ -92,3 +121,15 @@ require operator review before re-execution.
 6. Close WebSocket and REST clients.
 7. **Exit nonzero when clean reconciliation was not achieved**, leaving
    persistent state that blocks the next startup until resolved.
+
+See `docs/PAPER_TRADING_PROTOCOL.md` for how this sequence fits into
+the full startup/decision-cycle/shutdown lifecycle.
+
+## Governing principle across every failure mode
+
+Deterministic trading safety functions (cancellation, reconciliation,
+risk enforcement, persistence, shutdown) must never be blocked by an
+AI or OpenRouter failure. Conversely, no failure-handling path may
+silently continue with degraded, stale, or assumed-correct state; every
+response in §3 either halts the affected function explicitly or
+records an incident — never both nothing and neither.

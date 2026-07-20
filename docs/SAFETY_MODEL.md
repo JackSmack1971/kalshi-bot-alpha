@@ -18,23 +18,45 @@ WebSocket: wss://external-api-ws.demo.kalshi.co/trade-api/ws/v2
 
 Every other Kalshi hostname — including the bare `kalshi.co` /
 `kalshi.com` domains and any production or elections API host — is
-forbidden. This is enforced three ways:
+forbidden. See `docs/DEMO_ENDPOINT_POLICY.md` for the full policy.
+This is enforced four ways:
 
-1. **Statically:** `scripts/verify_demo_only.py` scans enforced paths
-   (`src/`, `config/`, `schemas/`, `scripts/`, `tests/`, `migrations/`,
-   `pyproject.toml`, `.env.example`) and fails on any Kalshi hostname
-   outside the allowlist. `tests/unit/test_demo_only_policy.py` runs the
-   scan in CI and proves the detector catches non-demo hosts.
-2. **At startup (Phase 1+):** configuration validation must refuse to
+1. **Statically, today:** `scripts/verify_demo_only.py` scans enforced
+   paths (`src/`, `config/`, `schemas/`, `scripts/`, `tests/`,
+   `migrations/`, `pyproject.toml`, `.env.example`) and fails on any
+   Kalshi hostname outside the allowlist. `tests/unit/test_demo_only_policy.py`
+   and `tests/test_demo_endpoint_policy.py` run the scan and the
+   underlying validator in CI and prove the detector catches non-demo,
+   case-variant, whitespace-variant, and lookalike-suffix hosts. A line
+   under the `tests/` enforced path may opt out of scanning with the
+   exact marker `demo-scan: allow-negative-fixture`, so adversarial test
+   fixtures can assert real rejection of production-looking hostnames
+   without those literals being mistaken for deployable configuration;
+   the marker has no effect anywhere else in the enforced paths.
+2. **At runtime, today:** `src/kalshi_bot/contracts/demo_endpoints.py`
+   exposes `validate_host(host) -> bool`, a pure, side-effect-free,
+   case-sensitive predicate against the two-element allowlist. It
+   performs no I/O and no normalization, so callers in a future
+   fail-closed startup path can treat it as an exact-match gate rather
+   than a heuristic.
+3. **At startup (Phase 1+):** configuration validation must refuse to
    start when any configured host is off the allowlist, environment mode
    is unset or ambiguous, credentials are absent/malformed/unsafe, clock
    drift exceeds tolerance, or persistent state records an unresolved
    shutdown or reconciliation failure.
-3. **Structurally (Phase 1+):** transports are demo-specific types
+4. **Structurally (Phase 1+):** transports are demo-specific types
    (`KalshiDemoRestClient`, `KalshiDemoWebSocketClient`) whose endpoints
    are fixed at the type level. A generic `KalshiClient(environment)`,
    an `environment=production` switch, or a dormant production constant
    is an architecture violation, not a configuration option.
+
+**Maintenance obligation:** `ENFORCED_PATHS` in
+`scripts/verify_demo_only.py` must be extended whenever a new
+top-level source, configuration, or migration directory is added to
+this repository. An unscanned path is a silent gap in the demo-only
+guarantee, not a neutral omission — reviewers must treat a new
+top-level directory without a corresponding `ENFORCED_PATHS` update as
+a blocking finding.
 
 Operator-visible status must permanently display `DEMO MODE`.
 
@@ -44,7 +66,8 @@ human approval.
 
 ## 2. Credential policy
 
-Kalshi demo credentials (access-key ID + local RSA private-key file):
+See `docs/CREDENTIAL_POLICY.md` for the full policy. Summary: Kalshi
+demo credentials (access-key ID + local RSA private-key file):
 
 - Come only from environment-variable references, an OS secret store, or
   a private-key file **outside the repository** with owner-only
@@ -97,9 +120,10 @@ approved order plan, a risk approval, a reconciliation resolution, a
 ledger event, or active configuration.
 
 Risk authorization is synchronous, centralized, deterministic,
-versioned, and non-bypassable. Strategy evaluation must not begin before
-reconciliation, market eligibility, data health, and stream health are
-deterministically confirmed.
+versioned, and non-bypassable (see `docs/RISK_MODEL.md` and
+`schemas/risk-limits.schema.json`). Strategy evaluation must not begin
+before reconciliation, market eligibility, data health, and stream
+health are deterministically confirmed.
 
 OpenRouter is the only external LLM inference provider; no direct vendor
 SDKs or clients.
@@ -118,3 +142,16 @@ evidence scope, decision, and resulting code/configuration version.
 Approval never directly mutates active runtime state; normal reviewed
 engineering and deployment paths remain required. Approval is never
 simulated, inferred, fabricated, self-granted, or backfilled.
+
+## Phase 0 scope of this safety model
+
+As of Phase 0, the only executable safety controls are the static
+demo-endpoint scan (`scripts/verify_demo_only.py`) and the runtime
+`validate_host` predicate (§1); both are proven by
+`tests/unit/test_demo_only_policy.py` and
+`tests/test_demo_endpoint_policy.py`. No credential loading, process
+supervision, risk gateway, execution engine, reconciliation service, or
+AI agent runtime exists yet, so §2–§5 above describe binding design
+constraints on code that does not exist yet, not current runtime
+behavior (`docs/IMPLEMENTATION_STATUS.md` is authoritative on what has
+shipped).
