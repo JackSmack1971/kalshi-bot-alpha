@@ -115,6 +115,12 @@ dependent feature unavailable; it must never be silently substituted
 with fabricated values, and a missing value never becomes a numeric
 zero.
 
+As of Phase 0, no external-reference fetcher, reference-bundle schema, or
+normalized-state-variable calculation exists, and Phase 0 makes no
+network call of any kind, including to Binance or CoinGecko; this
+section fixes the authority boundary and missing-data discipline for the
+implementing phase (blueprint §5.8.1).
+
 ## 6. Book-imbalance discipline
 
 Book imbalance is a hypothesis requiring calibration, not an assumed
