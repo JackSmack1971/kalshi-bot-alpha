@@ -133,6 +133,9 @@ Multi-step procedures are in `.claude/skills/`:
 - `safe-change-preflight`
 - `implement-safe-change`
 - `verify-change`
+- `audit-safety-invariants` — cross-cutting check of demo-only, credential-isolation, AI-authority, and human-approval invariants on a diff
+- `propose-contract-change` — safe evolution of frozen schemas in `schemas/` and their governing docs
+- `phase-exit-audit` — evidence-based check of the active phase's deliverables and exit criteria before completion is claimed
 
 Use these skills for nontrivial repository modifications rather than duplicating their procedures here.
 
