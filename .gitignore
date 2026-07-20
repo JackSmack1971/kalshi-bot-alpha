@@ -1,7 +1,0 @@
-.claude/control-plane/runs/*
-!.claude/control-plane/runs/.gitkeep
-.claude/worktrees/
-__pycache__/
-*.pyc
-.claude/control-plane/context-estimate.json
-.claude/backups/
