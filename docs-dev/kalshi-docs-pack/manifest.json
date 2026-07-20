@@ -1,0 +1,2448 @@
+{
+  "status": "ok",
+  "generator": "official-docs-pack",
+  "version": "2.0.0",
+  "generated_at": "2026-07-17T16:50:26.749Z",
+  "request": "https://docs.kalshi.com/",
+  "settings": {
+    "max_pages": 400,
+    "max_depth": 6,
+    "timeout_ms": 15000,
+    "allow_hosts": [
+      "docs.kalshi.com"
+    ]
+  },
+  "seeds": [
+    {
+      "url": "https://docs.kalshi.com/",
+      "reason": "user-url:known-docs-host+docs-shaped-host+docs-homepage",
+      "score": 125,
+      "host": "docs.kalshi.com",
+      "rootPath": "/"
+    },
+    {
+      "url": "https://docs.kalshi.com/welcome",
+      "reason": "search-result:known-docs-host+docs-shaped-host",
+      "score": 115,
+      "host": "docs.kalshi.com",
+      "rootPath": "/"
+    },
+    {
+      "url": "https://docs.kalshi.com/sdks/overview",
+      "reason": "search-result:known-docs-host+docs-shaped-host",
+      "score": 115,
+      "host": "docs.kalshi.com",
+      "rootPath": "/"
+    }
+  ],
+  "pages": [
+    {
+      "path": "docs/docs-kalshi-com-welcome-ef0108fb.md",
+      "title": "Welcome to Kalshi’s API Documentation",
+      "url": "https://docs.kalshi.com/welcome",
+      "host": "docs.kalshi.com",
+      "depth": 0,
+      "headings": [
+        "Welcome to Kalshi’s API Documentation",
+        "The APIs",
+        "Predictions APIs",
+        "Perps APIs",
+        "Get started",
+        "Making Your First Request",
+        "Demo Environment",
+        "API Keys",
+        "Kalshi Academy",
+        "Reference",
+        "Rate Limits",
+        "Changelog",
+        "Glossary",
+        "Specifications",
+        "Predictions REST",
+        "Predictions WebSocket",
+        "Perps REST",
+        "Perps WebSocket"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:52.419Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-welcome-ef0108fb.md",
+      "title": "Welcome to Kalshi’s API Documentation",
+      "url": "https://docs.kalshi.com/welcome",
+      "host": "docs.kalshi.com",
+      "depth": 0,
+      "headings": [
+        "Welcome to Kalshi’s API Documentation",
+        "The APIs",
+        "Predictions APIs",
+        "Perps APIs",
+        "Get started",
+        "Making Your First Request",
+        "Demo Environment",
+        "API Keys",
+        "Kalshi Academy",
+        "Reference",
+        "Rate Limits",
+        "Changelog",
+        "Glossary",
+        "Specifications",
+        "Predictions REST",
+        "Predictions WebSocket",
+        "Perps REST",
+        "Perps WebSocket"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:52.624Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-sdks-overview-c2ac61e2.md",
+      "title": "Kalshi SDKs - API Documentation",
+      "url": "https://docs.kalshi.com/sdks/overview",
+      "host": "docs.kalshi.com",
+      "depth": 0,
+      "headings": [
+        "[​",
+        "Python (sync)",
+        "Python (async)",
+        "TypeScript"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:52.769Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-api-environments-b24a2db9.md",
+      "title": "API Environments and Endpoints - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/api_environments",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:53.305Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-making-your-first-request-e7976bd8.md",
+      "title": "Making Your First Request - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/making_your_first_request",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:53.465Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-exchange-get-exchange-status-c8224b5.md",
+      "title": "Get Exchange Status - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/exchange/get-exchange-status",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:53.614Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-947ea4f3.md",
+      "title": "Perps API - API Documentation",
+      "url": "https://docs.kalshi.com/margin",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:53.831Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-quick-start-market-data-cd3164c4.md",
+      "title": "Quick Start: Market Data - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/quick_start_market_data",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "Get series information for KXHIGHNY",
+        "[​",
+        "Get all open markets for the KXHIGHNY series",
+        "Get details for a specific event if you have its ticker",
+        "[​",
+        "Get orderbook for a specific market",
+        "Replace with an actual market ticker from the markets list",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:53.967Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-quick-start-authenticated-requests-837b7955.md",
+      "title": "Quick Start: Authenticated Requests - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/quick_start_authenticated_requests",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Set up the request",
+        "Create signature (using function from Step 2)",
+        "Make the request",
+        "[​",
+        "Configuration",
+        "Load private key",
+        "Get balance",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:54.123Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-quick-start-create-order-fe2f5800.md",
+      "title": "Quick Start: Create your first order - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/quick_start_create_order",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "Get the first open market (no auth required for public market data)",
+        "[​",
+        "Place a buy order for 1 YES contract at 1 cent",
+        "[​",
+        "Assumes you have the authentication code from the prerequisites",
+        "Add POST function to your existing auth code",
+        "Step 1: Find an open market",
+        "Step 2: Place a buy order",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:54.269Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-quick-start-websockets-a95bc67f.md",
+      "title": "Quick Start: WebSockets - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/quick_start_websockets",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "WebSocket URL",
+        "Generate authentication headers (see API Keys documentation)",
+        "Connect with authentication",
+        "Run the connection",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Example usage:",
+        "Subscribe to orderbook updates",
+        "Subscribe to trade feed",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Connection Management"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:54.462Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-api-keys-425c8167.md",
+      "title": "API Keys - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/api_keys",
+      "host": "docs.kalshi.com",
+      "depth": 1,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Strip query parameters from path before signing",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:54.834Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-demo-env-fc0d3345.md",
+      "title": "Test In The Demo Environment - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/demo_env",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:54.974Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-rate-limits-ba01b109.md",
+      "title": "Rate Limits and Tiers - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/rate_limits",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.102Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-pagination-3b956c2e.md",
+      "title": "Understanding Pagination - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/pagination",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "Example usage",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Get just the 10 most recent markets",
+        "[​",
+        "Get all open markets for a series",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.286Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-orderbook-responses-44d0c1d0.md",
+      "title": "Orderbook Responses - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/orderbook_responses",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "Get orderbook for a specific market",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "Using the example orderbook above",
+        "The spread is $0.02",
+        "You can buy YES at $0.44 (implied ask) and sell at $0.42 (bid)",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.442Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-order-direction-f51ccfc.md",
+      "title": "Order direction (outcome_side and book_side) - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/order_direction",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.615Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-order-groups-171acfb.md",
+      "title": "Order Groups - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/order_groups",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.735Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-subaccounts-90f1888.md",
+      "title": "Subaccounts - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/subaccounts",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.836Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-fixed-point-migration-2568c062.md",
+      "title": "Fixed-Point Migration - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/fixed_point_migration",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:55.938Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-fee-rounding-39c22f57.md",
+      "title": "Fee Rounding - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/fee_rounding",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.069Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-historical-data-6c818f67.md",
+      "title": "Historical Data - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/historical_data",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.178Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-targets-and-milestones-5cb5372c.md",
+      "title": "Targets & Milestones - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/targets_and_milestones",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.298Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-market-lifecycle-f9a18e0d.md",
+      "title": "Market Lifecycle - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/market_lifecycle",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.428Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-maintenance-and-pauses-3b715c97.md",
+      "title": "Maintenance and Pauses - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/maintenance_and_pauses",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.545Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-market-settlement-48aefc60.md",
+      "title": "Market Settlement - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/market_settlement",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.652Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-rfqs-897a19fa.md",
+      "title": "Request for Quote (RFQ) - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/rfqs",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.764Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-getting-started-terms-19b1d315.md",
+      "title": "Kalshi Glossary - API Documentation",
+      "url": "https://docs.kalshi.com/getting_started/terms",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:56.890Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-markets-dde969d3.md",
+      "title": "Get Markets - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-markets",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.017Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-exchange-get-series-fee-changes-4ba8a905.md",
+      "title": "Get Series Fee Changes - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/exchange/get-series-fee-changes",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.212Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-exchange-get-exchange-schedule-284531aa.md",
+      "title": "Get Exchange Schedule - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/exchange/get-exchange-schedule",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.403Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-exchange-get-user-data-timestamp-71717a1c.md",
+      "title": "Get User Data Timestamp - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/exchange/get-user-data-timestamp",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.568Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-cfbenchmarks-rest-passthrough-95e2badc.md",
+      "title": "CF Benchmarks REST Passthrough - API Documentation",
+      "url": "https://docs.kalshi.com/cfbenchmarks/rest-passthrough",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.701Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-4b751a01.md",
+      "title": "WebSocket API - API Documentation",
+      "url": "https://docs.kalshi.com/websockets",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.826Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-websocket-connection-e95d7b48.md",
+      "title": "WebSocket Connection - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/websocket-connection",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:57.967Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-connection-keep-alive-cc2d3654.md",
+      "title": "Connection Keep-Alive - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/connection-keep-alive",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.112Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-orderbook-updates-3ce04a9c.md",
+      "title": "Orderbook Updates - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/orderbook-updates",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.237Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-market-ticker-e3bb8f9b.md",
+      "title": "Market Ticker - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/market-ticker",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.361Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-cfbenchmarks-value-7f0b3047.md",
+      "title": "CF Benchmarks Value Feed - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/cfbenchmarks-value",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.468Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-pyth-value-aca12d7d.md",
+      "title": "Pyth Value Feed - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/pyth-value",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.589Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-public-trades-6774a251.md",
+      "title": "Public Trades - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/public-trades",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.727Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-user-fills-a7de2456.md",
+      "title": "User Fills - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/user-fills",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:58.831Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-market-positions-b264d3e3.md",
+      "title": "Market Positions - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/market-positions",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.016Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-market-and-event-lifecycle-2f23392e.md",
+      "title": "Market & Event Lifecycle - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/market-and-event-lifecycle",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.133Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-multivariate-market-and-event-lifecycle-824e6c00.md",
+      "title": "Multivariate Market & Event Lifecycle - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/multivariate-market-and-event-lifecycle",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.255Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-multivariate-lookups-deprecated-cc8bd0eb.md",
+      "title": "Multivariate Lookups (Deprecated) - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/multivariate-lookups-deprecated",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.363Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-communications-2c49c663.md",
+      "title": "Communications - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/communications",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.476Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-order-group-updates-5dc4481b.md",
+      "title": "Order Group Updates - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/order-group-updates",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.616Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-websockets-user-orders-8aaa4f91.md",
+      "title": "User Orders - API Documentation",
+      "url": "https://docs.kalshi.com/websockets/user-orders",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.723Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-common-components-4d32aec7.md",
+      "title": "Common Components - API Documentation",
+      "url": "https://docs.kalshi.com/fix/common-components",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.836Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-connectivity-2562b78a.md",
+      "title": "Connectivity - API Documentation",
+      "url": "https://docs.kalshi.com/fix/connectivity",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:49:59.959Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-authentication-ade32229.md",
+      "title": "Authentication & Sessions - API Documentation",
+      "url": "https://docs.kalshi.com/fix/authentication",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:00.100Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-order-entry-3cbb096e.md",
+      "title": "Order Entry - API Documentation",
+      "url": "https://docs.kalshi.com/fix/order-entry",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:00.223Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-order-groups-f719e0ae.md",
+      "title": "Order Groups - API Documentation",
+      "url": "https://docs.kalshi.com/fix/order-groups",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.100Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-market-data-216d08a4.md",
+      "title": "Market Data - API Documentation",
+      "url": "https://docs.kalshi.com/fix/market-data",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.234Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-rfq-messages-9b8276bf.md",
+      "title": "RFQ - API Documentation",
+      "url": "https://docs.kalshi.com/fix/rfq-messages",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.371Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-drop-copy-10096052.md",
+      "title": "Drop Copy Session - API Documentation",
+      "url": "https://docs.kalshi.com/fix/drop-copy",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.539Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-listener-sessions-acf24ee1.md",
+      "title": "Listener Sessions - API Documentation",
+      "url": "https://docs.kalshi.com/fix/listener-sessions",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.644Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-market-settlement-7620c477.md",
+      "title": "Market Settlement - API Documentation",
+      "url": "https://docs.kalshi.com/fix/market-settlement",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.780Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-error-handling-31361c75.md",
+      "title": "Error Handling - API Documentation",
+      "url": "https://docs.kalshi.com/fix/error-handling",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:01.894Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-subpenny-pricing-551d9482.md",
+      "title": "Subpenny Pricing - API Documentation",
+      "url": "https://docs.kalshi.com/fix/subpenny-pricing",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.020Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-price-banding-7fdcf985.md",
+      "title": "Price Banding - API Documentation",
+      "url": "https://docs.kalshi.com/margin/price-banding",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.161Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-websocket-connection-dac61394.md",
+      "title": "WebSocket Connection - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/websocket-connection",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.297Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-connection-keep-alive-9bb6af50.md",
+      "title": "Connection Keep-Alive - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/connection-keep-alive",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.431Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-orderbook-updates-39f28338.md",
+      "title": "Orderbook Updates - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/orderbook-updates",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.554Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-market-ticker-87e90377.md",
+      "title": "Market Ticker - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/market-ticker",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.666Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-public-trades-79cc38d.md",
+      "title": "Public Trades - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/public-trades",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.813Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-user-fills-c01e4aba.md",
+      "title": "User Fills - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/user-fills",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:02.919Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-user-orders-e00253ed.md",
+      "title": "User Orders - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/user-orders",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.030Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-ws-websockets-order-group-updates-4f2b2137.md",
+      "title": "Order Group Updates - API Documentation",
+      "url": "https://docs.kalshi.com/margin-ws/websockets/order-group-updates",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.137Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-connectivity-8e0bdf61.md",
+      "title": "Connectivity - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/connectivity",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.241Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-authentication-78f2673e.md",
+      "title": "Authentication & Sessions - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/authentication",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.366Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-order-entry-28f2073b.md",
+      "title": "Order Entry - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/order-entry",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.506Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-order-groups-75560e55.md",
+      "title": "Order Groups - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/order-groups",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.632Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-market-data-990e852d.md",
+      "title": "Market Data - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/market-data",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.756Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-drop-copy-6d4dfcbb.md",
+      "title": "Drop Copy Session - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/drop-copy",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.861Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-listener-sessions-23feef80.md",
+      "title": "Listener Sessions - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/listener-sessions",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:03.966Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-fix-margin-error-handling-60214b0e.md",
+      "title": "Error Handling - API Documentation",
+      "url": "https://docs.kalshi.com/fix-margin/error-handling",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​",
+        "[​"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:04.070Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-series-348c87d3.md",
+      "title": "Get Series - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-series",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:04.197Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-exchange-get-exchange-status-c8224b5.md",
+      "title": "Get Exchange Status - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/exchange/get-exchange-status",
+      "host": "docs.kalshi.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:05.345Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-account-list-non-default-endpoint-costs-847ba9d7.md",
+      "title": "List Non-Default Endpoint Costs - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/account/list-non-default-endpoint-costs",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:05.531Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-batch-create-orders-v2-65eaf8c4.md",
+      "title": "Batch Create Orders (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/batch-create-orders-v2",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:05.662Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-batch-cancel-orders-v2-d5b0f872.md",
+      "title": "Batch Cancel Orders (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/batch-cancel-orders-v2",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:05.898Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-account-get-perps-account-api-limits-4cc11d2.md",
+      "title": "Get Perps Account API Limits - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/account/get-perps-account-api-limits",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:06.091Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-account-get-account-api-limits-90af2e5a.md",
+      "title": "Get Account API Limits - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/account/get-account-api-limits",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:06.236Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-account-upgrade-account-api-usage-level-7a20a6fa.md",
+      "title": "Upgrade Account API Usage Level - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/account/upgrade-account-api-usage-level",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:06.373Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-trades-255215b1.md",
+      "title": "Get Trades - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-trades",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:09.793Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-fills-c107854.md",
+      "title": "Get Fills - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-fills",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:10.551Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-get-order-groups-a8b1893c.md",
+      "title": "Get Order Groups - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/get-order-groups",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:11.708Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-milestone-get-milestone-5641a79a.md",
+      "title": "Get Milestone - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/milestone/get-milestone",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:11.850Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-milestone-get-milestones-b25b53cb.md",
+      "title": "Get Milestones - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/milestone/get-milestones",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:11.992Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-live-data-get-live-data-e5136552.md",
+      "title": "Get Live Data - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/live-data/get-live-data",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.115Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-structured-targets-get-structured-target-daa58c51.md",
+      "title": "Get Structured Target - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/structured-targets/get-structured-target",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.258Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-structured-targets-get-structured-targets-549b9986.md",
+      "title": "Get Structured Targets - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/structured-targets/get-structured-targets",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.397Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-communications-id-25001fee.md",
+      "title": "Get Communications ID - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-communications-id",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.673Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-multivariate-get-multivariate-event-collections-472760cd.md",
+      "title": "Get Multivariate Event Collections - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/multivariate/get-multivariate-event-collections",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.834Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-series-list-62c8e596.md",
+      "title": "Get Series List - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-series-list",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:12.970Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-search-get-tags-for-series-categories-d81575d4.md",
+      "title": "Get Tags for Series Categories - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.094Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-market-candlesticks-c89894e9.md",
+      "title": "Get Market Candlesticks - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-market-candlesticks",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.271Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-market-orderbook-8953053a.md",
+      "title": "Get Market Orderbook - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-market-orderbook",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.383Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-multiple-market-orderbooks-5fae9a2.md",
+      "title": "Get Multiple Market Orderbooks - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-multiple-market-orderbooks",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.552Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-get-market-88031eb2.md",
+      "title": "Get Market - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/get-market",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.705Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-market-batch-get-market-candlesticks-f486cbd0.md",
+      "title": "Batch Get Market Candlesticks - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/market/batch-get-market-candlesticks",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.838Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-market-f47c75f1.md",
+      "title": "Get Historical Market - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-market",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:13.988Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-update-order-group-limit-ba843137.md",
+      "title": "Update Order Group Limit - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/update-order-group-limit",
+      "host": "docs.kalshi.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.149Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-account-get-account-api-usage-level-volume-progress-3cd3801.md",
+      "title": "Get Account API Usage Level Volume Progress - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/account/get-account-api-usage-level-volume-progress",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.302Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-get-orders-f3de44f4.md",
+      "title": "Get Orders - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/get-orders",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.458Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-get-order-3a948fcf.md",
+      "title": "Get Order - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/get-order",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.580Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-get-queue-positions-for-orders-731f7aef.md",
+      "title": "Get Queue Positions for Orders - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/get-queue-positions-for-orders",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.710Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-get-order-queue-position-6032bbd7.md",
+      "title": "Get Order Queue Position - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/get-order-queue-position",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.865Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-create-order-v2-31f290c6.md",
+      "title": "Create Order (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/create-order-v2",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:14.997Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-cancel-order-v2-e52fc488.md",
+      "title": "Cancel Order (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/cancel-order-v2",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:15.236Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-amend-order-v2-1028f9fb.md",
+      "title": "Amend Order (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/amend-order-v2",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:15.435Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-orders-decrease-order-v2-739828ea.md",
+      "title": "Decrease Order (V2) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/orders/decrease-order-v2",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:15.646Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-exchange-get-exchange-status-c7f3cf10.md",
+      "title": "Get Exchange Status - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/exchange/get-exchange-status",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:15.817Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-api-keys-delete-api-key-cb178d3c.md",
+      "title": "Delete API Key - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/api-keys/delete-api-key",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:15.966Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-balance-16dc476.md",
+      "title": "Get Balance - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-balance",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.111Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-intra-account-transfer-cb4b74c3.md",
+      "title": "Intra Account Transfer - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/intra-account-transfer",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.235Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-create-subaccount-dcede371.md",
+      "title": "Create Subaccount - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/create-subaccount",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.440Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-transfer-between-subaccounts-5625b368.md",
+      "title": "Transfer Between Subaccounts - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/transfer-between-subaccounts",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.582Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-all-subaccount-balances-73b4d131.md",
+      "title": "Get All Subaccount Balances - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-all-subaccount-balances",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.774Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-subaccount-transfers-9b17ce1a.md",
+      "title": "Get Subaccount Transfers - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-subaccount-transfers",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:16.988Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-subaccount-netting-8dac9791.md",
+      "title": "Get Subaccount Netting - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-subaccount-netting",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.158Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-update-subaccount-netting-92b55108.md",
+      "title": "Update Subaccount Netting - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/update-subaccount-netting",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.328Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-positions-a13ae5a.md",
+      "title": "Get Positions - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-positions",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.512Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-settlements-7a6ef9a2.md",
+      "title": "Get Settlements - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-settlements",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.642Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-deposits-a32dab1d.md",
+      "title": "Get Deposits - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-deposits",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.778Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-withdrawals-d8d9ca82.md",
+      "title": "Get Withdrawals - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-withdrawals",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:17.972Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-portfolio-get-total-resting-order-value-43b1283a.md",
+      "title": "Get Total Resting Order Value - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-total-resting-order-value",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.148Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-communications-id-25001fee.md",
+      "title": "Get Communications ID - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-communications-id",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.280Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-create-order-group-33cd9187.md",
+      "title": "Create Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/create-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.431Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-get-order-group-58820727.md",
+      "title": "Get Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/get-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.606Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-delete-order-group-7f9bb2c8.md",
+      "title": "Delete Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/delete-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.777Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-reset-order-group-604f6f8c.md",
+      "title": "Reset Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/reset-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:18.909Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-trigger-order-group-cd9f1bbf.md",
+      "title": "Trigger Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/trigger-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.043Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-order-groups-update-order-group-limit-23b4ba10.md",
+      "title": "Update Order Group Limit - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/order-groups/update-order-group-limit",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.176Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-multivariate-get-multivariate-event-collection-f87a106c.md",
+      "title": "Get Multivariate Event Collection - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/multivariate/get-multivariate-event-collection",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.305Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-live-data-get-live-data-with-type-cf66181c.md",
+      "title": "Get Live Data (with type) - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/live-data/get-live-data-with-type",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.647Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-live-data-get-multiple-live-data-d24cb235.md",
+      "title": "Get Multiple Live Data - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/live-data/get-multiple-live-data",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.800Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-live-data-get-game-stats-7d0aac29.md",
+      "title": "Get Game Stats - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/live-data/get-game-stats",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:19.964Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-search-get-filters-for-sports-4092225d.md",
+      "title": "Get Filters for Sports - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/search/get-filters-for-sports",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.080Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-block-trade-proposals-5551a2f7.md",
+      "title": "Get Block Trade Proposals - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-block-trade-proposals",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.208Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-propose-block-trade-87de363.md",
+      "title": "Propose Block Trade - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/propose-block-trade",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.374Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-accept-block-trade-proposal-53fb6632.md",
+      "title": "Accept Block Trade Proposal - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/accept-block-trade-proposal",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.566Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-rfqs-5699ebe5.md",
+      "title": "Get RFQs - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-rfqs",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.747Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-create-rfq-152f2e3c.md",
+      "title": "Create RFQ - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/create-rfq",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:20.895Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-rfq-7a66a7d4.md",
+      "title": "Get RFQ - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-rfq",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.115Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-delete-rfq-530d962b.md",
+      "title": "Delete RFQ - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/delete-rfq",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.283Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-rfq-quote-c2cce49d.md",
+      "title": "Get RFQ Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-rfq-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.489Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-delete-rfq-quote-95aa226e.md",
+      "title": "Delete RFQ Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/delete-rfq-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.644Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-accept-rfq-quote-5c353479.md",
+      "title": "Accept RFQ Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/accept-rfq-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.800Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-confirm-rfq-quote-c53532f1.md",
+      "title": "Confirm RFQ Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/confirm-rfq-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:21.971Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-quotes-99cf9af8.md",
+      "title": "Get Quotes - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-quotes",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.125Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-create-quote-979da353.md",
+      "title": "Create Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/create-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.269Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-get-quote-cfcb45b.md",
+      "title": "Get Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/get-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.462Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-delete-quote-57a051c.md",
+      "title": "Delete Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/delete-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.607Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-accept-quote-b1e59d67.md",
+      "title": "Accept Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/accept-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.747Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-communications-confirm-quote-f9e9f84f.md",
+      "title": "Confirm Quote - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/communications/confirm-quote",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:22.885Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-multivariate-create-market-in-multivariate-event-collection-ad6a3df9.md",
+      "title": "Create Market In Multivariate Event Collection - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/multivariate/create-market-in-multivariate-event-collection",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.080Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-multivariate-lookup-tickers-for-market-in-multivariate-event-b61457fb.md",
+      "title": "Lookup Tickers For Market In Multivariate Event Collection - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/multivariate/lookup-tickers-for-market-in-multivariate-event-collection",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.253Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-cutoff-timestamps-69392ea2.md",
+      "title": "Get Historical Cutoff Timestamps - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-cutoff-timestamps",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.388Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-market-candlesticks-2f489500.md",
+      "title": "Get Historical Market Candlesticks - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-market-candlesticks",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.516Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-fills-5e0ded61.md",
+      "title": "Get Historical Fills - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-fills",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.636Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-orders-70e2de6c.md",
+      "title": "Get Historical Orders - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-orders",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.812Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-trades-4133b39e.md",
+      "title": "Get Historical Trades - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-trades",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:23.984Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-historical-get-historical-markets-61ecfba6.md",
+      "title": "Get Historical Markets - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/historical/get-historical-markets",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.132Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-get-order-groups-ceeedf07.md",
+      "title": "Get Order Groups - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/get-order-groups",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.306Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-create-order-group-7cf95edc.md",
+      "title": "Create Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/create-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.440Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-get-order-group-1922e54e.md",
+      "title": "Get Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/get-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.576Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-delete-order-group-4b9379f7.md",
+      "title": "Delete Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/delete-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.708Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-reset-order-group-aaf8a271.md",
+      "title": "Reset Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/reset-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.838Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-order-groups-trigger-order-group-f0bb325e.md",
+      "title": "Trigger Order Group - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/order-groups/trigger-order-group",
+      "host": "docs.kalshi.com",
+      "depth": 4,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:24.983Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-exchange-get-enabled-status-6649ea44.md",
+      "title": "Get Enabled Status - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/exchange/get-enabled-status",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.135Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-api-keys-get-api-keys-4537bccc.md",
+      "title": "Get API Keys - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/api-keys/get-api-keys",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.278Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-api-keys-create-api-key-5bf29257.md",
+      "title": "Create API Key - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/api-keys/create-api-key",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.392Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-api-keys-generate-api-key-550b0d08.md",
+      "title": "Generate API Key - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/api-keys/generate-api-key",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.513Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-incentive-programs-get-incentives-f3ba8a47.md",
+      "title": "Get Incentives - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/incentive-programs/get-incentives",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.681Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-fcm-get-fcm-positions-fc9be093.md",
+      "title": "Get FCM Positions - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/fcm/get-fcm-positions",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:25.842Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-funding-get-funding-rate-estimate-5c5e6f57.md",
+      "title": "Get Funding Rate Estimate - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/funding/get-funding-rate-estimate",
+      "host": "docs.kalshi.com",
+      "depth": 5,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:26.001Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-risk-get-risk-parameters-24ea67e6.md",
+      "title": "Get Risk Parameters - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/risk/get-risk-parameters",
+      "host": "docs.kalshi.com",
+      "depth": 6,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:26.270Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-api-reference-fcm-get-fcm-orders-b52b85d4.md",
+      "title": "Get FCM Orders - API Documentation",
+      "url": "https://docs.kalshi.com/api-reference/fcm/get-fcm-orders",
+      "host": "docs.kalshi.com",
+      "depth": 6,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:26.390Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-funding-get-funding-history-a9f7ca50.md",
+      "title": "Get Funding History - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/funding/get-funding-history",
+      "host": "docs.kalshi.com",
+      "depth": 6,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:26.581Z"
+    },
+    {
+      "path": "docs/docs-kalshi-com-margin-rest-funding-get-historical-funding-rates-7d76c262.md",
+      "title": "Get Historical Funding Rates - API Documentation",
+      "url": "https://docs.kalshi.com/margin-rest/funding/get-historical-funding-rates",
+      "host": "docs.kalshi.com",
+      "depth": 6,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T16:50:26.721Z"
+    }
+  ],
+  "skipped": [
+    {
+      "url": "https://docs.kalshi.com/changelog",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://kalshi.com/developer-agreement",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://www.mintlify.com/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://discord.gg/kalshi",
+      "reason": "rejected-host"
+    },
+    {
+      "url": "https://kalshi.com/markets/kxhighny/highest-temperature-in-nyc",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://kalshi.com/markets/kxhighny",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://demo.kalshi.co/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://kalshi.com/",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://websockets.readthedocs.io/en/stable/topics/design.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://kalshi.com/account/profile",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://docs.google.com/presentation/d/e/2PACX-1vRvhUAqRBYzJmt7JCinMXmu6KVWkj-cc7ikDXGConmqjcv4mnlJacgHPcZJ20fWWnrYdubn-oczclKP/pub?start=false&loop=false&delayms=3000&slide=id.p",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/events/get-events",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://www.cfbenchmarks.com/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://docs.cfbenchmarks.com/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://assets.kalshi.com/fix/kalshi-fix-dictionary.xml",
+      "reason": "asset"
+    },
+    {
+      "url": "https://www.quickfixj.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://quickfixn.readthedocs.io/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/quickfixgo/quickfix",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.stunnel.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/events/get-event-candlesticks",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/events/get-event-forecast-percentile-history",
+      "reason": "bad-path"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://docs.kalshi.com/llms.txt",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://docs.kalshi.com/openapi.yaml",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://docs.kalshi.com/asyncapi.yaml",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/market/get-market-order-book",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/market/get-events",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-portfolio-history",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://docs.kalshi.com/api-reference/portfolio/get-orders",
+      "reason": "HTTP 404"
+    },
+    {
+      "url": "https://kalshi.com/learn",
+      "reason": "HTTP 429"
+    }
+  ]
+}

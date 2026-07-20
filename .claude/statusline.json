@@ -1,0 +1,13 @@
+{
+  "theme": "claude",
+  "density": "detailed",
+  "unicode": true,
+  "nerdFont": false,
+  "powerline": false,
+  "healthCheck": false,
+  "updateCheck": false,
+  "showCost": true,
+  "showReset": true,
+  "contextVelocity": true,
+  "debug": false
+}

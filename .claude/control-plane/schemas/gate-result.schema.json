@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/claude-control-plane/gate-result.schema.json",
+  "title": "Idea-to-MVP Gate Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "gate_id",
+    "phase",
+    "subject",
+    "verdict",
+    "checked_at",
+    "checks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "gate_id": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z0-9_-]{2,64}$"
+    },
+    "phase": {
+      "enum": [
+        "discover",
+        "define",
+        "design",
+        "build",
+        "test",
+        "launch",
+        "feedback"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "enum": [
+        "pass",
+        "conditional-pass",
+        "reject",
+        "block",
+        "needs-human-input"
+      ]
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "check_id",
+          "description",
+          "passed",
+          "severity"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_-]{2,64}$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "passed": {
+            "type": "boolean"
+          },
+          "severity": {
+            "enum": [
+              "info",
+              "minor",
+              "major",
+              "critical"
+            ]
+          },
+          "evidence_paths": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/portablePath"
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "required_actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "portablePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?:[a-z0-9_-](?:[a-z0-9._ -]*[a-z0-9_-])?)(?:/(?:[a-z0-9_-](?:[a-z0-9._ -]*[a-z0-9_-])?))*$"
+    }
+  }
+}

@@ -1,0 +1,201 @@
+path,title,url,host,depth,status
+docs/github-com-oai-openapi-specification-blob-3-0-0-rc0-versions-3-0-md-846c84cc.md,content transferred in binary (octet-stream):,https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc0/versions/3.0.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-0-0-rc1-versions-3-0-md-97a2182f.md,content transferred in binary (octet-stream):,https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc1/versions/3.0.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-0-0-rc2-versions-3-0-md-e0b967f6.md,content transferred in binary (octet-stream):,https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc2/versions/3.0.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-0-0-versions-3-0-0-md-ba11795a.md,in a request body:,https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-contributing-md-469e2f01.md,CONTRIBUTING.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/CONTRIBUTING.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-editors-md-a57a7dc7.md,EDITORS.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/EDITORS.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-gitattributes-161e3a79.md,.gitattributes,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitattributes,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-gitignore-fe51e2.md,.gitignore,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitignore,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-gitmodules-1560bd71.md,.gitmodules,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitmodules,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-governance-md-e70425b9.md,GOVERNANCE.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/GOVERNANCE.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-implementations-md-d6a21080.md,IMPLEMENTATIONS.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/IMPLEMENTATIONS.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-license-e39ed3a1.md,LICENSE,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/LICENSE,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-maintainers-md-6dfdf48.md,MAINTAINERS.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/MAINTAINERS.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-markdownlint-yaml-a4a93971.md,.markdownlint.yaml,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.markdownlint.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-readme-md-5afcc73f.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/README.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-spec-markdownlint-yaml-2b493f76.md,spec.markdownlint.yaml,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/spec.markdownlint.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-special-interest-groups-md-3a0c03c.md,SPECIAL_INTEREST_GROUPS.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/SPECIAL_INTEREST_GROUPS.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-style-guide-md-100bb5c5.md,style-guide.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/style-guide.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-tob-md-59a0e4de.md,TOB.md,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/TOB.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-3-2-0-vitest-config-mjs-374ef2cf.md,vitest.config.mjs,https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/vitest.config.mjs,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-ai-md-dd969f09.md,AI.md,https://github.com/OAI/OpenAPI-Specification/blob/main/AI.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-archive-readme-md-2bbfc4b4.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/main/_archive_/README.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-archive-schemas-readme-md-d4ff9767.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/main/_archive_/schemas/README.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-contributing-md-56c710d7.md,CONTRIBUTING.md,https://github.com/OAI/OpenAPI-Specification/blob/main/CONTRIBUTING.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-editors-md-1e1a0b39.md,EDITORS.md,https://github.com/OAI/OpenAPI-Specification/blob/main/EDITORS.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-gitattributes-7414fd1f.md,.gitattributes,https://github.com/OAI/OpenAPI-Specification/blob/main/.gitattributes,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-codeowners-90daf073.md,CODEOWNERS,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/CODEOWNERS,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-dependabot-yml-8aaeeaec.md,dependabot.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/dependabot.yml,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-issue-template-config-yml-3881f53b.md,config.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/config.yml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-issue-template-registry-feature-requ-cf7bcb80.md,registry_feature_request.md,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/registry_feature_request.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-issue-template-spec-bug-report-md-55a76b09.md,spec_bug_report.md,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/spec_bug_report.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-pull-request-template-md-43806f4d.md,pull_request_template.md,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/pull_request_template.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-templates-agenda-md-831566a1.md,agenda.md,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/templates/agenda.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-agenda-yaml-a56ed92a.md,agenda.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/agenda.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-check-restricted-files-yam-7b91b5ce.md,check-restricted-files.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/check-restricted-files.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-inactive-issues-yml-352e8597.md,inactive-issues.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/inactive-issues.yml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-respec-yaml-d2e719f0.md,respec.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/respec.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-schema-publish-yaml-19b19555.md,schema-publish.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/schema-publish.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-schema-tests-yaml-c019fb4f.md,schema-tests.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/schema-tests.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-sync-dev-to-vx-y-dev-yaml-a101c769.md,sync-dev-to-vX.Y-dev.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/sync-dev-to-vX.Y-dev.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-sync-main-to-dev-yaml-e0ecbe45.md,sync-main-to-dev.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/sync-main-to-dev.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-github-workflows-validate-markdown-yaml-a9c73b5c.md,validate-markdown.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/validate-markdown.yaml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-gitignore-a4a8c10c.md,.gitignore,https://github.com/OAI/OpenAPI-Specification/blob/main/.gitignore,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-gitmodules-e114155f.md,.gitmodules,https://github.com/OAI/OpenAPI-Specification/blob/main/.gitmodules,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-governance-md-ee4584df.md,GOVERNANCE.md,https://github.com/OAI/OpenAPI-Specification/blob/main/GOVERNANCE.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-implementations-md-8d795bce.md,IMPLEMENTATIONS.md,https://github.com/OAI/OpenAPI-Specification/blob/main/IMPLEMENTATIONS.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-license-b2f599e3.md,LICENSE,https://github.com/OAI/OpenAPI-Specification/blob/main/LICENSE,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-linkspector-yml-8033a4f6.md,.linkspector.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/.linkspector.yml,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-maintainers-md-a31c7ae6.md,MAINTAINERS.md,https://github.com/OAI/OpenAPI-Specification/blob/main/MAINTAINERS.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-markdownlint-yaml-8805afdb.md,.markdownlint.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/.markdownlint.yaml,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2019-01-01-proposal-template-md-ed606ef9.md,2019-01-01-Proposal-Template.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-01-01-Proposal-Template.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2019-03-15-alternative-schema-md-be9f1e6.md,2019-03-15-Alternative-Schema.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-03-15-Alternative-Schema.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2019-07-17-webhooks-md-acdb4699.md,2019-07-17-Webhooks.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-07-17-Webhooks.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2019-10-31-clarify-nullable-md-39417eff.md,2019-10-31-Clarify-Nullable.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-10-31-Clarify-Nullable.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2019-12-24-overlays-md-29afe3b8.md,2019-12-24-Overlays.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-12-24-Overlays.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2020-10-28-experimental-md-8d14889b.md,2020-10-28-Experimental.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2020-10-28-Experimental.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2024-08-01-self-identification-md-7f4e84b6.md,2024-08-01-Self-Identification.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2024-08-01-Self-Identification.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2024-09-01-tags-improvement-md-e5631ede.md,2024-09-01-Tags-Improvement.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2024-09-01-Tags-Improvement.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-2025-03-20-uris-for-tags-md-5140dc8f.md,2025-03-20-URIs-for-Tags.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2025-03-20-URIs-for-Tags.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-alternative-sc-133c6f78.md,alternative_schema_object.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/alternative_schema_object.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-contributors-m-4474457f.md,CONTRIBUTORS.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/CONTRIBUTORS.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-examples-md-511311d4.md,examples.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/examples.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-implementation-d7a33fb0.md,implementations.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/implementations.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-schema-object--2b8887d4.md,schema_object.md,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/schema_object.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-overlays-changes-yml-347b960f.md,Changes.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Overlays/Changes.yml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-proposals-overlays-mergepatch-yml-51a25350.md,MergePatch.yml,https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Overlays/MergePatch.yml,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-readme-md-4b1a2c05.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/main/README.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-readme-md-4b1a2c05.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/main/README.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-adjust-release-branch-sh-8c448272.md,adjust-release-branch.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/adjust-release-branch.sh,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-close-no-recent-ps1-6338778d.md,close-no-recent.ps1,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/close-no-recent.ps1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-fwdabort-sh-d05cd2bd.md,fwdabort.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/fwdabort.sh,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-fwdport-sh-b4fec462.md,fwdport.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/fwdport.sh,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-label-no-recent-ps1-f43fae23.md,label-no-recent.ps1,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/label-no-recent.ps1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-build-sh-dcf84321.md,build.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/build.sh,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-gitignore-d214fe54.md,.gitignore,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/.gitignore,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-style-finish-html-ac4c1a7e.md,style-finish.html,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/style-finish.html,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-style-start-html-b47e058b.md,style-start.html,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/style-start.html,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-schema-publish-sh-a538287d.md,schema-publish.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/schema-publish.sh,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-start-release-sh-8ed6ec50.md,start-release.sh,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/start-release.sh,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-scripts-validate-mjs-5c0b97dd.md,validate.mjs,https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/validate.mjs,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-spec-markdownlint-yaml-a17c5ec8.md,spec.markdownlint.yaml,https://github.com/OAI/OpenAPI-Specification/blob/main/spec.markdownlint.yaml,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-special-interest-groups-md-90006ec6.md,SPECIAL_INTEREST_GROUPS.md,https://github.com/OAI/OpenAPI-Specification/blob/main/SPECIAL_INTEREST_GROUPS.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-style-guide-md-70902003.md,style-guide.md,https://github.com/OAI/OpenAPI-Specification/blob/main/style-guide.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-tests-md2html-md2html-test-mjs-e13c7fd3.md,md2html.test.mjs,https://github.com/OAI/OpenAPI-Specification/blob/main/tests/md2html/md2html.test.mjs,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-tests-md2html-readme-md-8c418f00.md,README.md,https://github.com/OAI/OpenAPI-Specification/blob/main/tests/md2html/README.md,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-tests-schema-oas-schema-mjs-deef938b.md,oas-schema.mjs,https://github.com/OAI/OpenAPI-Specification/blob/main/tests/schema/oas-schema.mjs,github.com,3,packaged
+docs/github-com-oai-openapi-specification-blob-main-tob-md-e7e9d56c.md,TOB.md,https://github.com/OAI/OpenAPI-Specification/blob/main/TOB.md,github.com,1,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-1-2-md-9118bfb4.md,1.2.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/1.2.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-2-0-editors-md-4f74b8f4.md,2.0-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-2-0-md-4a968e2d.md,2.0.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-0-editors-md-f611710f.md,3.0.0-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-0-md-3e28682a.md,in a request body:,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-1-editors-md-69bf0b6a.md,3.0.1-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-1-md-46264d4f.md,in a request body:,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-2-editors-md-7b6ea7d1.md,3.0.2-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-2-md-41c34690.md,3.0.2.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-3-editors-md-1a7c37d4.md,3.0.3-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-3-md-16d7fa8d.md,3.0.3.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-4-editors-md-f18a7eab.md,3.0.4-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-0-4-md-acdf604e.md,3.0.4.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-0-editors-md-ece9d93e.md,3.1.0-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-0-md-e4a7d07b.md,3.1.0.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-1-editors-md-40643183.md,3.1.1-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-1-md-17e2daf6.md,3.1.1.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-2-editors-md-57a3dab8.md,3.1.2-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-1-2-md-4db7bf19.md,3.1.2.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-2-0-editors-md-4e7eec61.md,3.2.0-editors.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0-editors.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-versions-3-2-0-md-71c23380.md,3.2.0.md,https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md,github.com,2,packaged
+docs/github-com-oai-openapi-specification-blob-main-vitest-config-mjs-7ab64fe1.md,vitest.config.mjs,https://github.com/OAI/OpenAPI-Specification/blob/main/vitest.config.mjs,github.com,1,packaged
+docs/github-com-oai-openapi-specification-d978fb4d.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification,github.com,0,packaged
+docs/github-com-oai-openapi-specification-releases-497e9314.md,Releases: OAI/OpenAPI-Specification,https://github.com/OAI/OpenAPI-Specification/releases,github.com,1,packaged
+docs/github-com-oai-openapi-specification-releases-b43d8c24.md,Releases: OAI/OpenAPI-Specification,https://github.com/OAI/OpenAPI-Specification/releases?page=1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-b73d90dd.md,Releases: OAI/OpenAPI-Specification,https://github.com/OAI/OpenAPI-Specification/releases?page=2,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-0-cbe15091.md,OAS 3.0.0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc0-5f138009.md,OAS 3.0.0-rc0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc1-5e137e76.md,OAS 3.0.0-rc1 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc1,github.com,3,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc2-5d137ce3.md,OAS 3.0.0-rc2 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc2,github.com,3,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-1-cae14efe.md,OAS 3.0.1 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-2-c9e14d6b.md,OAS 3.0.2 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.2,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-3-c8e14bd8.md,OAS 3.0.3 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.3,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-0-4-cfe156dd.md,OAS 3.0.4 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.4,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-1-0-6504ebaa.md,OAS 3.1.0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-1-0-rc0-2eed2d36.md,OAS 3.1.0-rc0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0-rc0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-1-0-rc1-2fed2ec9.md,OAS 3.1.0-rc1 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0-rc1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-1-1-6604ed3d.md,OAS 3.1.1 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-1-2-6304e884.md,OAS 3.1.2 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.2,github.com,2,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-2-0-20f2925b.md,OAS 3.2.0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.2.0,github.com,1,packaged
+docs/github-com-oai-openapi-specification-releases-tag-3-2-0-20f2925b.md,OAS 3.2.0 Released!,https://github.com/OAI/OpenAPI-Specification/releases/tag/3.2.0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-0-6c9b5cb4.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-0-rc0-823df518.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-0-rc1-833df6ab.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc1,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-0-rc2-843df83e.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc2,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-1-6d9b5e47.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-2-6e9b5fda.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.2,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-3-6f9b616d.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.3,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-0-4-689b5668.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.0.4,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-0-d377c19b.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.1.0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-0-rc0-97c11efb.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.1.0-rc0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-0-rc1-96c11d68.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.1.0-rc1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-1-d277c008.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.1.1,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-2-archive-56e1cf80.md,_archive_,https://github.com/OAI/OpenAPI-Specification/tree/3.1.2/_archive_,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-2-d577c4c1.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.1.2,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-1-2-github-b6077943.md,.github,https://github.com/OAI/OpenAPI-Specification/tree/3.1.2/.github,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-178a1aea.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-archive-73ea1ae3.md,_archive_,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/_archive_,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-github-3a207f78.md,.github,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/.github,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-proposals-12c52fc6.md,proposals,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/proposals,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-scripts-60df4ae1.md,scripts,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/scripts,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-tests-3ba963a8.md,tests,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/tests,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-versions-cbfebe56.md,versions,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/versions,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-3-2-0-versions-cbfebe56.md,versions,https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/versions,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-7cd81bce.md,The OpenAPI Specification,https://github.com/OAI/OpenAPI-Specification/tree/main,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-archive-99b21f7f.md,_archive_,https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-archive-schemas-4499a7e8.md,schemas,https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v1-2-664de880.md,v1.2,https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v1.2,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v2-0-c52a10d7.md,v2.0,https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v2.0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v3-0-be9c61f0.md,v3.0,https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v3.0,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-github-a94dd7b4.md,.github,https://github.com/OAI/OpenAPI-Specification/tree/main/.github,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-github-issue-template-b5813b07.md,ISSUE_TEMPLATE,https://github.com/OAI/OpenAPI-Specification/tree/main/.github/ISSUE_TEMPLATE,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-github-templates-37d9407c.md,templates,https://github.com/OAI/OpenAPI-Specification/tree/main/.github/templates,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-github-workflows-2dc856e5.md,workflows,https://github.com/OAI/OpenAPI-Specification/tree/main/.github/workflows,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-proposals-1acc608a.md,proposals,https://github.com/OAI/OpenAPI-Specification/tree/main/proposals,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-proposals-alternative-schema-dabee066.md,Alternative-Schema,https://github.com/OAI/OpenAPI-Specification/tree/main/proposals/Alternative-Schema,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-proposals-overlays-31ee6b02.md,Overlays,https://github.com/OAI/OpenAPI-Specification/tree/main/proposals/Overlays,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-scripts-95629e5.md,scripts,https://github.com/OAI/OpenAPI-Specification/tree/main/scripts,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-scripts-md2html-4f6f2462.md,md2html,https://github.com/OAI/OpenAPI-Specification/tree/main/scripts/md2html,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-scripts-md2html-analytics-f4b10005.md,analytics,https://github.com/OAI/OpenAPI-Specification/tree/main/scripts/md2html/analytics,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-tests-965ab4bc.md,tests,https://github.com/OAI/OpenAPI-Specification/tree/main/tests,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-tests-md2html-3fa90163.md,md2html,https://github.com/OAI/OpenAPI-Specification/tree/main/tests/md2html,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-tests-md2html-fixtures-13f3551a.md,fixtures,https://github.com/OAI/OpenAPI-Specification/tree/main/tests/md2html/fixtures,github.com,3,packaged
+docs/github-com-oai-openapi-specification-tree-main-tests-schema-3636d0aa.md,schema,https://github.com/OAI/OpenAPI-Specification/tree/main/tests/schema,github.com,2,packaged
+docs/github-com-oai-openapi-specification-tree-main-versions-9177da5a.md,versions,https://github.com/OAI/OpenAPI-Specification/tree/main/versions,github.com,1,packaged
+docs/github-com-oai-openapi-specification-tree-main-versions-9177da5a.md,versions,https://github.com/OAI/OpenAPI-Specification/tree/main/versions,github.com,1,packaged
+docs/github-com-oai-openapi-specification-wiki-bf4e2192.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki,github.com,1,packaged
+docs/github-com-oai-openapi-specification-wiki-bf4e2192.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-e4ff1c87.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-032fb8ac0e8443b99f7c8c6f17ef158d114d1f45-9bf0693a.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/032fb8ac0e8443b99f7c8c6f17ef158d114d1f45,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-148b24c42f8d373ff87883a23cb4b082f176a283-8c482e25.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/148b24c42f8d373ff87883a23cb4b082f176a283,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-194bae9dc347c8c33037e93c8df2e40883f090fa-297f366f.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/194bae9dc347c8c33037e93c8df2e40883f090fa,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-281a45fbc1caad4ba96357e893330e80d5c3fdf3-ca5e9d6c.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/281a45fbc1caad4ba96357e893330e80d5c3fdf3,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-3e53faf2653c55f9e009b32ca6ac9b33181492d8-254cd417.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/3e53faf2653c55f9e009b32ca6ac9b33181492d8,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-5637503df7b3c7e9ae1a60c3b15fddee7f24c639-8779fe6c.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/5637503df7b3c7e9ae1a60c3b15fddee7f24c639,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-a07c08838bb40560e3c235d3d2761a783e30a7cf-bc224bce.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/a07c08838bb40560e3c235d3d2761a783e30a7cf,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-d1ac3286e5ab6e6756309dff791ea81309104b2c-276e77b.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/d1ac3286e5ab6e6756309dff791ea81309104b2c,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-e0a4dd77260fc2a97d0bc7fc4bd2d48deec0f31c-c02341a0.md,Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/e0a4dd77260fc2a97d0bc7fc4bd2d48deec0f31c,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-home-history-fb207312.md,History / Home,https://github.com/OAI/OpenAPI-Specification/wiki/Home/_history,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-openapi-initiative-tsc-minutes-2018-02-02-283baeb7.md,OpenAPI Initiative TSC Minutes 2018 02 02,https://github.com/OAI/OpenAPI-Specification/wiki/OpenAPI-Initiative-TSC-Minutes---2018-02-02,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-openapi-initiative-tsc-minutes-2018-02-02-histor-e88539ef.md,History / OpenAPI Initiative TSC Minutes 2018 02 02,https://github.com/OAI/OpenAPI-Specification/wiki/OpenAPI-Initiative-TSC-Minutes---2018-02-02/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180913-af9602b2.md,TSC Minutes: 20180913,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180913,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180913-history-e72f6530.md,History / TSC Minutes: 20180913,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180913/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180920-3c8e91e4.md,TSC Minutes: 20180920,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180920,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180920-history-fd60933a.md,History / TSC Minutes: 20180920,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180920/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181004-eff8d194.md,TSC Minutes: 20181004,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181004,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181004-history-aeb23eaa.md,History / TSC Minutes: 20181004,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181004/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181018-e9fb06b9.md,TSC Minutes: 20181018,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181018,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181018-history-71002c39.md,History / TSC Minutes: 20181018,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181018/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181108-52900bab.md,TSC Minutes: 20181108,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181108,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181108-history-33c513db.md,History / TSC Minutes: 20181108,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181108/_history,github.com,3,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-c97b6d7b.md,TSC Minutes,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes,github.com,2,packaged
+docs/github-com-oai-openapi-specification-wiki-tsc-minutes-history-6bd384eb.md,History / TSC Minutes,https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes/_history,github.com,3,packaged

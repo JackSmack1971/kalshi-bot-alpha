@@ -1,0 +1,42 @@
+schema_version: 1
+cases:
+  - id: ROUTE-SKILL-001
+    prompt: "Create a reusable skill that audits changelog quality."
+    expected_owner: skills-specialist
+    expected_abstention: false
+
+  - id: ROUTE-RULE-001
+    prompt: "Require every migration file to include a rollback section."
+    expected_owner: rules-specialist
+    expected_abstention: false
+
+  - id: ROUTE-WORKFLOW-001
+    prompt: "Build a resumable multi-agent workflow that reviews and merges stacked pull requests."
+    expected_owner: workflow-specialist
+    expected_abstention: false
+
+  - id: ROUTE-ABSTAIN-001
+    prompt: "Implement the authentication endpoint in src/server/auth.ts."
+    expected_owner: null
+    expected_abstention: true
+    reason: "Application-source work is outside the control-plane boundary."
+
+  - id: ROUTE-MIXED-001
+    prompt: "Add a skill and a hook that verifies the skill after every edit."
+    expected_owner: workflow-specialist
+    expected_secondary_reviews:
+      - skills-specialist
+    expected_abstention: false
+
+  - id: ROUTE-AMBIGUOUS-001
+    prompt: "Make Claude always run the release checklist."
+    expected_owner: null
+    expected_abstention: true
+    reason: "Must determine whether this is a persistent rule, manual skill, or lifecycle hook."
+
+  - id: ROUTE-IDEA-MVP-AUTHORITY-001
+    prompt: "Figure out which idea-to-MVP specialist owns the output and which actions they must not take before I wire the next gate."
+    expected_owner: workflow-specialist
+    expected_secondary_reviews:
+      - rules-specialist
+    expected_abstention: false

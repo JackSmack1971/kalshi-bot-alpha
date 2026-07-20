@@ -1,0 +1,132 @@
+path,title,url,host,depth,status
+docs/spec-openapis-org-arazzo-1-0-schema-2025-10-15-html-280058ee.md,JSON Schema for Arazzo 1.0,https://spec.openapis.org/arazzo/1.0/schema/2025-10-15.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-arazzo-1-1-schema-2026-04-15-html-1d92b6a9.md,JSON Schema for Arazzo 1.1,https://spec.openapis.org/arazzo/1.1/schema/2026-04-15.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-arazzo-d5cf4377.md,Arazzo Specification,https://spec.openapis.org/arazzo/,spec.openapis.org,1,packaged
+docs/spec-openapis-org-arazzo-latest-html-26dbe6a3.md,The Arazzo Specification v1.1.0,https://spec.openapis.org/arazzo/latest.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-arazzo-v1-0-0-html-a5d6fbd.md,The Arazzo Specification v1.0.0,https://spec.openapis.org/arazzo/v1.0.0.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-arazzo-v1-0-1-html-bc258870.md,The Arazzo Specification v1.0.1,https://spec.openapis.org/arazzo/v1.0.1.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-arazzo-v1-1-0-html-7ce239c.md,The Arazzo Specification v1.1.0,https://spec.openapis.org/arazzo/v1.1.0.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-e4aeda6d.md,OpenAPI Initiative Publications,https://spec.openapis.org/,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-2-0-schema-2017-08-27-html-f8b08e28.md,JSON Schema for OpenAPI 2.0,https://spec.openapis.org/oas/2.0/schema/2017-08-27.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-0-schema-2024-10-18-html-2ee195c0.md,JSON Schema for OpenAPI 3.0,https://spec.openapis.org/oas/3.0/schema/2024-10-18.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-1-dialect-2024-11-10-html-89461fb3.md,JSON Schema dialect for OpenAPI 3.1,https://spec.openapis.org/oas/3.1/dialect/2024-11-10.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-1-meta-2024-11-10-html-c6d5ad9c.md,JSON Schema Vocabulary used in OpenAPI 3.1,https://spec.openapis.org/oas/3.1/meta/2024-11-10.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-1-schema-2025-11-23-html-b20ff49.md,JSON Schema for OpenAPI 3.1 - without schema validation,https://spec.openapis.org/oas/3.1/schema/2025-11-23.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-1-schema-base-2025-11-23-html-63f324d9.md,JSON Schema for OpenAPI 3.1 - with schema validation,https://spec.openapis.org/oas/3.1/schema-base/2025-11-23.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-2-dialect-2025-09-17-html-57ccf63d.md,JSON Schema dialect for OpenAPI 3.2,https://spec.openapis.org/oas/3.2/dialect/2025-09-17.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-2-meta-2025-09-17-html-78f49310.md,JSON Schema Vocabulary used in OpenAPI 3.2,https://spec.openapis.org/oas/3.2/meta/2025-09-17.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-2-schema-2025-11-23-html-99534592.md,JSON Schema for OpenAPI 3.2 - without schema validation,https://spec.openapis.org/oas/3.2/schema/2025-11-23.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-3-2-schema-base-2025-11-23-html-896de188.md,JSON Schema for OpenAPI 3.2 - with schema validation,https://spec.openapis.org/oas/3.2/schema-base/2025-11-23.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-5c332c57.md,OpenAPI Specification,https://spec.openapis.org/oas/,spec.openapis.org,0,packaged
+docs/spec-openapis-org-oas-latest-7a66fe84.md,OpenAPI Specification v3.2.0,https://spec.openapis.org/oas/latest,spec.openapis.org,3,packaged
+docs/spec-openapis-org-oas-latest-html-496ea603.md,OpenAPI Specification v3.2.0,https://spec.openapis.org/oas/latest.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v2-0-html-8de00d64.md,OpenAPI Specification v2.0,https://spec.openapis.org/oas/v2.0.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-0-0-f211e450.md,OpenAPI Specification v3.0.0,https://spec.openapis.org/oas/v3.0.0,spec.openapis.org,3,packaged
+docs/spec-openapis-org-oas-v3-0-0-html-b136e807.md,OpenAPI Specification v3.0.0,https://spec.openapis.org/oas/v3.0.0.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-0-1-html-515c5e4a.md,OpenAPI Specification v3.0.1,https://spec.openapis.org/oas/v3.0.1.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-0-2-html-bb7b6dbd.md,OpenAPI Specification v3.0.2,https://spec.openapis.org/oas/v3.0.2.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-0-3-html-6d438670.md,OpenAPI Specification v3.0.3,https://spec.openapis.org/oas/v3.0.3.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-0-4-html-1e580b6b.md,OpenAPI Specification v3.0.4,https://spec.openapis.org/oas/v3.0.4.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-1-0-html-7b954b36.md,OpenAPI Specification v3.1.0,https://spec.openapis.org/oas/v3.1.0.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-1-1-html-e6b991a3.md,OpenAPI Specification v3.1.1,https://spec.openapis.org/oas/v3.1.1.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-1-2-html-87f433fc.md,OpenAPI Specification v3.1.2,https://spec.openapis.org/oas/v3.1.2.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-oas-v3-2-0-html-f30fcb0d.md,OpenAPI Specification v3.2.0,https://spec.openapis.org/oas/v3.2.0.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-overlay-1-0-schema-2026-04-01-html-6a4c6bd0.md,JSON Schema for Overlay 1.0,https://spec.openapis.org/overlay/1.0/schema/2026-04-01.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-overlay-1-1-schema-2026-04-01-html-224b86b9.md,JSON Schema for Overlay 1.1,https://spec.openapis.org/overlay/1.1/schema/2026-04-01.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-overlay-589f1c4c.md,Overlay Specification,https://spec.openapis.org/overlay/,spec.openapis.org,1,packaged
+docs/spec-openapis-org-overlay-latest-html-27a77606.md,Overlay Specification v1.1.0,https://spec.openapis.org/overlay/latest.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-overlay-v1-0-0-html-245f8c9c.md,Overlay Specification v1.0.0,https://spec.openapis.org/overlay/v1.0.0.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-overlay-v1-1-0-html-26eed8bd.md,Overlay Specification v1.1.0,https://spec.openapis.org/overlay/v1.1.0.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-alternative-schema-1a6a2987.md,Alternative Schema Type Registry,https://spec.openapis.org/registry/alternative-schema/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-alternative-schema-1a6a2987.md,Alternative Schema Type Registry,https://spec.openapis.org/registry/alternative-schema/,spec.openapis.org,3,packaged
+docs/spec-openapis-org-registry-alternative-schema-c26799ac.md,Alternative Schema Type Registry,https://spec.openapis.org/registry/alternative-schema/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-c10aa448.md,Registries,https://spec.openapis.org/registry/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-extension-4c4a90ee.md,Extensions Registry,https://spec.openapis.org/registry/extension/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-extension-c83dbcc9.md,Extensions Registry,https://spec.openapis.org/registry/extension/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-c83dbcc9.md,Extensions Registry,https://spec.openapis.org/registry/extension/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-agent-trust-html-e88582f3.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-agent-trust.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-codesamples-html-524020c1.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-codeSamples.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-anchor-html-b61a3286.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-contains-html-51cfb09a.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-contains.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-contentencoding-html-20ce813d.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-contentmediatype-html-7f4d2608.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-contentschema-html-24281a4f.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-dependentschemas-html-ce95c896.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-else-html-a18e44a.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-else.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-if-html-7828e498.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-if.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-maxcontains-html-79654d48.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-mincontains-html-8a8d431e.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-patternproperties-html-72aeca60.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-propertynames-html-bdff9188.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-then-html-e0045c80.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-then.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-jsonschema-unevaluatedproperties-html-c2ab1856.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-additionaloperations-html-acd9e6c2.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-datavalue-html-5b7723cc.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-dataValue.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-deprecated-html-7a517df4.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-deprecated.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-deviceauthorization-html-6e63ec26.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-deviceauthorizationurl-html-31283597.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-encoding-html-f2d75a40.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-encoding.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-itemencoding-html-1e487c01.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-itemschema-html-294c65f3.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-itemSchema.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-name-html-562fc906.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-name.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-prefixencoding-html-f05964d4.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-self-html-c5f1131.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-$self.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-serializedvalue-html-a2dd90d2.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-serializedValue.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-oai-summary-html-4cda5593.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-oai-summary.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-extension-x-twitter-html-30f9fc8c.md,Extension Field Registry,https://spec.openapis.org/registry/extension/x-twitter.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-45320d86.md,Formats Registry,https://spec.openapis.org/registry/format/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-format-b66f1811.md,Formats Registry,https://spec.openapis.org/registry/format/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-b66f1811.md,Formats Registry,https://spec.openapis.org/registry/format/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-base64url-html-14a38dfe.md,Format Registry,https://spec.openapis.org/registry/format/base64url.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-binary-html-d9c87bb7.md,Format Registry,https://spec.openapis.org/registry/format/binary.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-byte-html-2312fa62.md,Format Registry,https://spec.openapis.org/registry/format/byte.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-date-html-f21e24c.md,Format Registry,https://spec.openapis.org/registry/format/date.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-date-time-html-3de2f820.md,Format Registry,https://spec.openapis.org/registry/format/date-time.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-date-time-local-html-a77cde86.md,Format Registry,https://spec.openapis.org/registry/format/date-time-local.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-decimal-html-2c999717.md,Format Registry,https://spec.openapis.org/registry/format/decimal.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-decimal128-html-96caeed8.md,Format Registry,https://spec.openapis.org/registry/format/decimal128.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-double-html-6665937b.md,Format Registry,https://spec.openapis.org/registry/format/double.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-double-int-html-29a6714b.md,Format Registry,https://spec.openapis.org/registry/format/double-int.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-float-html-7b5e62d0.md,Format Registry,https://spec.openapis.org/registry/format/float.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-http-date-html-a07cccd7.md,Format Registry,https://spec.openapis.org/registry/format/http-date.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-int32-html-7ee35eda.md,Format Registry,https://spec.openapis.org/registry/format/int32.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-int64-html-b53e0acf.md,Format Registry,https://spec.openapis.org/registry/format/int64.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-ipv4-cidr-html-b223ca56.md,Format Registry,https://spec.openapis.org/registry/format/ipv4-cidr.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-ipv6-cidr-html-d99301c4.md,Format Registry,https://spec.openapis.org/registry/format/ipv6-cidr.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-iri-reference-html-45e01d64.md,Format Registry,https://spec.openapis.org/registry/format/iri-reference.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-json-pointer-html-31f691be.md,Format Registry,https://spec.openapis.org/registry/format/json-pointer.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-media-range-html-e3aae2ca.md,Format Registry,https://spec.openapis.org/registry/format/media-range.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-relative-json-pointer-html-82bae5f5.md,Format Registry,https://spec.openapis.org/registry/format/relative-json-pointer.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-binary-html-d4de1059.md,Format Registry,https://spec.openapis.org/registry/format/sf-binary.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-boolean-html-61a36394.md,Format Registry,https://spec.openapis.org/registry/format/sf-boolean.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-decimal-html-1dad42fd.md,Format Registry,https://spec.openapis.org/registry/format/sf-decimal.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-integer-html-f54a09d6.md,Format Registry,https://spec.openapis.org/registry/format/sf-integer.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-string-html-edda7ad1.md,Format Registry,https://spec.openapis.org/registry/format/sf-string.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-sf-token-html-42a3b87b.md,Format Registry,https://spec.openapis.org/registry/format/sf-token.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-uint64-html-9b300b36.md,Format Registry,https://spec.openapis.org/registry/format/uint64.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-format-unixtime-html-e85e7ea5.md,Format Registry,https://spec.openapis.org/registry/format/unixtime.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-31227932.md,Media Type Registry,https://spec.openapis.org/registry/media-type/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-media-type-a8b4d155.md,Media Type Registry,https://spec.openapis.org/registry/media-type/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-a8b4d155.md,Media Type Registry,https://spec.openapis.org/registry/media-type/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-binary-4b282acc.md,Media Type Registry,https://spec.openapis.org/registry/media-type/binary,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-forms-d1b75cc.md,Media Type Registry,https://spec.openapis.org/registry/media-type/forms,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-linksets-a6f9afd4.md,Media Type Registry,https://spec.openapis.org/registry/media-type/linksets,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-sequential-json-ea095ba1.md,Media Type Registry,https://spec.openapis.org/registry/media-type/sequential_json,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-sequential-multipart-3da2a311.md,Media Type Registry,https://spec.openapis.org/registry/media-type/sequential_multipart,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-sse-53e0d7a2.md,Media Type Registry,https://spec.openapis.org/registry/media-type/sse,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-text-97e0ec2e.md,Media Type Registry,https://spec.openapis.org/registry/media-type/text,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-toon-dbd9c5d.md,Media Type Registry,https://spec.openapis.org/registry/media-type/toon,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-media-type-xml-35619c06.md,Media Type Registry,https://spec.openapis.org/registry/media-type/xml,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-b43da69b.md,Namespace Registry,https://spec.openapis.org/registry/namespace/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-b43da69b.md,Namespace Registry,https://spec.openapis.org/registry/namespace/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-f6317da8.md,Namespace Registry,https://spec.openapis.org/registry/namespace/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-namespace-fdx-html-8483865a.md,Extension Field Namespace Registry,https://spec.openapis.org/registry/namespace/fdx.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-oas-draft-html-8b9c23a5.md,Extension Field Namespace Registry,https://spec.openapis.org/registry/namespace/oas-draft.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-sap-html-d95ddec8.md,Extension Field Namespace Registry,https://spec.openapis.org/registry/namespace/sap.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-namespace-scalar-html-a8acd6.md,Extension Field Namespace Registry,https://spec.openapis.org/registry/namespace/scalar.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-tag-kind-43147270.md,Tag Kinds Registry,https://spec.openapis.org/registry/tag-kind/index.html,spec.openapis.org,1,packaged
+docs/spec-openapis-org-registry-tag-kind-505642d3.md,Tag Kinds Registry,https://spec.openapis.org/registry/tag-kind/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-tag-kind-505642d3.md,Tag Kinds Registry,https://spec.openapis.org/registry/tag-kind/,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-tag-kind-audience-html-f8409818.md,Tag Kind Registry,https://spec.openapis.org/registry/tag-kind/audience.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-tag-kind-badge-html-c05dc7b1.md,Tag Kind Registry,https://spec.openapis.org/registry/tag-kind/badge.html,spec.openapis.org,2,packaged
+docs/spec-openapis-org-registry-tag-kind-nav-html-1b42577b.md,Tag Kind Registry,https://spec.openapis.org/registry/tag-kind/nav.html,spec.openapis.org,2,packaged

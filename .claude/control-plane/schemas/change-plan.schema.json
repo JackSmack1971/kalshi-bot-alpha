@@ -1,0 +1,254 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/claude-control-plane/change-plan.schema.json",
+  "title": "Claude Code Control-Plane Change Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "owner",
+    "request",
+    "repository_root",
+    "manifest_hash",
+    "artifacts",
+    "interfaces",
+    "verification",
+    "rollback",
+    "risk"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^cp-[0-9]{8}-[0-9]{6}-[A-Za-z0-9_-]{4,32}$"
+    },
+    "owner": {
+      "enum": [
+        "skills-specialist",
+        "rules-specialist",
+        "workflow-specialist"
+      ]
+    },
+    "request": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "manifest_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "risk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "operation",
+          "reason",
+          "risk",
+          "precondition_hash"
+        ],
+        "properties": {
+          "path": {
+            "$ref": "#/$defs/portablePath"
+          },
+          "operation": {
+            "enum": [
+              "create",
+              "update",
+              "delete",
+              "rename"
+            ]
+          },
+          "rename_from": {
+            "$ref": "#/$defs/portablePath"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "risk": {
+            "enum": [
+              "low",
+              "medium",
+              "high",
+              "critical"
+            ]
+          },
+          "precondition_hash": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "operation": {
+                  "const": "rename"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "rename_from"
+              ],
+              "properties": {
+                "rename_from": {
+                  "$ref": "#/$defs/portablePath"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "read_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/portablePath"
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "verification": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "assertion_id",
+          "kind",
+          "description",
+          "required"
+        ],
+        "properties": {
+          "assertion_id": {
+            "type": "string",
+            "pattern": "^[A-Z][A-Z0-9_-]{2,64}$"
+          },
+          "kind": {
+            "enum": [
+              "schema",
+              "path",
+              "ownership",
+              "reference",
+              "routing",
+              "behavior",
+              "context",
+              "semantic",
+              "rollback"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "required": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy",
+        "baseline_path"
+      ],
+      "properties": {
+        "strategy": {
+          "enum": [
+            "restore-baseline",
+            "reverse-patch",
+            "manual"
+          ]
+        },
+        "baseline_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "human_approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "evidence_path": {
+          "type": "string"
+        },
+        "evidence_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "reason",
+              "evidence_path",
+              "evidence_sha256"
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "portablePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?:[a-z0-9_.-]*[a-z0-9_-])(?:/(?:[a-z0-9_.-]*[a-z0-9_-]))*$"
+    }
+  }
+}

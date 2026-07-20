@@ -1,0 +1,3922 @@
+{
+  "status": "ok",
+  "generator": "official-docs-pack",
+  "version": "2.0.0",
+  "generated_at": "2026-07-17T17:44:03.909Z",
+  "request": "https://github.com/OAI/OpenAPI-Specification",
+  "settings": {
+    "max_pages": 200,
+    "max_depth": 6,
+    "timeout_ms": 15000,
+    "allow_hosts": [
+      "github.com"
+    ]
+  },
+  "seeds": [
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification",
+      "reason": "user-url:known-docs-host",
+      "score": 80,
+      "host": "github.com",
+      "rootPath": "/OAI/OpenAPI-Specification"
+    }
+  ],
+  "pages": [
+    {
+      "path": "docs/github-com-oai-openapi-specification-d978fb4d.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification",
+      "host": "github.com",
+      "depth": 0,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:36.752Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-bf4e2192.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:37.808Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-github-a94dd7b4.md",
+      "title": ".github",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/.github",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".github",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        ".github",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:38.176Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-archive-99b21f7f.md",
+      "title": "_archive_",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "\\_archive\\_",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "\\_archive\\_",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_#readme)",
+        "Archive"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:38.533Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-proposals-1acc608a.md",
+      "title": "proposals",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/proposals",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "proposals",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "proposals",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:38.864Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-scripts-95629e5.md",
+      "title": "scripts",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/scripts",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "scripts",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "scripts",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:39.189Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-tests-965ab4bc.md",
+      "title": "tests",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/tests",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "tests",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "tests",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:39.482Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-versions-9177da5a.md",
+      "title": "versions",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/versions",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "versions",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "versions",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:39.854Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-gitattributes-7414fd1f.md",
+      "title": ".gitattributes",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.gitattributes",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".gitattributes",
+        "Latest commit",
+        "History",
+        ".gitattributes",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:40.311Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-gitignore-a4a8c10c.md",
+      "title": ".gitignore",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.gitignore",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".gitignore",
+        "Latest commit",
+        "History",
+        ".gitignore",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:40.803Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-gitmodules-e114155f.md",
+      "title": ".gitmodules",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.gitmodules",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".gitmodules",
+        "Latest commit",
+        "History",
+        ".gitmodules",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:41.223Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-linkspector-yml-8033a4f6.md",
+      "title": ".linkspector.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.linkspector.yml",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".linkspector.yml",
+        "Latest commit",
+        "History",
+        ".linkspector.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:41.582Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-markdownlint-yaml-8805afdb.md",
+      "title": ".markdownlint.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.markdownlint.yaml",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        ".markdownlint.yaml",
+        "Latest commit",
+        "History",
+        ".markdownlint.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:41.920Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-ai-md-dd969f09.md",
+      "title": "AI.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/AI.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:42.305Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-contributing-md-56c710d7.md",
+      "title": "CONTRIBUTING.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/CONTRIBUTING.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:42.812Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-editors-md-1e1a0b39.md",
+      "title": "EDITORS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/EDITORS.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:43.122Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-governance-md-ee4584df.md",
+      "title": "GOVERNANCE.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/GOVERNANCE.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:43.619Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-implementations-md-8d795bce.md",
+      "title": "IMPLEMENTATIONS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/IMPLEMENTATIONS.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:43.911Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-license-b2f599e3.md",
+      "title": "LICENSE",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/LICENSE",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "LICENSE",
+        "Latest commit",
+        "History",
+        "LICENSE",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:44.252Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-maintainers-md-a31c7ae6.md",
+      "title": "MAINTAINERS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/MAINTAINERS.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:44.806Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-readme-md-4b1a2c05.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/README.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:45.206Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-special-interest-groups-md-90006ec6.md",
+      "title": "SPECIAL_INTEREST_GROUPS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/SPECIAL_INTEREST_GROUPS.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:45.543Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-tob-md-e7e9d56c.md",
+      "title": "TOB.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/TOB.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:45.920Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-spec-markdownlint-yaml-a17c5ec8.md",
+      "title": "spec.markdownlint.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/spec.markdownlint.yaml",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "spec.markdownlint.yaml",
+        "Latest commit",
+        "History",
+        "spec.markdownlint.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:46.229Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-style-guide-md-70902003.md",
+      "title": "style-guide.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/style-guide.md",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:46.627Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-vitest-config-mjs-7ab64fe1.md",
+      "title": "vitest.config.mjs",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/vitest.config.mjs",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "vitest.config.mjs",
+        "Latest commit",
+        "History",
+        "vitest.config.mjs",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:46.970Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-versions-9177da5a.md",
+      "title": "versions",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/versions",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "versions",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "versions",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:47.176Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-497e9314.md",
+      "title": "Releases: OAI/OpenAPI-Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "Releases: OAI/OpenAPI-Specification",
+        "Release list",
+        "OAS 3.2.0 Released!",
+        "Choose a tag to compare",
+        "Headline features",
+        "Data modeling and representation",
+        "Additional features",
+        "OAS 3.1.2 Released!",
+        "Choose a tag to compare",
+        "OAS 3.1.1 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security",
+        "Request Data",
+        "OAS 3.0.4 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:47.712Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-2-0-20f2925b.md",
+      "title": "OAS 3.2.0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.2.0",
+      "host": "github.com",
+      "depth": 1,
+      "headings": [
+        "OAS 3.2.0 Released!",
+        "Choose a tag to compare",
+        "Headline features",
+        "Data modeling and representation",
+        "Additional features"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:48.218Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-history-fb207312.md",
+      "title": "History / Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/_history",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / Home",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:48.534Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-readme-md-4b1a2c05.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/README.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:49.148Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-openapi-initiative-tsc-minutes-2018-02-02-283baeb7.md",
+      "title": "OpenAPI Initiative TSC Minutes 2018 02 02",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/OpenAPI-Initiative-TSC-Minutes---2018-02-02",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OpenAPI Initiative TSC Minutes 2018 02 02",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:49.440Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-c97b6d7b.md",
+      "title": "TSC Minutes",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:49.747Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180913-af9602b2.md",
+      "title": "TSC Minutes: 20180913",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180913",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes: 20180913",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:50.032Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180920-3c8e91e4.md",
+      "title": "TSC Minutes: 20180920",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180920",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes: 20180920",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:50.485Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181004-eff8d194.md",
+      "title": "TSC Minutes: 20181004",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181004",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes: 20181004",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:50.749Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181018-e9fb06b9.md",
+      "title": "TSC Minutes: 20181018",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181018",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes: 20181018",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:51.047Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181108-52900bab.md",
+      "title": "TSC Minutes: 20181108",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181108",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "TSC Minutes: 20181108",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:51.357Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-bf4e2192.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:51.779Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-7cd81bce.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:52.407Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-github-issue-template-b5813b07.md",
+      "title": "ISSUE_TEMPLATE",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/.github/ISSUE_TEMPLATE",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "ISSUE\\_TEMPLATE",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "ISSUE\\_TEMPLATE",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:52.815Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-github-templates-37d9407c.md",
+      "title": "templates",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/.github/templates",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "templates",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "templates",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:53.138Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-github-workflows-2dc856e5.md",
+      "title": "workflows",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/.github/workflows",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "workflows",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "workflows",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:53.629Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-codeowners-90daf073.md",
+      "title": "CODEOWNERS",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/CODEOWNERS",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "CODEOWNERS",
+        "Latest commit",
+        "History",
+        "CODEOWNERS",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:54.070Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-dependabot-yml-8aaeeaec.md",
+      "title": "dependabot.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/dependabot.yml",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "dependabot.yml",
+        "Latest commit",
+        "History",
+        "dependabot.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:54.471Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-pull-request-template-md-43806f4d.md",
+      "title": "pull_request_template.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/pull_request_template.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:54.968Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-archive-schemas-4499a7e8.md",
+      "title": "schemas",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "schemas",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "schemas",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas#readme)",
+        "Archive of outdated JSON Schema Files"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:55.301Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-archive-readme-md-2bbfc4b4.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/_archive_/README.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:55.687Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-proposals-alternative-schema-dabee066.md",
+      "title": "Alternative-Schema",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/proposals/Alternative-Schema",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Alternative-Schema",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "Alternative-Schema",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:56.086Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-proposals-overlays-31ee6b02.md",
+      "title": "Overlays",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/proposals/Overlays",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Overlays",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "Overlays",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:42:56.473Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2019-01-01-proposal-template-md-ed606ef9.md",
+      "title": "2019-01-01-Proposal-Template.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-01-01-Proposal-Template.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:56.884Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2019-03-15-alternative-schema-md-be9f1e6.md",
+      "title": "2019-03-15-Alternative-Schema.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-03-15-Alternative-Schema.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:57.228Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2019-07-17-webhooks-md-acdb4699.md",
+      "title": "2019-07-17-Webhooks.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-07-17-Webhooks.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:57.699Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2019-10-31-clarify-nullable-md-39417eff.md",
+      "title": "2019-10-31-Clarify-Nullable.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-10-31-Clarify-Nullable.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:58.083Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2019-12-24-overlays-md-29afe3b8.md",
+      "title": "2019-12-24-Overlays.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2019-12-24-Overlays.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:58.586Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2020-10-28-experimental-md-8d14889b.md",
+      "title": "2020-10-28-Experimental.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2020-10-28-Experimental.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:58.987Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2024-08-01-self-identification-md-7f4e84b6.md",
+      "title": "2024-08-01-Self-Identification.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2024-08-01-Self-Identification.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Fixed Fields"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:59.412Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2024-09-01-tags-improvement-md-e5631ede.md",
+      "title": "2024-09-01-Tags-Improvement.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2024-09-01-Tags-Improvement.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:42:59.819Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-2025-03-20-uris-for-tags-md-5140dc8f.md",
+      "title": "2025-03-20-URIs-for-Tags.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/2025-03-20-URIs-for-Tags.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:00.209Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-scripts-md2html-4f6f2462.md",
+      "title": "md2html",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/scripts/md2html",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "md2html",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "md2html",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:00.552Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-adjust-release-branch-sh-8c448272.md",
+      "title": "adjust-release-branch.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/adjust-release-branch.sh",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "adjust-release-branch.sh",
+        "Latest commit",
+        "History",
+        "adjust-release-branch.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:00.951Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-close-no-recent-ps1-6338778d.md",
+      "title": "close-no-recent.ps1",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/close-no-recent.ps1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "close-no-recent.ps1",
+        "Latest commit",
+        "History",
+        "close-no-recent.ps1",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:01.348Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-fwdabort-sh-d05cd2bd.md",
+      "title": "fwdabort.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/fwdabort.sh",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "fwdabort.sh",
+        "Latest commit",
+        "History",
+        "fwdabort.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:01.746Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-fwdport-sh-b4fec462.md",
+      "title": "fwdport.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/fwdport.sh",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "fwdport.sh",
+        "Latest commit",
+        "History",
+        "fwdport.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:02.129Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-label-no-recent-ps1-f43fae23.md",
+      "title": "label-no-recent.ps1",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/label-no-recent.ps1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "label-no-recent.ps1",
+        "Latest commit",
+        "History",
+        "label-no-recent.ps1",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:03.609Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-schema-publish-sh-a538287d.md",
+      "title": "schema-publish.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/schema-publish.sh",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "schema-publish.sh",
+        "Latest commit",
+        "History",
+        "schema-publish.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:03.994Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-start-release-sh-8ed6ec50.md",
+      "title": "start-release.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/start-release.sh",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "start-release.sh",
+        "Latest commit",
+        "History",
+        "start-release.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:04.379Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-validate-mjs-5c0b97dd.md",
+      "title": "validate.mjs",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/validate.mjs",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "validate.mjs",
+        "Latest commit",
+        "History",
+        "validate.mjs",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:04.758Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-tests-md2html-3fa90163.md",
+      "title": "md2html",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/tests/md2html",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "md2html",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "md2html",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/tests/md2html#readme)"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:05.083Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-tests-schema-3636d0aa.md",
+      "title": "schema",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/tests/schema",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "schema",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "schema",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:05.401Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-1-2-md-9118bfb4.md",
+      "title": "1.2.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/1.2.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:06.022Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-2-0-editors-md-4f74b8f4.md",
+      "title": "2.0-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:06.354Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-2-0-md-4a968e2d.md",
+      "title": "2.0.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:06.922Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-0-editors-md-f611710f.md",
+      "title": "3.0.0-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:07.363Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-0-md-3e28682a.md",
+      "title": "in a request body:",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "in a request body:",
+        "in a parameter",
+        "in a response",
+        "in a request body, note the plural `examples`",
+        "in a parameter",
+        "in a response, note the singular `example`:"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:07.862Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-1-editors-md-69bf0b6a.md",
+      "title": "3.0.1-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:08.260Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-1-md-46264d4f.md",
+      "title": "in a request body:",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "in a request body:",
+        "in a parameter",
+        "in a response"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:08.828Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-2-editors-md-7b6ea7d1.md",
+      "title": "3.0.2-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:09.284Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-2-md-41c34690.md",
+      "title": "3.0.2.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:09.845Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-3-editors-md-1a7c37d4.md",
+      "title": "3.0.3-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:10.258Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-3-md-16d7fa8d.md",
+      "title": "3.0.3.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:10.928Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-4-editors-md-f18a7eab.md",
+      "title": "3.0.4-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:11.311Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-0-4-md-acdf604e.md",
+      "title": "3.0.4.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:11.861Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-0-editors-md-ece9d93e.md",
+      "title": "3.1.0-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:12.217Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-0-md-e4a7d07b.md",
+      "title": "3.1.0.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:12.862Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-1-editors-md-40643183.md",
+      "title": "3.1.1-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:13.260Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-1-md-17e2daf6.md",
+      "title": "3.1.1.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:14.004Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-2-editors-md-57a3dab8.md",
+      "title": "3.1.2-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:14.395Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-1-2-md-4db7bf19.md",
+      "title": "3.1.2.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:15.108Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-2-0-editors-md-4e7eec61.md",
+      "title": "3.2.0-editors.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0-editors.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:15.481Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-versions-3-2-0-md-71c23380.md",
+      "title": "3.2.0.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:16.358Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-b73d90dd.md",
+      "title": "Releases: OAI/OpenAPI-Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases?page=2",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Releases: OAI/OpenAPI-Specification",
+        "Release list",
+        "OAS 3.0.0 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes",
+        "OAS 3.0.0-rc2 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0-rc2 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes",
+        "OAS 3.0.0-rc1 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0-rc1 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes",
+        "OAS 3.0.0-rc0 Released!",
+        "Choose a tag to compare"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:17.823Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-2-0-20f2925b.md",
+      "title": "OAS 3.2.0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.2.0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.2.0 Released!",
+        "Choose a tag to compare",
+        "Headline features",
+        "Data modeling and representation",
+        "Additional features"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:18.346Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-178a1aea.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:18.854Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-1-2-6304e884.md",
+      "title": "OAS 3.1.2 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.2",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.1.2 Released!",
+        "Choose a tag to compare"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:19.304Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-2-d577c4c1.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.2",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:19.787Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-1-1-6604ed3d.md",
+      "title": "OAS 3.1.1 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.1.1 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security",
+        "Request Data"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:20.214Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-1-d277c008.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.1.0",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:20.698Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-4-cfe156dd.md",
+      "title": "OAS 3.0.4 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.4",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.0.4 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security",
+        "Request Data"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:21.153Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-4-689b5668.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.4",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.1.0",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:21.692Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-1-0-6504ebaa.md",
+      "title": "OAS 3.1.0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.1.0 Released!",
+        "Choose a tag to compare",
+        "Changelog",
+        "Additions",
+        "Updates",
+        "Clarifications"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:22.141Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-0-d377c19b.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.1.0",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:22.638Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-1-0-rc1-2fed2ec9.md",
+      "title": "OAS 3.1.0-rc1 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0-rc1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.1.0-rc1 Released!",
+        "Choose a tag to compare",
+        "Changelog",
+        "Breaking changes",
+        "Clarifications"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:23.056Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-0-rc1-96c11d68.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.0-rc1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0.3",
+        "Current Release Candidate Version - 3.1.0-RC1",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:23.559Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-1-0-rc0-2eed2d36.md",
+      "title": "OAS 3.1.0-rc0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.1.0-rc0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.1.0-rc0 Released!",
+        "Choose a tag to compare",
+        "Changelog",
+        "Additions",
+        "Extended Functionality",
+        "Changes",
+        "Breaking changes",
+        "Clarifications"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:24.102Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-0-rc0-97c11efb.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.0-rc0",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0.3",
+        "Current Release Candidate Version - 3.1.0-RC0",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:24.642Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-3-c8e14bd8.md",
+      "title": "OAS 3.0.3 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.3",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.0.3 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.3 Change Log"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:24.980Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-3-6f9b616d.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.3",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0.3",
+        "Future Versions",
+        "Future Versions",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:25.515Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-2-c9e14d6b.md",
+      "title": "OAS 3.0.2 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.2",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.0.2 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.2 Change Log"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:25.848Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-2-6e9b5fda.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.2",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0.2",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "Licensing",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:26.456Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-1-cae14efe.md",
+      "title": "OAS 3.0.1 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "OAS 3.0.1 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.1 Change Log",
+        "Specification Changes",
+        "Additional Changes"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:26.848Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-1-6d9b5e47.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0.1",
+        "Future Versions",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "License",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:27.412Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-b43d8c24.md",
+      "title": "Releases: OAI/OpenAPI-Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases?page=1",
+      "host": "github.com",
+      "depth": 2,
+      "headings": [
+        "Releases: OAI/OpenAPI-Specification",
+        "Release list",
+        "OAS 3.2.0 Released!",
+        "Choose a tag to compare",
+        "Headline features",
+        "Data modeling and representation",
+        "Additional features",
+        "OAS 3.1.2 Released!",
+        "Choose a tag to compare",
+        "OAS 3.1.1 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security",
+        "Request Data",
+        "OAS 3.0.4 Released!",
+        "Choose a tag to compare",
+        "Release Notes",
+        "Clearer Definitions",
+        "References",
+        "Data Types",
+        "Security"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:27.941Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-d1ac3286e5ab6e6756309dff791ea81309104b2c-276e77b.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/d1ac3286e5ab6e6756309dff791ea81309104b2c",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:28.349Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-194bae9dc347c8c33037e93c8df2e40883f090fa-297f366f.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/194bae9dc347c8c33037e93c8df2e40883f090fa",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:28.656Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-a07c08838bb40560e3c235d3d2761a783e30a7cf-bc224bce.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/a07c08838bb40560e3c235d3d2761a783e30a7cf",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:28.938Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-281a45fbc1caad4ba96357e893330e80d5c3fdf3-ca5e9d6c.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/281a45fbc1caad4ba96357e893330e80d5c3fdf3",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:29.226Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-148b24c42f8d373ff87883a23cb4b082f176a283-8c482e25.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/148b24c42f8d373ff87883a23cb4b082f176a283",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:29.493Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-5637503df7b3c7e9ae1a60c3b15fddee7f24c639-8779fe6c.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/5637503df7b3c7e9ae1a60c3b15fddee7f24c639",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:29.813Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-e0a4dd77260fc2a97d0bc7fc4bd2d48deec0f31c-c02341a0.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/e0a4dd77260fc2a97d0bc7fc4bd2d48deec0f31c",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:30.131Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-032fb8ac0e8443b99f7c8c6f17ef158d114d1f45-9bf0693a.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/032fb8ac0e8443b99f7c8c6f17ef158d114d1f45",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "What is Swagger?",
+        "Who is Responsible for Swagger?",
+        "Why is Swagger Useful?",
+        "Quick Introduction",
+        "Server",
+        "Client",
+        "UI",
+        "Creating Your Swagger Specification",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:30.421Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-home-3e53faf2653c55f9e009b32ca6ac9b33181492d8-254cd417.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/Home/3e53faf2653c55f9e009b32ca6ac9b33181492d8",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:30.912Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-openapi-initiative-tsc-minutes-2018-02-02-histor-e88539ef.md",
+      "title": "History / OpenAPI Initiative TSC Minutes 2018 02 02",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/OpenAPI-Initiative-TSC-Minutes---2018-02-02/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / OpenAPI Initiative TSC Minutes 2018 02 02",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:31.193Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-history-6bd384eb.md",
+      "title": "History / TSC Minutes",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:31.482Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-e4ff1c87.md",
+      "title": "Home",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Home",
+        "Navigation",
+        "Clone this wiki locally"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:31.806Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180913-history-e72f6530.md",
+      "title": "History / TSC Minutes: 20180913",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180913/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes: 20180913",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:32.062Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20180920-history-fd60933a.md",
+      "title": "History / TSC Minutes: 20180920",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20180920/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes: 20180920",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:32.347Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181004-history-aeb23eaa.md",
+      "title": "History / TSC Minutes: 20181004",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181004/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes: 20181004",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:32.620Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181018-history-71002c39.md",
+      "title": "History / TSC Minutes: 20181018",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181018/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes: 20181018",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:32.889Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-wiki-tsc-minutes-20181108-history-33c513db.md",
+      "title": "History / TSC Minutes: 20181108",
+      "url": "https://github.com/OAI/OpenAPI-Specification/wiki/TSC-Minutes:-20181108/_history",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "[History](https://github.com/OAI/OpenAPI-Specification/wiki/_history) / TSC Minutes: 20181108",
+        "Revisions"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:33.159Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-issue-template-config-yml-3881f53b.md",
+      "title": "config.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/config.yml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "config.yml",
+        "Latest commit",
+        "History",
+        "config.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:33.549Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-issue-template-registry-feature-requ-cf7bcb80.md",
+      "title": "registry_feature_request.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/registry_feature_request.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:34.055Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-issue-template-spec-bug-report-md-55a76b09.md",
+      "title": "spec_bug_report.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/ISSUE_TEMPLATE/spec_bug_report.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:34.427Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-templates-agenda-md-831566a1.md",
+      "title": "agenda.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/templates/agenda.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:34.780Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-agenda-yaml-a56ed92a.md",
+      "title": "agenda.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/agenda.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "agenda.yaml",
+        "Latest commit",
+        "History",
+        "agenda.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:35.126Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-check-restricted-files-yam-7b91b5ce.md",
+      "title": "check-restricted-files.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/check-restricted-files.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "check-restricted-files.yaml",
+        "Latest commit",
+        "History",
+        "check-restricted-files.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:35.564Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-inactive-issues-yml-352e8597.md",
+      "title": "inactive-issues.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/inactive-issues.yml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "inactive-issues.yml",
+        "Latest commit",
+        "History",
+        "inactive-issues.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:35.914Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-respec-yaml-d2e719f0.md",
+      "title": "respec.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/respec.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "respec.yaml",
+        "Latest commit",
+        "History",
+        "respec.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:36.297Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-schema-publish-yaml-19b19555.md",
+      "title": "schema-publish.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/schema-publish.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "schema-publish.yaml",
+        "Latest commit",
+        "History",
+        "schema-publish.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:36.657Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-schema-tests-yaml-c019fb4f.md",
+      "title": "schema-tests.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/schema-tests.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "schema-tests.yaml",
+        "Latest commit",
+        "History",
+        "schema-tests.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:37.014Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-sync-dev-to-vx-y-dev-yaml-a101c769.md",
+      "title": "sync-dev-to-vX.Y-dev.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/sync-dev-to-vX.Y-dev.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "sync-dev-to-vX.Y-dev.yaml",
+        "Latest commit",
+        "History",
+        "sync-dev-to-vX.Y-dev.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:37.374Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-sync-main-to-dev-yaml-e0ecbe45.md",
+      "title": "sync-main-to-dev.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/sync-main-to-dev.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "sync-main-to-dev.yaml",
+        "Latest commit",
+        "History",
+        "sync-main-to-dev.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:37.800Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-github-workflows-validate-markdown-yaml-a9c73b5c.md",
+      "title": "validate-markdown.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/.github/workflows/validate-markdown.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "validate-markdown.yaml",
+        "Latest commit",
+        "History",
+        "validate-markdown.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:38.167Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v1-2-664de880.md",
+      "title": "v1.2",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v1.2",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "v1.2",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "v1.2",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v1.2#readme)",
+        "Swagger Specification JSON Schemas"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:38.696Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v2-0-c52a10d7.md",
+      "title": "v2.0",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v2.0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "v2.0",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "v2.0",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v2.0#readme)",
+        "OpenAPI Specification v2.0 JSON Schema",
+        "Install via NPM",
+        "License"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:39.006Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-archive-schemas-v3-0-be9c61f0.md",
+      "title": "v3.0",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v3.0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "v3.0",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "v3.0",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/main/_archive_/schemas/v3.0#readme)",
+        "OpenAPI 3.0.X JSON Schema",
+        "Schema `id` dates",
+        "Improving the schema"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:39.328Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-archive-schemas-readme-md-d4ff9767.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/_archive_/schemas/README.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:39.711Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-contributors-m-4474457f.md",
+      "title": "CONTRIBUTORS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/CONTRIBUTORS.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:40.046Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-alternative-sc-133c6f78.md",
+      "title": "alternative_schema_object.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/alternative_schema_object.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:40.355Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-examples-md-511311d4.md",
+      "title": "examples.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/examples.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:40.655Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-implementation-d7a33fb0.md",
+      "title": "implementations.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/implementations.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:41.019Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-alternative-schema-schema-object--2b8887d4.md",
+      "title": "schema_object.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Alternative-Schema/schema_object.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:41.405Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-overlays-changes-yml-347b960f.md",
+      "title": "Changes.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Overlays/Changes.yml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Changes.yml",
+        "Latest commit",
+        "History",
+        "Changes.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:42.407Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-proposals-overlays-mergepatch-yml-51a25350.md",
+      "title": "MergePatch.yml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/proposals/Overlays/MergePatch.yml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "MergePatch.yml",
+        "Latest commit",
+        "History",
+        "MergePatch.yml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:42.851Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-scripts-md2html-analytics-f4b10005.md",
+      "title": "analytics",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/scripts/md2html/analytics",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "analytics",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "analytics",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:43.202Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-gitignore-d214fe54.md",
+      "title": ".gitignore",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/.gitignore",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".gitignore",
+        "Latest commit",
+        "History",
+        ".gitignore",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:43.592Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-build-sh-dcf84321.md",
+      "title": "build.sh",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/build.sh",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "build.sh",
+        "Latest commit",
+        "History",
+        "build.sh",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:43.985Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-style-finish-html-ac4c1a7e.md",
+      "title": "style-finish.html",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/style-finish.html",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "style-finish.html",
+        "Latest commit",
+        "History",
+        "style-finish.html",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:44.467Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-scripts-md2html-style-start-html-b47e058b.md",
+      "title": "style-start.html",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/scripts/md2html/style-start.html",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "style-start.html",
+        "Latest commit",
+        "History",
+        "style-start.html",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:44.836Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-main-tests-md2html-fixtures-13f3551a.md",
+      "title": "fixtures",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/main/tests/md2html/fixtures",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "fixtures",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "fixtures",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:45.844Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-tests-md2html-readme-md-8c418f00.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/tests/md2html/README.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:46.223Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-tests-md2html-md2html-test-mjs-e13c7fd3.md",
+      "title": "md2html.test.mjs",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/tests/md2html/md2html.test.mjs",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "md2html.test.mjs",
+        "Latest commit",
+        "History",
+        "md2html.test.mjs",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:46.584Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-main-tests-schema-oas-schema-mjs-deef938b.md",
+      "title": "oas-schema.mjs",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/tests/schema/oas-schema.mjs",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "oas-schema.mjs",
+        "Latest commit",
+        "History",
+        "oas-schema.mjs",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:46.955Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-0-cbe15091.md",
+      "title": "OAS 3.0.0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "OAS 3.0.0 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:47.318Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-0-6c9b5cb4.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Current Version - 3.0",
+        "Previous Versions",
+        "See It in Action",
+        "Tools and Libraries",
+        "Participation",
+        "License",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:47.794Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-0-0-versions-3-0-0-md-ba11795a.md",
+      "title": "in a request body:",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "in a request body:",
+        "in a parameter",
+        "in a response",
+        "in a request body, note the plural `examples`",
+        "in a parameter",
+        "in a response, note the singular `example`:"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:48.453Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc2-5d137ce3.md",
+      "title": "OAS 3.0.0-rc2 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc2",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "OAS 3.0.0-rc2 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0-rc2 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:48.777Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-0-rc2-843df83e.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc2",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Draft implementations of tooling supporting the 3.0.0 specification can be found here!",
+        "Participation",
+        "License",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:49.322Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-0-0-rc2-versions-3-0-md-e0b967f6.md",
+      "title": "content transferred in binary (octet-stream):",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc2/versions/3.0.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "content transferred in binary (octet-stream):",
+        "in a request body:",
+        "in a parameter",
+        "in a response",
+        "in a request body, note the plural `examples` as the Content-Type is set to `*`:",
+        "in a parameter",
+        "in a response, note the plural `examples`:"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:50.121Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc1-5e137e76.md",
+      "title": "OAS 3.0.0-rc1 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc1",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "OAS 3.0.0-rc1 Released!",
+        "Choose a tag to compare",
+        "OAS 3.0.0-rc1 Change Log",
+        "Schema Changes",
+        "Descriptive Changes",
+        "Document Changes"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:50.458Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-0-rc1-833df6ab.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc1",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Draft implementations of tooling supporting the 3.0.0 specification can be found here!",
+        "Participation",
+        "License",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:50.942Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-0-0-rc1-versions-3-0-md-97a2182f.md",
+      "title": "content transferred in binary (octet-stream):",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc1/versions/3.0.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "content transferred in binary (octet-stream):",
+        "in a request body:",
+        "in a parameter",
+        "in a response",
+        "in a request body, note the plural `examples` as the Content-Type is set to `*`:",
+        "in a parameter",
+        "in a response, note the plural `examples`:"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:51.624Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-releases-tag-3-0-0-rc0-5f138009.md",
+      "title": "OAS 3.0.0-rc0 Released!",
+      "url": "https://github.com/OAI/OpenAPI-Specification/releases/tag/3.0.0-rc0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "OAS 3.0.0-rc0 Released!",
+        "Choose a tag to compare"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:51.952Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-0-0-rc0-823df518.md",
+      "title": "The OpenAPI Specification",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.0.0-rc0",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "Folders and files",
+        "Latest commit",
+        "History",
+        "Repository files navigation",
+        "The OpenAPI Specification",
+        "Participation",
+        "License",
+        "About",
+        "Topics",
+        "Resources",
+        "License",
+        "Code of conduct",
+        "Contributing",
+        "Stars",
+        "Watchers",
+        "Forks",
+        "[Releases 14](https://github.com/OAI/OpenAPI-Specification/releases)",
+        "[Packages](https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification)",
+        "[Contributors](https://github.com/OAI/OpenAPI-Specification/graphs/contributors)",
+        "Languages"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:52.508Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-0-0-rc0-versions-3-0-md-846c84cc.md",
+      "title": "content transferred in binary (octet-stream):",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.0.0-rc0/versions/3.0.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "content transferred in binary (octet-stream):",
+        "in a request body, note the plural `examples` as the Content-Type is set to `*`:",
+        "in a parameter",
+        "in a response, note the plural `examples`:"
+      ],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:53.358Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-github-3a207f78.md",
+      "title": ".github",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/.github",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".github",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        ".github",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:53.758Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-archive-73ea1ae3.md",
+      "title": "_archive_",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/_archive_",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "\\_archive\\_",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "\\_archive\\_",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/_archive_#readme)",
+        "Archive"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:54.178Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-proposals-12c52fc6.md",
+      "title": "proposals",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/proposals",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "proposals",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "proposals",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:54.550Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-scripts-60df4ae1.md",
+      "title": "scripts",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/scripts",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "scripts",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "scripts",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:54.953Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-tests-3ba963a8.md",
+      "title": "tests",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/tests",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "tests",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "tests",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:55.294Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-versions-cbfebe56.md",
+      "title": "versions",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/versions",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "versions",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "versions",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:55.650Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-gitattributes-161e3a79.md",
+      "title": ".gitattributes",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitattributes",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".gitattributes",
+        "Latest commit",
+        "History",
+        ".gitattributes",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:56.133Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-gitignore-fe51e2.md",
+      "title": ".gitignore",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitignore",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".gitignore",
+        "Latest commit",
+        "History",
+        ".gitignore",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:56.526Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-gitmodules-1560bd71.md",
+      "title": ".gitmodules",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.gitmodules",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".gitmodules",
+        "Latest commit",
+        "History",
+        ".gitmodules",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:56.944Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-markdownlint-yaml-a4a93971.md",
+      "title": ".markdownlint.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/.markdownlint.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".markdownlint.yaml",
+        "Latest commit",
+        "History",
+        ".markdownlint.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:43:57.343Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-contributing-md-469e2f01.md",
+      "title": "CONTRIBUTING.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/CONTRIBUTING.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:57.861Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-editors-md-a57a7dc7.md",
+      "title": "EDITORS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/EDITORS.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:58.366Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-governance-md-e70425b9.md",
+      "title": "GOVERNANCE.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/GOVERNANCE.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:59.146Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-implementations-md-d6a21080.md",
+      "title": "IMPLEMENTATIONS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/IMPLEMENTATIONS.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:43:59.580Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-license-e39ed3a1.md",
+      "title": "LICENSE",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/LICENSE",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "LICENSE",
+        "Latest commit",
+        "History",
+        "LICENSE",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:00.006Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-maintainers-md-6dfdf48.md",
+      "title": "MAINTAINERS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/MAINTAINERS.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:44:00.388Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-readme-md-5afcc73f.md",
+      "title": "README.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/README.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:44:00.781Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-special-interest-groups-md-3a0c03c.md",
+      "title": "SPECIAL_INTEREST_GROUPS.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/SPECIAL_INTEREST_GROUPS.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:44:01.228Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-tob-md-59a0e4de.md",
+      "title": "TOB.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/TOB.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:44:01.645Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-spec-markdownlint-yaml-2b493f76.md",
+      "title": "spec.markdownlint.yaml",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/spec.markdownlint.yaml",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "spec.markdownlint.yaml",
+        "Latest commit",
+        "History",
+        "spec.markdownlint.yaml",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:02.060Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-style-guide-md-100bb5c5.md",
+      "title": "style-guide.md",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/style-guide.md",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [],
+      "selector": "markdown-native",
+      "fetched_at": "2026-07-17T17:44:02.434Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-blob-3-2-0-vitest-config-mjs-374ef2cf.md",
+      "title": "vitest.config.mjs",
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/3.2.0/vitest.config.mjs",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "vitest.config.mjs",
+        "Latest commit",
+        "History",
+        "vitest.config.mjs",
+        "File metadata and controls"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:02.893Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-2-0-versions-cbfebe56.md",
+      "title": "versions",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.2.0/versions",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "versions",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "versions",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:03.081Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-2-github-b6077943.md",
+      "title": ".github",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.2/.github",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        ".github",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        ".github",
+        "Folders and files",
+        "parent directory"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:03.465Z"
+    },
+    {
+      "path": "docs/github-com-oai-openapi-specification-tree-3-1-2-archive-56e1cf80.md",
+      "title": "_archive_",
+      "url": "https://github.com/OAI/OpenAPI-Specification/tree/3.1.2/_archive_",
+      "host": "github.com",
+      "depth": 3,
+      "headings": [
+        "\\_archive\\_",
+        "Directory actions",
+        "More options",
+        "Directory actions",
+        "More options",
+        "Latest commit",
+        "History",
+        "\\_archive\\_",
+        "Folders and files",
+        "parent directory",
+        "[README.md](https://github.com/OAI/OpenAPI-Specification/tree/3.1.2/_archive_#readme)",
+        "Archive"
+      ],
+      "selector": "article,main",
+      "fetched_at": "2026-07-17T17:44:03.888Z"
+    }
+  ],
+  "skipped": [
+    {
+      "url": "https://github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/features/copilot",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/features/ai/github-app",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/mcp",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/features/actions",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/features/codespaces",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/features/issues",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/features/code-review",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/security/advanced-security",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/security/advanced-security/code-security",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/security/advanced-security/secret-protection",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/why-github",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://docs.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.blog/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.blog/changelog",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/marketplace",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/features",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/enterprise",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/team",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/enterprise/startups",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry/nonprofits",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/use-case/app-modernization",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/use-case/devsecops",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/use-case/devops",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/use-case/ci-cd",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/use-case",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry/healthcare",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry/financial-services",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry/manufacturing",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry/government",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/industry",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/articles?topic=ai",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/articles?topic=software-development",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/articles?topic=devops",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/articles?topic=security",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/articles",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/customer-stories",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/resources/events",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/resources/whitepapers",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/solutions/executive-insights",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://skills.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://support.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/orgs/community/discussions",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/trust-center",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/partners",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/resources",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/open-source/sponsors",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://securitylab.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://maintainers.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/open-source/accelerator",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://stars.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://archiveprogram.github.com/",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/trending",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/collections",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/features/copilot/copilot-business",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/enterprise/premium-support",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/pricing",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://docs.github.com/search-github/github-code-search/understanding-github-code-search-syntax",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/signup",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/login?return_to=%2FOAI%2FOpenAPI-Specification",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/pulls",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/discussions",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/actions",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/projects",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/security",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/pulse",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/branches",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/tags",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/SECURITY_CONSIDERATIONS.md",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/package-lock.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/package.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/workflows/validate-markdown/badge.svg",
+      "reason": "asset"
+    },
+    {
+      "url": "https://www.codetriage.com/oai/openapi-specification",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://avatars3.githubusercontent.com/u/16343502?v=3&s=200",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Representational_state_transfer",
+      "reason": "rejected-host"
+    },
+    {
+      "url": "https://spec.openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/examples/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://calendar.google.com/calendar/u/0/embed?src=c_fue82vsncog6ahhjvuokjo8qsk@group.calendar.google.com",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/topics/rest",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics/openapi",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics/apis",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics/oas",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics/webapi",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/topics/openapi-specification",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/activity",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/custom-properties",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/forks",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/contact/report-content?content_url=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification&report=OAI+%28user%29",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/orgs/OAI/packages?repo_name=OpenAPI-Specification",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/graphs/contributors",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/search?l=markdown",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/search?l=html",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/search?l=javascript",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://docs.github.com/site-policy/github-terms/github-terms-of-service",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://docs.github.com/site-policy/privacy-policies/github-privacy-statement",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/security",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://www.githubstatus.com/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.community/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://support.github.com/?tags=dotcom-footer",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Fwiki",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/orgs/OAI/teams/tsc/members",
+      "reason": "outside-docs-root"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Ftree%2Fmain%2F.github",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/.github",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Ftree%2Fmain%2F_archive_",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/_archive_",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Ftree%2Fmain%2Fproposals",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/proposals",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Ftree%2Fmain%2Fscripts",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/scripts",
+      "reason": "bad-path"
+    },
+    {
+      "url": "https://github.com/login?return_to=https%3A%2F%2Fgithub.com%2FOAI%2FOpenAPI-Specification%2Ftree%2Fmain%2Ftests",
+      "reason": "bad-path"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.gitattributes",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.gitignore",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.gitmodules",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.linkspector.yml",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.markdownlint.yaml",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/LICENSE",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/spec.markdownlint.yaml",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/vitest.config.mjs",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.github/CODEOWNERS",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/.github/dependabot.yml",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/adjust-release-branch.sh",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/close-no-recent.ps1",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/fwdabort.sh",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/fwdport.sh",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/label-no-recent.ps1",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/schema-publish.sh",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/start-release.sh",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/raw/refs/heads/main/scripts/validate.mjs",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    }
+  ]
+}

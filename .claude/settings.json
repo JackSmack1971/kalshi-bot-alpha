@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "worktree": {
+    "baseRef": "head"
+  },
+  "permissions": {
+    "defaultMode": "default"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "powershell.exe -NoProfile -NonInteractive -ExecutionPolicy Bypass -File \"${CLAUDE_PROJECT_DIR}/.claude/statusline-command.ps1\"",
+    "padding": 0
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/control-plane/scripts/self_improvement_evidence.py",
+              "--hook"
+            ],
+            "timeout": 5,
+            "statusMessage": "Checking recursive control-plane improvement trigger"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard_idea_to_mvp_tool_use.py"
+            ],
+            "timeout": 10,
+            "statusMessage": "Guarding idea-to-MVP tool use"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/validate_idea_to_mvp_state.py"
+            ],
+            "timeout": 15,
+            "statusMessage": "Validating idea-to-MVP state"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/validate_idea_to_mvp_state.py"
+            ],
+            "timeout": 15,
+            "statusMessage": "Validating idea-to-MVP turn completion"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/validate_idea_to_mvp_state.py"
+            ],
+            "timeout": 15,
+            "statusMessage": "Validating idea-to-MVP subagent completion"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/validate_idea_to_mvp_state.py"
+            ],
+            "timeout": 15,
+            "statusMessage": "Marking recoverable idea-to-MVP interruption state"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/validate_idea_to_mvp_state.py"
+            ],
+            "timeout": 15,
+            "statusMessage": "Persisting recoverable idea-to-MVP session-end state"
+          }
+        ]
+      }
+    ]
+  }
+}

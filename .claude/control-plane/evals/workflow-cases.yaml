@@ -1,0 +1,611 @@
+schema_version: 1
+cases:
+  - id: WORKFLOW-STATE-001
+    fixture: "A workflow has states started, done, and failed with no transition rules."
+    invocation: "Harden the workflow."
+    assertions:
+      - Define allowed transitions.
+      - Define cancellation and rollback.
+      - Reject illegal transitions.
+      - Define a resume token.
+
+  - id: WORKFLOW-HOOK-001
+    fixture: "A prompt hook receives the same malformed JSON payload three times."
+    invocation: "Audit malformed-payload behavior."
+    assertions:
+      - Fail deterministically on invalid payloads.
+      - Append exactly one diagnostic event for the distinct malformed stdin payload at `.claude/control-plane/runs/malformed-payload-diagnostics.jsonl`.
+      - Include `timestamp`, `hook_name`, `error`, and `payload_sha256` in the diagnostic event.
+      - Store only the SHA-256 hash of the malformed stdin payload, never raw prompt or payload contents.
+      - Use `payload_sha256` to recognize unchanged malformed input and avoid duplicate diagnostics or retry loops.
+
+  - id: WORKFLOW-TEAM-001
+    fixture: "A single sequential procedure is implemented as a four-agent team."
+    invocation: "Evaluate orchestration cost."
+    assertions:
+      - Reject the team unless parallelism adds independent value.
+      - Prefer a skill or bounded subagent.
+      - State the fallback when agent teams are disabled.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-MALFORMED-DIAGNOSTIC-001
+    fixture: "`.claude/control-plane/runs/` contains only `.gitkeep`, and `self_improvement_evidence.py --hook` receives malformed JSON on stdin."
+    invocation: "Run the UserPromptSubmit hook with invalid JSON."
+    assertions:
+      - Return a deterministic block decision for invalid hook JSON.
+      - Append one JSON Lines diagnostic event under `.claude/control-plane/runs/malformed-payload-diagnostics.jsonl`.
+      - Format the diagnostic with stable fields `event`, `timestamp`, `hook_name`, `error`, and `payload_sha256`.
+      - Report `hook_name` as `UserPromptSubmit` and `event` as `malformed-hook-payload`.
+      - Exclude raw stdin, prompt text, and payload text from the diagnostic artifact.
+      - Treat `malformed-payload-diagnostics.jsonl` as ignored diagnostics evidence, not latest-run evidence.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-MALFORMED-DEDUPE-001
+    fixture: "The malformed-payload diagnostics file already contains an event for the SHA-256 hash of the incoming malformed stdin payload."
+    invocation: "Run the UserPromptSubmit hook again with the identical malformed payload."
+    assertions:
+      - Return the same deterministic block decision for invalid hook JSON.
+      - Do not append a second diagnostic event for the unchanged `payload_sha256`.
+      - Do not initiate a retry loop for unchanged malformed input.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-MALFORMED-CONCURRENT-DEDUPE-001
+    fixture: "Multiple UserPromptSubmit hook processes receive the same malformed JSON payload at the same time."
+    invocation: "Submit concurrent duplicate malformed payloads through the diagnostic append path."
+    assertions:
+      - Protect the read-check-append diagnostic sequence with an interprocess lock under `.claude/control-plane/runs/` or an exclusive per-payload marker.
+      - Append exactly one diagnostic event for the shared `payload_sha256` under `.claude/control-plane/runs/malformed-payload-diagnostics.jsonl`.
+      - Return `False` for duplicate append attempts after the first append succeeds.
+      - Exclude raw stdin, prompt text, and payload text from all diagnostic artifacts.
+      - Keep diagnostic output append-only while preventing duplicate JSON Lines records for identical malformed payloads.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-TRIGGER-001
+    fixture: "A user prompt says \"Implement recursive control-plane self-improvement.\""
+    invocation: "Run the UserPromptSubmit hook."
+    assertions:
+      - Select `.claude/workflows/self-improvement.md`.
+      - Include latest-run or first-run evidence from `.claude/control-plane/scripts/self_improvement_evidence.py`.
+      - Preserve the manifest ownership and forbidden-root rules.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-TRIGGER-PATH-001
+    fixture: "A user prompt says \"Invoke .claude/workflows/self-improvement.md for this update.\""
+    invocation: "Run the UserPromptSubmit hook."
+    assertions:
+      - Select `.claude/workflows/self-improvement.md`.
+      - Treat the direct workflow path mention the same as natural-language self-improvement trigger terms.
+      - Include latest-run or first-run evidence from `.claude/control-plane/scripts/self_improvement_evidence.py`.
+      - Preserve the manifest ownership and forbidden-root rules.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-TRIGGER-FILENAME-001
+    fixture: "A user prompt says \"Run self-improvement.md before planning changes.\""
+    invocation: "Run the UserPromptSubmit hook."
+    assertions:
+      - Select `.claude/workflows/self-improvement.md`.
+      - Treat the workflow filename mention the same as natural-language self-improvement trigger terms.
+      - Include latest-run or first-run evidence from `.claude/control-plane/scripts/self_improvement_evidence.py`.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-NEGATIVE-PATH-001
+    fixture: "A user prompt says \"Open .claude/workflows/release.md for packaging guidance.\""
+    invocation: "Run the UserPromptSubmit hook."
+    assertions:
+      - Do not select `.claude/workflows/self-improvement.md`.
+      - Do not inject recursive control-plane workflow context.
+      - Do not treat unrelated workflow paths as self-improvement requests.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-FIRST-RUN-001
+    fixture: "`.claude/control-plane/runs/` contains only `.gitkeep`."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Report `state` as `first-run`.
+      - Report `latest_run` as null.
+      - Bootstrap baseline trigger, hook, and eval coverage without relying on prior run memory.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-NEGATIVE-001
+    fixture: "A user prompt says \"Update README wording.\""
+    invocation: "Run the UserPromptSubmit hook."
+    assertions:
+      - Do not select `.claude/workflows/self-improvement.md`.
+      - Do not inject recursive control-plane workflow context.
+      - Return before any run-ledger traversal or artifact inspection.
+
+  - id: WORKFLOW-HOOK-PORTABLE-EXEC-001
+    fixture: "The project hook path contains spaces on Windows and the hook runs before every prompt."
+    invocation: "Inspect `.claude/settings.json` and execute the UserPromptSubmit hook."
+    assertions:
+      - Configure the hook in exec form with `command` and `args`, not shell-tokenized inline script text.
+      - Pass the script path as one argument so `${CLAUDE_PROJECT_DIR}` works without quoting on paths with spaces.
+      - Keep the hook behavior identical for valid, unrelated, and malformed payloads across Windows and POSIX.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-APPROVAL-001
+    fixture: "A candidate improvement requires editing `.claude/control-plane/manifest.yaml`."
+    invocation: "Execute the self-improvement workflow."
+    assertions:
+      - Stop at the approval gate before editing `manifest.yaml`.
+      - Request explicit human approval for the manifest change.
+      - Reject the candidate if approval is denied or unavailable.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-LATEST-RUN-DIR-001
+    fixture: "`.claude/control-plane/runs/2026-07-16T00-00-00Z/` contains `events.jsonl`, `baseline.json`, `plan.json`, `verification.json`, `result.json`, and transient cache files."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Report `state` as `latest-run-found`.
+      - Report `latest_run` as the latest valid run directory path.
+      - Report `latest_run_sha256` as a non-null deterministic digest of included relative paths and file bytes.
+      - Ignore transient cache files when computing the run directory digest.
+
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-VALID-RUN-SELECTION-001
+    fixture: "`.claude/control-plane/runs/2026-07-15T00-00-00Z/` contains the required run-ledger files, while `.claude/control-plane/runs/2026-07-16T00-00-00Z/` is missing `result.json`."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Select `.claude/control-plane/runs/2026-07-15T00-00-00Z/` as latest-run evidence.
+      - Exclude the incomplete run directory from `run_count`.
+      - Report the incomplete run directory in `invalid_entries`.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-STRAY-FILE-IGNORED-001
+    fixture: "`.claude/control-plane/runs/notes.txt` exists beside `.claude/control-plane/runs/.gitkeep`, with no valid run directories."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Report `state` as `first-run`.
+      - Report `latest_run` as null.
+      - Report `.gitkeep` in `ignored_entries`.
+      - Report `notes.txt` in `invalid_entries` without promoting it to latest-run evidence.
+  - id: WORKFLOW-SELF-IMPROVEMENT-PLACEHOLDER-RUN-INVALID-001
+    fixture: "`.claude/control-plane/runs/new_run.py/` has freshly created placeholder `events.jsonl`, `baseline.json`, `plan.json`, `verification.json`, and `result.json` files."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Parse and schema-validate run ledger files instead of accepting file existence alone.
+      - Exclude the placeholder run directory from `run_count`.
+      - Report `new_run.py` in `invalid_entries`.
+      - Report `state` as `first-run` when no other valid run exists.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-TERMINAL-VERIFIED-RUN-001
+    fixture: "`.claude/control-plane/runs/cp-20260716-000000-verified/` contains a schema-valid event chain whose last event is `COMMITTED`, a matching `result.json`, and `verification.json` with verdict `PASS`."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Accept the run as valid latest-run evidence.
+      - Report `state` as `latest-run-found`.
+      - Increment `run_count` for the verified terminal run.
+      - Report `latest_run` as `.claude/control-plane/runs/cp-20260716-000000-verified`.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-FAILED-UNVERIFIED-RUN-INVALID-001
+    fixture: "`.claude/control-plane/manifest.yaml` sets `memory.accept_only_verified_runs` to true, and `.claude/control-plane/runs/cp-20260716-000001-failed/` contains a terminal `FAILED` event with matching `result.json` but `verification.json` verdict `FAIL` or `INDETERMINATE`."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Enforce the manifest memory policy before accepting historical run memory.
+      - Exclude the failed unverified run from `run_count`.
+      - Report `cp-20260716-000001-failed` in `invalid_entries`.
+      - Do not promote the failed unverified run to `latest_run`.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-LATEST-RUN-TIMESTAMP-001
+    fixture: "`.claude/control-plane/runs/cp-20260716-older-terminal-newer-mtime/` has a newer directory mtime but terminal event timestamp `2026-07-16T00:00:00+00:00`, while `.claude/control-plane/runs/cp-20260716-newer-terminal-older-mtime/` has an older directory mtime but terminal event timestamp `2026-07-16T01:00:00+00:00`; both runs are schema-valid, terminal, verified, and include transient cache files."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Select `.claude/control-plane/runs/cp-20260716-newer-terminal-older-mtime/` as `latest_run`.
+      - Sort valid runs by parsed terminal event timestamp, not directory or file mtimes.
+      - Ignore transient cache files when computing `latest_run_sha256`.
+      - Use run id as the deterministic tie-breaker only when terminal timestamps match.
+
+  - id: WORKFLOW-SELF-IMPROVEMENT-LATEST-RUN-TIMESTAMP-INVALID-001
+    fixture: "`.claude/control-plane/runs/cp-20260716-invalid-timestamp-newer-mtime/` has the newest directory mtime but an absent, malformed, or timezone-naive terminal event timestamp, while `.claude/control-plane/runs/cp-20260716-valid-terminal-older-mtime/` has an older directory mtime and a schema-valid terminal event timestamp `2026-07-16T00:30:00+00:00`."
+    invocation: "Produce self-improvement evidence."
+    assertions:
+      - Classify `cp-20260716-invalid-timestamp-newer-mtime` as invalid evidence.
+      - Select `.claude/control-plane/runs/cp-20260716-valid-terminal-older-mtime/` as `latest_run`.
+      - Reject missing, malformed, and timezone-naive event timestamps before latest-run selection.
+      - Do not let filesystem mtimes affect latest-run selection.
+
+  - id: WORKFLOW-IDEA-MVP-RUNTIME-001
+    fixture: "The repository is adding an executable idea-to-MVP orchestration layer under `.claude/workflows/`."
+    invocation: "Validate the workflow runtime foundation."
+    assertions:
+      - Treat workflow execution as JavaScript under `.claude/workflows/*.js`, not Markdown alone.
+      - Pair each runtime with a same-basename Markdown contract that defines gates and state.
+      - Require each workflow runtime to export a `meta` object with `name` and `description`.
+      - Keep the workflow runtime inside the existing `.claude/` trust boundary without requiring manifest edits.
+
+  - id: WORKFLOW-IDEA-MVP-SCHEMAS-001
+    fixture: "The repository is implementing the Phase 1 product-workflow substrate described in the execution plan."
+    invocation: "Validate control-plane schema coverage."
+    assertions:
+      - Require workflow-state, artifact-manifest, handoff, gate-result, and decision-record schemas.
+      - Validate the new schemas through `validate.py`.
+      - Fail closed when required runtime or schema files are missing.
+      - Keep the existing self-improvement validator coverage intact while extending it for the new runtime pair.
+
+  - id: WORKFLOW-IDEA-MVP-APPROVAL-STOP-001
+    fixture: "The discovery slice returns a core-problem decision, but no `coreProblem` approval is present in workflow args."
+    invocation: "Run `idea-to-mvp.js` in phase-autonomous mode."
+    assertions:
+      - Produce bounded discovery artifacts for nodes 1 through 6, including market and competitor research, target users and JTBD, and a value proposition.
+      - Stop with `needs-human-approval` before define work proceeds.
+      - Return top-level eligible and blocked node fields even when the workflow stops at an approval gate.
+      - Return the required approval text instead of inventing approval state.
+      - Mark define as the next eligible phase only after approval.
+      - Return plan guidance that includes a proposed execution plan and an explicit stop condition.
+
+  - id: WORKFLOW-IDEA-MVP-PHASE-AUTONOMOUS-BOUNDARY-001
+    fixture: "The workflow args include `mode=phase-autonomous` and `approvals.coreProblem=true`."
+    invocation: "Run `idea-to-mvp.js` from the default discover phase."
+    assertions:
+      - Persist the discovery phase state after nodes 1 through 6 complete.
+      - Stop at the discovery phase boundary instead of continuing into define work.
+      - Return `phase-complete` status with define as the next eligible phase.
+      - Do not silently behave like guardrailed-autonomous mode when the requested mode is phase-autonomous.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-DISCOVER-001
+    fixture: "The workflow args include `mode=guided` from the default discover phase."
+    invocation: "Run `idea-to-mvp.js`."
+    assertions:
+      - Stop after the first discovery node instead of silently running the full discovery chain.
+      - Persist node-1 workflow state and the opportunity-catalog artifact before returning.
+      - Return `node-complete` status with node 2 as the next eligible step.
+      - Present bounded discovery output for review instead of auto-advancing to problem validation.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-DEFINE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=define`, and canonical persisted discovery approvals already exist."
+    invocation: "Run `idea-to-mvp.js` from the define phase in guided mode."
+    assertions:
+      - Stop after define node 7 instead of silently running the full define chain.
+      - Load persisted discovery inputs before producing guided define output.
+      - Persist node-7 workflow state and the feature-candidate-backlog artifact before returning.
+      - Return `node-complete` status with node 8 as the next eligible step.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-DEFINE-CONTINUE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=define`, and canonical persisted state already marks define node 8 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the define phase in guided mode after node 7 was already completed."
+    assertions:
+      - Read the persisted workflow cursor before choosing the guided define step.
+      - Continue from define node 8 instead of rerunning node 7.
+      - Persist node-8 workflow state and the feature-prioritization artifact before returning.
+      - Return `node-complete` status with node 9 as the next eligible step.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-DEFINE-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=define`, and canonical persisted state marks define node 9, 10, 11, or 12 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the define phase in guided mode after earlier define nodes were already completed."
+    assertions:
+      - Continue from the persisted eligible define node instead of restarting earlier define work.
+      - Persist the next-node cursor after guided nodes 9, 10, and 11 complete.
+      - Stop at the node-12 MVP-scope approval gate with structured human-decision output instead of auto-advancing to design.
+      - Keep previously completed define artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-DESIGN-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=design`, and canonical persisted state marks design node 13, 14, 15, 16, or 17 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the design phase in guided mode after the define phase was already completed."
+    assertions:
+      - Continue from the persisted eligible design node instead of rerunning the full design phase.
+      - Persist the next-node cursor after guided nodes 13, 14, 15, and 16 complete.
+      - Persist guided design readiness at node 17 and advance eligibility to build when usability is not blocking.
+      - Keep previously completed design artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-BUILD-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=build`, and canonical persisted state marks build node 18, 19, 20, 21, 22, or 23 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the build phase in guided mode after the design phase was already completed."
+    assertions:
+      - Continue from the persisted eligible build node instead of rerunning the full build phase.
+      - Persist the next-node cursor after guided build nodes 18, 19, 20, 21, and 22 complete.
+      - Persist guided build readiness at node 23 and advance eligibility to test when review findings are not blocking.
+      - Keep previously completed build artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-TEST-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=test`, and canonical persisted state marks test node 24, 25, 26, 27, or 28 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the test phase in guided mode after the build phase was already completed."
+    assertions:
+      - Continue from the persisted eligible test node instead of rerunning the full test phase.
+      - Persist the next-node cursor after guided test nodes 24, 25, 26, and 27 complete.
+      - Persist guided quality readiness at node 28 and advance eligibility to launch when test evidence is not blocking.
+      - Keep previously completed test artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-LAUNCH-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=launch`, and canonical persisted state marks launch node 29, 30, or 31 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the launch phase in guided mode after the test phase was already completed."
+    assertions:
+      - Continue from the persisted eligible launch node instead of rerunning the full launch phase.
+      - Persist the next-node cursor after guided launch nodes 29 and 30 complete.
+      - Persist guided launch readiness at node 31 and stop for release-boundary approval instead of auto-advancing when approval is still required.
+      - Keep previously completed launch artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-GUIDED-FEEDBACK-ADVANCE-001
+    fixture: "The workflow args include `mode=guided` with `currentPhase=feedback`, and canonical persisted state marks feedback node 32 or 33 as the next eligible step."
+    invocation: "Run `idea-to-mvp.js` from the feedback phase in guided mode after launch evidence was already completed."
+    assertions:
+      - Continue from the persisted eligible feedback node instead of rerunning the full feedback phase.
+      - Persist the next-node cursor after guided feedback node 32 completes.
+      - Persist guided next-iteration output at node 33 with structured required-human-decision output.
+      - Keep previously completed feedback artifacts in the persisted state while adding the newly completed guided artifact.
+
+  - id: WORKFLOW-IDEA-MVP-VERTICAL-SLICE-001
+    fixture: "The workflow args include `mode=guardrailed-autonomous`, `approvals.coreProblem=true`, and `approvals.mvpScope=true` for the thin slice."
+    invocation: "Run `idea-to-mvp.js` through the first vertical slice in guardrailed-autonomous mode."
+    assertions:
+      - Route opportunity framing, problem validation, target users, value proposition, and core-problem selection to the product strategist.
+      - Route market and competitor research to the market researcher instead of collapsing it into generic discovery prose.
+      - Route feature ideation and prioritization to the product manager before MVP scope approval.
+      - Route user flows, information architecture, and low-fidelity wireframes to the UX designer before MVP scope approval.
+      - Route high-fidelity design, design-system definition, prototype preparation, and design handoff to the UI designer after the MVP PRD.
+      - Route usability testing to the UX researcher before architecture work begins.
+      - Route architecture to the solution architect only after the design handoff.
+      - Route bootstrap to DevOps, backend implementation to the backend engineer, frontend implementation to the frontend engineer, integration to the integration engineer, and independent review to the technical lead.
+      - Route test planning and functional execution to QA, UAT to the UX researcher, and performance/security validation to QA plus the security engineer before launch.
+      - Produce artifacts for the market and competitor report, target users and JTBD, value proposition, feature backlog, feature prioritization, user flows, information architecture, and wireframe specification before MVP scope work is finalized.
+      - Produce artifacts for the MVP PRD, high-fidelity design spec, design-system spec, prototype manifest, usability findings, design handoff, architecture summary, development guide, backend implementation, frontend implementation, integration report, code-review report, implementation record, test plan, functional-test report, UAT report, defect-resolution log, performance report, security report, test record, deployment record, analytics plan, and release record.
+      - Continue past discover, define, build, and test phase boundaries instead of returning `phase-complete` for intermediate phases.
+      - Stop for explicit release-boundary approval instead of inventing exposure authorization.
+      - Return structured status, completed nodes, top-level eligible and blocked node fields, active risks, and next eligible phase information.
+      - Return plan guidance that includes artifacts to be produced, parallelism guidance, a proposed execution plan, and an explicit stop condition for the current phase.
+      - Keep the slice bounded to the recommended path while still exercising launch preparation and state persistence.
+
+  - id: WORKFLOW-IDEA-MVP-END-TO-END-LEARN-001
+    fixture: "The workflow args include `mode=guardrailed-autonomous`, `approvals.coreProblem=true`, `approvals.mvpScope=true`, and `approvals.releaseBoundary=true` for the bounded slice."
+    invocation: "Run `idea-to-mvp.js` through launch and feedback in guardrailed-autonomous mode."
+    assertions:
+      - Continue from test evidence into dedicated launch and feedback work instead of stopping at release evidence.
+      - Continue through the launch boundary into feedback when no blocker or human-release gate remains.
+      - Produce post-launch review and next-iteration plan artifacts.
+      - Return the final decision outcome from the feedback loop.
+      - Persist the feedback-phase state after bounded launch and learning work completes.
+
+  - id: WORKFLOW-IDEA-MVP-PERSISTED-STATE-001
+    fixture: "The first vertical slice runs with the canonical idea-to-MVP state directory available under `.claude/control-plane/state/idea-to-mvp/`."
+    invocation: "Run `idea-to-mvp.js` and inspect the persistence layer."
+    assertions:
+      - Bootstrap the canonical state directory before persisting slice output.
+      - Use the canonical `idea_to_mvp_state.py persist` path instead of relying on freehand agent edits to state files.
+      - Persist workflow-state, artifact-manifest, risk-register, and assumptions-register updates under `.claude/control-plane/state/idea-to-mvp/`.
+      - Write artifact markdown files under `.claude/control-plane/state/idea-to-mvp/artifacts/`.
+      - Write authoritative artifact markdown with deterministic frontmatter that matches the manifest metadata.
+      - Persist direct upstream artifact dependencies in artifact-manifest entries so traceability can be audited deterministically.
+      - Persist decision-record categories that conform to the canonical decision-record schema.
+      - Append gate results and decision records as JSON Lines.
+      - Persist gate checks with non-empty portable `evidence_paths` instead of approval or readiness claims without cited artifacts.
+      - Validate persisted state before returning success.
+
+  - id: WORKFLOW-IDEA-MVP-BEHAVIORAL-EVAL-001
+    fixture: "The manifest requires fresh-session behavioral evals for the idea-to-MVP operating system."
+    invocation: "Run the repository validator and the dedicated idea-to-MVP behavioral eval."
+    assertions:
+      - Execute a fresh-session behavioral eval instead of treating workflow fixtures as documentation only.
+      - Execute the top-level `idea-to-mvp.js` orchestrator under a mocked agent harness for both the release-boundary stop path and the feedback-complete path.
+      - Execute the top-level `idea-to-mvp.js` orchestrator under a mocked agent harness for both the unresolved `audit` path and the clean `re-entry` path.
+      - Execute the top-level `idea-to-mvp.js` orchestrator under a mocked agent harness for a blocked resume-preflight path plus resumable define, design, build, test, launch, and feedback execution paths.
+      - Execute representative later-phase guided-node advancement under a mocked agent harness, covering guided `design`, `build`, `test`, `launch`, and `feedback` status families.
+      - Execute `change-impact-loop.js` under a mocked agent harness for both the clean impact path and the unresolved-blocker path.
+      - Execute the standalone discover, define, design, build, test, launch, and feedback workflow runners under a mocked agent harness.
+      - Verify that each standalone phase runner returns the standardized cursor fields required by the workflow contracts.
+      - Verify that the mocked orchestrator runs also return the standardized cursor fields, explicit plan guidance, and state-inspection fields required by the workflow contracts.
+      - Verify that the mocked change-impact runs return the promised workflow-layer status, cursor, and human-decision fields around the canonical impact result.
+      - Exercise the real idea-to-MVP state CLI in a temporary repository.
+      - Verify that removing required authoritative artifact frontmatter makes state validation fail closed.
+      - Verify that SessionEnd hook processing marks dirty workflow state as `recoverable`.
+      - Verify that Stop hook processing still fails closed when authoritative artifacts contain TODO or TBD placeholders.
+
+  - id: WORKFLOW-IDEA-MVP-HOOK-VALIDATION-001
+    fixture: "A write touches `.claude/control-plane/state/idea-to-mvp/workflow-state.json` or the idea-to-MVP workflow runners."
+    invocation: "Inspect `.claude/settings.json` and the state-validation hook."
+    assertions:
+      - Register a project PostToolUse hook for `Edit|Write|Bash`.
+      - Revalidate watched workflow state and runner files immediately after Bash changes them, not only at turn stop.
+      - Register a project Stop hook so dirty watched files are still revalidated before turn completion.
+      - Register project StopFailure and SessionEnd hooks so interrupted or failed turns still mark watched workflow state as recoverable.
+      - Configure both control-plane hooks in exec form using `command` plus `args`.
+      - Revalidate idea-to-MVP state when watched files change.
+      - Record changed watched paths in the active persisted handoff packet instead of leaving file-level evidence implicit.
+      - Fail closed when an active persisted handoff is still missing its `required_output.path`.
+      - Mark the current interrupted workflow node as `recoverable` when watched files are still dirty at turn stop.
+      - Mark the current interrupted workflow node as `recoverable` on session end or API-stop failure even though those hook events cannot block completion interactively.
+      - Surface invalid persisted state as a deterministic hook failure instead of silently accepting it.
+
+  - id: WORKFLOW-IDEA-MVP-HOOK-GUARD-001
+    fixture: "A session attempts to edit secret files or run deployment-style commands before the launch phase is authorized."
+    invocation: "Inspect `.claude/settings.json` and the tool-guard hook."
+    assertions:
+      - Register a project PreToolUse hook for `Edit|Write|Bash`.
+      - Use persisted active handoff `allowed_paths.owned_paths` and `read_only_paths` to block authoritative artifact edits outside delegated ownership.
+      - Block ordinary repository code edits unless the active persisted handoff for that agent explicitly permits `Write` or `Edit`.
+      - Exempt the workflow-state manager from delegated artifact ownership checks so canonical state persistence can still run.
+      - Block edits to common secret-file paths such as `.env`, `*.pem`, and `*.key`.
+      - Block production deploy or migration commands unless the persisted workflow state is in the launch phase with no outstanding human-release decisions.
+      - Block production deploy or migration commands from agents other than the authorized release/deployment specialist.
+      - Fail closed on malformed hook payloads.
+
+  - id: WORKFLOW-IDEA-MVP-CHANGE-IMPACT-001
+    fixture: "An approved upstream artifact such as `core-problem-decision` changes after downstream MVP and release artifacts already exist in the manifest."
+    invocation: "Run `change-impact-loop.js` with the changed artifact id."
+    assertions:
+      - Load a machine-readable artifact dependency graph from the canonical state directory.
+      - Mark the changed authoritative artifact as `review_required`.
+      - Mark directly dependent downstream artifacts as `fully_stale`.
+      - Mark transitive downstream artifacts as `partially_stale`.
+      - Revalidate the updated state before returning success.
+      - Return the post-impact workflow cursor and blocked advancement state instead of only raw artifact updates.
+      - Return explicit `blocked` status when the post-impact cursor still has unresolved blockers.
+
+  - id: WORKFLOW-IDEA-MVP-AUDIT-001
+    fixture: "The canonical state directory contains missing artifact files, stale manifest entries, or contradictory downstream approvals."
+    invocation: "Run `idea-to-mvp.js` in `audit` mode."
+    assertions:
+      - Do not generate new product artifacts.
+      - Run deterministic state-layer inspection against the canonical state directory.
+      - Treat missing or manifest-drifted artifact frontmatter as invalid authoritative state.
+      - Report missing, stale, contradictory, unmanaged, or improperly approved artifacts.
+      - Treat approved core-problem, MVP-scope, and release artifacts without recorded human-backed approval decisions as improperly approved.
+      - Treat artifacts backed by self-approved decision records as improperly approved.
+      - Return explicit `blocked` status when authoritative findings remain unresolved.
+
+  - id: WORKFLOW-IDEA-MVP-REENTRY-001
+    fixture: "Existing thin-slice artifact files are present under `.claude/control-plane/state/idea-to-mvp/artifacts/`, but the repository did not originate from a clean workflow run."
+    invocation: "Run `idea-to-mvp.js` in `re-entry` mode."
+    assertions:
+      - Infer known thin-slice artifacts from disk into the canonical manifest instead of regenerating them blindly.
+      - Establish a trustworthy baseline in workflow-state for the thin slice.
+      - Start from the earliest materially incomplete thin-slice node.
+      - Revalidate the state after baseline inference.
+      - Return explicit `re-entry-ready` status when the inferred baseline has no unresolved blockers.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-PHASE-001
+    fixture: "The workflow args request `currentPhase=launch`, but the canonical persisted state may or may not contain the required launch prerequisites."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a non-discover current phase."
+    assertions:
+      - Treat a later `currentPhase` as a resume request instead of silently rerunning discovery from scratch.
+      - Inspect canonical persisted prerequisites for the requested phase.
+      - Return a structured blocked result listing missing persisted prerequisites when the requested phase cannot be resumed yet.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-DEFINE-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=define`, and canonical persisted core-problem-decision, target-users-jtbd, and value-proposition artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable define phase."
+    assertions:
+      - Treat the define resume request as executable work instead of only a preflight check.
+      - Load persisted define prerequisites from the canonical state directory.
+      - Produce feature backlog, prioritization, UX structure, and MVP PRD artifacts from resumed state.
+      - Persist resumed define state and return approval-ready define output instead of `resume-ready`.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-DESIGN-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=design`, and canonical persisted user-flows, information-architecture, wireframe-specification, and MVP PRD artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable design phase."
+    assertions:
+      - Treat the design resume request as executable work instead of only a preflight check.
+      - Load persisted design prerequisites from the canonical state directory.
+      - Produce high-fidelity, design-system, prototype, usability, and design-handoff artifacts from resumed state.
+      - Persist resumed design state and block advancement when resumed usability disposition is blocked instead of continuing into build.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-BUILD-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=build`, and canonical persisted MVP PRD, design handoff, and usability findings artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable build phase."
+    assertions:
+      - Treat the build resume request as executable work instead of only a preflight check.
+      - Load persisted build prerequisites from the canonical state directory.
+      - Produce architecture, implementation, integration, and review artifacts from resumed state.
+      - Persist resumed build state and return build readiness or blocked build output instead of `resume-ready`.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-LAUNCH-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=launch`, and canonical persisted test-record, performance-report, and security-report artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable launch phase."
+    assertions:
+      - Treat the launch resume request as executable work instead of only a preflight check.
+      - Load persisted launch prerequisites from the canonical state directory.
+      - Produce deployment, analytics, and release artifacts from resumed state.
+      - Persist resumed launch state and return launch readiness or required release approval instead of `resume-ready`.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-TEST-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=test`, and canonical persisted MVP PRD, user flows, architecture summary, implementation record, integration report, and code-review report artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable test phase."
+    assertions:
+      - Treat the test resume request as executable work instead of only a preflight check.
+      - Load persisted test prerequisites from the canonical state directory.
+      - Produce test, UAT, defect, performance, security, and test-record artifacts from resumed state.
+      - Persist resumed test state and return launch readiness or blocked test output instead of `resume-ready`.
+
+  - id: WORKFLOW-IDEA-MVP-RESUME-FEEDBACK-EXECUTION-001
+    fixture: "The workflow args request `currentPhase=feedback`, and canonical persisted release-record and analytics-plan artifacts exist."
+    invocation: "Run `idea-to-mvp.js` outside audit/re-entry mode with a resumable feedback phase."
+    assertions:
+      - Treat the feedback resume request as executable work instead of only a preflight check.
+      - Load persisted feedback prerequisites from the canonical state directory.
+      - Produce post-launch review and next-iteration artifacts from resumed state.
+      - Persist resumed feedback state and return the next decision outcome instead of `resume-ready`.
+
+  - id: WORKFLOW-IDEA-MVP-HANDOFFS-001
+    fixture: "The thin-slice workflow delegates specialist work to discovery, product, architecture, and QA agents."
+    invocation: "Run `idea-to-mvp.js` and inspect persisted workflow state."
+    assertions:
+      - Create bounded structured handoff packets for delegated specialist work.
+      - Persist handoff packets under `.claude/control-plane/state/idea-to-mvp/handoffs/`.
+      - Keep persisted handoff JSON schema-valid against the canonical handoff contract.
+      - Persist allowed paths, tool permissions, unresolved questions, and execution-contract metadata instead of relying on prompt prose alone.
+      - For parallel build, test, and launch work, persist `starting_commit`, `merge_order`, and `conflict_owner` in the handoff execution contract.
+      - Keep handoff execution metadata explicit about validation and completion signaling for downstream specialists.
+      - Require each persisted handoff reviewer to be different from the assigned specialist.
+      - Do not treat delegation prompts alone as durable workflow state.
+
+  - id: WORKFLOW-IDEA-MVP-DISCOVER-PHASE-001
+    fixture: "The operating system has a product idea and discovery constraints for the MVP slice."
+    invocation: "Run `discover-phase.js`."
+    assertions:
+      - Route discovery framing, problem validation, target users, value proposition, and core-problem selection to the product strategist.
+      - Route market and competitor research to the market researcher.
+      - Produce nodes 1 through 6 as bounded discovery artifacts.
+      - Stop for explicit core-problem approval instead of inventing product-direction signoff.
+      - Return explicit discover-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-DEFINE-PHASE-001
+    fixture: "The operating system has an approved core problem, target users, and constraints for the MVP slice."
+    invocation: "Run `define-phase.js`."
+    assertions:
+      - Route feature backlog, prioritization, and MVP PRD work to the product manager.
+      - Route user flows, information architecture, and wireframes to the UX designer.
+      - Produce nodes 7 through 12 as bounded definition artifacts.
+      - Stop for explicit MVP-scope approval instead of inventing it.
+      - Return explicit define-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-DESIGN-PHASE-001
+    fixture: "The operating system has an approved MVP PRD, flows, IA, and wireframes for the MVP slice."
+    invocation: "Run `design-phase.js`."
+    assertions:
+      - Route high-fidelity, design-system, prototype, and handoff work to the UI designer.
+      - Route usability evidence to the UX researcher.
+      - Produce nodes 13 through 17 as bounded design artifacts.
+      - Block advancement when usability disposition is blocked.
+      - Return explicit design-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-DESIGN-GATE-001
+    fixture: "A non-phase-autonomous idea-to-MVP run reaches design work and the resulting usability disposition is blocked."
+    invocation: "Run `idea-to-mvp.js` through define into design with blocked usability evidence."
+    assertions:
+      - Stop before build execution when design usability evidence is blocked.
+      - Persist design-phase state and gate evidence instead of incorrectly advancing to architecture and implementation work.
+
+  - id: WORKFLOW-IDEA-MVP-BUILD-PHASE-001
+    fixture: "The operating system has an approved MVP PRD and design handoff for the MVP slice."
+    invocation: "Run `build-phase.js`."
+    assertions:
+      - Route architecture to the solution architect and setup to DevOps.
+      - Route backend, frontend, and integration work to their dedicated engineers.
+      - Route independent technical review to the technical lead.
+      - Produce nodes 18 through 23 as bounded build artifacts, including the implementation record.
+      - Return explicit build-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-TEST-PHASE-001
+    fixture: "The operating system has MVP requirements, user flows, and an implementation record for the MVP slice."
+    invocation: "Run `test-phase.js`."
+    assertions:
+      - Route test planning, functional testing, performance, and release recommendation to QA.
+      - Route UAT to the UX researcher, defect work to the integration engineer, and security validation to the security engineer.
+      - Produce nodes 24 through 28 as bounded test artifacts, including the test record.
+      - Block advancement when the release recommendation is blocked.
+      - Return explicit test-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-LAUNCH-PHASE-001
+    fixture: "The operating system has release evidence, KPI requirements, and residual risks for an MVP candidate."
+    invocation: "Run `launch-phase.js`."
+    assertions:
+      - Separate deployment evidence from product release authorization.
+      - Route deployment evidence to the DevOps engineer, analytics readiness to the data analyst, and release authorization to the product manager.
+      - Run deployment evidence and analytics readiness in parallel before release authorization.
+      - Produce deployment, analytics, and release artifacts for nodes 29, 30, and 31.
+      - Stop for explicit release-boundary approval instead of inventing exposure authorization.
+      - Return explicit launch-phase advancement state, including `currentPhase`, `eligibleNodes`, and `blockedNodes`.
+
+  - id: WORKFLOW-IDEA-MVP-FEEDBACK-LOOP-001
+    fixture: "The operating system has telemetry, user feedback, defects, and strategy context after release."
+    invocation: "Run `feedback-loop.js`."
+    assertions:
+      - Synthesize telemetry and feedback into a normalized post-launch review.
+      - Produce a next-iteration plan with one explicit decision outcome.
+      - Keep data-quality risks visible in the returned status.
+      - Treat nodes 32 and 33 as dedicated feedback work, not vague follow-up prose.
+      - Return explicit feedback-phase advancement state and use the same `learning-ready` status family as the main workflow.
+
+  - id: WORKFLOW-CHANGE-PLAN-PORTABLE-PATH-001
+    fixture: "A workflow emits a change plan with artifact paths, rename sources, and read artifacts using absolute paths, parent traversal, backslashes, empty segments, trailing dots or spaces, or duplicate portable identities."
+    invocation: "Validate the change plan against `.claude/control-plane/schemas/change-plan.schema.json`."
+    assertions:
+      - Apply one reusable portable repository-relative path policy to `artifacts[].path`, rename `artifacts[].rename_from`, and `read_artifacts[]`.
+      - Reject absolute paths, drive-qualified paths, `..` traversal, backslashes, empty segments, and trailing dots or spaces.
+      - Require `rename_from` for rename operations and validate it with the same portable path policy.
+      - Reject duplicate `read_artifacts[]` portable identities after canonical path syntax normalization.
+
+  - id: WORKFLOW-CANDIDATE-AUTHORIZATION-001
+    fixture: "A candidate finalization mixes one allowed workflow-owned script change with one forbidden-root change, and a separate manifest-edit candidate provides tampered approval evidence."
+    invocation: "Finalize the candidate package and replay it."
+    assertions:
+      - Enforce manifest owner write patterns during candidate finalization.
+      - Require valid immutable approval evidence for forbidden-root or manifest changes.
+      - Fail closed when the approval evidence hash does not match the run-local evidence file.
+      - Repeat the manifest-backed authorization check during replay before evaluating history.

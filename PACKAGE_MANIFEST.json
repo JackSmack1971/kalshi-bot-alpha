@@ -1,0 +1,158 @@
+{
+  "name": "claude-code-control-plane-bootstrap",
+  "version": "1.0.0",
+  "generated_at": "2026-07-17T00:28:53+00:00",
+  "file_count": 30,
+  "files": [
+    {
+      "path": ".claude/agents/control-plane-verifier.md",
+      "bytes": 1401,
+      "sha256": "6e28959ff2ed3c49d9e453c12a731b20150a53f568347675ca570e5e3348b6d7"
+    },
+    {
+      "path": ".claude/agents/rules-specialist.md",
+      "bytes": 3569,
+      "sha256": "8dbef17324c07668be0ee89bdf6f9f0d8b14d952d1d55f3a7009ca712f78be44"
+    },
+    {
+      "path": ".claude/agents/skills-specialist.md",
+      "bytes": 3821,
+      "sha256": "f7bcba51e39e654c9ad7957f4c852735b069b1e79f061eb84a38023a56619f99"
+    },
+    {
+      "path": ".claude/agents/workflow-specialist.md",
+      "bytes": 4462,
+      "sha256": "622c6b94ed4adf3cf5542125f5cf71d5dae6926a2efc96587dd83014eb5e71f9"
+    },
+    {
+      "path": ".claude/control-plane/BOOTSTRAP.md",
+      "bytes": 2416,
+      "sha256": "4bedcfba16c0fd469bd53401f5c25b83cd1a161069049b2d6ff4cae7fb7e573a"
+    },
+    {
+      "path": ".claude/control-plane/OPERATING_PROTOCOL.md",
+      "bytes": 1590,
+      "sha256": "3aad1e37739ac35901e5aff6c8c82bbcd6d391eb7faf04430298491112cb1d16"
+    },
+    {
+      "path": ".claude/control-plane/TRUST_MODEL.md",
+      "bytes": 2954,
+      "sha256": "145aa878678154efe2be09f2214295c901cb5155bda78e54095803f9509397af"
+    },
+    {
+      "path": ".claude/control-plane/evals/routing-cases.yaml",
+      "bytes": 1562,
+      "sha256": "57c92d27200a8c84eea26963edd8195224e1869c28366b16bdc087b27b42951e"
+    },
+    {
+      "path": ".claude/control-plane/evals/rules-cases.yaml",
+      "bytes": 1789,
+      "sha256": "643f500aa831eb07983c0f56d175fc24bd5bba93c7cba976cd185ae85bf41468"
+    },
+    {
+      "path": ".claude/control-plane/evals/skills-cases.yaml",
+      "bytes": 5465,
+      "sha256": "701b6a15123e71aeecc2d26029923b018162ee63772c334d84ae82dce3d2571a"
+    },
+    {
+      "path": ".claude/control-plane/evals/workflow-cases.yaml",
+      "bytes": 47189,
+      "sha256": "9f5f23e45e68d1b03345b14f9e48f430df92e6daba61a18529563e6499c9322e"
+    },
+    {
+      "path": ".claude/control-plane/manifest.yaml",
+      "bytes": 1314,
+      "sha256": "31f2c26882735811eed9be8517fd65de29dbb374d9eb4d536b2f24ea8eb5d341"
+    },
+    {
+      "path": ".claude/control-plane/runs/.gitkeep",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".claude/control-plane/schemas/change-plan.schema.json",
+      "bytes": 5395,
+      "sha256": "ed8690f5e0466bf7309e342d42525a7b7c12e20abf63920777a79e09184364ee"
+    },
+    {
+      "path": ".claude/control-plane/schemas/result.schema.json",
+      "bytes": 1612,
+      "sha256": "e3daa0d4a1a6c77e9878dc6c1303b026e58a0175cc80b429b0b111dcc188d7a2"
+    },
+    {
+      "path": ".claude/control-plane/schemas/run-event.schema.json",
+      "bytes": 2818,
+      "sha256": "1171dc9c8ea97c48fd864dcdedc6c441f16ee819a4ed2a13c3e33e08180aae79"
+    },
+    {
+      "path": ".claude/control-plane/schemas/verification-result.schema.json",
+      "bytes": 2364,
+      "sha256": "54fd0e1ffb5f3f3c27c9c783f7928ad1c404c57170833a0bc72c582cf41669bf"
+    },
+    {
+      "path": ".claude/control-plane/scripts/common.py",
+      "bytes": 9859,
+      "sha256": "bdd1b7b7739520814269cc74e73b42d0eff88c4d21eb104ff01585482bafde84"
+    },
+    {
+      "path": ".claude/control-plane/scripts/estimate_context.py",
+      "bytes": 4167,
+      "sha256": "13de80ca0f7e8f9ff5f808e6f5f29c16021452fe695172d426186ed8537fdbed"
+    },
+    {
+      "path": ".claude/control-plane/scripts/inventory.py",
+      "bytes": 660,
+      "sha256": "85bd576937afe87a36121fcf61a5ade12ea97408b448c388e6704475ccb034e3"
+    },
+    {
+      "path": ".claude/control-plane/scripts/new_run.py",
+      "bytes": 14945,
+      "sha256": "ee6f9295b5a5ac42e981c2529acf21c6b6e53db47eab73fbdc614ed58e203d81"
+    },
+    {
+      "path": ".claude/control-plane/scripts/validate.py",
+      "bytes": 95349,
+      "sha256": "f80897d5ec92f98915ff0e56c2885152e436f9a9828f712232f4a0e1d7dc7e58"
+    },
+    {
+      "path": ".claude/hooks/README.md",
+      "bytes": 285,
+      "sha256": "27b85f9294cedab3f555d0daab47628f8d91535465890a69ec9c51967607c137"
+    },
+    {
+      "path": ".claude/rules/README.md",
+      "bytes": 1253,
+      "sha256": "24254df18603fe137e7f103257814452eeca9dd17f979feced26eedbc08d9242"
+    },
+    {
+      "path": ".claude/settings.json",
+      "bytes": 3172,
+      "sha256": "0cdac7c7037ee2ccb04a2da1f02500c8d4634676fdaca5a30dff1d0c84f1daee"
+    },
+    {
+      "path": ".claude/skills/README.md",
+      "bytes": 332,
+      "sha256": "ce2e560abc6a69eaecf0229d2f9ec27b7df57e18079689e48aa116492df03a53"
+    },
+    {
+      "path": ".claude/workflows/README.md",
+      "bytes": 1034,
+      "sha256": "7744135b4fbd3f205eddc77607d1d239a8898e3160bc8b928833a2dcba8c95be"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 165,
+      "sha256": "ab0f1c6d3c6ec638dbb16ee1ac40bbff05e43751798f769c761ce6aad03c9143"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 2792,
+      "sha256": "9b7ce5506c1c72d7858bec6e98aad3a84aa4f71bc9092445f38c01e0299d1b38"
+    },
+    {
+      "path": "README.md",
+      "bytes": 6500,
+      "sha256": "7d107d2c58b2dd1c4124fe233cde3fd7c51ab7653d612f504c66094652cc3f7a"
+    }
+  ]
+}

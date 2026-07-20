@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/claude-control-plane/result.schema.json",
+  "title": "Claude Code Control-Plane Transaction Result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "status",
+    "owner",
+    "started_at",
+    "finished_at",
+    "changed_artifacts",
+    "verification_path",
+    "rollback_performed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "COMMITTED",
+        "ROLLED_BACK",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "owner": {
+      "enum": [
+        "skills-specialist",
+        "rules-specialist",
+        "workflow-specialist"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "changed_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "final_hash"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "final_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "verification_path": {
+      "type": "string"
+    },
+    "rollback_performed": {
+      "type": "boolean"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

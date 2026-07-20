@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "workflow_id": "idea-to-mvp",
+  "mode": "guided",
+  "current_phase": "discover",
+  "current_node": 1,
+  "nodes": [
+    {
+      "node": 1,
+      "phase": "discover",
+      "status": "recoverable"
+    },
+    {
+      "node": 2,
+      "phase": "discover",
+      "status": "pending"
+    },
+    {
+      "node": 3,
+      "phase": "discover",
+      "status": "pending"
+    },
+    {
+      "node": 4,
+      "phase": "discover",
+      "status": "pending"
+    },
+    {
+      "node": 5,
+      "phase": "discover",
+      "status": "pending"
+    },
+    {
+      "node": 6,
+      "phase": "discover",
+      "status": "pending"
+    },
+    {
+      "node": 7,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 8,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 9,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 10,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 11,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 12,
+      "phase": "define",
+      "status": "pending"
+    },
+    {
+      "node": 13,
+      "phase": "design",
+      "status": "pending"
+    },
+    {
+      "node": 14,
+      "phase": "design",
+      "status": "pending"
+    },
+    {
+      "node": 15,
+      "phase": "design",
+      "status": "pending"
+    },
+    {
+      "node": 16,
+      "phase": "design",
+      "status": "pending"
+    },
+    {
+      "node": 17,
+      "phase": "design",
+      "status": "pending"
+    },
+    {
+      "node": 18,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 19,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 20,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 21,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 22,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 23,
+      "phase": "build",
+      "status": "pending"
+    },
+    {
+      "node": 24,
+      "phase": "test",
+      "status": "pending"
+    },
+    {
+      "node": 25,
+      "phase": "test",
+      "status": "pending"
+    },
+    {
+      "node": 26,
+      "phase": "test",
+      "status": "pending"
+    },
+    {
+      "node": 27,
+      "phase": "test",
+      "status": "pending"
+    },
+    {
+      "node": 28,
+      "phase": "test",
+      "status": "pending"
+    },
+    {
+      "node": 29,
+      "phase": "launch",
+      "status": "pending"
+    },
+    {
+      "node": 30,
+      "phase": "launch",
+      "status": "pending"
+    },
+    {
+      "node": 31,
+      "phase": "launch",
+      "status": "pending"
+    },
+    {
+      "node": 32,
+      "phase": "feedback",
+      "status": "pending"
+    },
+    {
+      "node": 33,
+      "phase": "feedback",
+      "status": "pending"
+    }
+  ],
+  "blockers": [
+    "Interrupted idea-to-MVP changes pending recovery: .claude/control-plane/evals/routing-cases.yaml, .claude/control-plane/evals/rules-cases.yaml, .claude/control-plane/evals/skills-cases.yaml, .claude/control-plane/evals/workflow-cases.yaml, .claude/control-plane/manifest.yaml, .claude/control-plane/schemas/artifact-dependency-graph.schema.json, .claude/control-plane/schemas/artifact-manifest.schema.json, .claude/control-plane/schemas/assumptions-register.schema.json, .claude/control-plane/schemas/audit-report.schema.json, .claude/control-plane/schemas/baseline.schema.json, .claude/control-plane/schemas/candidate-package.schema.json, .claude/control-plane/schemas/change-plan.schema.json, .claude/control-plane/schemas/decision-record.schema.json, .claude/control-plane/schemas/gate-result.schema.json, .claude/control-plane/schemas/handoff.schema.json, .claude/control-plane/schemas/hypothesis.schema.json, .claude/control-plane/schemas/replay-result.schema.json, .claude/control-plane/schemas/result.schema.json, .claude/control-plane/schemas/risk-register.schema.json, .claude/control-plane/schemas/run-event.schema.json, .claude/control-plane/schemas/verification-result.schema.json, .claude/control-plane/schemas/workflow-state.schema.json, .claude/control-plane/scripts/candidate_emitter.py, .claude/control-plane/scripts/common.py, .claude/control-plane/scripts/estimate_context.py, .claude/control-plane/scripts/hypothesis_registry.py, .claude/control-plane/scripts/idea_to_mvp_behavioral_eval.py, .claude/control-plane/scripts/idea_to_mvp_state.py, .claude/control-plane/scripts/inventory.py, .claude/control-plane/scripts/new_run.py, .claude/control-plane/scripts/replay.py, .claude/control-plane/scripts/self_improvement_evidence.py, .claude/control-plane/scripts/validate.py, .claude/control-plane/state/idea-to-mvp/README.md, .claude/control-plane/state/idea-to-mvp/artifact-dependency-graph.json, .claude/control-plane/state/idea-to-mvp/artifact-manifest.json, .claude/control-plane/state/idea-to-mvp/artifacts/.gitkeep, .claude/control-plane/state/idea-to-mvp/assumptions-register.json, .claude/control-plane/state/idea-to-mvp/decision-records.jsonl, .claude/control-plane/state/idea-to-mvp/gate-results.jsonl, .claude/control-plane/state/idea-to-mvp/handoffs/.gitkeep, .claude/control-plane/state/idea-to-mvp/risk-register.json, .claude/control-plane/state/idea-to-mvp/workflow-state.json, .claude/hooks/AGENTS.md, .claude/hooks/README.md, .claude/hooks/guard_idea_to_mvp_tool_use.py, .claude/hooks/validate_idea_to_mvp_state.py, .claude/settings.json, .claude/workflows/AGENTS.md, .claude/workflows/README.md, .claude/workflows/build-phase.js, .claude/workflows/build-phase.md, .claude/workflows/change-impact-loop.js, .claude/workflows/change-impact-loop.md, .claude/workflows/define-phase.js, .claude/workflows/define-phase.md, .claude/workflows/design-phase.js, .claude/workflows/design-phase.md, .claude/workflows/discover-phase.js, .claude/workflows/discover-phase.md, .claude/workflows/feedback-loop.js, .claude/workflows/feedback-loop.md, .claude/workflows/idea-to-mvp.js, .claude/workflows/idea-to-mvp.md, .claude/workflows/launch-phase.js, .claude/workflows/launch-phase.md, .claude/workflows/self-improvement.md, .claude/workflows/test-phase.js, .claude/workflows/test-phase.md"
+  ],
+  "required_human_decisions": [],
+  "updated_at": "2026-07-20T01:45:12+00:00",
+  "interruption": {
+    "changed_paths": [
+      ".claude/control-plane/evals/routing-cases.yaml",
+      ".claude/control-plane/evals/rules-cases.yaml",
+      ".claude/control-plane/evals/skills-cases.yaml",
+      ".claude/control-plane/evals/workflow-cases.yaml",
+      ".claude/control-plane/manifest.yaml",
+      ".claude/control-plane/schemas/artifact-dependency-graph.schema.json",
+      ".claude/control-plane/schemas/artifact-manifest.schema.json",
+      ".claude/control-plane/schemas/assumptions-register.schema.json",
+      ".claude/control-plane/schemas/audit-report.schema.json",
+      ".claude/control-plane/schemas/baseline.schema.json",
+      ".claude/control-plane/schemas/candidate-package.schema.json",
+      ".claude/control-plane/schemas/change-plan.schema.json",
+      ".claude/control-plane/schemas/decision-record.schema.json",
+      ".claude/control-plane/schemas/gate-result.schema.json",
+      ".claude/control-plane/schemas/handoff.schema.json",
+      ".claude/control-plane/schemas/hypothesis.schema.json",
+      ".claude/control-plane/schemas/replay-result.schema.json",
+      ".claude/control-plane/schemas/result.schema.json",
+      ".claude/control-plane/schemas/risk-register.schema.json",
+      ".claude/control-plane/schemas/run-event.schema.json",
+      ".claude/control-plane/schemas/verification-result.schema.json",
+      ".claude/control-plane/schemas/workflow-state.schema.json",
+      ".claude/control-plane/scripts/candidate_emitter.py",
+      ".claude/control-plane/scripts/common.py",
+      ".claude/control-plane/scripts/estimate_context.py",
+      ".claude/control-plane/scripts/hypothesis_registry.py",
+      ".claude/control-plane/scripts/idea_to_mvp_behavioral_eval.py",
+      ".claude/control-plane/scripts/idea_to_mvp_state.py",
+      ".claude/control-plane/scripts/inventory.py",
+      ".claude/control-plane/scripts/new_run.py",
+      ".claude/control-plane/scripts/replay.py",
+      ".claude/control-plane/scripts/self_improvement_evidence.py",
+      ".claude/control-plane/scripts/validate.py",
+      ".claude/control-plane/state/idea-to-mvp/README.md",
+      ".claude/control-plane/state/idea-to-mvp/artifact-dependency-graph.json",
+      ".claude/control-plane/state/idea-to-mvp/artifact-manifest.json",
+      ".claude/control-plane/state/idea-to-mvp/artifacts/.gitkeep",
+      ".claude/control-plane/state/idea-to-mvp/assumptions-register.json",
+      ".claude/control-plane/state/idea-to-mvp/decision-records.jsonl",
+      ".claude/control-plane/state/idea-to-mvp/gate-results.jsonl",
+      ".claude/control-plane/state/idea-to-mvp/handoffs/.gitkeep",
+      ".claude/control-plane/state/idea-to-mvp/risk-register.json",
+      ".claude/control-plane/state/idea-to-mvp/workflow-state.json",
+      ".claude/hooks/AGENTS.md",
+      ".claude/hooks/README.md",
+      ".claude/hooks/guard_idea_to_mvp_tool_use.py",
+      ".claude/hooks/validate_idea_to_mvp_state.py",
+      ".claude/settings.json",
+      ".claude/workflows/AGENTS.md",
+      ".claude/workflows/README.md",
+      ".claude/workflows/build-phase.js",
+      ".claude/workflows/build-phase.md",
+      ".claude/workflows/change-impact-loop.js",
+      ".claude/workflows/change-impact-loop.md",
+      ".claude/workflows/define-phase.js",
+      ".claude/workflows/define-phase.md",
+      ".claude/workflows/design-phase.js",
+      ".claude/workflows/design-phase.md",
+      ".claude/workflows/discover-phase.js",
+      ".claude/workflows/discover-phase.md",
+      ".claude/workflows/feedback-loop.js",
+      ".claude/workflows/feedback-loop.md",
+      ".claude/workflows/idea-to-mvp.js",
+      ".claude/workflows/idea-to-mvp.md",
+      ".claude/workflows/launch-phase.js",
+      ".claude/workflows/launch-phase.md",
+      ".claude/workflows/self-improvement.md",
+      ".claude/workflows/test-phase.js",
+      ".claude/workflows/test-phase.md"
+    ],
+    "recoverable_node": 1,
+    "incomplete_handoffs": [],
+    "interrupted_at": "2026-07-20T01:45:12+00:00"
+  }
+}

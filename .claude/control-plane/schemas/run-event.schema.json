@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/claude-control-plane/run-event.schema.json",
+  "title": "Claude Code Control-Plane Run Event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "sequence",
+    "timestamp",
+    "state",
+    "actor",
+    "event_type",
+    "event_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "state": {
+      "enum": [
+        "RECEIVED",
+        "CLASSIFIED",
+        "BASELINED",
+        "PLANNED",
+        "PLAN_VALIDATED",
+        "APPLYING",
+        "VERIFYING",
+        "COMMITTED",
+        "FAILED",
+        "ROLLED_BACK",
+        "CANCELLED"
+      ]
+    },
+    "actor": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "message": {
+      "type": "string"
+    },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      }
+    },
+    "assertion_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    },
+    "parent_event_hash": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "event_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "terminal"
+          }
+        },
+        "required": [
+          "event_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "artifact_hashes"
+        ],
+        "properties": {
+          "artifact_hashes": {
+            "type": "object",
+            "required": [
+              "baseline.json",
+              "plan.json",
+              "verification.json",
+              "result.json"
+            ],
+            "properties": {
+              "baseline.json": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "plan.json": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "verification.json": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "result.json": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

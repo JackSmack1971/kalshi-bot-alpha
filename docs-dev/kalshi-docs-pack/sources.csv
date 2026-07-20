@@ -1,0 +1,184 @@
+path,title,url,host,depth,status
+docs/docs-kalshi-com-api-reference-account-get-account-api-limits-90af2e5a.md,Get Account API Limits - API Documentation,https://docs.kalshi.com/api-reference/account/get-account-api-limits,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-account-get-account-api-usage-level-volume-progress-3cd3801.md,Get Account API Usage Level Volume Progress - API Documentation,https://docs.kalshi.com/api-reference/account/get-account-api-usage-level-volume-progress,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-account-list-non-default-endpoint-costs-847ba9d7.md,List Non-Default Endpoint Costs - API Documentation,https://docs.kalshi.com/api-reference/account/list-non-default-endpoint-costs,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-account-upgrade-account-api-usage-level-7a20a6fa.md,Upgrade Account API Usage Level - API Documentation,https://docs.kalshi.com/api-reference/account/upgrade-account-api-usage-level,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-api-keys-create-api-key-5bf29257.md,Create API Key - API Documentation,https://docs.kalshi.com/api-reference/api-keys/create-api-key,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-api-reference-api-keys-delete-api-key-cb178d3c.md,Delete API Key - API Documentation,https://docs.kalshi.com/api-reference/api-keys/delete-api-key,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-api-keys-generate-api-key-550b0d08.md,Generate API Key - API Documentation,https://docs.kalshi.com/api-reference/api-keys/generate-api-key,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-api-reference-api-keys-get-api-keys-4537bccc.md,Get API Keys - API Documentation,https://docs.kalshi.com/api-reference/api-keys/get-api-keys,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-api-reference-communications-accept-block-trade-proposal-53fb6632.md,Accept Block Trade Proposal - API Documentation,https://docs.kalshi.com/api-reference/communications/accept-block-trade-proposal,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-accept-quote-b1e59d67.md,Accept Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/accept-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-accept-rfq-quote-5c353479.md,Accept RFQ Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/accept-rfq-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-confirm-quote-f9e9f84f.md,Confirm Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/confirm-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-confirm-rfq-quote-c53532f1.md,Confirm RFQ Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/confirm-rfq-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-create-quote-979da353.md,Create Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/create-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-create-rfq-152f2e3c.md,Create RFQ - API Documentation,https://docs.kalshi.com/api-reference/communications/create-rfq,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-delete-quote-57a051c.md,Delete Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/delete-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-delete-rfq-530d962b.md,Delete RFQ - API Documentation,https://docs.kalshi.com/api-reference/communications/delete-rfq,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-delete-rfq-quote-95aa226e.md,Delete RFQ Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/delete-rfq-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-block-trade-proposals-5551a2f7.md,Get Block Trade Proposals - API Documentation,https://docs.kalshi.com/api-reference/communications/get-block-trade-proposals,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-communications-id-25001fee.md,Get Communications ID - API Documentation,https://docs.kalshi.com/api-reference/communications/get-communications-id,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-communications-get-communications-id-25001fee.md,Get Communications ID - API Documentation,https://docs.kalshi.com/api-reference/communications/get-communications-id,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-quote-cfcb45b.md,Get Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/get-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-quotes-99cf9af8.md,Get Quotes - API Documentation,https://docs.kalshi.com/api-reference/communications/get-quotes,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-rfq-7a66a7d4.md,Get RFQ - API Documentation,https://docs.kalshi.com/api-reference/communications/get-rfq,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-rfq-quote-c2cce49d.md,Get RFQ Quote - API Documentation,https://docs.kalshi.com/api-reference/communications/get-rfq-quote,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-get-rfqs-5699ebe5.md,Get RFQs - API Documentation,https://docs.kalshi.com/api-reference/communications/get-rfqs,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-communications-propose-block-trade-87de363.md,Propose Block Trade - API Documentation,https://docs.kalshi.com/api-reference/communications/propose-block-trade,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-exchange-get-exchange-schedule-284531aa.md,Get Exchange Schedule - API Documentation,https://docs.kalshi.com/api-reference/exchange/get-exchange-schedule,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-exchange-get-exchange-status-c8224b5.md,Get Exchange Status - API Documentation,https://docs.kalshi.com/api-reference/exchange/get-exchange-status,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-api-reference-exchange-get-exchange-status-c8224b5.md,Get Exchange Status - API Documentation,https://docs.kalshi.com/api-reference/exchange/get-exchange-status,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-exchange-get-series-fee-changes-4ba8a905.md,Get Series Fee Changes - API Documentation,https://docs.kalshi.com/api-reference/exchange/get-series-fee-changes,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-exchange-get-user-data-timestamp-71717a1c.md,Get User Data Timestamp - API Documentation,https://docs.kalshi.com/api-reference/exchange/get-user-data-timestamp,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-fcm-get-fcm-orders-b52b85d4.md,Get FCM Orders - API Documentation,https://docs.kalshi.com/api-reference/fcm/get-fcm-orders,docs.kalshi.com,6,packaged
+docs/docs-kalshi-com-api-reference-fcm-get-fcm-positions-fc9be093.md,Get FCM Positions - API Documentation,https://docs.kalshi.com/api-reference/fcm/get-fcm-positions,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-cutoff-timestamps-69392ea2.md,Get Historical Cutoff Timestamps - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-cutoff-timestamps,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-fills-5e0ded61.md,Get Historical Fills - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-fills,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-market-candlesticks-2f489500.md,Get Historical Market Candlesticks - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-market-candlesticks,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-market-f47c75f1.md,Get Historical Market - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-market,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-markets-61ecfba6.md,Get Historical Markets - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-markets,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-orders-70e2de6c.md,Get Historical Orders - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-orders,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-historical-get-historical-trades-4133b39e.md,Get Historical Trades - API Documentation,https://docs.kalshi.com/api-reference/historical/get-historical-trades,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-incentive-programs-get-incentives-f3ba8a47.md,Get Incentives - API Documentation,https://docs.kalshi.com/api-reference/incentive-programs/get-incentives,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-api-reference-live-data-get-game-stats-7d0aac29.md,Get Game Stats - API Documentation,https://docs.kalshi.com/api-reference/live-data/get-game-stats,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-live-data-get-live-data-e5136552.md,Get Live Data - API Documentation,https://docs.kalshi.com/api-reference/live-data/get-live-data,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-live-data-get-live-data-with-type-cf66181c.md,Get Live Data (with type) - API Documentation,https://docs.kalshi.com/api-reference/live-data/get-live-data-with-type,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-live-data-get-multiple-live-data-d24cb235.md,Get Multiple Live Data - API Documentation,https://docs.kalshi.com/api-reference/live-data/get-multiple-live-data,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-market-batch-get-market-candlesticks-f486cbd0.md,Batch Get Market Candlesticks - API Documentation,https://docs.kalshi.com/api-reference/market/batch-get-market-candlesticks,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-market-88031eb2.md,Get Market - API Documentation,https://docs.kalshi.com/api-reference/market/get-market,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-market-candlesticks-c89894e9.md,Get Market Candlesticks - API Documentation,https://docs.kalshi.com/api-reference/market/get-market-candlesticks,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-market-orderbook-8953053a.md,Get Market Orderbook - API Documentation,https://docs.kalshi.com/api-reference/market/get-market-orderbook,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-markets-dde969d3.md,Get Markets - API Documentation,https://docs.kalshi.com/api-reference/market/get-markets,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-market-get-multiple-market-orderbooks-5fae9a2.md,Get Multiple Market Orderbooks - API Documentation,https://docs.kalshi.com/api-reference/market/get-multiple-market-orderbooks,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-series-348c87d3.md,Get Series - API Documentation,https://docs.kalshi.com/api-reference/market/get-series,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-api-reference-market-get-series-list-62c8e596.md,Get Series List - API Documentation,https://docs.kalshi.com/api-reference/market/get-series-list,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-market-get-trades-255215b1.md,Get Trades - API Documentation,https://docs.kalshi.com/api-reference/market/get-trades,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-milestone-get-milestone-5641a79a.md,Get Milestone - API Documentation,https://docs.kalshi.com/api-reference/milestone/get-milestone,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-milestone-get-milestones-b25b53cb.md,Get Milestones - API Documentation,https://docs.kalshi.com/api-reference/milestone/get-milestones,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-multivariate-create-market-in-multivariate-event-collection-ad6a3df9.md,Create Market In Multivariate Event Collection - API Documentation,https://docs.kalshi.com/api-reference/multivariate/create-market-in-multivariate-event-collection,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-multivariate-get-multivariate-event-collection-f87a106c.md,Get Multivariate Event Collection - API Documentation,https://docs.kalshi.com/api-reference/multivariate/get-multivariate-event-collection,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-multivariate-get-multivariate-event-collections-472760cd.md,Get Multivariate Event Collections - API Documentation,https://docs.kalshi.com/api-reference/multivariate/get-multivariate-event-collections,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-multivariate-lookup-tickers-for-market-in-multivariate-event-b61457fb.md,Lookup Tickers For Market In Multivariate Event Collection - API Documentation,https://docs.kalshi.com/api-reference/multivariate/lookup-tickers-for-market-in-multivariate-event-collection,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-create-order-group-33cd9187.md,Create Order Group - API Documentation,https://docs.kalshi.com/api-reference/order-groups/create-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-delete-order-group-7f9bb2c8.md,Delete Order Group - API Documentation,https://docs.kalshi.com/api-reference/order-groups/delete-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-get-order-group-58820727.md,Get Order Group - API Documentation,https://docs.kalshi.com/api-reference/order-groups/get-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-get-order-groups-a8b1893c.md,Get Order Groups - API Documentation,https://docs.kalshi.com/api-reference/order-groups/get-order-groups,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-order-groups-reset-order-group-604f6f8c.md,Reset Order Group - API Documentation,https://docs.kalshi.com/api-reference/order-groups/reset-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-trigger-order-group-cd9f1bbf.md,Trigger Order Group - API Documentation,https://docs.kalshi.com/api-reference/order-groups/trigger-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-order-groups-update-order-group-limit-23b4ba10.md,Update Order Group Limit - API Documentation,https://docs.kalshi.com/api-reference/order-groups/update-order-group-limit,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-amend-order-v2-1028f9fb.md,Amend Order (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/amend-order-v2,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-batch-cancel-orders-v2-d5b0f872.md,Batch Cancel Orders (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/batch-cancel-orders-v2,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-orders-batch-create-orders-v2-65eaf8c4.md,Batch Create Orders (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/batch-create-orders-v2,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-orders-cancel-order-v2-e52fc488.md,Cancel Order (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/cancel-order-v2,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-create-order-v2-31f290c6.md,Create Order (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/create-order-v2,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-decrease-order-v2-739828ea.md,Decrease Order (V2) - API Documentation,https://docs.kalshi.com/api-reference/orders/decrease-order-v2,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-get-order-3a948fcf.md,Get Order - API Documentation,https://docs.kalshi.com/api-reference/orders/get-order,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-get-order-queue-position-6032bbd7.md,Get Order Queue Position - API Documentation,https://docs.kalshi.com/api-reference/orders/get-order-queue-position,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-get-orders-f3de44f4.md,Get Orders - API Documentation,https://docs.kalshi.com/api-reference/orders/get-orders,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-orders-get-queue-positions-for-orders-731f7aef.md,Get Queue Positions for Orders - API Documentation,https://docs.kalshi.com/api-reference/orders/get-queue-positions-for-orders,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-create-subaccount-dcede371.md,Create Subaccount - API Documentation,https://docs.kalshi.com/api-reference/portfolio/create-subaccount,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-all-subaccount-balances-73b4d131.md,Get All Subaccount Balances - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-all-subaccount-balances,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-balance-16dc476.md,Get Balance - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-balance,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-deposits-a32dab1d.md,Get Deposits - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-deposits,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-fills-c107854.md,Get Fills - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-fills,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-positions-a13ae5a.md,Get Positions - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-positions,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-settlements-7a6ef9a2.md,Get Settlements - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-settlements,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-subaccount-netting-8dac9791.md,Get Subaccount Netting - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-subaccount-netting,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-subaccount-transfers-9b17ce1a.md,Get Subaccount Transfers - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-subaccount-transfers,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-total-resting-order-value-43b1283a.md,Get Total Resting Order Value - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-total-resting-order-value,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-get-withdrawals-d8d9ca82.md,Get Withdrawals - API Documentation,https://docs.kalshi.com/api-reference/portfolio/get-withdrawals,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-intra-account-transfer-cb4b74c3.md,Intra Account Transfer - API Documentation,https://docs.kalshi.com/api-reference/portfolio/intra-account-transfer,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-transfer-between-subaccounts-5625b368.md,Transfer Between Subaccounts - API Documentation,https://docs.kalshi.com/api-reference/portfolio/transfer-between-subaccounts,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-portfolio-update-subaccount-netting-92b55108.md,Update Subaccount Netting - API Documentation,https://docs.kalshi.com/api-reference/portfolio/update-subaccount-netting,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-search-get-filters-for-sports-4092225d.md,Get Filters for Sports - API Documentation,https://docs.kalshi.com/api-reference/search/get-filters-for-sports,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-api-reference-search-get-tags-for-series-categories-d81575d4.md,Get Tags for Series Categories - API Documentation,https://docs.kalshi.com/api-reference/search/get-tags-for-series-categories,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-structured-targets-get-structured-target-daa58c51.md,Get Structured Target - API Documentation,https://docs.kalshi.com/api-reference/structured-targets/get-structured-target,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-api-reference-structured-targets-get-structured-targets-549b9986.md,Get Structured Targets - API Documentation,https://docs.kalshi.com/api-reference/structured-targets/get-structured-targets,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-cfbenchmarks-rest-passthrough-95e2badc.md,CF Benchmarks REST Passthrough - API Documentation,https://docs.kalshi.com/cfbenchmarks/rest-passthrough,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-authentication-ade32229.md,Authentication & Sessions - API Documentation,https://docs.kalshi.com/fix/authentication,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-common-components-4d32aec7.md,Common Components - API Documentation,https://docs.kalshi.com/fix/common-components,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-connectivity-2562b78a.md,Connectivity - API Documentation,https://docs.kalshi.com/fix/connectivity,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-drop-copy-10096052.md,Drop Copy Session - API Documentation,https://docs.kalshi.com/fix/drop-copy,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-error-handling-31361c75.md,Error Handling - API Documentation,https://docs.kalshi.com/fix/error-handling,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-listener-sessions-acf24ee1.md,Listener Sessions - API Documentation,https://docs.kalshi.com/fix/listener-sessions,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-authentication-78f2673e.md,Authentication & Sessions - API Documentation,https://docs.kalshi.com/fix-margin/authentication,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-connectivity-8e0bdf61.md,Connectivity - API Documentation,https://docs.kalshi.com/fix-margin/connectivity,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-drop-copy-6d4dfcbb.md,Drop Copy Session - API Documentation,https://docs.kalshi.com/fix-margin/drop-copy,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-error-handling-60214b0e.md,Error Handling - API Documentation,https://docs.kalshi.com/fix-margin/error-handling,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-listener-sessions-23feef80.md,Listener Sessions - API Documentation,https://docs.kalshi.com/fix-margin/listener-sessions,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-market-data-990e852d.md,Market Data - API Documentation,https://docs.kalshi.com/fix-margin/market-data,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-order-entry-28f2073b.md,Order Entry - API Documentation,https://docs.kalshi.com/fix-margin/order-entry,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-margin-order-groups-75560e55.md,Order Groups - API Documentation,https://docs.kalshi.com/fix-margin/order-groups,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-market-data-216d08a4.md,Market Data - API Documentation,https://docs.kalshi.com/fix/market-data,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-market-settlement-7620c477.md,Market Settlement - API Documentation,https://docs.kalshi.com/fix/market-settlement,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-order-entry-3cbb096e.md,Order Entry - API Documentation,https://docs.kalshi.com/fix/order-entry,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-order-groups-f719e0ae.md,Order Groups - API Documentation,https://docs.kalshi.com/fix/order-groups,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-rfq-messages-9b8276bf.md,RFQ - API Documentation,https://docs.kalshi.com/fix/rfq-messages,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-fix-subpenny-pricing-551d9482.md,Subpenny Pricing - API Documentation,https://docs.kalshi.com/fix/subpenny-pricing,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-api-environments-b24a2db9.md,API Environments and Endpoints - API Documentation,https://docs.kalshi.com/getting_started/api_environments,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-api-keys-425c8167.md,API Keys - API Documentation,https://docs.kalshi.com/getting_started/api_keys,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-demo-env-fc0d3345.md,Test In The Demo Environment - API Documentation,https://docs.kalshi.com/getting_started/demo_env,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-fee-rounding-39c22f57.md,Fee Rounding - API Documentation,https://docs.kalshi.com/getting_started/fee_rounding,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-fixed-point-migration-2568c062.md,Fixed-Point Migration - API Documentation,https://docs.kalshi.com/getting_started/fixed_point_migration,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-historical-data-6c818f67.md,Historical Data - API Documentation,https://docs.kalshi.com/getting_started/historical_data,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-maintenance-and-pauses-3b715c97.md,Maintenance and Pauses - API Documentation,https://docs.kalshi.com/getting_started/maintenance_and_pauses,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-making-your-first-request-e7976bd8.md,Making Your First Request - API Documentation,https://docs.kalshi.com/getting_started/making_your_first_request,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-market-lifecycle-f9a18e0d.md,Market Lifecycle - API Documentation,https://docs.kalshi.com/getting_started/market_lifecycle,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-market-settlement-48aefc60.md,Market Settlement - API Documentation,https://docs.kalshi.com/getting_started/market_settlement,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-order-direction-f51ccfc.md,Order direction (outcome_side and book_side) - API Documentation,https://docs.kalshi.com/getting_started/order_direction,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-order-groups-171acfb.md,Order Groups - API Documentation,https://docs.kalshi.com/getting_started/order_groups,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-orderbook-responses-44d0c1d0.md,Orderbook Responses - API Documentation,https://docs.kalshi.com/getting_started/orderbook_responses,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-pagination-3b956c2e.md,Understanding Pagination - API Documentation,https://docs.kalshi.com/getting_started/pagination,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-quick-start-authenticated-requests-837b7955.md,Quick Start: Authenticated Requests - API Documentation,https://docs.kalshi.com/getting_started/quick_start_authenticated_requests,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-quick-start-create-order-fe2f5800.md,Quick Start: Create your first order - API Documentation,https://docs.kalshi.com/getting_started/quick_start_create_order,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-quick-start-market-data-cd3164c4.md,Quick Start: Market Data - API Documentation,https://docs.kalshi.com/getting_started/quick_start_market_data,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-quick-start-websockets-a95bc67f.md,Quick Start: WebSockets - API Documentation,https://docs.kalshi.com/getting_started/quick_start_websockets,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-getting-started-rate-limits-ba01b109.md,Rate Limits and Tiers - API Documentation,https://docs.kalshi.com/getting_started/rate_limits,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-rfqs-897a19fa.md,Request for Quote (RFQ) - API Documentation,https://docs.kalshi.com/getting_started/rfqs,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-subaccounts-90f1888.md,Subaccounts - API Documentation,https://docs.kalshi.com/getting_started/subaccounts,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-targets-and-milestones-5cb5372c.md,Targets & Milestones - API Documentation,https://docs.kalshi.com/getting_started/targets_and_milestones,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-getting-started-terms-19b1d315.md,Kalshi Glossary - API Documentation,https://docs.kalshi.com/getting_started/terms,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-947ea4f3.md,Perps API - API Documentation,https://docs.kalshi.com/margin,docs.kalshi.com,1,packaged
+docs/docs-kalshi-com-margin-price-banding-7fdcf985.md,Price Banding - API Documentation,https://docs.kalshi.com/margin/price-banding,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-rest-account-get-perps-account-api-limits-4cc11d2.md,Get Perps Account API Limits - API Documentation,https://docs.kalshi.com/margin-rest/account/get-perps-account-api-limits,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-margin-rest-exchange-get-enabled-status-6649ea44.md,Get Enabled Status - API Documentation,https://docs.kalshi.com/margin-rest/exchange/get-enabled-status,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-margin-rest-exchange-get-exchange-status-c7f3cf10.md,Get Exchange Status - API Documentation,https://docs.kalshi.com/margin-rest/exchange/get-exchange-status,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-funding-get-funding-history-a9f7ca50.md,Get Funding History - API Documentation,https://docs.kalshi.com/margin-rest/funding/get-funding-history,docs.kalshi.com,6,packaged
+docs/docs-kalshi-com-margin-rest-funding-get-funding-rate-estimate-5c5e6f57.md,Get Funding Rate Estimate - API Documentation,https://docs.kalshi.com/margin-rest/funding/get-funding-rate-estimate,docs.kalshi.com,5,packaged
+docs/docs-kalshi-com-margin-rest-funding-get-historical-funding-rates-7d76c262.md,Get Historical Funding Rates - API Documentation,https://docs.kalshi.com/margin-rest/funding/get-historical-funding-rates,docs.kalshi.com,6,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-create-order-group-7cf95edc.md,Create Order Group - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/create-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-delete-order-group-4b9379f7.md,Delete Order Group - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/delete-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-get-order-group-1922e54e.md,Get Order Group - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/get-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-get-order-groups-ceeedf07.md,Get Order Groups - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/get-order-groups,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-reset-order-group-aaf8a271.md,Reset Order Group - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/reset-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-trigger-order-group-f0bb325e.md,Trigger Order Group - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/trigger-order-group,docs.kalshi.com,4,packaged
+docs/docs-kalshi-com-margin-rest-order-groups-update-order-group-limit-ba843137.md,Update Order Group Limit - API Documentation,https://docs.kalshi.com/margin-rest/order-groups/update-order-group-limit,docs.kalshi.com,3,packaged
+docs/docs-kalshi-com-margin-rest-risk-get-risk-parameters-24ea67e6.md,Get Risk Parameters - API Documentation,https://docs.kalshi.com/margin-rest/risk/get-risk-parameters,docs.kalshi.com,6,packaged
+docs/docs-kalshi-com-margin-ws-websockets-connection-keep-alive-9bb6af50.md,Connection Keep-Alive - API Documentation,https://docs.kalshi.com/margin-ws/websockets/connection-keep-alive,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-market-ticker-87e90377.md,Market Ticker - API Documentation,https://docs.kalshi.com/margin-ws/websockets/market-ticker,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-order-group-updates-4f2b2137.md,Order Group Updates - API Documentation,https://docs.kalshi.com/margin-ws/websockets/order-group-updates,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-orderbook-updates-39f28338.md,Orderbook Updates - API Documentation,https://docs.kalshi.com/margin-ws/websockets/orderbook-updates,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-public-trades-79cc38d.md,Public Trades - API Documentation,https://docs.kalshi.com/margin-ws/websockets/public-trades,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-user-fills-c01e4aba.md,User Fills - API Documentation,https://docs.kalshi.com/margin-ws/websockets/user-fills,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-user-orders-e00253ed.md,User Orders - API Documentation,https://docs.kalshi.com/margin-ws/websockets/user-orders,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-margin-ws-websockets-websocket-connection-dac61394.md,WebSocket Connection - API Documentation,https://docs.kalshi.com/margin-ws/websockets/websocket-connection,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-sdks-overview-c2ac61e2.md,Kalshi SDKs - API Documentation,https://docs.kalshi.com/sdks/overview,docs.kalshi.com,0,packaged
+docs/docs-kalshi-com-websockets-4b751a01.md,WebSocket API - API Documentation,https://docs.kalshi.com/websockets,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-cfbenchmarks-value-7f0b3047.md,CF Benchmarks Value Feed - API Documentation,https://docs.kalshi.com/websockets/cfbenchmarks-value,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-communications-2c49c663.md,Communications - API Documentation,https://docs.kalshi.com/websockets/communications,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-connection-keep-alive-cc2d3654.md,Connection Keep-Alive - API Documentation,https://docs.kalshi.com/websockets/connection-keep-alive,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-market-and-event-lifecycle-2f23392e.md,Market & Event Lifecycle - API Documentation,https://docs.kalshi.com/websockets/market-and-event-lifecycle,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-market-positions-b264d3e3.md,Market Positions - API Documentation,https://docs.kalshi.com/websockets/market-positions,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-market-ticker-e3bb8f9b.md,Market Ticker - API Documentation,https://docs.kalshi.com/websockets/market-ticker,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-multivariate-lookups-deprecated-cc8bd0eb.md,Multivariate Lookups (Deprecated) - API Documentation,https://docs.kalshi.com/websockets/multivariate-lookups-deprecated,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-multivariate-market-and-event-lifecycle-824e6c00.md,Multivariate Market & Event Lifecycle - API Documentation,https://docs.kalshi.com/websockets/multivariate-market-and-event-lifecycle,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-order-group-updates-5dc4481b.md,Order Group Updates - API Documentation,https://docs.kalshi.com/websockets/order-group-updates,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-orderbook-updates-3ce04a9c.md,Orderbook Updates - API Documentation,https://docs.kalshi.com/websockets/orderbook-updates,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-public-trades-6774a251.md,Public Trades - API Documentation,https://docs.kalshi.com/websockets/public-trades,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-pyth-value-aca12d7d.md,Pyth Value Feed - API Documentation,https://docs.kalshi.com/websockets/pyth-value,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-user-fills-a7de2456.md,User Fills - API Documentation,https://docs.kalshi.com/websockets/user-fills,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-user-orders-8aaa4f91.md,User Orders - API Documentation,https://docs.kalshi.com/websockets/user-orders,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-websockets-websocket-connection-e95d7b48.md,WebSocket Connection - API Documentation,https://docs.kalshi.com/websockets/websocket-connection,docs.kalshi.com,2,packaged
+docs/docs-kalshi-com-welcome-ef0108fb.md,Welcome to Kalshi’s API Documentation,https://docs.kalshi.com/welcome,docs.kalshi.com,0,packaged
+docs/docs-kalshi-com-welcome-ef0108fb.md,Welcome to Kalshi’s API Documentation,https://docs.kalshi.com/welcome,docs.kalshi.com,0,packaged

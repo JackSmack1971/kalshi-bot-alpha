@@ -1,0 +1,424 @@
+{
+  "schema_version": 1,
+  "workflow_id": "idea-to-mvp",
+  "artifacts": [
+    {
+      "artifact_id": "opportunity-catalog",
+      "downstream": [
+        "problem-validation",
+        "market-competitor-report",
+        "target-users-jtbd"
+      ]
+    },
+    {
+      "artifact_id": "problem-validation",
+      "downstream": [
+        "target-users-jtbd",
+        "value-proposition",
+        "core-problem-decision"
+      ]
+    },
+    {
+      "artifact_id": "market-competitor-report",
+      "downstream": [
+        "target-users-jtbd",
+        "value-proposition",
+        "core-problem-decision"
+      ]
+    },
+    {
+      "artifact_id": "target-users-jtbd",
+      "downstream": [
+        "value-proposition",
+        "core-problem-decision",
+        "feature-candidate-backlog"
+      ]
+    },
+    {
+      "artifact_id": "value-proposition",
+      "downstream": [
+        "core-problem-decision",
+        "feature-candidate-backlog"
+      ]
+    },
+    {
+      "artifact_id": "core-problem-decision",
+      "downstream": [
+        "feature-candidate-backlog",
+        "feature-prioritization",
+        "user-flows",
+        "information-architecture",
+        "wireframe-specification",
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff",
+        "architecture-summary",
+        "development-guide",
+        "backend-implementation",
+        "frontend-implementation",
+        "integration-report",
+        "code-review-report",
+        "implementation-record",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record",
+        "deployment-record",
+        "analytics-plan",
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "feature-candidate-backlog",
+      "downstream": [
+        "feature-prioritization",
+        "user-flows",
+        "information-architecture",
+        "wireframe-specification",
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff"
+      ]
+    },
+    {
+      "artifact_id": "feature-prioritization",
+      "downstream": [
+        "user-flows",
+        "information-architecture",
+        "wireframe-specification",
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff"
+      ]
+    },
+    {
+      "artifact_id": "user-flows",
+      "downstream": [
+        "information-architecture",
+        "wireframe-specification",
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff"
+      ]
+    },
+    {
+      "artifact_id": "information-architecture",
+      "downstream": [
+        "wireframe-specification",
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "prototype-manifest",
+        "design-handoff"
+      ]
+    },
+    {
+      "artifact_id": "wireframe-specification",
+      "downstream": [
+        "mvp-prd",
+        "high-fidelity-design-spec",
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff"
+      ]
+    },
+    {
+      "artifact_id": "mvp-prd",
+      "downstream": [
+        "high-fidelity-design-spec",
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff",
+        "architecture-summary",
+        "development-guide",
+        "backend-implementation",
+        "frontend-implementation",
+        "integration-report",
+        "code-review-report",
+        "implementation-record",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record",
+        "deployment-record",
+        "analytics-plan",
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "high-fidelity-design-spec",
+      "downstream": [
+        "design-system-spec",
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff",
+        "architecture-summary",
+        "implementation-record"
+      ]
+    },
+    {
+      "artifact_id": "design-system-spec",
+      "downstream": [
+        "prototype-manifest",
+        "usability-findings",
+        "design-handoff",
+        "architecture-summary",
+        "implementation-record"
+      ]
+    },
+    {
+      "artifact_id": "prototype-manifest",
+      "downstream": [
+        "usability-findings",
+        "design-handoff",
+        "architecture-summary",
+        "implementation-record"
+      ]
+    },
+    {
+      "artifact_id": "usability-findings",
+      "downstream": [
+        "design-handoff",
+        "architecture-summary",
+        "implementation-record"
+      ]
+    },
+    {
+      "artifact_id": "design-handoff",
+      "downstream": [
+        "architecture-summary",
+        "development-guide",
+        "backend-implementation",
+        "frontend-implementation",
+        "integration-report",
+        "code-review-report",
+        "implementation-record",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record",
+        "deployment-record",
+        "analytics-plan",
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "architecture-summary",
+      "downstream": [
+        "development-guide",
+        "backend-implementation",
+        "frontend-implementation",
+        "integration-report",
+        "code-review-report",
+        "implementation-record",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record",
+        "deployment-record",
+        "analytics-plan",
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "development-guide",
+      "downstream": [
+        "backend-implementation",
+        "frontend-implementation",
+        "integration-report",
+        "code-review-report",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "backend-implementation",
+      "downstream": [
+        "integration-report",
+        "code-review-report",
+        "functional-test-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "frontend-implementation",
+      "downstream": [
+        "integration-report",
+        "code-review-report",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "integration-report",
+      "downstream": [
+        "code-review-report",
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "code-review-report",
+      "downstream": [
+        "test-plan",
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "implementation-record",
+      "downstream": [
+        "test-plan",
+        "test-record",
+        "deployment-record",
+        "analytics-plan",
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "test-plan",
+      "downstream": [
+        "functional-test-report",
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "functional-test-report",
+      "downstream": [
+        "uat-report",
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "uat-report",
+      "downstream": [
+        "defect-resolution-log",
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "defect-resolution-log",
+      "downstream": [
+        "performance-report",
+        "security-report",
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "performance-report",
+      "downstream": [
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "security-report",
+      "downstream": [
+        "test-record"
+      ]
+    },
+    {
+      "artifact_id": "test-record",
+      "downstream": [
+        "release-record"
+      ]
+    },
+    {
+      "artifact_id": "deployment-record",
+      "downstream": [
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "analytics-plan",
+      "downstream": [
+        "release-record",
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "release-record",
+      "downstream": [
+        "post-launch-review",
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "post-launch-review",
+      "downstream": [
+        "next-iteration-plan"
+      ]
+    },
+    {
+      "artifact_id": "next-iteration-plan",
+      "downstream": []
+    }
+  ],
+  "updated_at": "2026-07-17T00:00:00+00:00"
+}

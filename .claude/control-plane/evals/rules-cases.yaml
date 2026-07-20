@@ -1,0 +1,32 @@
+schema_version: 1
+cases:
+  - id: RULE-IMPORT-001
+    fixture: "CLAUDE.md imports a 500-line rules file."
+    invocation: "Reduce startup context."
+    assertions:
+      - Do not claim moving text behind an import reduces startup context.
+      - Recommend path-scoped rules or on-demand procedures where appropriate.
+
+  - id: RULE-GLOB-001
+    fixture: "A rule for database migrations uses paths: [\"**/*.sql\"]."
+    invocation: "Audit the rule scope."
+    assertions:
+      - Identify over-broad matching.
+      - Provide positive and negative path fixtures.
+      - Recommend a repository-specific migration path glob.
+
+  - id: RULE-IDEA-MVP-GOVERNANCE-001
+    fixture: "The repository implements the idea-to-MVP operating system with workflow runners, specialist agents, hooks, and artifact state."
+    invocation: "Audit the rules layer for blueprint coverage."
+    assertions:
+      - Require explicit rules for workflow governance, artifact contracts, evidence policy, decision authority, design quality, engineering quality, testing policy, security policy, release policy, and repository boundaries.
+      - Keep the rules path-scoped instead of moving the whole operating-system contract into root memory.
+      - Ensure the rules reinforce approval stops, bounded rework, and explicit artifact state.
+
+  - id: RULE-IDEA-MVP-PATHS-001
+    fixture: "A new rule targets the idea-to-MVP operating system."
+    invocation: "Review the rule frontmatter."
+    assertions:
+      - Use precise `paths:` globs that hit the intended workflow, agent, skill, hook, or schema files.
+      - Avoid catch-all repository globs when a narrower `.claude/` scope is sufficient.
+      - Preserve at least one negative path boundary so unrelated application code does not load the rule accidentally.

@@ -1,0 +1,2414 @@
+{
+  "schema_version": 1,
+  "repository_root": ".",
+  "files": [
+    {
+      "path": ".claude/AGENTS.md",
+      "bytes": 643,
+      "sha256": "e2ca16a4d476caf45bf37f79fae02a053e843b09fa45d7f4b7b5dcf2332f6ae3",
+      "estimated_tokens": 161,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/agents/backend-engineer.md",
+      "bytes": 1669,
+      "sha256": "0a41ef172b3cc27063dbee5a09df3360db850f9eedf4e637a1bda396c878313b",
+      "estimated_tokens": 417,
+      "frontmatter": {
+        "name": "backend-engineer",
+        "description": "Backend delivery specialist for the idea-to-MVP workflow. Use when the workflow needs API, domain, persistence, or server-side implementation evidence for the approved MVP slice.",
+        "tools": [
+          "Read",
+          "Write",
+          "Edit",
+          "Bash",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "isolation": "worktree",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "implement-backend-capabilities"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/control-plane-verifier.md",
+      "bytes": 1401,
+      "sha256": "6e28959ff2ed3c49d9e453c12a731b20150a53f568347675ca570e5e3348b6d7",
+      "estimated_tokens": 350,
+      "frontmatter": {
+        "name": "control-plane-verifier",
+        "description": "Independently verify a proposed Claude Code control-plane change against its request, approved write set, schemas, invariants, behavioral evaluations, and forbidden side effects. Use only after a specialist has produced a plan or diff. Never author or repair the change being reviewed.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep"
+        ],
+        "disallowedTools": [
+          "Write",
+          "Edit",
+          "Bash",
+          "Agent",
+          "mcp__*"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high"
+      }
+    },
+    {
+      "path": ".claude/agents/data-analyst.md",
+      "bytes": 1378,
+      "sha256": "f8fd63446ff65b1f37a2d934a10fa354aba98ca75571e23027e27f6917181ead",
+      "estimated_tokens": 344,
+      "frontmatter": {
+        "name": "data-analyst",
+        "description": "Analytics and feedback specialist for the idea-to-MVP workflow. Use when the workflow needs KPI instrumentation, event validation, telemetry synthesis, or post-launch evidence tied back to the MVP hypothesis.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "configure-product-analytics",
+          "monitor-and-synthesize-feedback"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/devops-engineer.md",
+      "bytes": 1758,
+      "sha256": "061d796767458da02d652478ce9ed9f8c6704be00e97afeaa8303af91240663a",
+      "estimated_tokens": 440,
+      "frontmatter": {
+        "name": "devops-engineer",
+        "description": "Deployment-evidence specialist for the idea-to-MVP workflow. Use when the workflow needs deployment records, rollback posture, operational ownership, or health-check evidence before product release.",
+        "tools": [
+          "Read",
+          "Write",
+          "Edit",
+          "Bash",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "isolation": "worktree",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "bootstrap-project-and-tooling",
+          "deploy-mvp"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/frontend-engineer.md",
+      "bytes": 1650,
+      "sha256": "aa5fd6c024c980f103a4b08a531e549bde7f352e3841f440e64f242a1d1cbf4a",
+      "estimated_tokens": 412,
+      "frontmatter": {
+        "name": "frontend-engineer",
+        "description": "Frontend delivery specialist for the idea-to-MVP workflow. Use when the workflow needs client experience implementation evidence, accessibility status, or UI test coverage for the approved MVP slice.",
+        "tools": [
+          "Read",
+          "Write",
+          "Edit",
+          "Bash",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "isolation": "worktree",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "implement-frontend-experience"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/integration-engineer.md",
+      "bytes": 1764,
+      "sha256": "9480ddbedde11427a98378fb34e2bd3112a0a0b45b14fe5134e06ac6436907c1",
+      "estimated_tokens": 441,
+      "frontmatter": {
+        "name": "integration-engineer",
+        "description": "Integration specialist for the idea-to-MVP workflow. Use when the workflow needs backend and frontend candidates assembled into one bounded product candidate with explicit integration risks.",
+        "tools": [
+          "Read",
+          "Write",
+          "Edit",
+          "Bash",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "isolation": "worktree",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "integrate-product-components",
+          "diagnose-and-fix-defects"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/market-researcher.md",
+      "bytes": 1331,
+      "sha256": "c7bbd91a85af854c34efe067a8020c1b2e1f9662f9137866e50458161e59e3fb",
+      "estimated_tokens": 333,
+      "frontmatter": {
+        "name": "market-researcher",
+        "description": "Discovery specialist for market definition, alternatives analysis, competitor signals, and source limitations. Use when the workflow needs a bounded market and competitor report before value-proposition or core-problem selection.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "research-market-and-competitors"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/mvp-orchestrator.md",
+      "bytes": 1467,
+      "sha256": "5e3f0f28daa57c6e7c3309a40fdb8cee789bdfe6917dfcd2cff06fb64ce8642d",
+      "estimated_tokens": 367,
+      "frontmatter": {
+        "name": "mvp-orchestrator",
+        "description": "Orchestrates the bounded idea-to-MVP operating system. Use when the task is to assess workflow state, decide the next eligible phase, coordinate specialist handoffs, or stop at an approval gate instead of continuing blindly.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "20",
+        "permissionMode": "default",
+        "effort": "high"
+      }
+    },
+    {
+      "path": ".claude/agents/product-manager.md",
+      "bytes": 1471,
+      "sha256": "ec35b498002dc9752843fa64ed962e0e6a978f4bf5b55a259a4f6f9d3adeb1f2",
+      "estimated_tokens": 368,
+      "frontmatter": {
+        "name": "product-manager",
+        "description": "MVP scoping specialist. Use when the workflow needs a bounded MVP contract, prioritized scope, acceptance criteria, or an explicit release boundary tied to the approved core problem.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "ideate-features",
+          "prioritize-features",
+          "define-mvp-scope-and-requirements",
+          "release-mvp",
+          "plan-next-iteration"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/product-strategist.md",
+      "bytes": 1575,
+      "sha256": "f044f72bfdec77af19284803559c213849b1322813ef17253034adc2242a1b57",
+      "estimated_tokens": 394,
+      "frontmatter": {
+        "name": "product-strategist",
+        "description": "Discovery specialist for product opportunities, problem validation, and core-problem selection. Use when the workflow needs bounded discovery artifacts grounded in assumptions, evidence gaps, and a single testable problem statement.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "brainstorm-product-opportunities",
+          "validate-problem-hypotheses",
+          "define-target-users-and-jtbd",
+          "form-value-proposition",
+          "select-core-problem"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/qa-engineer.md",
+      "bytes": 1359,
+      "sha256": "a5b06f124415e3b1cb0317f6d9e87d21b491a068b4f161e55f8a384df504c32e",
+      "estimated_tokens": 340,
+      "frontmatter": {
+        "name": "qa-engineer",
+        "description": "Release-evidence specialist for the idea-to-MVP workflow. Use when the workflow needs the first vertical slice's test record, release record, verification summary, or exit evidence before a release recommendation.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "create-test-plan",
+          "execute-functional-testing",
+          "validate-performance-and-security",
+          "prepare-test-record",
+          "prepare-release-record"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/rules-specialist.md",
+      "bytes": 3569,
+      "sha256": "8dbef17324c07668be0ee89bdf6f9f0d8b14d952d1d55f3a7009ca712f78be44",
+      "estimated_tokens": 892,
+      "frontmatter": {
+        "name": "rules-specialist",
+        "description": "Use for authoring, scoping, reconciling, or removing persistent Claude Code instructions in CLAUDE.md and .claude/rules. Trigger on always-on invariants, path-specific architecture constraints, repository conventions, conflicting instructions, or excessive startup context. Do not use for reusable procedures, hooks, agent orchestration, or application implementation.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Write",
+          "Edit"
+        ],
+        "disallowedTools": [
+          "Agent",
+          "Bash",
+          "mcp__*"
+        ],
+        "model": "sonnet",
+        "maxTurns": "20",
+        "permissionMode": "default",
+        "effort": "high"
+      }
+    },
+    {
+      "path": ".claude/agents/security-engineer.md",
+      "bytes": 1295,
+      "sha256": "f62d49e98db4f2bef7492a35bdd04acaa732aabd6b1e0e7353c24eb8b25bff45",
+      "estimated_tokens": 324,
+      "frontmatter": {
+        "name": "security-engineer",
+        "description": "Security validation specialist for the idea-to-MVP workflow. Use when the workflow needs bounded security evidence for the MVP release candidate before launch authorization.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "validate-performance-and-security"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/skills-specialist.md",
+      "bytes": 3821,
+      "sha256": "f7bcba51e39e654c9ad7957f4c852735b069b1e79f061eb84a38023a56619f99",
+      "estimated_tokens": 955,
+      "frontmatter": {
+        "name": "skills-specialist",
+        "description": "Use for creating, auditing, consolidating, testing, or retiring Claude Code skills under .claude/skills. Trigger on requests to create a reusable procedure, improve skill routing, reduce skill-library overlap, evaluate skill behavior, or convert a repeated workflow into a skill. Do not use for always-on repository policy, hooks, agent teams, or application code.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Write",
+          "Edit"
+        ],
+        "disallowedTools": [
+          "Agent",
+          "Bash",
+          "mcp__*"
+        ],
+        "model": "sonnet",
+        "maxTurns": "24",
+        "permissionMode": "default",
+        "effort": "high"
+      }
+    },
+    {
+      "path": ".claude/agents/solution-architect.md",
+      "bytes": 1422,
+      "sha256": "2a689d7dff1bbc64d67d2cc114a8c691e6e3421f5e3d8b58cff87229310cce52",
+      "estimated_tokens": 356,
+      "frontmatter": {
+        "name": "solution-architect",
+        "description": "Architecture specialist for the idea-to-MVP workflow. Use when the workflow needs bounded solution architecture, feasibility analysis, implementation records, or architecture decisions tied to the MVP slice.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "define-solution-architecture",
+          "prepare-minimal-implementation-record"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/technical-lead.md",
+      "bytes": 1314,
+      "sha256": "1134b31b15479de6047219a73e21da3c530e7d4328ae232e6a7133f1e876ea2b",
+      "estimated_tokens": 328,
+      "frontmatter": {
+        "name": "technical-lead",
+        "description": "Independent technical reviewer for the idea-to-MVP workflow. Use when the workflow needs code-review and architecture-review evidence after integration and before test sign-off.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "review-code-and-architecture"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/ui-designer.md",
+      "bytes": 1522,
+      "sha256": "8ee8e68b37c5db1bc0811b3d50c0a904bc383c72b0537a5b9376b2128ee3d322",
+      "estimated_tokens": 380,
+      "frontmatter": {
+        "name": "ui-designer",
+        "description": "Visual design specialist for high-fidelity interface design, design-system definition, prototyping, and design handoff. Use when the workflow needs design artifacts after low-fidelity wireframes and before technical architecture.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "create-high-fidelity-interface",
+          "define-design-system",
+          "build-interactive-prototype",
+          "prepare-design-handoff"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/ux-designer.md",
+      "bytes": 1333,
+      "sha256": "b6e4140b098bc0222b765c869768f97150e57f74e5276e2ef248d22fffda523f",
+      "estimated_tokens": 333,
+      "frontmatter": {
+        "name": "ux-designer",
+        "description": "UX specialist for user flows, information architecture, and low-fidelity interaction surfaces. Use when the workflow needs behavioral design artifacts before MVP scope approval.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "design-user-flows",
+          "design-information-architecture",
+          "produce-low-fidelity-wireframes"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/ux-researcher.md",
+      "bytes": 1316,
+      "sha256": "ec2df4762ea81e9e2e13097dc79a17051bbb79d93daf47e2c69e6e24e63e0bf7",
+      "estimated_tokens": 329,
+      "frontmatter": {
+        "name": "ux-researcher",
+        "description": "UX validation specialist for usability testing and evidence-backed findings. Use when the workflow needs prototype evaluation, severity scoring, or explicit UX acceptance risk before engineering implementation.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Skill"
+        ],
+        "model": "sonnet",
+        "maxTurns": "18",
+        "permissionMode": "default",
+        "effort": "high",
+        "skills": [
+          "conduct-usability-testing",
+          "conduct-uat-and-usability-validation"
+        ]
+      }
+    },
+    {
+      "path": ".claude/agents/workflow-specialist.md",
+      "bytes": 4462,
+      "sha256": "622c6b94ed4adf3cf5542125f5cf71d5dae6926a2efc96587dd83014eb5e71f9",
+      "estimated_tokens": 1116,
+      "frontmatter": {
+        "name": "workflow-specialist",
+        "description": "Use for designing, auditing, or evolving Claude Code orchestration across subagents, skills, hooks, agent teams, scheduled tasks, or Agent SDK harnesses. Trigger on multi-stage pipelines, lifecycle gates, resumable runs, delegation policy, structured status, or control-plane coordination. Do not use for a single reusable skill, declarative repository rules, or application workflows.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Write",
+          "Edit"
+        ],
+        "disallowedTools": [
+          "Agent",
+          "Bash",
+          "mcp__*"
+        ],
+        "model": "sonnet",
+        "maxTurns": "28",
+        "permissionMode": "default",
+        "effort": "high"
+      }
+    },
+    {
+      "path": ".claude/agents/workflow-state-manager.md",
+      "bytes": 2099,
+      "sha256": "6d4659a5b950d2e1ae0198a96233e5a7b86429612f34fc48a0711855db6e79b5",
+      "estimated_tokens": 525,
+      "frontmatter": {
+        "name": "workflow-state-manager",
+        "description": "Persists and validates idea-to-MVP workflow state under `.claude/control-plane/state/idea-to-mvp/`. Use when the operating system needs to bootstrap state files, update artifact records, append gate or decision logs, or validate persisted state after changes.",
+        "tools": [
+          "Read",
+          "Glob",
+          "Grep",
+          "Write",
+          "Edit",
+          "Bash"
+        ],
+        "model": "sonnet",
+        "maxTurns": "16",
+        "permissionMode": "default",
+        "effort": "medium"
+      }
+    },
+    {
+      "path": ".claude/backups/settings.json.bak.20260718132653",
+      "bytes": 2962,
+      "sha256": "ecf152eb18c6f5959be0e27bb8a9f4491a5dc749706ed4152b7b6f85aeabbc42",
+      "estimated_tokens": 740,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/BOOTSTRAP.md",
+      "bytes": 2416,
+      "sha256": "4bedcfba16c0fd469bd53401f5c25b83cd1a161069049b2d6ff4cae7fb7e573a",
+      "estimated_tokens": 601,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/OPERATING_PROTOCOL.md",
+      "bytes": 1590,
+      "sha256": "3aad1e37739ac35901e5aff6c8c82bbcd6d391eb7faf04430298491112cb1d16",
+      "estimated_tokens": 396,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/TRUST_MODEL.md",
+      "bytes": 2954,
+      "sha256": "145aa878678154efe2be09f2214295c901cb5155bda78e54095803f9509397af",
+      "estimated_tokens": 734,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/evals/routing-cases.yaml",
+      "bytes": 1562,
+      "sha256": "57c92d27200a8c84eea26963edd8195224e1869c28366b16bdc087b27b42951e",
+      "estimated_tokens": 390,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/evals/rules-cases.yaml",
+      "bytes": 1789,
+      "sha256": "643f500aa831eb07983c0f56d175fc24bd5bba93c7cba976cd185ae85bf41468",
+      "estimated_tokens": 447,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/evals/skills-cases.yaml",
+      "bytes": 5465,
+      "sha256": "701b6a15123e71aeecc2d26029923b018162ee63772c334d84ae82dce3d2571a",
+      "estimated_tokens": 1366,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/evals/workflow-cases.yaml",
+      "bytes": 47189,
+      "sha256": "9f5f23e45e68d1b03345b14f9e48f430df92e6daba61a18529563e6499c9322e",
+      "estimated_tokens": 11797,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/manifest.yaml",
+      "bytes": 1314,
+      "sha256": "31f2c26882735811eed9be8517fd65de29dbb374d9eb4d536b2f24ea8eb5d341",
+      "estimated_tokens": 328,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/artifact-dependency-graph.schema.json",
+      "bytes": 1216,
+      "sha256": "b6d2bf658849399cb0a7122d6094d955444d2f90edc6b225461f0d892d2778de",
+      "estimated_tokens": 304,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/artifact-manifest.schema.json",
+      "bytes": 7414,
+      "sha256": "4b15228c23bbcf4547927adab5f54bcb8c10e66a2d1eac1b35eb50f66028f906",
+      "estimated_tokens": 1854,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/assumptions-register.schema.json",
+      "bytes": 2599,
+      "sha256": "1c192060dd3eb578a48d2744273fed9aa36fdbec0165867a75b619c1c6c9fe23",
+      "estimated_tokens": 650,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/audit-report.schema.json",
+      "bytes": 4786,
+      "sha256": "ef6869f60c791a12b76279519fa58fb6e2a2d8ffb152d655e20b562296a1d0c0",
+      "estimated_tokens": 1196,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/baseline.schema.json",
+      "bytes": 4663,
+      "sha256": "d8896e8d88c75912ec8356ba4638242c5752bc03f83cb4276e10e9549479528e",
+      "estimated_tokens": 1166,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/candidate-package.schema.json",
+      "bytes": 3374,
+      "sha256": "f2dc94d7df430c28a45b0ea112f4c44311502b03382f0c1c982ca7e18badb3c3",
+      "estimated_tokens": 844,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/change-plan.schema.json",
+      "bytes": 5395,
+      "sha256": "ed8690f5e0466bf7309e342d42525a7b7c12e20abf63920777a79e09184364ee",
+      "estimated_tokens": 1349,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/decision-record.schema.json",
+      "bytes": 2185,
+      "sha256": "61f6f48ebe4b4c60dc9a3344cf02788ec34865732a6cf2a8088ccc1f7d36ddd4",
+      "estimated_tokens": 546,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/gate-result.schema.json",
+      "bytes": 2278,
+      "sha256": "edc8b4a28cbc58c1dba6452b4f40aaac70e1ad776cc32ca35125a59d67df254d",
+      "estimated_tokens": 570,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/handoff.schema.json",
+      "bytes": 6825,
+      "sha256": "5a348254fd6fac108c2e08baae6e975f14e690aedcab0dbd11263ed77e3eea31",
+      "estimated_tokens": 1706,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/hypothesis.schema.json",
+      "bytes": 1829,
+      "sha256": "c56676afd5a1fe1928530e1c1e4c6ec661d782be6c706f8c616c481a3e8a94d1",
+      "estimated_tokens": 457,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/replay-result.schema.json",
+      "bytes": 5322,
+      "sha256": "4acb4a13ed80dd3b058dbd0e1d471ff814a73c54711cc2da6c11de72946c3fb3",
+      "estimated_tokens": 1330,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/result.schema.json",
+      "bytes": 1612,
+      "sha256": "e3daa0d4a1a6c77e9878dc6c1303b026e58a0175cc80b429b0b111dcc188d7a2",
+      "estimated_tokens": 403,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/risk-register.schema.json",
+      "bytes": 3146,
+      "sha256": "065ba652d711c132d8246d7d7fcd1755e23db2a3a9d307989b50474db6edb4b0",
+      "estimated_tokens": 786,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/run-event.schema.json",
+      "bytes": 2818,
+      "sha256": "1171dc9c8ea97c48fd864dcdedc6c441f16ee819a4ed2a13c3e33e08180aae79",
+      "estimated_tokens": 704,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/verification-result.schema.json",
+      "bytes": 2364,
+      "sha256": "54fd0e1ffb5f3f3c27c9c783f7928ad1c404c57170833a0bc72c582cf41669bf",
+      "estimated_tokens": 591,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/schemas/workflow-state.schema.json",
+      "bytes": 4059,
+      "sha256": "41e6c20304755d9a1f0958716f85d593222c0c34f68273b0e0d9ecbd1098970b",
+      "estimated_tokens": 1015,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/candidate_emitter.py",
+      "bytes": 43201,
+      "sha256": "1eeadf94a9f9b448a43fd864b9a09ee566174cd10b0a1c43c3f531071339cf4e",
+      "estimated_tokens": 10800,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/common.py",
+      "bytes": 9859,
+      "sha256": "bdd1b7b7739520814269cc74e73b42d0eff88c4d21eb104ff01585482bafde84",
+      "estimated_tokens": 2465,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/estimate_context.py",
+      "bytes": 4167,
+      "sha256": "13de80ca0f7e8f9ff5f808e6f5f29c16021452fe695172d426186ed8537fdbed",
+      "estimated_tokens": 1042,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/hypothesis_registry.py",
+      "bytes": 9549,
+      "sha256": "bcad5f1dbcfb839af662996f843dda5742f7a26a564742535b1cf364b06d6e56",
+      "estimated_tokens": 2387,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/idea_to_mvp_behavioral_eval.py",
+      "bytes": 176944,
+      "sha256": "858c04dfe23fe1046363725596fb49b0c1c9961e28cd89f5cd2dce05d1c9f468",
+      "estimated_tokens": 44236,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/idea_to_mvp_state.py",
+      "bytes": 318973,
+      "sha256": "3ae6f111d48b10c62ac7ccc47069af63aac1bacd9d847258bb6c31eef84a4bab",
+      "estimated_tokens": 79743,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/inventory.py",
+      "bytes": 660,
+      "sha256": "85bd576937afe87a36121fcf61a5ade12ea97408b448c388e6704475ccb034e3",
+      "estimated_tokens": 165,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/new_run.py",
+      "bytes": 14945,
+      "sha256": "ee6f9295b5a5ac42e981c2529acf21c6b6e53db47eab73fbdc614ed58e203d81",
+      "estimated_tokens": 3736,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/replay.py",
+      "bytes": 48946,
+      "sha256": "06d769eaf5c0e585312eed3ade0318c5ebb58dadfc7e01228b0c84bd0703362b",
+      "estimated_tokens": 12236,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/self_improvement_evidence.py",
+      "bytes": 30904,
+      "sha256": "8f06414744a0b82550854f7d524fd1dbb7a6611a308625ffa3b051fb545633b7",
+      "estimated_tokens": 7726,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/scripts/validate.py",
+      "bytes": 95349,
+      "sha256": "f80897d5ec92f98915ff0e56c2885152e436f9a9828f712232f4a0e1d7dc7e58",
+      "estimated_tokens": 23837,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/README.md",
+      "bytes": 555,
+      "sha256": "99b81b439fb1553ae8f036a8a396656e4c822ca88ae89a4e39fe9fe097edf4d9",
+      "estimated_tokens": 139,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/artifact-dependency-graph.json",
+      "bytes": 10126,
+      "sha256": "b88ff0a6603bc57bcc43827e4cb1c0da7f06ea549933cbf2087225c22a4214bf",
+      "estimated_tokens": 2532,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/artifact-manifest.json",
+      "bytes": 122,
+      "sha256": "b4412bfdffaa0fd1f5dbf8263c4a37abc88c4d39de69205d5e8dab3e9988b1ae",
+      "estimated_tokens": 30,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/artifacts/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "estimated_tokens": 1,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/assumptions-register.json",
+      "bytes": 124,
+      "sha256": "bc0f75093b669fee5c960a162ef38c4688f2a5650da90a7be77185c9d65fe262",
+      "estimated_tokens": 31,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/decision-records.jsonl",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "estimated_tokens": 1,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/gate-results.jsonl",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "estimated_tokens": 1,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/handoffs/.gitkeep",
+      "bytes": 1,
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "estimated_tokens": 1,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/risk-register.json",
+      "bytes": 118,
+      "sha256": "3145d52afb3585a4323224c5d49c3c33539f31307516e1c9170d73c174915d92",
+      "estimated_tokens": 30,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/control-plane/state/idea-to-mvp/workflow-state.json",
+      "bytes": 2942,
+      "sha256": "f7a36a96fc113f560d7ab1cdd1a52c768f349d481feeae758ec682c5f8471ea4",
+      "estimated_tokens": 736,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/hooks/AGENTS.md",
+      "bytes": 740,
+      "sha256": "f6c09decb46dc773ccba164e85e12c2f49baab38d6d3e918a49388e92786ef5c",
+      "estimated_tokens": 185,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/hooks/README.md",
+      "bytes": 285,
+      "sha256": "27b85f9294cedab3f555d0daab47628f8d91535465890a69ec9c51967607c137",
+      "estimated_tokens": 71,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/hooks/guard_idea_to_mvp_tool_use.py",
+      "bytes": 19611,
+      "sha256": "6dceb5f361f2e29bb4e8e75ef6934b8d019e6cd52184db6e61d0a718b115e433",
+      "estimated_tokens": 4903,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/hooks/validate_idea_to_mvp_state.py",
+      "bytes": 29093,
+      "sha256": "48981ac485afedfbb246f116e592b6b16e99acd2d0fa579713b442eecd11c883",
+      "estimated_tokens": 7273,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/rules/AGENTS.md",
+      "bytes": 763,
+      "sha256": "74752ba9b7a24cb9a3232a63b1b93fd7711dc349d9706129889ae4531cab66b2",
+      "estimated_tokens": 190,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/*.md\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/README.md",
+      "bytes": 1253,
+      "sha256": "24254df18603fe137e7f103257814452eeca9dd17f979feced26eedbc08d9242",
+      "estimated_tokens": 312,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/rules/**/*.md\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/artifact-contracts.md",
+      "bytes": 1064,
+      "sha256": "bfc91583b036d4371ac6a7aff1281f2675edd686634df0779ac32881753570fa",
+      "estimated_tokens": 266,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/workflows/idea-to-mvp.*\"",
+          "\"**/.claude/workflows/change-impact-loop.*\"",
+          "\"**/.claude/hooks/validate_idea_to_mvp_state.py\"",
+          "\"**/.claude/control-plane/scripts/idea_to_mvp_state.py\"",
+          "\"**/.claude/control-plane/schemas/*artifact*.json\"",
+          "\"**/.claude/control-plane/schemas/*handoff*.json\"",
+          "\"**/.claude/control-plane/schemas/*gate-result*.json\"",
+          "\"**/.claude/control-plane/schemas/*decision-record*.json\"",
+          "\"!**/.claude/control-plane/schemas/run-*.json\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/claude-code-settings-json.md",
+      "bytes": 3010,
+      "sha256": "ccae7fecfcb0026a06e7273ed8e68afc60762b988e3a58c32df63ec15b723f70",
+      "estimated_tokens": 750,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/settings.json\"",
+          "\"**/.claude/settings.local.json\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/decision-authority.md",
+      "bytes": 827,
+      "sha256": "714821c7d6b9d9769f395d154b57e4954628d6f0cb7ce898db2d8aaeacb4a45e",
+      "estimated_tokens": 207,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/*.md\"",
+          "\"**/.claude/workflows/idea-to-mvp.*\"",
+          "\"**/.claude/workflows/*-phase.*\"",
+          "\"**/.claude/workflows/change-impact-loop.*\"",
+          "\"**/.claude/workflows/feedback-loop.*\"",
+          "\"!**/.claude/agents/control-plane-verifier.md\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/design-quality.md",
+      "bytes": 1127,
+      "sha256": "9b79002ad6f9fc24b2adde832b4d29cfd71392056a2b68e8149e540c8da9baab",
+      "estimated_tokens": 282,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/ui-designer.md\"",
+          "\"**/.claude/agents/ux-designer.md\"",
+          "\"**/.claude/agents/ux-researcher.md\"",
+          "\"**/.claude/skills/create-high-fidelity-interface/**\"",
+          "\"**/.claude/skills/define-design-system/**\"",
+          "\"**/.claude/skills/design-information-architecture/**\"",
+          "\"**/.claude/skills/design-user-flows/**\"",
+          "\"**/.claude/skills/prepare-design-handoff/**\"",
+          "\"**/.claude/skills/produce-low-fidelity-wireframes/**\"",
+          "\"**/.claude/workflows/design-phase.*\"",
+          "\"!**/.claude/skills/implement-frontend-experience/**\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/engineering-quality.md",
+      "bytes": 1166,
+      "sha256": "75a2f3a192c502421e66f5a1d0481b2eeff16b833af7e4056d28b498e05d3458",
+      "estimated_tokens": 292,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/backend-engineer.md\"",
+          "\"**/.claude/agents/frontend-engineer.md\"",
+          "\"**/.claude/agents/integration-engineer.md\"",
+          "\"**/.claude/agents/technical-lead.md\"",
+          "\"**/.claude/skills/bootstrap-project-and-tooling/**\"",
+          "\"**/.claude/skills/implement-backend-capabilities/**\"",
+          "\"**/.claude/skills/implement-frontend-experience/**\"",
+          "\"**/.claude/skills/integrate-product-components/**\"",
+          "\"**/.claude/skills/review-code-and-architecture/**\"",
+          "\"**/.claude/workflows/build-phase.*\"",
+          "\"!**/.claude/workflows/test-phase.*\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/es2022-modern-javascript-esm.md",
+      "bytes": 5512,
+      "sha256": "e8c482a58eb3423796757b252d6478ee7c743cd325ac72d015ac9f3973252117",
+      "estimated_tokens": 1378,
+      "frontmatter": {
+        "paths": [
+          "\"**/*.{js,mjs}\"",
+          "\"!**/*.{cjs,cts}\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/evidence-policy.md",
+      "bytes": 858,
+      "sha256": "1a0c8cfb021dcacad2b418b8d23565f0e30f566e69521710959a4bb812c02d6c",
+      "estimated_tokens": 214,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/workflows/idea-to-mvp.*\"",
+          "\"**/.claude/workflows/change-impact-loop.*\"",
+          "\"**/.claude/hooks/*.py\"",
+          "\"**/.claude/control-plane/scripts/idea_to_mvp_state.py\"",
+          "\"**/.claude/control-plane/scripts/self_improvement_evidence.py\"",
+          "\"!**/.claude/hooks/AGENTS.md\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/release-policy.md",
+      "bytes": 1112,
+      "sha256": "8f5eff2c29d3458ee11ed9aa2e7905024900510c1f815da3660fbf83c744fc45",
+      "estimated_tokens": 278,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/devops-engineer.md\"",
+          "\"**/.claude/agents/data-analyst.md\"",
+          "\"**/.claude/agents/product-manager.md\"",
+          "\"**/.claude/skills/configure-product-analytics/**\"",
+          "\"**/.claude/skills/deploy-mvp/**\"",
+          "\"**/.claude/skills/monitor-and-synthesize-feedback/**\"",
+          "\"**/.claude/skills/plan-next-iteration/**\"",
+          "\"**/.claude/skills/prepare-release-record/**\"",
+          "\"**/.claude/skills/release-mvp/**\"",
+          "\"**/.claude/workflows/launch-phase.*\"",
+          "\"**/.claude/workflows/feedback-loop.*\"",
+          "\"**/.claude/workflows/idea-to-mvp.*\"",
+          "\"!**/.claude/workflows/test-phase.*\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/repository-boundaries.md",
+      "bytes": 753,
+      "sha256": "0564f833077e746acf032928d5fc61149d404c4d2f597a12c79b4cf05e04afe0",
+      "estimated_tokens": 188,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/**\"",
+          "\"!**/.claude/control-plane/runs/**\"",
+          "\"!**/.claude/skills/writing-great-skills/**\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/security-policy.md",
+      "bytes": 981,
+      "sha256": "ed1e462a351feada79484a269ebc4f6cacd38f35b893ed30c7fa9c57a2f1ff59",
+      "estimated_tokens": 245,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/security-engineer.md\"",
+          "\"**/.claude/hooks/guard_idea_to_mvp_tool_use.py\"",
+          "\"**/.claude/hooks/validate_idea_to_mvp_state.py\"",
+          "\"**/.claude/skills/validate-performance-and-security/**\"",
+          "\"**/.claude/workflows/test-phase.*\"",
+          "\"**/.claude/workflows/launch-phase.*\"",
+          "\"**/.claude/workflows/idea-to-mvp.*\"",
+          "\"!**/.claude/skills/release-mvp/**\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/testing-policy.md",
+      "bytes": 983,
+      "sha256": "f4d18c0cabc12aab1de0b9b3d76185bc83c980103b1912ffa7255b19c3033c48",
+      "estimated_tokens": 246,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/agents/qa-engineer.md\"",
+          "\"**/.claude/skills/conduct-uat-and-usability-validation/**\"",
+          "\"**/.claude/skills/create-test-plan/**\"",
+          "\"**/.claude/skills/diagnose-and-fix-defects/**\"",
+          "\"**/.claude/skills/execute-functional-testing/**\"",
+          "\"**/.claude/skills/prepare-test-record/**\"",
+          "\"**/.claude/skills/validate-performance-and-security/**\"",
+          "\"**/.claude/workflows/test-phase.*\"",
+          "\"!**/.claude/workflows/build-phase.*\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/rules/workflow-governance.md",
+      "bytes": 1073,
+      "sha256": "4fd09097f24c772259bc8f64c44b9396c0b17f5908dd344cd7cedb167c87defd",
+      "estimated_tokens": 268,
+      "frontmatter": {
+        "paths": [
+          "\"**/.claude/workflows/idea-to-mvp.md\"",
+          "\"**/.claude/workflows/idea-to-mvp.js\"",
+          "\"**/.claude/workflows/*-phase.md\"",
+          "\"**/.claude/workflows/*-phase.js\"",
+          "\"**/.claude/workflows/change-impact-loop.*\"",
+          "\"**/.claude/workflows/feedback-loop.*\"",
+          "\"!**/.claude/workflows/self-improvement.*\""
+        ]
+      }
+    },
+    {
+      "path": ".claude/settings.json",
+      "bytes": 3172,
+      "sha256": "0cdac7c7037ee2ccb04a2da1f02500c8d4634676fdaca5a30dff1d0c84f1daee",
+      "estimated_tokens": 793,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/AGENTS.md",
+      "bytes": 740,
+      "sha256": "f6c09decb46dc773ccba164e85e12c2f49baab38d6d3e918a49388e92786ef5c",
+      "estimated_tokens": 185,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/README.md",
+      "bytes": 332,
+      "sha256": "ce2e560abc6a69eaecf0229d2f9ec27b7df57e18079689e48aa116492df03a53",
+      "estimated_tokens": 83,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/_shared/idea-to-mvp-common-sections.md",
+      "bytes": 1683,
+      "sha256": "6be58eb7302a8cf6bd849e6405b8c1e11cb433a0ddfd80e2dcb48287c037da69",
+      "estimated_tokens": 421,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/SKILL.md",
+      "bytes": 11168,
+      "sha256": "6a2826571320828cc6f8f21ccd8e6eefd2bced62000c8c5e43a712c12e2d83a1",
+      "estimated_tokens": 2777,
+      "frontmatter": {
+        "name": "agent-development",
+        "description": "This skill should be used when the user asks to \"create an agent\", \"add an agent\", \"write a subagent\", \"agent frontmatter\", \"when to use description\", \"agent examples\", \"agent tools\", \"agent colors\", \"autonomous agent\", or needs guidance on agent structure, system prompts, triggering conditions, or agent development best practices for Claude Code plugins.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/agent-development/examples/agent-creation-prompt.md",
+      "bytes": 9838,
+      "sha256": "a299652c1bba7b43736cc72a14ada464baccc80c6431e5fa3a55bd13129ac54c",
+      "estimated_tokens": 2460,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/examples/complete-agent-examples.md",
+      "bytes": 13916,
+      "sha256": "8321e9933dd0033c46bf5ae831e7cf7dc79783c80fb9b5ea1b66c74f4ac2b337",
+      "estimated_tokens": 3479,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/references/agent-creation-system-prompt.md",
+      "bytes": 9749,
+      "sha256": "c56e7fafb84bcbeff69ecd61b1f68ca380e8ba4177dc57c6ceeecd3aa8a83d7b",
+      "estimated_tokens": 2437,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/references/system-prompt-design.md",
+      "bytes": 9998,
+      "sha256": "eaac53eaaf8326ac04428987280fb5041920b7571477ad41742517c5aac683fc",
+      "estimated_tokens": 2488,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/references/triggering-examples.md",
+      "bytes": 8868,
+      "sha256": "b8ff47692b007b19b36df81ebd0562476202a21d67db80eeca9c3ee05528cb10",
+      "estimated_tokens": 2213,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/agent-development/scripts/validate-agent.sh",
+      "bytes": 5796,
+      "sha256": "d22e1292f997169fb745793dc50ebe3e9c6631603e1d77f04c2e79bb1fc63cba",
+      "estimated_tokens": 1404,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/assess-change-impact/SKILL.md",
+      "bytes": 2718,
+      "sha256": "1ce32915019ad2bfabf6800c9386facb43d1c4eb8bf2acc4839c8b82a1c2bbb8",
+      "estimated_tokens": 677,
+      "frontmatter": {
+        "name": "assess-change-impact",
+        "description": "Assess downstream impact when an upstream idea-to-MVP artifact changes and the workflow needs bounded stale-status classification, required rework, or review-required outputs. Use when target users, scope, design, implementation, test, or release evidence changed and only the affected downstream work should reopen.",
+        "when_to_use": "Use only after an upstream artifact has changed or been challenged. Do not use to regenerate the whole operating system by default.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/bootstrap-project-and-tooling/SKILL.md",
+      "bytes": 2475,
+      "sha256": "9322ea95e5f53a7cb231d771939e10d3d810f9665bd7749bbf02231771a4de75",
+      "estimated_tokens": 616,
+      "frontmatter": {
+        "name": "bootstrap-project-and-tooling",
+        "description": "Produce the minimum project bootstrap and tooling readiness evidence for the approved MVP slice, including setup steps, build commands, and CI baseline expectations.",
+        "when_to_use": "Use after architecture is approved and before backend/frontend implementation starts.",
+        "allowed-tools": "Read Write Edit Bash Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/brainstorm-product-opportunities/SKILL.md",
+      "bytes": 2272,
+      "sha256": "096af1e7fbf8cfc769da583c10c5fd96e5f67e4f165fe043ee0a12951f1721e9",
+      "estimated_tokens": 566,
+      "frontmatter": {
+        "name": "brainstorm-product-opportunities",
+        "description": "Generate a bounded opportunity catalog from founder intent, constraints, and domain context. Use at the start of discovery when the workflow needs distinct product opportunities before problem selection.",
+        "when_to_use": "Use only in discovery. Do not use to approve market truth, scope an MVP, or plan implementation.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/build-interactive-prototype/SKILL.md",
+      "bytes": 2279,
+      "sha256": "b1741d7b97ff195460fb018470384c4e173b0b5f5b95a66dc55c8cb380434752",
+      "estimated_tokens": 567,
+      "frontmatter": {
+        "name": "build-interactive-prototype",
+        "description": "Build a bounded interactive prototype manifest from the approved designs and flows so critical journeys can be exercised before implementation. Use during design after hi-fi and design-system work.",
+        "when_to_use": "Use only after high-fidelity design and design-system artifacts exist. Do not use to replace implementation planning or usability analysis.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/command-development/README.md",
+      "bytes": 7651,
+      "sha256": "dd4ba7eded93d7ba698f05ec63d06d110a6b5543664af359b005dd976ce811b8",
+      "estimated_tokens": 1911,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/SKILL.md",
+      "bytes": 19233,
+      "sha256": "c55ad02cfe4cbb2a947eea3b1ed5fa1871e722d627c3c6792c3ed87c10c4d7a8",
+      "estimated_tokens": 4765,
+      "frontmatter": {
+        "name": "command-development",
+        "description": "This skill should be used when the user asks to \"create a slash command\", \"add a command\", \"write a custom command\", \"define command arguments\", \"use command frontmatter\", \"organize commands\", \"create command with file references\", \"interactive command\", \"use AskUserQuestion in command\", or needs guidance on slash command structure, YAML frontmatter fields, dynamic arguments, bash execution in commands, user interaction patterns, or command development best practices for Claude Code.",
+        "version": "0.2.0"
+      }
+    },
+    {
+      "path": ".claude/skills/command-development/examples/plugin-commands.md",
+      "bytes": 13989,
+      "sha256": "7d71d7b516020a6c171171399b40dd2cad02b842c9faa78b90e0983906c9ee94",
+      "estimated_tokens": 3497,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/examples/simple-commands.md",
+      "bytes": 8675,
+      "sha256": "f2533ed834305166603bcb4dd870d695af4a33b9a49d330937a4c70ed964767c",
+      "estimated_tokens": 2169,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/advanced-workflows.md",
+      "bytes": 13618,
+      "sha256": "eb258095b5a411b68377c96730effe597884a14b619cb0c1a7ab1c801d80a7d9",
+      "estimated_tokens": 3402,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/documentation-patterns.md",
+      "bytes": 14971,
+      "sha256": "70c6c9b0a9b2d46a925ada6c45808a73498a457e1d641c82cc05de8a29a33b05",
+      "estimated_tokens": 3739,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/frontmatter-reference.md",
+      "bytes": 9162,
+      "sha256": "db1ea175ca4b0bb7d11c75cb8a7d00b353ea7cf4df2027b4263e45ded4d39475",
+      "estimated_tokens": 2286,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/interactive-commands.md",
+      "bytes": 20980,
+      "sha256": "09ab1f18bfa3ff5f7088e45d5810ac20eb25ffc97fc9e8bb79416d40e0b4516b",
+      "estimated_tokens": 5244,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/marketplace-considerations.md",
+      "bytes": 16437,
+      "sha256": "ab30835431d06a8e65cd629ba0e73b3f1de5b043126c6fef7ea70163400e90f4",
+      "estimated_tokens": 4090,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/plugin-features-reference.md",
+      "bytes": 14622,
+      "sha256": "57e11ae6a4bbc1a4a295d1f036202970911d6029d64f4ab058b63a4c5a899072",
+      "estimated_tokens": 3628,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/command-development/references/testing-strategies.md",
+      "bytes": 14803,
+      "sha256": "e6ccf78d85c23bc58582dbc8b91731c4e412568705ed2c87ac699a1ded9adc67",
+      "estimated_tokens": 3695,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/conduct-uat-and-usability-validation/SKILL.md",
+      "bytes": 2532,
+      "sha256": "a7e0df7c97997243e511cac2c7c85ca2f6e43551770fea26175b04e51e1bd1e7",
+      "estimated_tokens": 630,
+      "frontmatter": {
+        "name": "conduct-uat-and-usability-validation",
+        "description": "Produce UAT and usability-validation evidence for the built/functional MVP candidate (not a design-stage prototype), including accepted outcomes, rejected outcomes, and usability risks. Use during the test phase after functional evidence exists. For usability evidence on a design-stage prototype, use conduct-usability-testing instead.",
+        "when_to_use": "Use after functional evidence exists and candidate journeys can be exercised, during the test phase \u2014 not on a design-stage prototype. Use conduct-usability-testing for prototype-stage evaluation.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/conduct-usability-testing/SKILL.md",
+      "bytes": 2770,
+      "sha256": "201c3f710e4fdd6f0984025a808333b5bcf79a468e152609c1f9c77f29b94f36",
+      "estimated_tokens": 690,
+      "frontmatter": {
+        "name": "conduct-usability-testing",
+        "description": "Evaluate the interactive prototype (a design-stage mock, not the built MVP candidate) against target journeys and return evidence-backed usability findings with severity and recommended action. Use during design after prototype preparation and before design handoff. For usability evidence on the built/functional candidate, use conduct-uat-and-usability-validation instead.",
+        "when_to_use": "Use only after a prototype manifest exists, during the design phase, before a built/functional candidate exists. Do not use to approve implementation or to conceal critical usability findings. Once functional evidence exists, use conduct-uat-and-usability-validation instead.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/configure-product-analytics/SKILL.md",
+      "bytes": 2253,
+      "sha256": "2f0f1cb3e907182f1ef04198513aa1a673de17be877babb096c942f85290eb0e",
+      "estimated_tokens": 561,
+      "frontmatter": {
+        "name": "configure-product-analytics",
+        "description": "Produce the MVP analytics plan and event-validation view from KPI and event requirements. Use after launch inputs are known and before release authorization.",
+        "when_to_use": "Use only when KPI and event requirements exist. Do not use to fabricate telemetry that has not been validated.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/create-high-fidelity-interface/SKILL.md",
+      "bytes": 2319,
+      "sha256": "c924cbb2568b35dd5a7a202a0e02bb66c6f803f9be882509b2be26ea78ad3d70",
+      "estimated_tokens": 577,
+      "frontmatter": {
+        "name": "create-high-fidelity-interface",
+        "description": "Convert approved wireframes and flows into a bounded high-fidelity interface specification with required states and breakpoints. Use at the start of the design phase before design-system definition.",
+        "when_to_use": "Use only after wireframes exist. Do not use to redefine product scope or to start frontend implementation.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/create-test-plan/SKILL.md",
+      "bytes": 1933,
+      "sha256": "5e264269fb90ca56c53fdc37544ebed1614c0cc7a008116cef5257c0a88eefe2",
+      "estimated_tokens": 481,
+      "frontmatter": {
+        "name": "create-test-plan",
+        "description": "Produce the minimum test plan and traceability evidence for the approved MVP slice, including requirement coverage and risk-driven checks.",
+        "when_to_use": "Use after build artifacts exist and before functional execution starts.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/create-traceability-matrix/SKILL.md",
+      "bytes": 2787,
+      "sha256": "3d45b95c568d6cb21b9624955dfd5a1eae2b81bcf0c92730148d189863f8025d",
+      "estimated_tokens": 693,
+      "frontmatter": {
+        "name": "create-traceability-matrix",
+        "description": "Build a bounded idea-to-MVP traceability matrix from problem evidence through requirements, design, implementation, tests, and analytics signals. Use when a workflow node needs explicit coverage proof instead of assuming downstream artifacts still align.",
+        "when_to_use": "Use when enough upstream artifacts exist to map one delivery chain end to end, or when change impact, audit, testing, or release readiness depends on explicit traceability. Do not use to invent missing artifacts.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/define-design-system/SKILL.md",
+      "bytes": 2255,
+      "sha256": "2b707cf390fb96ce62e9439eaa156dc1898481ce614693319ab8df0ddb8365b6",
+      "estimated_tokens": 561,
+      "frontmatter": {
+        "name": "define-design-system",
+        "description": "Define the design tokens, components, variants, and accessibility rules needed to implement the approved high-fidelity direction. Use during design after hi-fi screens and before prototyping.",
+        "when_to_use": "Use only after high-fidelity design direction exists. Do not use to create engineering components or implementation code.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/define-mvp-scope-and-requirements/SKILL.md",
+      "bytes": 2328,
+      "sha256": "3b85a635a6ba88dc791f96596bb0fc52d26a64a679bc6bf9d470f8fb764efb5b",
+      "estimated_tokens": 580,
+      "frontmatter": {
+        "name": "define-mvp-scope-and-requirements",
+        "description": "Convert an approved core problem into a bounded MVP contract with scope, exclusions, acceptance criteria, dependencies, and metrics. Use during the define phase before architecture or implementation records.",
+        "when_to_use": "Use only after discovery approval. Do not use to approve architecture or release readiness.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/define-solution-architecture/SKILL.md",
+      "bytes": 2313,
+      "sha256": "4826506b8fda397faa1b2d310fcd58a2c7e6a84d912de6421656bde01f6936c8",
+      "estimated_tokens": 576,
+      "frontmatter": {
+        "name": "define-solution-architecture",
+        "description": "Define the minimum architecture, interfaces, constraints, and feasibility findings required for the approved MVP slice. Use after scope is defined and before implementation or test records are prepared.",
+        "when_to_use": "Use only for the approved MVP slice. Do not use to expand scope or design the full product roadmap.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/define-target-users-and-jtbd/SKILL.md",
+      "bytes": 2314,
+      "sha256": "278ac3620d54b771d34a568adb7b270032dd42e239511eda2cbf6b91a270a9ed",
+      "estimated_tokens": 576,
+      "frontmatter": {
+        "name": "define-target-users-and-jtbd",
+        "description": "Convert discovery evidence into bounded target-user segments and jobs-to-be-done that trace to validated problems and available alternatives. Use during discovery after problem validation and market research.",
+        "when_to_use": "Use only in discovery. Do not use to redefine the core problem after approval or to scope MVP features.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/deploy-mvp/SKILL.md",
+      "bytes": 2628,
+      "sha256": "f83d93d7ca231465f71c60f845d4fcd19a71156efdcf682d70644b8ed629eb32",
+      "estimated_tokens": 654,
+      "frontmatter": {
+        "name": "deploy-mvp",
+        "description": "Produce deployment evidence for the MVP candidate, including rollout posture, rollback readiness, operational ownership, and health-check expectations. Use during the launch phase before product release.",
+        "when_to_use": "Use only after release-candidate evidence exists. Do not use to authorize user exposure on its own.",
+        "allowed-tools": "Read Write Edit Bash Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/design-information-architecture/SKILL.md",
+      "bytes": 2155,
+      "sha256": "695b510487c62fb83b4b7d655e96d23263673b81ce3ef461045099662cc3dbd1",
+      "estimated_tokens": 536,
+      "frontmatter": {
+        "name": "design-information-architecture",
+        "description": "Define the navigation and content relationships needed to support approved user flows. Use during define after user flows and before low-fidelity wireframes.",
+        "when_to_use": "Use only after user flows exist. Do not use to create visual hierarchy or implementation structure.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/design-user-flows/SKILL.md",
+      "bytes": 2194,
+      "sha256": "2bb1405194438ff585cd3cc01758f958fba8ca033441a3d8454c98d39181a3bb",
+      "estimated_tokens": 546,
+      "frontmatter": {
+        "name": "design-user-flows",
+        "description": "Produce bounded user flows for prioritized MVP capabilities, including happy paths and important failure or recovery paths. Use during define before information architecture and wireframes.",
+        "when_to_use": "Use only after feature prioritization. Do not use to create visual design systems or final UI polish.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/diagnose-and-fix-defects/SKILL.md",
+      "bytes": 2023,
+      "sha256": "364bf537e8a92ee9ccec1d7ffd55bbd049f3a03464b70385ae0125b8cfb82ab2",
+      "estimated_tokens": 503,
+      "frontmatter": {
+        "name": "diagnose-and-fix-defects",
+        "description": "Produce bounded defect-resolution evidence, including root cause, corrective action, regression coverage, and any remaining open defects.",
+        "when_to_use": "Use when test or review findings require a defect-resolution loop. Do not use to silently waive defects.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/execute-functional-testing/SKILL.md",
+      "bytes": 1951,
+      "sha256": "e85fa0e533236213e9a1397da69dbfcc69c1d1d9a5b3127ed73d2cc38559f76f",
+      "estimated_tokens": 485,
+      "frontmatter": {
+        "name": "execute-functional-testing",
+        "description": "Produce bounded functional test evidence for the MVP candidate, including acceptance status, failures, and residual risks.",
+        "when_to_use": "Use after the test plan exists and a candidate build is available.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/form-value-proposition/SKILL.md",
+      "bytes": 2271,
+      "sha256": "da88c5ac2b6796b0f47560c52b2ec685c6aa469c179879764f6547a99e034de9",
+      "estimated_tokens": 565,
+      "frontmatter": {
+        "name": "form-value-proposition",
+        "description": "Form one explicit value proposition from target users, jobs-to-be-done, alternatives, and differentiated outcomes. Use during discovery after target users and market alternatives are clear enough to compare.",
+        "when_to_use": "Use only in discovery. Do not use to approve the final core problem or expand the MVP scope.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/hook-development/SKILL.md",
+      "bytes": 16246,
+      "sha256": "f47e2d42f6360294216a859ae0c30b93caafdd2b2e5ffc007489ba4ca447fa5c",
+      "estimated_tokens": 4055,
+      "frontmatter": {
+        "name": "hook-development",
+        "description": "This skill should be used when the user asks to \"create a hook\", \"add a PreToolUse/PostToolUse/Stop hook\", \"validate tool use\", \"implement prompt-based hooks\", \"use ${CLAUDE_PLUGIN_ROOT}\", \"set up event-driven automation\", \"block dangerous commands\", or mentions hook events (PreToolUse, PostToolUse, Stop, SubagentStop, SessionStart, SessionEnd, UserPromptSubmit, PreCompact, Notification). Provides comprehensive guidance for creating and implementing Claude Code plugin hooks with focus on advanced prompt-based hooks API.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/hook-development/examples/load-context.sh",
+      "bytes": 1690,
+      "sha256": "0d614599e711c087b381a4ac7ee3c40758af1022669fc998649d199b9dfe15ed",
+      "estimated_tokens": 418,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/examples/validate-bash.sh",
+      "bytes": 1304,
+      "sha256": "348c58f4cf38a2e7080ea5272935a7658c7122d83dd6c52d0a1f2ef599c176ab",
+      "estimated_tokens": 326,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/examples/validate-write.sh",
+      "bytes": 1222,
+      "sha256": "89a8ef9bb7508e4819080e65834d6783afa5a5a614d458a3821b80a329eb32e5",
+      "estimated_tokens": 306,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/references/advanced.md",
+      "bytes": 10148,
+      "sha256": "5b139ceeb6a3ef16555a6eef421e2642e6ca286b5527ee2b4e02c11ae5b75dd5",
+      "estimated_tokens": 2532,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/references/migration.md",
+      "bytes": 8299,
+      "sha256": "7f8e7a795829837f46a0c058c26c8f5c4aa8be5c9fb5316b828229d1802ded77",
+      "estimated_tokens": 2054,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/references/patterns.md",
+      "bytes": 7144,
+      "sha256": "cb607fca192bfa892fd198141b86dac9d0ca2c573a280b054b7beaa56fc9a8bf",
+      "estimated_tokens": 1784,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/scripts/README.md",
+      "bytes": 3677,
+      "sha256": "08a28b12ffa9fcb16f257ea685c70a920f4f835978b9ffbbac055137c6f6aca0",
+      "estimated_tokens": 919,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/scripts/hook-linter.sh",
+      "bytes": 4200,
+      "sha256": "85a7d55488f8f38f9b98350b5cb597fb306432d5e61eaa3444e7226ca9309e0b",
+      "estimated_tokens": 993,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/scripts/test-hook.sh",
+      "bytes": 5336,
+      "sha256": "ded642e811b4731f6a2c90c73b02e00c937511d9ee65236bb8cf9964f0069393",
+      "estimated_tokens": 1285,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/hook-development/scripts/validate-hook-schema.sh",
+      "bytes": 5081,
+      "sha256": "e7785d6c61d368f5ea5270c979753aea02f776f5b6aa220137ec4585abd720c2",
+      "estimated_tokens": 1237,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/ideate-features/SKILL.md",
+      "bytes": 2238,
+      "sha256": "4bee28ae07321ef5fdc17cacd401da38d22d2ed47bcf118641055627ee9e5335",
+      "estimated_tokens": 557,
+      "frontmatter": {
+        "name": "ideate-features",
+        "description": "Convert an approved core problem into a bounded feature-candidate backlog that traces to user jobs and known risks. Use at the start of define before prioritization or UX flows.",
+        "when_to_use": "Use only after discovery approval. Do not use to approve MVP scope, architecture, or release behavior.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/implement-backend-capabilities/SKILL.md",
+      "bytes": 2296,
+      "sha256": "2c3f97ba8023ae8984acd2ae5d97cfac5324d91311a4b82726d02d535576d5a8",
+      "estimated_tokens": 572,
+      "frontmatter": {
+        "name": "implement-backend-capabilities",
+        "description": "Produce bounded backend implementation evidence for the approved MVP slice, including contract status, server-side test status, and backend risks.",
+        "when_to_use": "Use after architecture and setup are ready. Do not use to broaden API scope.",
+        "allowed-tools": "Read Write Edit Bash Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/implement-frontend-experience/SKILL.md",
+      "bytes": 2354,
+      "sha256": "0eb9bd1aad3f2ac25f92fe513d102f5561f540a2ace5dc7a84fdafb6853ca6fc",
+      "estimated_tokens": 586,
+      "frontmatter": {
+        "name": "implement-frontend-experience",
+        "description": "Produce bounded frontend implementation evidence for the approved MVP slice, including accessibility status, UI test status, and frontend risks.",
+        "when_to_use": "Use after design handoff and API expectations are explicit. Do not use to invent UI scope.",
+        "allowed-tools": "Read Write Edit Bash Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/integrate-product-components/SKILL.md",
+      "bytes": 2346,
+      "sha256": "6725def7d8328894f562a92c715546ca30b4668a65637e399a1c135e6a71e36d",
+      "estimated_tokens": 584,
+      "frontmatter": {
+        "name": "integrate-product-components",
+        "description": "Produce bounded integration evidence for backend and frontend candidates, including critical-path status and integration risks.",
+        "when_to_use": "Use after backend and frontend candidates exist. Do not use to re-architect unrelated parts of the system.",
+        "allowed-tools": "Read Write Edit Bash Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/maintain-risk-register/SKILL.md",
+      "bytes": 2694,
+      "sha256": "d4fe5fdf304c0d629a99f2dd501a23a57362b4ee4a67f139e93a77d243f72c80",
+      "estimated_tokens": 671,
+      "frontmatter": {
+        "name": "maintain-risk-register",
+        "description": "Maintain the idea-to-MVP risk register when the workflow needs risk IDs, categories, likelihood, impact, exposure, early indicators, mitigations, contingencies, or status updates captured consistently. Use when new product, delivery, quality, release, or operational risks appear or existing ones materially change.",
+        "when_to_use": "Use when risks need to be added, updated, escalated, mitigated, accepted, or closed. Do not use to replace a phase-gate decision or hide blocker severity.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/manage-artifact-manifest/SKILL.md",
+      "bytes": 2721,
+      "sha256": "2afbd745f30378987a9daa5c0416ae4e3626816ce68c727cff1f713f3e821c58",
+      "estimated_tokens": 678,
+      "frontmatter": {
+        "name": "manage-artifact-manifest",
+        "description": "Maintain the idea-to-MVP artifact manifest when the workflow needs artifact IDs, owners, dependency links, status transitions, downstream consumers, approval state, or supersession recorded consistently. Use when a specialist output must be registered or audited without rewriting the whole workflow state.",
+        "when_to_use": "Use after an artifact is created, reviewed, approved, superseded, rejected, or found stale. Do not use to invent artifact content or approve quality on its own.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/mcp-integration/SKILL.md",
+      "bytes": 12519,
+      "sha256": "2bcc3b5e93924d7632218f494890f6e6f75a9248138bc97070bc62aea942dd49",
+      "estimated_tokens": 3119,
+      "frontmatter": {
+        "name": "mcp-integration",
+        "description": "This skill should be used when the user asks to \"add MCP server\", \"integrate MCP\", \"configure MCP in plugin\", \"use .mcp.json\", \"set up Model Context Protocol\", \"connect external service\", mentions \"${CLAUDE_PLUGIN_ROOT} with MCP\", or discusses MCP server types (SSE, stdio, HTTP, WebSocket). Provides comprehensive guidance for integrating Model Context Protocol servers into Claude Code plugins for external tool and service integration.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/mcp-integration/examples/http-server.json",
+      "bytes": 502,
+      "sha256": "7a11adaea5ac1bb76269bf473f5cf5cbd636a83c2ec0b7007f2b1cbf4a8a725f",
+      "estimated_tokens": 126,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/mcp-integration/examples/sse-server.json",
+      "bytes": 413,
+      "sha256": "9b0be023f74e12c804757e56dc86349134fd7497ef17f34c7c2ff25039cd1efc",
+      "estimated_tokens": 103,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/mcp-integration/examples/stdio-server.json",
+      "bytes": 686,
+      "sha256": "46148a5dc7fc5e63c681c5fb975d3908d3f3052f51de7236725cdadda41e2b5d",
+      "estimated_tokens": 172,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/mcp-integration/references/authentication.md",
+      "bytes": 10196,
+      "sha256": "9f3ca61a857a15cc4c0dea9143365b0c49cae558690089dd61f6434186c702ce",
+      "estimated_tokens": 2543,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/mcp-integration/references/server-types.md",
+      "bytes": 10613,
+      "sha256": "7b06c7ea92e255218897189c550a32cbad1daa173e78e40ec94524fc9a1fb36b",
+      "estimated_tokens": 2653,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/mcp-integration/references/tool-usage.md",
+      "bytes": 11674,
+      "sha256": "8dd0005d7ba6cd2d24e72f9e6102c129b7445fc818e14656ad9ebaef6621a7a6",
+      "estimated_tokens": 2918,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/monitor-and-synthesize-feedback/SKILL.md",
+      "bytes": 2327,
+      "sha256": "8e78d2a3de92d40a1d97bc63be801e44eabe35bb0ec7dda9603f642b1aadebd3",
+      "estimated_tokens": 579,
+      "frontmatter": {
+        "name": "monitor-and-synthesize-feedback",
+        "description": "Synthesize telemetry and user feedback into a normalized post-launch review tied to the MVP hypothesis. Use after release when signals need to be interpreted instead of listed raw.",
+        "when_to_use": "Use only after launch evidence exists. Do not use to make roadmap commitments without explicit signal interpretation.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/plan-next-iteration/SKILL.md",
+      "bytes": 2184,
+      "sha256": "98beef81589545209b3fddcdf650b71c47c9c3ce6251566f672d8c358f20365d",
+      "estimated_tokens": 544,
+      "frontmatter": {
+        "name": "plan-next-iteration",
+        "description": "Turn post-launch review evidence into the next iteration decision and plan. Use after telemetry and feedback have been synthesized.",
+        "when_to_use": "Use only after post-launch evidence exists. Do not use to restate launch findings without making a decision.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/plugin-settings/SKILL.md",
+      "bytes": 12097,
+      "sha256": "028b955244b937ebc1a5c268a12776b8ceae4cbfb60928fbca927227f4c8851d",
+      "estimated_tokens": 3018,
+      "frontmatter": {
+        "name": "plugin-settings",
+        "description": "This skill should be used when the user asks about \"plugin settings\", \"store plugin configuration\", \"user-configurable plugin\", \".local.md files\", \"plugin state files\", \"read YAML frontmatter\", \"per-project plugin settings\", or wants to make plugin behavior configurable. Documents the .claude/plugin-name.local.md pattern for storing plugin-specific configuration with YAML frontmatter and markdown content.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/plugin-settings/examples/create-settings-command.md",
+      "bytes": 2177,
+      "sha256": "abf0a36bb3f6425041046f2da1ebfac5505c5b37656fdd4772cfc4d8bd2fa655",
+      "estimated_tokens": 544,
+      "frontmatter": {
+        "description": "Create plugin settings file with user preferences",
+        "allowed-tools": "[\"Write\", \"AskUserQuestion\"]"
+      }
+    },
+    {
+      "path": ".claude/skills/plugin-settings/examples/example-settings.md",
+      "bytes": 2930,
+      "sha256": "f07209b6e2fb62d443ae07d01bc1674c6c741c352a04549bfa978e1f34b9769e",
+      "estimated_tokens": 732,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-settings/examples/read-settings-hook.sh",
+      "bytes": 2205,
+      "sha256": "627fce38d37d64c971401ecc85d548f060075670bcac52f65c92ca156e810c70",
+      "estimated_tokens": 551,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-settings/references/parsing-techniques.md",
+      "bytes": 11513,
+      "sha256": "bc90aa020aa5fcbb3483d7316754450dcc91d086ee96f9304fa655e878f7712e",
+      "estimated_tokens": 2875,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-settings/references/real-world-examples.md",
+      "bytes": 9492,
+      "sha256": "35c8805ac43fccd9efeef932bc49afc424f8fd150b553197652996abf2d1327e",
+      "estimated_tokens": 2368,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-settings/scripts/parse-frontmatter.sh",
+      "bytes": 1269,
+      "sha256": "1ab8c42d5a19e0b404af3c573d0267fc19b5987e1d7885f522066ffd76e54553",
+      "estimated_tokens": 317,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-settings/scripts/validate-settings.sh",
+      "bytes": 2712,
+      "sha256": "2f4975285cba7f16b82c764a95fe76d34ac488308ba6705c04561267da4f4f75",
+      "estimated_tokens": 649,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/README.md",
+      "bytes": 3210,
+      "sha256": "c7cb4931d6d71198cba6b552e4733b41940be56a65552a2ff7c5656750b95184",
+      "estimated_tokens": 802,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/SKILL.md",
+      "bytes": 13796,
+      "sha256": "a2dbc1e5502aacb360d0ca74732cdd7be4f6a12a49edf4f2ade4134fbc026247",
+      "estimated_tokens": 3361,
+      "frontmatter": {
+        "name": "plugin-structure",
+        "description": "This skill should be used when the user asks to \"create a plugin\", \"scaffold a plugin\", \"understand plugin structure\", \"organize plugin components\", \"set up plugin.json\", \"use ${CLAUDE_PLUGIN_ROOT}\", \"add commands/agents/skills/hooks\", \"configure auto-discovery\", or needs guidance on plugin directory layout, manifest configuration, component organization, file naming conventions, or Claude Code plugin architecture best practices.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/plugin-structure/examples/advanced-plugin.md",
+      "bytes": 18746,
+      "sha256": "3d24f5856048a94cb99fe2b8207d99f2f5d69325771b361d63ec73024290759c",
+      "estimated_tokens": 4490,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/examples/minimal-plugin.md",
+      "bytes": 1731,
+      "sha256": "c4f14fe56b153be3c532b7947bb10b453fc92e280dca5a7da752d2b1b5d17448",
+      "estimated_tokens": 426,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/examples/standard-plugin.md",
+      "bytes": 13310,
+      "sha256": "b8cfba84bd4dbdc83365cebcde5dcc6391252372300df0c1ea7890441582d784",
+      "estimated_tokens": 3276,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/references/component-patterns.md",
+      "bytes": 12086,
+      "sha256": "38681792a6aba4f06d3c391b20b04060263f1fbaacc5880cc0cafe0543d37f91",
+      "estimated_tokens": 2740,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/plugin-structure/references/manifest-reference.md",
+      "bytes": 12061,
+      "sha256": "d0ff8ffece4754df92c543266b8d0b689fb85473f51fbb57e215f2d235ee9782",
+      "estimated_tokens": 3005,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/prepare-design-handoff/SKILL.md",
+      "bytes": 2412,
+      "sha256": "f2fd0655f0d80c13cf1c40d8420557f571963f274567fb7d44aabac9814c3eb5",
+      "estimated_tokens": 600,
+      "frontmatter": {
+        "name": "prepare-design-handoff",
+        "description": "Convert the approved design artifacts into an engineering-ready design handoff with states, behavior, accessibility, data, and tracking requirements. Use at the end of design before technical architecture and implementation.",
+        "when_to_use": "Use only after usability findings are available. Do not use to invent engineering behavior or to bypass unresolved critical usability issues.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/prepare-minimal-implementation-record/SKILL.md",
+      "bytes": 2303,
+      "sha256": "d18040749b6bd52539aedd1723e21ceef05dfcaa5d5055e8511cb70c4c1bfe76",
+      "estimated_tokens": 573,
+      "frontmatter": {
+        "name": "prepare-minimal-implementation-record",
+        "description": "Produce a thin implementation record for the approved MVP slice, including the smallest deliverable set, owners, dependencies, and integration notes. Use after architecture is defined for the first vertical slice.",
+        "when_to_use": "Use for thin-slice planning only. Do not convert it into a full backlog or speculative roadmap.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/prepare-release-record/SKILL.md",
+      "bytes": 2277,
+      "sha256": "ec291de0440e64d507ba4904e82b78171e1850a7c413d000bde9f9d6776c7e0f",
+      "estimated_tokens": 567,
+      "frontmatter": {
+        "name": "prepare-release-record",
+        "description": "Produce a release record for the thin MVP slice, summarizing scope delivered, evidence gathered, residual risks, rollback posture, and the final release recommendation. Use at the end of the first vertical slice.",
+        "when_to_use": "Use only after test evidence is summarized. Do not use to approve release without explicit evidence.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/prepare-specialist-handoff/SKILL.md",
+      "bytes": 2747,
+      "sha256": "d255a4566fa11da52ec8bc9ac5a1cc2e07dc9bae27fdd2061ab944e9993f668a",
+      "estimated_tokens": 684,
+      "frontmatter": {
+        "name": "prepare-specialist-handoff",
+        "description": "Package a bounded specialist handoff for the idea-to-MVP workflow with objective, authoritative inputs, relevant decisions, constraints, required output, acceptance checks, explicit exclusions, unresolved questions, allowed paths, and tool permissions. Use when the orchestrator needs to delegate work without leaking full-session context.",
+        "when_to_use": "Use before specialist execution when the workflow needs a precise delegation packet. Do not use after the specialist work is already complete.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/prepare-test-record/SKILL.md",
+      "bytes": 2285,
+      "sha256": "683de494c44cc546185b3d9f1fc858144d7f66b5e169a10ae8c877eabf7bfaa3",
+      "estimated_tokens": 569,
+      "frontmatter": {
+        "name": "prepare-test-record",
+        "description": "Produce the first vertical slice's test record, including verification strategy, acceptance coverage, residual gaps, and pass or fail readiness. Use after the implementation record exists and before a release recommendation.",
+        "when_to_use": "Use for release-evidence preparation. Do not use to redefine the product scope or architecture.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/prioritize-features/SKILL.md",
+      "bytes": 2265,
+      "sha256": "ccd461145a9cd3b10a1e0466384b0b942e4292bde7684c0824938bd0e61268bd",
+      "estimated_tokens": 564,
+      "frontmatter": {
+        "name": "prioritize-features",
+        "description": "Prioritize the candidate feature backlog into a bounded MVP order with explicit dependencies, scoring logic, and exclusions. Use during define after feature ideation and before UX design artifacts.",
+        "when_to_use": "Use only in define after candidate features exist. Do not use to finalize the PRD or to waive scope tradeoffs.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/produce-low-fidelity-wireframes/SKILL.md",
+      "bytes": 2237,
+      "sha256": "46b1cf4195cf23f0885d961886855b7167c3863740fcf4631256be3a478442ad",
+      "estimated_tokens": 557,
+      "frontmatter": {
+        "name": "produce-low-fidelity-wireframes",
+        "description": "Produce low-fidelity wireframe specifications for the MVP user flows and information architecture. Use during define before the MVP PRD is finalized.",
+        "when_to_use": "Use only after user flows and IA exist. Do not use to create high-fidelity visual systems or engineering implementation details.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/record-decision/SKILL.md",
+      "bytes": 2670,
+      "sha256": "169ec52ff678a0dd44d42c03f2d2a84f8cdbb3cabfd6c2d57a56a47198a8f679",
+      "estimated_tokens": 665,
+      "frontmatter": {
+        "name": "record-decision",
+        "description": "Produce a structured decision record when the idea-to-MVP workflow needs a bounded decision, context, options, evidence, rationale, consequences, risks, reversal conditions, owner, or affected-artifact list captured consistently. Use for approvals and architecture or product decisions that should be replayable later.",
+        "when_to_use": "Use when a real decision has been made or is ready for human approval. Do not use to smuggle in a new decision that the workflow has not actually reached.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/release-mvp/SKILL.md",
+      "bytes": 2353,
+      "sha256": "add2e6021e75f51c1da7f205919017f4088d2326607697bd30075174927254ba",
+      "estimated_tokens": 586,
+      "frontmatter": {
+        "name": "release-mvp",
+        "description": "Produce the product-release decision package from deployment and release evidence, including release notes, known limitations, required approval, and the final release recommendation. Use during the launch phase after deployment and analytics readiness are summarized.",
+        "when_to_use": "Use only after deployment and analytics evidence are available. Do not use to bypass product-owner approval.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/research-market-and-competitors/SKILL.md",
+      "bytes": 2374,
+      "sha256": "f35275484d15f4daaefd6cf76c931f9310c3a65956af3abe99ed4dab92b7585f",
+      "estimated_tokens": 591,
+      "frontmatter": {
+        "name": "research-market-and-competitors",
+        "description": "Produce a bounded market and competitor report for an approved problem area, including alternatives, gaps, and research limitations. Use during discovery after problem validation and before value-proposition or core-problem selection.",
+        "when_to_use": "Use only in discovery. Do not use to approve strategy, define MVP scope, or infer product-market fit from weak evidence.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/review-code-and-architecture/SKILL.md",
+      "bytes": 2008,
+      "sha256": "0423e34b2a5633ad99218f1c4fdf00d1df53e724f84ab196dbbcb192f613de6b",
+      "estimated_tokens": 500,
+      "frontmatter": {
+        "name": "review-code-and-architecture",
+        "description": "Produce independent review evidence for the integrated MVP candidate, including blocker-level findings and accepted findings.",
+        "when_to_use": "Use after integration and before test sign-off. Do not use to restate implementation notes.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/run-phase-gate/SKILL.md",
+      "bytes": 2637,
+      "sha256": "00b4805e65766fa307ad929432478a0c7ba40f8e18f75333307e398a6dc2326a",
+      "estimated_tokens": 657,
+      "frontmatter": {
+        "name": "run-phase-gate",
+        "description": "Produce the machine-readable phase-gate result for an idea-to-MVP phase, including status, checks, blocking findings, accepted risks, required rework, human decisions, and supporting evidence. Use when a phase is ready to pass, fail, block, or conditionally pass based on explicit artifacts.",
+        "when_to_use": "Use after the phase evidence exists and before the workflow advances. Do not use to bypass missing approvals or missing evidence.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/select-core-problem/SKILL.md",
+      "bytes": 2251,
+      "sha256": "e0b7fe143eb7a0b1ecd8fc412c5b2592f7eaa788b1068fa890dff5e76c393870",
+      "estimated_tokens": 560,
+      "frontmatter": {
+        "name": "select-core-problem",
+        "description": "Choose one primary problem from discovery outputs with explicit rationale and rejected alternatives. Use at the discovery gate when the workflow needs a single approved direction or a request for approval.",
+        "when_to_use": "Use only after opportunity and validation artifacts exist. Do not use to define MVP scope or architecture.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/skill-creator/LICENSE.txt",
+      "bytes": 11357,
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "estimated_tokens": 2839,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/SKILL.md",
+      "bytes": 33622,
+      "sha256": "1e41a054f216dd56a36c5079817de503096b6e3700888b1dafbcf0bc898730ab",
+      "estimated_tokens": 8359,
+      "frontmatter": {
+        "name": "skill-creator",
+        "description": "Create new skills, modify and improve existing skills, and measure skill performance through the hands-on draft-test-eval-iterate workflow \u2014 running test prompts via subagents, launching the benchmark/eval viewer, and running the automated description-optimization script for better triggering accuracy. Use when users want to create a skill from scratch, edit or extend an existing skill, run evals or benchmarks to test a skill, or optimize a skill's description with the automated trigger-accuracy loop. Applies to any skill, standalone or inside a plugin. Not for plugin-specific skill-structure and style conventions such as plugin skills/ directory layout, word-count targets, or the imperative-style checklist \u2014 use skill-development for that reference guidance."
+      }
+    },
+    {
+      "path": ".claude/skills/skill-creator/agents/analyzer.md",
+      "bytes": 10376,
+      "sha256": "bf68f4cac5a56c673a928c2e6d619586c5b93ea364026ab37547772cb45a663a",
+      "estimated_tokens": 2594,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/agents/comparator.md",
+      "bytes": 7287,
+      "sha256": "fe1fc9787c495d864c5d6eada47396478572325fde1b33a96d78bf4b849b7a3e",
+      "estimated_tokens": 1820,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/agents/grader.md",
+      "bytes": 9049,
+      "sha256": "57134da0c1a4eea33fbd74a1c9c44aa814f07d6bc64de303edb586f941e5d21a",
+      "estimated_tokens": 2258,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/assets/eval_review.html",
+      "bytes": 7058,
+      "sha256": "ce477dcc74dc1c0d1d3352646a79167b5a63634e936b1019160025065974e452",
+      "estimated_tokens": 1764,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/eval-viewer/generate_review.py",
+      "bytes": 16365,
+      "sha256": "fc9d1b9243fe5ab6012ebd579bd76d0035de1b79fd3b969de114defab26478fb",
+      "estimated_tokens": 4074,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/eval-viewer/viewer.html",
+      "bytes": 44998,
+      "sha256": "a53213426ee1100441d701a3a0d49cda7a842f992d2c36463f4d3cc0258575fa",
+      "estimated_tokens": 11244,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/references/schemas.md",
+      "bytes": 12061,
+      "sha256": "8e8876180a8989b406a4d3edddf875b04cdfd5805cc8616686d552b11ce4455f",
+      "estimated_tokens": 3014,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "estimated_tokens": 1,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/aggregate_benchmark.py",
+      "bytes": 14386,
+      "sha256": "123ef128ea5ccc01a4b1ac212ef5567f21e9c13d3d240609780beeb3200c49aa",
+      "estimated_tokens": 3571,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/generate_report.py",
+      "bytes": 12847,
+      "sha256": "13df7118a3c50c83c4c3250a606d5f2b20b25a3d44cbc392b3d669ec75281453",
+      "estimated_tokens": 3209,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/improve_description.py",
+      "bytes": 11116,
+      "sha256": "87d864570220b699fac52da309d2d6efdb060647bfebc74f768128e646accf80",
+      "estimated_tokens": 2777,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/package_skill.py",
+      "bytes": 4234,
+      "sha256": "1a33059b0db1ef73375d46d513e5ea81369d2e8838c970597b0d52ddef8d1c0f",
+      "estimated_tokens": 1054,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/quick_validate.py",
+      "bytes": 3972,
+      "sha256": "67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365",
+      "estimated_tokens": 993,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/run_eval.py",
+      "bytes": 11464,
+      "sha256": "43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f",
+      "estimated_tokens": 2866,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/run_loop.py",
+      "bytes": 13605,
+      "sha256": "7bd6f674203168520517eec94c55f493c0d154339b061b4d7c0f0dad187d0f21",
+      "estimated_tokens": 3401,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-creator/scripts/utils.py",
+      "bytes": 1661,
+      "sha256": "3af8ae62c40c73ab712207436a0d9a981e845f25c5a7040229eb189cc8e45bb1",
+      "estimated_tokens": 415,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/skill-development/SKILL.md",
+      "bytes": 23147,
+      "sha256": "e2128a28c04b61034d960fcd4d0a6023de85ae0f37a80333d844fbf18fb28628",
+      "estimated_tokens": 5713,
+      "frontmatter": {
+        "name": "skill-development",
+        "description": "This skill should be used when the user wants to \"add a skill to a plugin\", \"organize skill content in a plugin\", \"scaffold a plugin skill directory\", or needs reference guidance on skill structure, progressive disclosure, word-count targets, or description/body style conventions for skills that live inside a Claude Code plugin's skills/ directory alongside its commands, agents, and hooks. Not for the hands-on draft-test-eval-iterate workflow \u2014 running test prompts via subagents, launching the benchmark/eval viewer, or running the automated description-optimization script \u2014 use skill-creator for that.",
+        "version": "0.1.0"
+      }
+    },
+    {
+      "path": ".claude/skills/skill-development/references/skill-creator-original.md",
+      "bytes": 11510,
+      "sha256": "43bb8b37b8cd504c95471f4026cce8a71e342d62ddd80c97c13a92067f0f91fd",
+      "estimated_tokens": 2860,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/validate-artifact-contract/SKILL.md",
+      "bytes": 2514,
+      "sha256": "e08c94ec4bd5193ecea18e21372c36b96d85618e845fc8a5794ce258f8d24e27",
+      "estimated_tokens": 626,
+      "frontmatter": {
+        "name": "validate-artifact-contract",
+        "description": "Validate an idea-to-MVP artifact contract for structure, required fields, traceability, unresolved placeholders, and internal consistency. Use when a workflow artifact exists and needs contract-level review before it can count as evidence.",
+        "when_to_use": "Use after a specialist draft exists and before a gate relies on it. Do not use as a substitute for independent human approval.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/validate-performance-and-security/SKILL.md",
+      "bytes": 2052,
+      "sha256": "5abdd7d7b0bbdd4b8059edd488fd8855c0a0f4861258f0d5f8c5396f1a58b45e",
+      "estimated_tokens": 510,
+      "frontmatter": {
+        "name": "validate-performance-and-security",
+        "description": "Produce bounded performance and security validation evidence for the MVP candidate, including threshold disposition and residual risks.",
+        "when_to_use": "Use after functional and UAT evidence exist and before launch preparation begins.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/validate-problem-hypotheses/SKILL.md",
+      "bytes": 2181,
+      "sha256": "aa832e7980e9896701b3f9a1b42a5950a807c63f7a97a24ddd72ca96b3e1a33d",
+      "estimated_tokens": 543,
+      "frontmatter": {
+        "name": "validate-problem-hypotheses",
+        "description": "Test candidate problems for affected users, severity, frequency, evidence strength, and falsifiers. Use during discovery after opportunities exist and before selecting a core problem.",
+        "when_to_use": "Use in discovery validation only. Do not use to approve final scope or architecture.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/verify-source-grounding/SKILL.md",
+      "bytes": 2751,
+      "sha256": "8eb9a517aac40437e6377097b0bc5db720eea61a8d2c4f6ee3322cd90a0931a6",
+      "estimated_tokens": 685,
+      "frontmatter": {
+        "name": "verify-source-grounding",
+        "description": "Verify that research-facing idea-to-MVP artifacts distinguish fact, inference, estimate, and assumption, and that volatile claims stay tied to explicit dated sources. Use when discovery, market, feedback, or decision artifacts rely on external evidence that must hold up at a gate.",
+        "when_to_use": "Use after a research or evidence-heavy draft exists and before a gate, approval, or downstream decision treats it as authoritative. Do not use as a substitute for doing the research itself.",
+        "allowed-tools": "Read Grep Glob"
+      }
+    },
+    {
+      "path": ".claude/skills/writing-great-skills/GLOSSARY.md",
+      "bytes": 18488,
+      "sha256": "cccd684c73fb7a06f523497b0121765f92d2b33d6ef9c51602294849233451d6",
+      "estimated_tokens": 4592,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/skills/writing-great-skills/SKILL.md",
+      "bytes": 9414,
+      "sha256": "4d6ccbc3760b1bd4107c495a79872286ea69494003f3b0a719fc95b147457061",
+      "estimated_tokens": 2332,
+      "frontmatter": {
+        "name": "writing-great-skills",
+        "description": "Reference for writing and editing skills well \u2014 the vocabulary and principles that make a skill predictable.",
+        "disable-model-invocation": "true"
+      }
+    },
+    {
+      "path": ".claude/statusline-command.ps1",
+      "bytes": 58802,
+      "sha256": "0c563e9d6672c6faba4e080a2b7e9a805c4c46651ac6fa43a6cc33cea5baa318",
+      "estimated_tokens": 14700,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/statusline-tests.ps1",
+      "bytes": 38308,
+      "sha256": "a424cdec3b7cdfa57cd80ed480f8b79a51864e367acc463d15a02265ed5a963c",
+      "estimated_tokens": 9577,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/statusline.json",
+      "bytes": 245,
+      "sha256": "d84a4b05401bce67d312038ea48fd45d1d75c3f6f555a24b8934ac2bd518363f",
+      "estimated_tokens": 61,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/AGENTS.md",
+      "bytes": 740,
+      "sha256": "81ca2dc75e11a9440f8a5a6765cc1d67844e310705c641e1e98f2a2272b3aa48",
+      "estimated_tokens": 185,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/README.md",
+      "bytes": 1034,
+      "sha256": "7744135b4fbd3f205eddc77607d1d239a8898e3160bc8b928833a2dcba8c95be",
+      "estimated_tokens": 258,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/build-phase.js",
+      "bytes": 16854,
+      "sha256": "96acf5b3ada541152b0a690754bf09bd4598238d0702b3e14b22a74915e30dcc",
+      "estimated_tokens": 4214,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/build-phase.md",
+      "bytes": 3686,
+      "sha256": "eb8e872f142744bb3aad3879eb93956b9fd5b7237f82b0f2825b9e5e1637128f",
+      "estimated_tokens": 922,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/change-impact-loop.js",
+      "bytes": 8815,
+      "sha256": "a5dbcc7387385f04214ffc8bba9abdb8c7ff7f981a0e1a245c98542af02868e0",
+      "estimated_tokens": 2204,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/change-impact-loop.md",
+      "bytes": 3433,
+      "sha256": "31bb2ab6d709518c6c49ef60622d7fe9a801db44e4bdfd678996794dcb2ac385",
+      "estimated_tokens": 858,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/define-phase.js",
+      "bytes": 17782,
+      "sha256": "2070a295c80e74f9ed1d33c15642ea97355eb31aeb30e4fc61f9722a7ee103be",
+      "estimated_tokens": 4446,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/define-phase.md",
+      "bytes": 3543,
+      "sha256": "9a5c48c2fe4a18a0e1db5650e4e72701c3c533f753324c956a521ec0a0a3e04f",
+      "estimated_tokens": 886,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/design-phase.js",
+      "bytes": 15614,
+      "sha256": "5e52e8204bc4f8562c238257fbdb4af3a70af51750b2508902d08081c03adfc9",
+      "estimated_tokens": 3904,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/design-phase.md",
+      "bytes": 3540,
+      "sha256": "26d71dda6929842410d6e94022543436a06857e2434d972be27dfb08b296cad7",
+      "estimated_tokens": 885,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/discover-phase.js",
+      "bytes": 19684,
+      "sha256": "e2c6f3b3876438c0e4d81ba3a4512a57b13194f43f3235da63f20be19583f002",
+      "estimated_tokens": 4921,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/discover-phase.md",
+      "bytes": 3602,
+      "sha256": "f5957b63f54d273e12900291933f4603c7dab83c1f309c7d60a797f461cb3322",
+      "estimated_tokens": 900,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/feedback-loop.js",
+      "bytes": 10657,
+      "sha256": "6733b55114b7c78bfe0d9f8e43e7ec9d5bed7b024732bae0e7dc0f0ca585f473",
+      "estimated_tokens": 2664,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/feedback-loop.md",
+      "bytes": 3291,
+      "sha256": "4a6bd7f3e06a8e7683686c6c5a7971f1f08c4572d275e7e202609afe9c7ad25c",
+      "estimated_tokens": 823,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/idea-to-mvp.js",
+      "bytes": 357616,
+      "sha256": "08d1e2129a0c83f14ed56a3cf422229745b7d00aa5614f0c87946151efb6592b",
+      "estimated_tokens": 89404,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/idea-to-mvp.md",
+      "bytes": 7245,
+      "sha256": "01ee5bf1b88678441dca9a0ff4533e3b75a5955b8170c2263415a7c5ad759f16",
+      "estimated_tokens": 1811,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/launch-phase.js",
+      "bytes": 13711,
+      "sha256": "bade15e9d68d76a9e76344baec94e16f9efb1cc6c2a5c3e29e23025694086ab4",
+      "estimated_tokens": 3428,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/launch-phase.md",
+      "bytes": 3333,
+      "sha256": "e3f22b27f5d75cc93153764834a0076f570868dc34829db5e97d88f27e090d81",
+      "estimated_tokens": 833,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/self-improvement.md",
+      "bytes": 7009,
+      "sha256": "34041c0b3931435a389f0a05ea2c8b902eb167252b6dbd5531a8694ba41b904b",
+      "estimated_tokens": 1746,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/test-phase.js",
+      "bytes": 17974,
+      "sha256": "04294f0f538f7266b86e727994676ad64457201237e707760aea5095e0f02637",
+      "estimated_tokens": 4494,
+      "frontmatter": {}
+    },
+    {
+      "path": ".claude/workflows/test-phase.md",
+      "bytes": 3691,
+      "sha256": "560021230ed046d5359520f95a01141af68d4b8ae35f0014abdb2747e111cd71",
+      "estimated_tokens": 923,
+      "frontmatter": {}
+    }
+  ],
+  "duplicate_frontmatter_names": {}
+}

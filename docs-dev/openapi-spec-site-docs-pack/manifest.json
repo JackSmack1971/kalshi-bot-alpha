@@ -1,0 +1,3232 @@
+{
+  "status": "ok",
+  "generator": "official-docs-pack",
+  "version": "2.0.0",
+  "generated_at": "2026-07-17T17:37:13.072Z",
+  "request": "https://spec.openapis.org/oas/",
+  "settings": {
+    "max_pages": 150,
+    "max_depth": 5,
+    "timeout_ms": 15000,
+    "allow_hosts": [
+      "spec.openapis.org"
+    ]
+  },
+  "seeds": [
+    {
+      "url": "https://spec.openapis.org/oas/",
+      "reason": "user-url:known-docs-host",
+      "score": 80,
+      "host": "spec.openapis.org",
+      "rootPath": "/"
+    }
+  ],
+  "pages": [
+    {
+      "path": "docs/spec-openapis-org-oas-5c332c57.md",
+      "title": "OpenAPI Specification",
+      "url": "https://spec.openapis.org/oas/",
+      "host": "spec.openapis.org",
+      "depth": 0,
+      "headings": [
+        "[](https://spec.openapis.org/oas/#openapi-specification)OpenAPI Specification",
+        "[](https://spec.openapis.org/oas/#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/oas/#schema-iterations)Schema Iterations"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:53.760Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-e4aeda6d.md",
+      "title": "OpenAPI Initiative Publications",
+      "url": "https://spec.openapis.org/",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/#openapi-initiative-publications)OpenAPI Initiative Publications",
+        "[](https://spec.openapis.org/#specifications)Specifications",
+        "[](https://spec.openapis.org/#registries)Registries"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:53.841Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-d5cf4377.md",
+      "title": "Arazzo Specification",
+      "url": "https://spec.openapis.org/arazzo/",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/arazzo/#arazzo-specification)Arazzo Specification",
+        "[](https://spec.openapis.org/arazzo/#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/arazzo/#schema-iterations)Schema Iterations"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:53.915Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-589f1c4c.md",
+      "title": "Overlay Specification",
+      "url": "https://spec.openapis.org/overlay/",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/overlay/#overlay-specification)Overlay Specification",
+        "[](https://spec.openapis.org/overlay/#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/overlay/#schema-iterations)Schema Iterations"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:53.978Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-c10aa448.md",
+      "title": "Registries",
+      "url": "https://spec.openapis.org/registry/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/index.html#registries)Registries",
+        "[](https://spec.openapis.org/registry/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/index.html#contents)Contents"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.038Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-alternative-schema-c26799ac.md",
+      "title": "Alternative Schema Type Registry",
+      "url": "https://spec.openapis.org/registry/alternative-schema/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/alternative-schema/index.html#alternative-schema-type-registry)Alternative Schema Type Registry",
+        "[](https://spec.openapis.org/registry/alternative-schema/index.html#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/alternative-schema/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/alternative-schema/index.html#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.098Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-4c4a90ee.md",
+      "title": "Extensions Registry",
+      "url": "https://spec.openapis.org/registry/extension/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/index.html#extensions-registry)Extensions Registry",
+        "[](https://spec.openapis.org/registry/extension/index.html#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/extension/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/extension/index.html#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.225Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-45320d86.md",
+      "title": "Formats Registry",
+      "url": "https://spec.openapis.org/registry/format/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/index.html#formats-registry)Formats Registry",
+        "[](https://spec.openapis.org/registry/format/index.html#considerations)Considerations",
+        "[](https://spec.openapis.org/registry/format/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/format/index.html#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.279Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-31227932.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/index.html#media-type-registry)Media Type Registry",
+        "[](https://spec.openapis.org/registry/media-type/index.html#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/registry/media-type/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/media-type/index.html#media-types)Media Types"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.386Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-f6317da8.md",
+      "title": "Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/index.html#namespace-registry)Namespace Registry",
+        "[](https://spec.openapis.org/registry/namespace/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/namespace/index.html#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.450Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-43147270.md",
+      "title": "Tag Kinds Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/index.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/index.html#tag-kinds-registry)Tag Kinds Registry",
+        "[](https://spec.openapis.org/registry/tag-kind/index.html#supporting-versions)Supporting Versions",
+        "[](https://spec.openapis.org/registry/tag-kind/index.html#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/tag-kind/index.html#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:54.516Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-latest-html-496ea603.md",
+      "title": "OpenAPI Specification v3.2.0",
+      "url": "https://spec.openapis.org/oas/latest.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.2.0",
+        "Version 3.2.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.2.0",
+        "2\\. Introduction",
+        "2.1 Versions and Deprecation",
+        "2.2 Undefined and Implementation-Defined Behavior",
+        "3\\. Format",
+        "3.1 JSON and YAML Compatibility",
+        "3.2 Case Sensitivity",
+        "3.3 Rich Text Formatting",
+        "4\\. Objects and Fields",
+        "4.1 OpenAPI Object",
+        "4.2 Info Object",
+        "4.3 Contact Object",
+        "4.4 License Object",
+        "4.5 Server Object",
+        "4.6 Server Variable Object",
+        "4.7 Components Object",
+        "4.8 Paths Object",
+        "4.9 Path Item Object",
+        "4.10 Operation Object"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:54.564Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-latest-html-26dbe6a3.md",
+      "title": "The Arazzo Specification v1.1.0",
+      "url": "https://spec.openapis.org/arazzo/latest.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "The Arazzo Specification v1.1.0",
+        "Version 1.1.0",
+        "What is the Arazzo Specification?",
+        "Status of This Document",
+        "1\\. Arazzo Specification",
+        "2\\. Version 1.1.0",
+        "3\\. Introduction",
+        "4\\. Definitions",
+        "4.1 Arazzo Description",
+        "5\\. Specification",
+        "5.1 Versions",
+        "5.2 Format",
+        "5.3 Arazzo Description Structure",
+        "5.4 Data Types",
+        "5.5 Parsing Documents",
+        "5.6 Relative References in Arazzo Description URIs",
+        "5.7 Relative References in API URLs",
+        "5.8 Schema",
+        "Query Example",
+        "Querystring Example (application/x-www-form-urlencoded)",
+        "Querystring with Runtime Expressions (application/x-www-form-urlencoded)",
+        "Querystring Example (application/json)",
+        "Header Example",
+        "Direct usage in simple conditions"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:55.398Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-latest-html-27a77606.md",
+      "title": "Overlay Specification v1.1.0",
+      "url": "https://spec.openapis.org/overlay/latest.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "Overlay Specification v1.1.0",
+        "Version 1.1.0",
+        "What is the Overlay Specification?",
+        "Status of This Document",
+        "1\\. Overlay Specification",
+        "1.1 Version 1.1.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 Overlay",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Relative References in URIs",
+        "4.4 Schema",
+        "4.5 Examples",
+        "4.6 Specification Extensions",
+        "4.7 File Naming Convention",
+        "4.8 RFC9535 Compliance",
+        "4.9 Comments in OpenAPI Descriptions",
+        "A. Appendix A: Revision History",
+        "B. References",
+        "B.1 Normative references"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:55.627Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-2-0-html-f30fcb0d.md",
+      "title": "OpenAPI Specification v3.2.0",
+      "url": "https://spec.openapis.org/oas/v3.2.0.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.2.0",
+        "Version 3.2.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.2.0",
+        "2\\. Introduction",
+        "2.1 Versions and Deprecation",
+        "2.2 Undefined and Implementation-Defined Behavior",
+        "3\\. Format",
+        "3.1 JSON and YAML Compatibility",
+        "3.2 Case Sensitivity",
+        "3.3 Rich Text Formatting",
+        "4\\. Objects and Fields",
+        "4.1 OpenAPI Object",
+        "4.2 Info Object",
+        "4.3 Contact Object",
+        "4.4 License Object",
+        "4.5 Server Object",
+        "4.6 Server Variable Object",
+        "4.7 Components Object",
+        "4.8 Paths Object",
+        "4.9 Path Item Object",
+        "4.10 Operation Object"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:55.781Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-1-2-html-87f433fc.md",
+      "title": "OpenAPI Specification v3.1.2",
+      "url": "https://spec.openapis.org/oas/v3.1.2.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.1.2",
+        "Version 3.1.2",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.1.2",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Description",
+        "3.2 OpenAPI Document",
+        "3.3 Schema",
+        "3.4 Object",
+        "3.5 Path Templating",
+        "3.6 Media Types",
+        "3.7 HTTP Status Codes",
+        "3.8 Case Sensitivity",
+        "3.9 Undefined and Implementation-Defined Behavior",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 OpenAPI Description Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in API Description URIs"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:56.359Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-1-1-html-e6b991a3.md",
+      "title": "OpenAPI Specification v3.1.1",
+      "url": "https://spec.openapis.org/oas/v3.1.1.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.1.1",
+        "Version 3.1.1",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.1.1",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Description",
+        "3.2 OpenAPI Document",
+        "3.3 Schema",
+        "3.4 Object",
+        "3.5 Path Templating",
+        "3.6 Media Types",
+        "3.7 HTTP Status Codes",
+        "3.8 Case Sensitivity",
+        "3.9 Undefined and Implementation-Defined Behavior",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 OpenAPI Description Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in API Description URIs"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:56.729Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-1-0-html-7b954b36.md",
+      "title": "OpenAPI Specification v3.1.0",
+      "url": "https://spec.openapis.org/oas/v3.1.0.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.1.0",
+        "Version 3.1.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.1.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URIs",
+        "4.7 Relative References in URLs",
+        "4.8 Schema",
+        "a PNG image as a binary file:",
+        "an arbitrary binary file:",
+        "multiple, specific media types may be specified:"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:57.032Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-4-html-1e580b6b.md",
+      "title": "OpenAPI Specification v3.0.4",
+      "url": "https://spec.openapis.org/oas/v3.0.4.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.0.4",
+        "Version 3.0.4",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.4",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Description",
+        "3.2 OpenAPI Document",
+        "3.3 Schema",
+        "3.4 Object",
+        "3.5 Path Templating",
+        "3.6 Media Types",
+        "3.7 HTTP Status Codes",
+        "3.8 Case Sensitivity",
+        "3.9 Undefined and Implementation-Defined Behavior",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 OpenAPI Description Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:57.450Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-3-html-6d438670.md",
+      "title": "OpenAPI Specification v3.0.3",
+      "url": "https://spec.openapis.org/oas/v3.0.3.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.0.3",
+        "Version 3.0.3",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.3",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs",
+        "4.7 Schema",
+        "content transferred with base64 encoding",
+        "content transferred in binary (octet-stream):",
+        "multiple, specific media types may be specified:",
+        "4.8 Specification Extensions"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:57.774Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-2-html-bb7b6dbd.md",
+      "title": "OpenAPI Specification v3.0.2",
+      "url": "https://spec.openapis.org/oas/v3.0.2.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.0.2",
+        "Version 3.0.2",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.2",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs",
+        "4.7 Schema",
+        "content transferred with base64 encoding",
+        "content transferred in binary (octet-stream):",
+        "multiple, specific media types may be specified:",
+        "4.8 Specification Extensions"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:58.038Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-1-html-515c5e4a.md",
+      "title": "OpenAPI Specification v3.0.1",
+      "url": "https://spec.openapis.org/oas/v3.0.1.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.0.1",
+        "Version 3.0.1",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.1",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs",
+        "4.7 Schema",
+        "content transferred with base64 encoding",
+        "content transferred in binary (octet-stream):",
+        "multiple, specific media types may be specified:",
+        "in a model"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:58.353Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-0-html-b136e807.md",
+      "title": "OpenAPI Specification v3.0.0",
+      "url": "https://spec.openapis.org/oas/v3.0.0.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v3.0.0",
+        "Version 3.0.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs",
+        "4.7 Schema",
+        "content transferred with base64 encoding",
+        "content transferred in binary (octet-stream):",
+        "multiple, specific media types may be specified:",
+        "in a model"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:58.562Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v2-0-html-8de00d64.md",
+      "title": "OpenAPI Specification v2.0",
+      "url": "https://spec.openapis.org/oas/v2.0.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [
+        "OpenAPI Specification v2.0",
+        "Version 2.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "2\\. (fka Swagger RESTful API Documentation Specification)",
+        "2.1 Version 2.0",
+        "3\\. Introductions",
+        "4\\. Revision History",
+        "5\\. Definitions",
+        "5.1 Path Templating",
+        "5.2 Mime Types",
+        "5.3 HTTP Status Codes",
+        "6\\. Specification",
+        "6.1 Format",
+        "6.2 File Structure",
+        "6.3 Data Types",
+        "6.4 Schema",
+        "6.5 Specification Extensions",
+        "6.6 Security Filtering",
+        "A. References",
+        "A.1 Normative references"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:36:58.844Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-2-schema-2025-11-23-html-99534592.md",
+      "title": "JSON Schema for OpenAPI 3.2 - without schema validation",
+      "url": "https://spec.openapis.org/oas/3.2/schema/2025-11-23.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:58.982Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-2-schema-base-2025-11-23-html-896de188.md",
+      "title": "JSON Schema for OpenAPI 3.2 - with schema validation",
+      "url": "https://spec.openapis.org/oas/3.2/schema-base/2025-11-23.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:59.446Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-2-meta-2025-09-17-html-78f49310.md",
+      "title": "JSON Schema Vocabulary used in OpenAPI 3.2",
+      "url": "https://spec.openapis.org/oas/3.2/meta/2025-09-17.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:59.611Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-2-dialect-2025-09-17-html-57ccf63d.md",
+      "title": "JSON Schema dialect for OpenAPI 3.2",
+      "url": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:59.762Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-1-schema-2025-11-23-html-b20ff49.md",
+      "title": "JSON Schema for OpenAPI 3.1 - without schema validation",
+      "url": "https://spec.openapis.org/oas/3.1/schema/2025-11-23.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:36:59.874Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-1-schema-base-2025-11-23-html-63f324d9.md",
+      "title": "JSON Schema for OpenAPI 3.1 - with schema validation",
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2025-11-23.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:00.715Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-1-meta-2024-11-10-html-c6d5ad9c.md",
+      "title": "JSON Schema Vocabulary used in OpenAPI 3.1",
+      "url": "https://spec.openapis.org/oas/3.1/meta/2024-11-10.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:01.315Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-1-dialect-2024-11-10-html-89461fb3.md",
+      "title": "JSON Schema dialect for OpenAPI 3.1",
+      "url": "https://spec.openapis.org/oas/3.1/dialect/2024-11-10.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:01.705Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-3-0-schema-2024-10-18-html-2ee195c0.md",
+      "title": "JSON Schema for OpenAPI 3.0",
+      "url": "https://spec.openapis.org/oas/3.0/schema/2024-10-18.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:01.843Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-2-0-schema-2017-08-27-html-f8b08e28.md",
+      "title": "JSON Schema for OpenAPI 2.0",
+      "url": "https://spec.openapis.org/oas/2.0/schema/2017-08-27.html",
+      "host": "spec.openapis.org",
+      "depth": 1,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:02.504Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-c83dbcc9.md",
+      "title": "Extensions Registry",
+      "url": "https://spec.openapis.org/registry/extension/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/#extensions-registry)Extensions Registry",
+        "[](https://spec.openapis.org/registry/extension/#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/extension/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/extension/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.296Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-b43da69b.md",
+      "title": "Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/#namespace-registry)Namespace Registry",
+        "[](https://spec.openapis.org/registry/namespace/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/namespace/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.436Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-b66f1811.md",
+      "title": "Formats Registry",
+      "url": "https://spec.openapis.org/registry/format/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/#formats-registry)Formats Registry",
+        "[](https://spec.openapis.org/registry/format/#considerations)Considerations",
+        "[](https://spec.openapis.org/registry/format/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/format/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.525Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-505642d3.md",
+      "title": "Tag Kinds Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/#tag-kinds-registry)Tag Kinds Registry",
+        "[](https://spec.openapis.org/registry/tag-kind/#supporting-versions)Supporting Versions",
+        "[](https://spec.openapis.org/registry/tag-kind/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/tag-kind/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.650Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-a8b4d155.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/#media-type-registry)Media Type Registry",
+        "[](https://spec.openapis.org/registry/media-type/#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/registry/media-type/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/media-type/#media-types)Media Types"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.761Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-alternative-schema-1a6a2987.md",
+      "title": "Alternative Schema Type Registry",
+      "url": "https://spec.openapis.org/registry/alternative-schema/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/alternative-schema/#alternative-schema-type-registry)Alternative Schema Type Registry",
+        "[](https://spec.openapis.org/registry/alternative-schema/#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/alternative-schema/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/alternative-schema/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:03.990Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-v1-1-0-html-7ce239c.md",
+      "title": "The Arazzo Specification v1.1.0",
+      "url": "https://spec.openapis.org/arazzo/v1.1.0.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "The Arazzo Specification v1.1.0",
+        "Version 1.1.0",
+        "What is the Arazzo Specification?",
+        "Status of This Document",
+        "1\\. Arazzo Specification",
+        "2\\. Version 1.1.0",
+        "3\\. Introduction",
+        "4\\. Definitions",
+        "4.1 Arazzo Description",
+        "5\\. Specification",
+        "5.1 Versions",
+        "5.2 Format",
+        "5.3 Arazzo Description Structure",
+        "5.4 Data Types",
+        "5.5 Parsing Documents",
+        "5.6 Relative References in Arazzo Description URIs",
+        "5.7 Relative References in API URLs",
+        "5.8 Schema",
+        "Query Example",
+        "Querystring Example (application/x-www-form-urlencoded)",
+        "Querystring with Runtime Expressions (application/x-www-form-urlencoded)",
+        "Querystring Example (application/json)",
+        "Header Example",
+        "Direct usage in simple conditions"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:04.046Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-v1-0-1-html-bc258870.md",
+      "title": "The Arazzo Specification v1.0.1",
+      "url": "https://spec.openapis.org/arazzo/v1.0.1.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "The Arazzo Specification v1.0.1",
+        "Version 1.0.1",
+        "What is the Arazzo Specification?",
+        "Status of This Document",
+        "1\\. Arazzo Specification",
+        "1.1 Version 1.0.1",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 Arazzo Description",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Arazzo Description Structure",
+        "4.4 Data Types",
+        "4.5 Relative References in URLs",
+        "4.6 Schema",
+        "4.7 Runtime Expressions",
+        "4.8 Specification Extensions",
+        "5\\. Security Considerations",
+        "6\\. IANA Considerations",
+        "6.1 application/vnd.oai.workflows",
+        "6.2 application/vnd.oai.workflows+json",
+        "6.3 application/vnd.oai.workflows+yaml",
+        "7\\. Appendix A: Revision History"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:04.244Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-v1-0-0-html-a5d6fbd.md",
+      "title": "The Arazzo Specification v1.0.0",
+      "url": "https://spec.openapis.org/arazzo/v1.0.0.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "The Arazzo Specification v1.0.0",
+        "Version 1.0.0",
+        "What is the Arazzo Specification?",
+        "Status of This Document",
+        "1\\. Arazzo Specification",
+        "1.1 Version 1.0.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 Arazzo Description",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Arazzo Description Structure",
+        "4.4 Data Types",
+        "4.5 Relative References in URLs",
+        "4.6 Schema",
+        "4.7 Runtime Expressions",
+        "4.8 Specification Extensions",
+        "5\\. Security Considerations",
+        "6\\. IANA Considerations",
+        "6.1 application/vnd.oai.workflows",
+        "6.2 application/vnd.oai.workflows+json",
+        "6.3 application/vnd.oai.workflows+yaml",
+        "7\\. Appendix A: Revision History"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:04.419Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-1-1-schema-2026-04-15-html-1d92b6a9.md",
+      "title": "JSON Schema for Arazzo 1.1",
+      "url": "https://spec.openapis.org/arazzo/1.1/schema/2026-04-15.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:04.542Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-arazzo-1-0-schema-2025-10-15-html-280058ee.md",
+      "title": "JSON Schema for Arazzo 1.0",
+      "url": "https://spec.openapis.org/arazzo/1.0/schema/2025-10-15.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:04.864Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-v1-1-0-html-26eed8bd.md",
+      "title": "Overlay Specification v1.1.0",
+      "url": "https://spec.openapis.org/overlay/v1.1.0.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "Overlay Specification v1.1.0",
+        "Version 1.1.0",
+        "What is the Overlay Specification?",
+        "Status of This Document",
+        "1\\. Overlay Specification",
+        "1.1 Version 1.1.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 Overlay",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Relative References in URIs",
+        "4.4 Schema",
+        "4.5 Examples",
+        "4.6 Specification Extensions",
+        "4.7 File Naming Convention",
+        "4.8 RFC9535 Compliance",
+        "4.9 Comments in OpenAPI Descriptions",
+        "A. Appendix A: Revision History",
+        "B. References",
+        "B.1 Normative references"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:05.172Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-v1-0-0-html-245f8c9c.md",
+      "title": "Overlay Specification v1.0.0",
+      "url": "https://spec.openapis.org/overlay/v1.0.0.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "Overlay Specification v1.0.0",
+        "Version 1.0.0",
+        "What is the Overlay Specification?",
+        "Status of This Document",
+        "1\\. Overlay Specification",
+        "1.1 Version 1.0.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 Overlay",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Relative References in URIs",
+        "4.4 Schema",
+        "4.5 Examples",
+        "4.6 Specification Extensions",
+        "A. Appendix A: Revision History",
+        "B. References",
+        "B.1 Normative references"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:05.302Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-1-1-schema-2026-04-01-html-224b86b9.md",
+      "title": "JSON Schema for Overlay 1.1",
+      "url": "https://spec.openapis.org/overlay/1.1/schema/2026-04-01.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:05.379Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-overlay-1-0-schema-2026-04-01-html-6a4c6bd0.md",
+      "title": "JSON Schema for Overlay 1.0",
+      "url": "https://spec.openapis.org/overlay/1.0/schema/2026-04-01.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:05.574Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-agent-trust-html-e88582f3.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-agent-trust.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-agent-trust.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-agent-trust.html#x-agent-trust---trust-level-metadata-block-for-agent-authenticated-security-schemes-required-by-apikey-security-schemes-that-use-agent-signature-as-the-header-carries-algorithm-trust-level-vocabulary-and-jwks-endpoint-for-local-verification)x-agent-trust - Trust-level metadata block for agent-authenticated security schemes. Required by `apiKey` security schemes that use `Agent-Signature` as the header. Carries algorithm, trust level vocabulary, and JWKS endpoint for local verification.",
+        "[](https://spec.openapis.org/registry/extension/x-agent-trust.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-agent-trust.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:05.868Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-codesamples-html-524020c1.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-codeSamples.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-codeSamples.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-codeSamples.html#x-codesamples---provides-custom-code-samples-for-an-operation-in-one-or-more-programming-languages)x-codeSamples - Provides custom code samples for an operation in one or more programming languages.",
+        "[](https://spec.openapis.org/registry/extension/x-codeSamples.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-codeSamples.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:05.938Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-anchor-html-b61a3286.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html#x-jsonschema-anchor---the-json-schema-anchor-identifier-for-a-schema-resource-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-$anchor - The JSON Schema $anchor identifier for a schema resource, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-$anchor.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.009Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-contains-html-51cfb09a.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-contains.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contains.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contains.html#x-jsonschema-contains---the-json-schema-contains-subschema-for-array-elements-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-contains - The JSON Schema contains subschema for array elements, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contains.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contains.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.071Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-contentencoding-html-20ce813d.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html#x-jsonschema-contentencoding---the-json-schema-contentencoding-annotation-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-contentEncoding - The JSON Schema contentEncoding annotation, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentEncoding.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.129Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-contentmediatype-html-7f4d2608.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html#x-jsonschema-contentmediatype---the-json-schema-contentmediatype-annotation-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-contentMediaType - The JSON Schema contentMediaType annotation, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentMediaType.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.194Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-contentschema-html-24281a4f.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html#x-jsonschema-contentschema---the-json-schema-contentschema-subschema-for-decoded-string-content-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-contentSchema - The JSON Schema contentSchema subschema for decoded string content, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-contentSchema.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.257Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-dependentschemas-html-ce95c896.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html#x-jsonschema-dependentschemas---a-map-of-schemas-that-apply-when-corresponding-properties-are-present-used-when-targeting-openapi-versions-that-do-not-directly-support-dependentschemas)x-jsonschema-dependentSchemas - A map of schemas that apply when corresponding properties are present, used when targeting OpenAPI versions that do not directly support dependentSchemas.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-dependentSchemas.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.314Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-else-html-a18e44a.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-else.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-else.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-else.html#x-jsonschema-else---the-json-schema-else-conditional-subschema-used-with-x-jsonschema-if-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-else - The JSON Schema else conditional subschema, used with x-jsonschema-if when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-else.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-else.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.378Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-if-html-7828e498.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-if.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-if.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-if.html#x-jsonschema-if---the-json-schema-if-conditional-subschema-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-if - The JSON Schema if conditional subschema, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-if.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-if.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.438Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-maxcontains-html-79654d48.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html#x-jsonschema-maxcontains---the-maximum-number-of-array-elements-that-may-match-contains-used-when-targeting-openapi-versions-that-do-not-directly-support-maxcontains)x-jsonschema-maxContains - The maximum number of array elements that may match contains, used when targeting OpenAPI versions that do not directly support maxContains.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-maxContains.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.554Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-mincontains-html-8a8d431e.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html#x-jsonschema-mincontains---the-minimum-number-of-array-elements-that-must-match-contains-used-when-targeting-openapi-versions-that-do-not-directly-support-mincontains)x-jsonschema-minContains - The minimum number of array elements that must match contains, used when targeting OpenAPI versions that do not directly support minContains.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-minContains.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.638Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-patternproperties-html-72aeca60.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html#x-jsonschema-patternproperties---a-map-of-regular-expressions-to-schemas-for-matching-property-names-used-when-targeting-openapi-versions-that-do-not-directly-support-patternproperties)x-jsonschema-patternProperties - A map of regular expressions to schemas for matching property names, used when targeting OpenAPI versions that do not directly support patternProperties.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-patternProperties.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.696Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-propertynames-html-bdff9188.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html#x-jsonschema-propertynames---a-schema-applied-to-property-names-in-an-object-used-when-targeting-openapi-versions-that-do-not-directly-support-propertynames)x-jsonschema-propertyNames - A schema applied to property names in an object, used when targeting OpenAPI versions that do not directly support propertyNames.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-propertyNames.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.753Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-then-html-e0045c80.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-then.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-then.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-then.html#x-jsonschema-then---the-json-schema-then-conditional-subschema-used-with-x-jsonschema-if-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-then - The JSON Schema then conditional subschema, used with x-jsonschema-if when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-then.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-then.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.811Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-jsonschema-unevaluatedproperties-html-c2ab1856.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html#x-jsonschema-unevaluatedproperties---the-json-schema-unevaluatedproperties-keyword-used-when-targeting-openapi-versions-that-do-not-directly-support-it)x-jsonschema-unevaluatedProperties - The JSON Schema unevaluatedProperties keyword, used when targeting OpenAPI versions that do not directly support it.",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-jsonschema-unevaluatedProperties.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.869Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-self-html-c5f1131.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-$self.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-$self.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-$self.html#x-oai-self---the-canonical-absolute-uri-for-an-openapi-document-used-when-targeting-openapi-versions-prior-to-32)x-oai-$self - The canonical absolute URI for an OpenAPI document, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-$self.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-$self.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:06.943Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-additionaloperations-html-acd9e6c2.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html#x-oai-additionaloperations---represents-non-standard-http-method-operations-on-a-path-item-when-targeting-openapi-versions-prior-to-32)x-oai-additionalOperations - Represents non-standard HTTP method operations on a Path Item when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-additionalOperations.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.009Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-datavalue-html-5b7723cc.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-dataValue.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-dataValue.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-dataValue.html#x-oai-datavalue---a-structured-example-value-for-an-example-object-used-when-targeting-openapi-versions-prior-to-32)x-oai-dataValue - A structured example value for an Example Object, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-dataValue.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-dataValue.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.067Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-deprecated-html-7a517df4.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-deprecated.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-deprecated.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deprecated.html#x-oai-deprecated---indicates-that-a-security-scheme-is-deprecated-used-when-targeting-openapi-versions-prior-to-32)x-oai-deprecated - Indicates that a Security Scheme is deprecated, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deprecated.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deprecated.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.133Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-deviceauthorization-html-6e63ec26.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html#x-oai-deviceauthorization---a-device-authorization-oauth2-flow-used-when-targeting-openapi-versions-prior-to-32)x-oai-deviceAuthorization - A device authorization OAuth2 flow, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorization.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.190Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-deviceauthorizationurl-html-31283597.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html#x-oai-deviceauthorizationurl---the-device-authorization-url-for-an-oauth2-flow-rfc-8628-used-when-targeting-openapi-versions-prior-to-32)x-oai-deviceAuthorizationUrl - The device authorization URL for an OAuth2 flow (RFC 8628), used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-deviceAuthorizationUrl.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.249Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-encoding-html-f2d75a40.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-encoding.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-encoding.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-encoding.html#x-oai-encoding---a-map-of-nested-encoding-definitions-for-an-encoding-object-used-when-targeting-openapi-versions-prior-to-32)x-oai-encoding - A map of nested encoding definitions for an Encoding Object, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-encoding.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-encoding.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.308Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-itemencoding-html-1e487c01.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html#x-oai-itemencoding---encoding-properties-for-individual-items-in-a-multipart-request-part-used-when-targeting-openapi-versions-prior-to-32)x-oai-itemEncoding - Encoding properties for individual items in a multipart request part, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemEncoding.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.371Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-itemschema-html-294c65f3.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-itemSchema.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemSchema.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemSchema.html#x-oai-itemschema---schema-for-individual-items-in-a-multipart-request-part-used-when-targeting-openapi-versions-prior-to-32)x-oai-itemSchema - Schema for individual items in a multipart request part, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemSchema.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-itemSchema.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.434Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-name-html-562fc906.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-name.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-name.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-name.html#x-oai-name---an-identifier-for-a-server-object-used-when-targeting-openapi-versions-prior-to-32)x-oai-name - An identifier for a Server Object, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-name.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-name.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.496Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-prefixencoding-html-f05964d4.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html#x-oai-prefixencoding---encoding-properties-applied-before-the-item-encoding-in-a-multipart-request-part-used-when-targeting-openapi-versions-prior-to-32)x-oai-prefixEncoding - Encoding properties applied before the item encoding in a multipart request part, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-prefixEncoding.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.554Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-serializedvalue-html-a2dd90d2.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-serializedValue.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-serializedValue.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-serializedValue.html#x-oai-serializedvalue---a-serialized-example-value-for-an-example-object-used-when-targeting-openapi-versions-prior-to-32)x-oai-serializedValue - A serialized example value for an Example Object, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-serializedValue.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-serializedValue.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.611Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-oai-summary-html-4cda5593.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-oai-summary.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-oai-summary.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-oai-summary.html#x-oai-summary---a-short-summary-for-a-response-object-used-when-targeting-openapi-versions-prior-to-32)x-oai-summary - A short summary for a Response Object, used when targeting OpenAPI versions prior to 3.2.",
+        "[](https://spec.openapis.org/registry/extension/x-oai-summary.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-oai-summary.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.669Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-x-twitter-html-30f9fc8c.md",
+      "title": "Extension Field Registry",
+      "url": "https://spec.openapis.org/registry/extension/x-twitter.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/x-twitter.html#extension-field-registry)[Extension Field Registry](https://spec.openapis.org/registry/extension/)",
+        "[](https://spec.openapis.org/registry/extension/x-twitter.html#x-twitter---used-to-hold-a-reference-to-the-api-providers-twitter-account)x-twitter - Used to hold a reference to the API provider’s Twitter account.",
+        "[](https://spec.openapis.org/registry/extension/x-twitter.html#schema)Schema",
+        "[](https://spec.openapis.org/registry/extension/x-twitter.html#example)Example"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.724Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-base64url-html-14a38dfe.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/base64url.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/base64url.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/base64url.html#base64url---binary-data-encoded-as-a-url-safe-string-as-defined-in-rfc4648)base64url - Binary data encoded as a url-safe string as defined in [RFC4648](https://www.rfc-editor.org/rfc/rfc4648#section-5)",
+        "[](https://spec.openapis.org/registry/format/base64url.html#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.779Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-binary-html-d9c87bb7.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/binary.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/binary.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/binary.html#binary---any-sequence-of-octets)binary - any sequence of octets",
+        "[](https://spec.openapis.org/registry/format/binary.html#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.834Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-byte-html-2312fa62.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/byte.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/byte.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/byte.html#byte---base64-encoded-data-as-defined-in-rfc4648)byte - base64 encoded data as defined in [RFC4648](https://www.rfc-editor.org/rfc/rfc4648#section-4)",
+        "[](https://spec.openapis.org/registry/format/byte.html#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:07.888Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-date-time-local-html-a77cde86.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/date-time-local.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/date-time-local.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/date-time-local.html#date-time-local---rfc3339-date-time-without-the-timezone-component)date-time-local - RFC3339 date-time without the timezone component",
+        "[](https://spec.openapis.org/registry/format/date-time-local.html#github-issue)GitHub Issue"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.070Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-date-time-html-3de2f820.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/date-time.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/date-time.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/date-time.html#date-time---date-and-time-as-defined-by-date-time---rfc3339)date-time - date and time as defined by date-time - [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5.6)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.125Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-date-html-f21e24c.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/date.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/date.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/date.html#date---date-as-defined-by-full-date---rfc3339)date - date as defined by full-date - [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5.6)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.179Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-decimal-html-2c999717.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/decimal.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/decimal.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/decimal.html#decimal---a-fixed-point-decimal-number-of-unspecified-precision-and-range)decimal - A fixed point decimal number of unspecified precision and range",
+        "[](https://spec.openapis.org/registry/format/decimal.html#github-issue)GitHub Issue",
+        "[](https://spec.openapis.org/registry/format/decimal.html#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.235Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-decimal128-html-96caeed8.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/decimal128.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/decimal128.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/decimal128.html#decimal128---a-decimal-floating-point-number-with-34-significant-decimal-digits)decimal128 - A decimal floating-point number with 34 significant decimal digits"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.290Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-double-int-html-29a6714b.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/double-int.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/double-int.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/double-int.html#double-int---an-integer-that-can-be-stored-in-an-ieee-754-double-precision-number-without-loss-of-precision)double-int - an integer that can be stored in an IEEE 754 double-precision number without loss of precision"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.346Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-double-html-6665937b.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/double.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/double.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/double.html#double---double-precision-floating-point-number)double - double precision floating point number"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.410Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-float-html-7b5e62d0.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/float.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/float.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/float.html#float---single-precision-floating-point-number)float - single precision floating point number"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.578Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-http-date-html-a07cccd7.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/http-date.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/http-date.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/http-date.html#http-date---date-and-time-as-defined-by-http-date---rfc7231)http-date - date and time as defined by HTTP-date - [RFC7231](https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.1.1)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.741Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-int32-html-7ee35eda.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/int32.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/int32.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/int32.html#int32---signed-32-bit-integer)int32 - signed 32-bit integer"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:08.980Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-int64-html-b53e0acf.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/int64.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/int64.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/int64.html#int64---signed-64-bit-integer)int64 - signed 64-bit integer"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.042Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-ipv4-cidr-html-b223ca56.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/ipv4-cidr.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/ipv4-cidr.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/ipv4-cidr.html#ipv4-cidr---an-ipv4-address-in-cidr-notation)ipv4-cidr - An IPv4 address in CIDR notation"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.180Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-ipv6-cidr-html-d99301c4.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/ipv6-cidr.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/ipv6-cidr.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/ipv6-cidr.html#ipv6-cidr---an-ipv6-address-in-cidr-style-notation)ipv6-cidr - An IPv6 address in CIDR-style notation"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.292Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-iri-reference-html-45e01d64.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/iri-reference.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/iri-reference.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/iri-reference.html#iri-reference---a-internationalized-resource-identifier-as-defined-in-rfc3987)iri-reference - A Internationalized Resource Identifier as defined in RFC3987"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.406Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-json-pointer-html-31f691be.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/json-pointer.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/json-pointer.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/json-pointer.html#json-pointer---a-json-string-representation-of-a-json-pointer-as-defined-in-rfc6901)json-pointer - A JSON string representation of a JSON Pointer as defined in RFC6901"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.514Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-media-range-html-e3aae2ca.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/media-range.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/media-range.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/media-range.html#media-range---a-media-type-as-defined-by-the-media-range-abnf-production-in-rfc9110)media-range - A media type as defined by the `media-range` ABNF production in RFC9110."
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.629Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-relative-json-pointer-html-82bae5f5.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/relative-json-pointer.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/relative-json-pointer.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/relative-json-pointer.html#relative-json-pointer---a-json-string-representation-of-a-relative-json-pointer-as-defined-in-draft-rfc-01)relative-json-pointer - A JSON string representation of a relative JSON Pointer as defined in draft RFC 01"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.795Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-binary-html-d4de1059.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-binary.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-binary.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-binary.html#sf-binary---structured-fields-byte-sequence-as-defined-in-rfc8941)sf-binary - structured fields byte sequence as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-byte-sequences)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.856Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-boolean-html-61a36394.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-boolean.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-boolean.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-boolean.html#sf-boolean---structured-fields-boolean-as-defined-in-rfc8941)sf-boolean - structured fields boolean as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-booleans)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.918Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-decimal-html-1dad42fd.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-decimal.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-decimal.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-decimal.html#sf-decimal---structured-fields-decimal-as-defined-in-rfc8941)sf-decimal - structured fields decimal as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-decimals)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:09.983Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-integer-html-f54a09d6.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-integer.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-integer.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-integer.html#sf-integer---structured-fields-integer-as-defined-in-rfc8941)sf-integer - structured fields integer as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-integers)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.041Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-string-html-edda7ad1.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-string.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-string.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-string.html#sf-string---structured-fields-string-as-defined-in-rfc8941)sf-string - structured fields string as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-strings)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.100Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-sf-token-html-42a3b87b.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/sf-token.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/sf-token.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/sf-token.html#sf-token---structured-fields-token-as-defined-in-rfc8941)sf-token - structured fields token as defined in [RFC8941](https://www.rfc-editor.org/rfc/rfc8941#name-tokens)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.166Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-uint64-html-9b300b36.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/uint64.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/uint64.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/uint64.html#uint64---unsigned-64-bit-integer)uint64 - unsigned 64-bit integer",
+        "[](https://spec.openapis.org/registry/format/uint64.html#github-issue)GitHub Issue"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.498Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-unixtime-html-e85e7ea5.md",
+      "title": "Format Registry",
+      "url": "https://spec.openapis.org/registry/format/unixtime.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/unixtime.html#format-registry)[Format Registry](https://spec.openapis.org/registry/format/)",
+        "[](https://spec.openapis.org/registry/format/unixtime.html#unixtime---seconds-since-jan-1st-1970---ieee10031-2024posix1-2024)unixtime - seconds since Jan 1st 1970 - [IEEE1003.1-2024/POSIX.1-2024](https://pubs.opengroup.org/onlinepubs/9799919799/)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.623Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-binary-4b282acc.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/binary",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/binary#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/binary#binary-non-text-based-media-types)Binary: Non-text-based media types",
+        "[](https://spec.openapis.org/registry/media-type/binary#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/binary#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.933Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-forms-d1b75cc.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/forms",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/forms#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/forms#forms-ordered-name-value-pairs)Forms: Ordered name-value pairs",
+        "[](https://spec.openapis.org/registry/media-type/forms#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/forms#remarks)Remarks",
+        "[](https://spec.openapis.org/registry/media-type/forms#examples)Examples"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:10.998Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-linksets-a6f9afd4.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/linksets",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/linksets#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/linksets#link-sets-sets-of-rfc8288-web-links)Link Sets: Sets of RFC8288 Web Links",
+        "[](https://spec.openapis.org/registry/media-type/linksets#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/linksets#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.068Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-sequential-json-ea095ba1.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/sequential_json",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/sequential_json#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/sequential_json#sequential-json-multiple-concatenated-json-documents-suitable-for-streaming)Sequential JSON: Multiple concatenated JSON documents suitable for streaming",
+        "[](https://spec.openapis.org/registry/media-type/sequential_json#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/sequential_json#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.132Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-sequential-multipart-3da2a311.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/sequential_multipart",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/sequential_multipart#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/sequential_multipart#sequential-multipart-multipart-subtypes-with-unnamed-parts)Sequential Multipart: Multipart subtypes with unnamed parts",
+        "[](https://spec.openapis.org/registry/media-type/sequential_multipart#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/sequential_multipart#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.192Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-sse-53e0d7a2.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/sse",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/sse#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/sse#server-sent-events-event-streams-for-sse)Server-Sent Events: Event streams for SSE",
+        "[](https://spec.openapis.org/registry/media-type/sse#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/sse#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.252Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-text-97e0ec2e.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/text",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/text#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/text#text-text-based-media-types)Text: Text-based media types",
+        "[](https://spec.openapis.org/registry/media-type/text#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/text#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.322Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-toon-dbd9c5d.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/toon",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/toon#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/toon#token-oriented-object-notation-toon-compact-encoding-of-the-json-data-model-for-llm-prompts)Token-Oriented Object Notation (TOON): Compact encoding of the JSON data model for LLM prompts",
+        "[](https://spec.openapis.org/registry/media-type/toon#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/toon#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.386Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-xml-35619c06.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/xml",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/xml#media-type-registry)[Media Type Registry](https://spec.openapis.org/registry/media-type/)",
+        "[](https://spec.openapis.org/registry/media-type/xml#xml-extensible-markup-language)XML: Extensible markup language",
+        "[](https://spec.openapis.org/registry/media-type/xml#summary)Summary",
+        "[](https://spec.openapis.org/registry/media-type/xml#remarks)Remarks"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.444Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-fdx-html-8483865a.md",
+      "title": "Extension Field Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/fdx.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/fdx.html#extension-field-namespace-registry)[Extension Field Namespace Registry](https://spec.openapis.org/registry/namespace/)",
+        "[](https://spec.openapis.org/registry/namespace/fdx.html#fdx---extensions-created-and-used-by-financial-data-exchange-fdx)fdx - Extensions created and used by [Financial Data Exchange (FDX)](https://financialdataexchange.org/)"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.502Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-oas-draft-html-8b9c23a5.md",
+      "title": "Extension Field Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/oas-draft.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/oas-draft.html#extension-field-namespace-registry)[Extension Field Namespace Registry](https://spec.openapis.org/registry/namespace/)",
+        "[](https://spec.openapis.org/registry/namespace/oas-draft.html#oas-draft---extensions-created-by-oai-to-indicate-proposed-changes-to-the-oas-specification)oas-draft - Extensions created by OAI to indicate proposed changes to the OAS specification"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.687Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-sap-html-d95ddec8.md",
+      "title": "Extension Field Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/sap.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/sap.html#extension-field-namespace-registry)[Extension Field Namespace Registry](https://spec.openapis.org/registry/namespace/)",
+        "[](https://spec.openapis.org/registry/namespace/sap.html#sap---extensions-created-and-used-by-sap)sap - Extensions created and used by SAP"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.811Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-scalar-html-a8acd6.md",
+      "title": "Extension Field Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/scalar.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/scalar.html#extension-field-namespace-registry)[Extension Field Namespace Registry](https://spec.openapis.org/registry/namespace/)",
+        "[](https://spec.openapis.org/registry/namespace/scalar.html#scalar---extensions-created-and-used-by-scalar)scalar - Extensions created and used by Scalar"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.869Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-audience-html-f8409818.md",
+      "title": "Tag Kind Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/audience.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/audience.html#tag-kind-registry)[Tag Kind Registry](https://spec.openapis.org/registry/tag-kind/)",
+        "[](https://spec.openapis.org/registry/tag-kind/audience.html#audience---tags-with-kind-audience-indicate-the-intended-audience-for-an-operation)audience - Tags with `kind: audience` indicate the intended audience for an operation."
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.928Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-badge-html-c05dc7b1.md",
+      "title": "Tag Kind Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/badge.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/badge.html#tag-kind-registry)[Tag Kind Registry](https://spec.openapis.org/registry/tag-kind/)",
+        "[](https://spec.openapis.org/registry/tag-kind/badge.html#badge----tags-with-kind-badge-are-applied-as-visible-badges-in-documentation)badge - Tags with `kind: badge` are applied as visible badges in documentation."
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:11.989Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-nav-html-1b42577b.md",
+      "title": "Tag Kind Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/nav.html",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/nav.html#tag-kind-registry)[Tag Kind Registry](https://spec.openapis.org/registry/tag-kind/)",
+        "[](https://spec.openapis.org/registry/tag-kind/nav.html#nav---tags-with-kind-nav-are-used-in-documentation-to-group-operations-into-sections)nav - Tags with `kind: nav` are used in documentation to group operations into sections"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.049Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-media-type-a8b4d155.md",
+      "title": "Media Type Registry",
+      "url": "https://spec.openapis.org/registry/media-type/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/media-type/#media-type-registry)Media Type Registry",
+        "[](https://spec.openapis.org/registry/media-type/#specification-versions)Specification Versions",
+        "[](https://spec.openapis.org/registry/media-type/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/media-type/#media-types)Media Types"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.078Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-tag-kind-505642d3.md",
+      "title": "Tag Kinds Registry",
+      "url": "https://spec.openapis.org/registry/tag-kind/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/tag-kind/#tag-kinds-registry)Tag Kinds Registry",
+        "[](https://spec.openapis.org/registry/tag-kind/#supporting-versions)Supporting Versions",
+        "[](https://spec.openapis.org/registry/tag-kind/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/tag-kind/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.113Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-format-b66f1811.md",
+      "title": "Formats Registry",
+      "url": "https://spec.openapis.org/registry/format/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/format/#formats-registry)Formats Registry",
+        "[](https://spec.openapis.org/registry/format/#considerations)Considerations",
+        "[](https://spec.openapis.org/registry/format/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/format/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.147Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-extension-c83dbcc9.md",
+      "title": "Extensions Registry",
+      "url": "https://spec.openapis.org/registry/extension/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/extension/#extensions-registry)Extensions Registry",
+        "[](https://spec.openapis.org/registry/extension/#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/extension/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/extension/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.219Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-namespace-b43da69b.md",
+      "title": "Namespace Registry",
+      "url": "https://spec.openapis.org/registry/namespace/",
+      "host": "spec.openapis.org",
+      "depth": 2,
+      "headings": [
+        "[](https://spec.openapis.org/registry/namespace/#namespace-registry)Namespace Registry",
+        "[](https://spec.openapis.org/registry/namespace/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/namespace/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.255Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-registry-alternative-schema-1a6a2987.md",
+      "title": "Alternative Schema Type Registry",
+      "url": "https://spec.openapis.org/registry/alternative-schema/",
+      "host": "spec.openapis.org",
+      "depth": 3,
+      "headings": [
+        "[](https://spec.openapis.org/registry/alternative-schema/#alternative-schema-type-registry)Alternative Schema Type Registry",
+        "[](https://spec.openapis.org/registry/alternative-schema/#master-issue)Master Issue",
+        "[](https://spec.openapis.org/registry/alternative-schema/#contributing)Contributing",
+        "[](https://spec.openapis.org/registry/alternative-schema/#values)Values"
+      ],
+      "selector": "article,main,[role=main]",
+      "fetched_at": "2026-07-17T17:37:12.288Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-v3-0-0-f211e450.md",
+      "title": "OpenAPI Specification v3.0.0",
+      "url": "https://spec.openapis.org/oas/v3.0.0",
+      "host": "spec.openapis.org",
+      "depth": 3,
+      "headings": [
+        "OpenAPI Specification v3.0.0",
+        "Version 3.0.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.0.0",
+        "2\\. Introduction",
+        "3\\. Definitions",
+        "3.1 OpenAPI Document",
+        "3.2 Path Templating",
+        "3.3 Media Types",
+        "3.4 HTTP Status Codes",
+        "4\\. Specification",
+        "4.1 Versions",
+        "4.2 Format",
+        "4.3 Document Structure",
+        "4.4 Data Types",
+        "4.5 Rich Text Formatting",
+        "4.6 Relative References in URLs",
+        "4.7 Schema",
+        "content transferred with base64 encoding",
+        "content transferred in binary (octet-stream):",
+        "multiple, specific media types may be specified:",
+        "in a model"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:12.376Z"
+    },
+    {
+      "path": "docs/spec-openapis-org-oas-latest-7a66fe84.md",
+      "title": "OpenAPI Specification v3.2.0",
+      "url": "https://spec.openapis.org/oas/latest",
+      "host": "spec.openapis.org",
+      "depth": 3,
+      "headings": [
+        "OpenAPI Specification v3.2.0",
+        "Version 3.2.0",
+        "What is the OpenAPI Specification?",
+        "Status of This Document",
+        "1\\. OpenAPI Specification",
+        "1.1 Version 3.2.0",
+        "2\\. Introduction",
+        "2.1 Versions and Deprecation",
+        "2.2 Undefined and Implementation-Defined Behavior",
+        "3\\. Format",
+        "3.1 JSON and YAML Compatibility",
+        "3.2 Case Sensitivity",
+        "3.3 Rich Text Formatting",
+        "4\\. Objects and Fields",
+        "4.1 OpenAPI Object",
+        "4.2 Info Object",
+        "4.3 Contact Object",
+        "4.4 License Object",
+        "4.5 Server Object",
+        "4.6 Server Variable Object",
+        "4.7 Components Object",
+        "4.8 Paths Object",
+        "4.9 Path Item Object",
+        "4.10 Operation Object"
+      ],
+      "selector": "body",
+      "fetched_at": "2026-07-17T17:37:12.680Z"
+    }
+  ],
+  "skipped": [
+    {
+      "url": "https://github.com/just-the-docs/just-the-docs",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues/4147",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues/4152",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues/4141",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.apache.org/licenses/LICENSE-2.0",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/spec.openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/examples/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.openapis.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Normativity",
+      "reason": "rejected-host"
+    },
+    {
+      "url": "https://github.com/OAI/spec.openapis.org/pulls",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://spec.openapis.org/api/registries.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/extension.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/namespace.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/format.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/tag-kind.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/media-type.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/draft-feature.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/api/alternative-schema.json",
+      "reason": "asset"
+    },
+    {
+      "url": "https://spec.openapis.org/rss/feed.xml",
+      "reason": "asset"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues/1532",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/issues/1351",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/spec.openapis.org/blob/main/CONTRIBUTING.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-00",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc4648",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc3339",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://json-schema.org/draft/2020-12/json-schema-validation.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7231",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc4632",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc4291",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/info/rfc5646/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9110",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8941",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://pubs.opengroup.org/onlinepubs/9799919799/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/info/rfc3986",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/discussions",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://financialdataexchange.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/microsoft/OpenAPI/blob/main/extensions/index.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/SAP/openapi-specification",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://guides.scalar.com/scalar/scalar-api-references/openapi",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://openapis.org/",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/versions/3.2.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/pulls",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/bcp14",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc9512",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://yaml.org/spec/1.2/spec.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc3986",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/examples/v3.1/webhook-example.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.ietf.org/archive/id/draft-bhutton-json-schema-01.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc3986",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/errata/eid6937",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.ietf.org/archive/id/draft-ietf-httpbis-safe-method-w-body-11.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc9110",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc9110",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc6570",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc6838",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.iana.org/assignments/media-types/media-types.xhtml",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc8259",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://html.spec.whatwg.org/multipage/server-sent-events.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.ietf.org/archive/id/draft-bhutton-json-schema-validation-01.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc7578",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://jsonlines.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/ndjson/ndjson-spec",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc4648",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc2046",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7578",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/examples/v3.0/callback-example.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://example.org/subscribe/myevent?queryUrl=https://clientdomain.com/stillrunning",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://clientdomain.com/stillrunning",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://clientdomain.com/failed",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://clientdomain.com/medium",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://example.org/subscription/1",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc8259",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc9264",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://learn.openapis.org/referencing/dynamic.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://dom.spec.whatwg.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/draft-ietf-oauth-security-topics",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://openid.net/specs/openid-connect-discovery-1_0.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.openapis.org/",
+      "reason": "weak-docs-link"
+    },
+    {
+      "url": "https://www.iana.org/assignments/media-types/application/json",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.iana.org/assignments/media-types/application/yaml",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc7159",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc3987",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc6570",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://url.spec.whatwg.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.ietf.org/archive/id/draft-ietf-httpbis-rfc6265bis-20.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://whatwg.org/faq",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc5234",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://spec.commonmark.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://spec.commonmark.org/0.27/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.iana.org/assignments/http-authschemes/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.iana.org/assignments/http-status-codes/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://openid.net/specs/openid-connect-core-1_0.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc2046",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc2119",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc3986",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc3987",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc6265.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc6570",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc6749",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc6901",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7578",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8174",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8259",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8414",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8628",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc9110.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9264",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9512",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://mimesniff.spec.whatwg.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://spdx.org/licenses/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/xml-names11/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "http://yaml.org/spec/1.2/spec.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://html.spec.whatwg.org/multipage/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/html401/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc1738",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc1866",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc2396",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc2557",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc6838",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7464",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8091",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9535",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Arazzo-Specification/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Arazzo-Specification/issues",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Arazzo-Specification/commits/main/versions/1.1.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Arazzo-Specification/pulls",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/draft-bhutton-json-schema-00",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/draft-bhutton-json-schema-validation-00",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/draft-bhutton-json-schema-01.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.asyncapi.com/docs/reference/specification/latest",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc6901",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc9110.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/xpath-31/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc9535",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/xpath-30/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/xpath20/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/xpath-10/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc5234",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc7230",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc7159",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc7230.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Overlay-Specification/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Overlay-Specification/issues",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Overlay-Specification/commits/main/versions/1.1.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/Overlay-Specification/pulls",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc9512.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://yaml.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://jsonc.org/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/versions/3.1.2.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc7231",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7230",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7159",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc7235",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/rfc1866",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc1866",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.w3.org/TR/html401/interact/forms.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-01",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/draft-bhutton-json-schema-validation-01",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc7231.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc7235.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/versions/3.1.1.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://www.rfc-editor.org/rfc/rfc8187",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://httpwg.org/specs/rfc8941.html",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://github.com/OAI/OpenAPI-Specification/commits/main/versions/3.1.0.md",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://datatracker.ietf.org/doc/html/rfc2045",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "http://path.id/",
+      "reason": "outside-docs-host"
+    },
+    {
+      "url": "https://tools.ietf.org/html/draft-ietf-oauth-discovery-06",
+      "reason": "outside-docs-host"
+    }
+  ],
+  "failures": [
+    {
+      "url": "https://spec.openapis.org/registry/draft-feature/index.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/schema/2025-11-23",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/schema/2025-09-17",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/schema-base/2025-11-23",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/schema-base/2025-09-17",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/meta/2025-09-17",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2025-11-23",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2025-09-15",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2025-08-31",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2025-02-13",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2024-11-14",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2022-10-07",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2022-02-27",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2021-09-28",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2021-05-20",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2021-04-15",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema/2021-03-02",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2025-11-23",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2025-09-15",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2025-08-31",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2025-02-13",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2024-11-14",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2022-10-07",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2022-02-27",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2021-09-28",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2021-05-20",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2021-04-15",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/schema-base/2021-03-02",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/meta/2024-11-10",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/meta/2024-10-25",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/dialect/2024-11-10",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.1/dialect/2024-10-25",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.0/schema/2024-10-18",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/3.0/schema/2021-09-28",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/oas/2.0/schema/2017-08-27",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/draft-feature",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/arazzo/1.1/schema/2026-04-15",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/arazzo/1.0/schema/2025-10-15",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/arazzo/1.0/schema/2024-12-16",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/overlay/1.1/schema/2026-04-01",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/overlay/1.1/schema/2026-01-14",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/overlay/1.0/schema/2026-04-01",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/overlay/1.0/schema/2024-10-22",
+      "reason": "Cannot destructure property 'firstElementChild' from null or undefined value"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/alternative-schema/jsonSchema.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/alternative-schema/xmlSchema.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/char.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/commonmark.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/duration.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/email.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/hostname.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/html.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/idn-email.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/idn-hostname.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/int16.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/int8.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/ipv4.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/ipv6.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/iri.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/language.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/password.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/regex.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/time-local.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/time.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uint16.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uint32.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uint8.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uri-reference.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uri-template.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uri.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/format/uuid.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/namespace/ms.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/namespace/oai.html",
+      "reason": "markdown-output-too-short"
+    },
+    {
+      "url": "https://spec.openapis.org/registry/namespace/oas.html",
+      "reason": "markdown-output-too-short"
+    }
+  ]
+}
