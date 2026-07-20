@@ -47,6 +47,16 @@ SCANNED_SUFFIXES: frozenset[str] = frozenset(
     {".py", ".toml", ".yaml", ".yml", ".json", ".ini", ".cfg", ".txt", ".env", ".example"}
 )
 
+# A line bearing this exact marker is exempt from hostname enforcement, but
+# only when the containing file lives under the top-level "tests" enforced
+# path (see scan_repository). This lets adversarial test fixtures assert
+# real rejection of production-looking and lookalike hostnames without those
+# literals being mistaken for deployable configuration. The marker has no
+# effect anywhere else in ENFORCED_PATHS (src, config, schemas, scripts,
+# migrations, pyproject.toml, .env.example), so it cannot be used to smuggle
+# a real endpoint into runtime-reachable code.
+NEGATIVE_FIXTURE_MARKER = "demo-scan: allow-negative-fixture"
+
 
 class Violation(NamedTuple):
     path: str
@@ -54,10 +64,19 @@ class Violation(NamedTuple):
     hostname: str
 
 
-def find_violations_in_text(text: str, path: str = "<text>") -> list[Violation]:
-    """Return every non-allowlisted Kalshi hostname found in ``text``."""
+def find_violations_in_text(
+    text: str, path: str = "<text>", *, allow_marked_fixtures: bool = False
+) -> list[Violation]:
+    """Return every non-allowlisted Kalshi hostname found in ``text``.
+
+    When ``allow_marked_fixtures`` is set, a line containing
+    :data:`NEGATIVE_FIXTURE_MARKER` is skipped. Callers must only set this
+    for files under the "tests" enforced path.
+    """
     violations: list[Violation] = []
     for lineno, line in enumerate(text.splitlines(), start=1):
+        if allow_marked_fixtures and NEGATIVE_FIXTURE_MARKER in line:
+            continue
         for match in KALSHI_HOSTNAME_RE.finditer(line):
             hostname = match.group(0).lower()
             if hostname not in ALLOWED_HOSTS:
@@ -87,8 +106,12 @@ def scan_repository(repo_root: Path) -> list[Violation]:
             text = file_path.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
-        rel = str(file_path.relative_to(repo_root))
-        violations.extend(find_violations_in_text(text, path=rel))
+        rel_path = file_path.relative_to(repo_root)
+        rel = str(rel_path)
+        allow_marked = rel_path.parts[0] == "tests"
+        violations.extend(
+            find_violations_in_text(text, path=rel, allow_marked_fixtures=allow_marked)
+        )
     return violations
 
 

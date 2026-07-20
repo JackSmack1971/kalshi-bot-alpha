@@ -40,12 +40,12 @@ def test_validate_host_accepts_exact_demo_hosts(host: str) -> None:
     "host",
     [
         # Production-looking hostnames.
-        "api.kalshi.co",
-        "trading-api.kalshi.co",
-        "external-api.kalshi.co",
-        "external-api-ws.kalshi.co",
-        "kalshi.co",
-        "www.kalshi.co",
+        "api.kalshi.co",  # demo-scan: allow-negative-fixture
+        "trading-api.kalshi.co",  # demo-scan: allow-negative-fixture
+        "external-api.kalshi.co",  # demo-scan: allow-negative-fixture
+        "external-api-ws.kalshi.co",  # demo-scan: allow-negative-fixture
+        "kalshi.co",  # demo-scan: allow-negative-fixture
+        "www.kalshi.co",  # demo-scan: allow-negative-fixture
         # Empty / malformed.
         "",
         " ",
@@ -63,14 +63,14 @@ def test_validate_host_accepts_exact_demo_hosts(host: str) -> None:
         # Whitespace-variant smuggling attempts.
         " external-api.demo.kalshi.co",
         "external-api.demo.kalshi.co ",
-        "\texternal-api.demo.kalshi.co",
+        "\texternal-api.demo.kalshi.co",  # demo-scan: allow-negative-fixture
         "external-api.demo.kalshi.co\n",
         # Demo-looking prefix grafted onto a non-demo suffix, or vice versa.
-        "external-api.demo.kalshi.co.evil.com",
-        "evil.com.external-api.demo.kalshi.co",
-        "external-api.demo.kalshi.co.attacker.net",
-        "external-api-ws.demo.kalshi.co.attacker.net",
-        "sub.external-api.demo.kalshi.co",
+        "external-api.demo.kalshi.co.evil.com",  # demo-scan: allow-negative-fixture
+        "evil.com.external-api.demo.kalshi.co",  # demo-scan: allow-negative-fixture
+        "external-api.demo.kalshi.co.attacker.net",  # demo-scan: allow-negative-fixture
+        "external-api-ws.demo.kalshi.co.attacker.net",  # demo-scan: allow-negative-fixture
+        "sub.external-api.demo.kalshi.co",  # demo-scan: allow-negative-fixture
         "external-api.demo.kalshi.co-attacker.net",
     ],
 )

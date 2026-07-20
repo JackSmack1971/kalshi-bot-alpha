@@ -46,8 +46,9 @@ def validate_host(host: str) -> bool:
     - Any value that is not exactly one of the two allowed hostnames is
       rejected, including production-looking hostnames, empty strings,
       malformed hosts, and hosts that merely embed a demo-looking
-      prefix or suffix (for example
-      ``"external-api.demo.kalshi.co.evil.com"``).
+      prefix or suffix (for example a value that starts with an allowed
+      demo hostname but continues with additional, attacker-controlled
+      labels).
     - Non-string input is rejected rather than raising, so callers in a
       fail-closed startup path can treat this function as a pure
       predicate.
