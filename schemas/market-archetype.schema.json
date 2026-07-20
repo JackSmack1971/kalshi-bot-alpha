@@ -42,7 +42,10 @@
     "time_to_settlement_bucket": { "type": "string", "minLength": 1 },
     "market_age_bucket": { "type": "string", "minLength": 1 },
     "time_of_day_bucket": { "type": "string", "minLength": 1 },
-    "day_of_week_bucket": { "type": "string", "minLength": 1 },
+    "day_of_week_bucket": {
+      "enum": ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"],
+      "description": "Closed set; day-of-week must never be represented as an ad hoc free-text bucket."
+    },
     "spread_regime": { "enum": ["tight", "moderate", "wide", "unavailable"] },
     "visible_depth_regime": { "enum": ["deep", "moderate", "thin", "unavailable"] },
     "external_reference_volatility_regime": {

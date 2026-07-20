@@ -28,25 +28,27 @@ At minimum, an archetype classifies a market by:
 
 The classifier must be deterministic and versioned. Every feature
 snapshot, strategy intent, order, fill, and evaluation record must
-preserve the `archetype_id` and `classifier_version` used at decision
+preserve the `market_archetype_id` and `classifier_version` used at decision
 time. Reporting must segment results by archetype before presenting
 aggregate performance — an aggregate-only report is not acceptable
 evidence of strategy performance under this policy.
 
 ## Executable contract
 
-`schemas/market_archetype.schema.json` fixes:
+`schemas/market-archetype.schema.json` fixes:
 
-- `archetype_id` — a deterministic identifier stable for identical
-  classifier inputs and `classifier_version`.
+- `market_archetype_id` — a deterministic identifier stable for
+  identical classifier inputs and `classifier_version`.
 - `classifier_version` — a required, independent version field from
-  `archetype_id` itself, so a classifier change is always
+  `market_archetype_id` itself, so a classifier change is always
   distinguishable from an archetype change for the same market.
 - `contract_structure` — a closed enum
   (`directional`, `threshold`, `range`, `other_reviewed`) rather than a
   free-text field, so "other" categories require an explicit reviewed
   addition to the enum rather than silent proliferation of ad hoc
   strings.
+- `day_of_week_bucket` — a closed enum (`MON`…`SUN`) rather than a
+  free-text bucket, for the same determinism reason.
 - Every other required classification dimension listed above.
 
 ## Non-goals of this phase

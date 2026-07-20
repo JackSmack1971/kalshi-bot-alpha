@@ -19,9 +19,8 @@ is a hard structural requirement, not a style preference:
 
 - `signal_confidence` — confidence in the underlying directional or
   microstructure signal.
-- `expected_fill_probability` — the probability this passive quote
-  fills.
-- `expected_net_edge` — the fully decomposed expected value, net of
+- `fill_probability` — the probability this passive quote fills.
+- `expected_net_edge_usd` — the fully decomposed expected value, net of
   fees, adverse selection, inventory cost, settlement risk, and
   cancel/reprice cost.
 
@@ -47,23 +46,28 @@ Alongside the expectancy decomposition, the strategy must record:
 
 ## Executable contract
 
-`schemas/quote_expectancy.schema.json` fixes:
+`schemas/quote-expectancy.schema.json` fixes:
 
 - `schema_version` and `edge_model_version` as independent version
   fields, so a schema-shape change is always distinguishable from a
   model-parameter change.
-- `signal_confidence`, `expected_fill_probability`, and
-  `expected_net_edge` as three separate required numeric fields (the
-  first two bounded to `[0, 1]`, the third an unbounded signed value),
-  satisfying blueprint Phase 0 exit criterion "Signal confidence, fill
-  probability, and expected net edge are separate fields."
-- The full cost decomposition
-  (`expected_gross_spread_capture`, `expected_fee_cost`,
-  `expected_adverse_selection`, `expected_inventory_cost`,
-  `expected_settlement_risk`, `expected_cancel_reprice_cost`) as
-  required fields, satisfying blueprint Phase 0 exit criterion
-  "Passive-spread edge is defined by a versioned expectancy
-  decomposition."
+- `signal_confidence`, `fill_probability` (with
+  `fill_probability_lower_bound`/`fill_probability_upper_bound`), and
+  `expected_net_edge_usd` as three separate required fields (the first
+  two bounded to `[0, 1]`, the third an unbounded signed fixed-point
+  decimal string), satisfying blueprint Phase 0 exit criterion "Signal
+  confidence, fill probability, and expected net edge are separate
+  fields."
+- The full cost decomposition (`gross_spread_usd`, `fee_cost_usd`,
+  `adverse_selection_usd`, `inventory_cost_usd`, `settlement_risk_usd`,
+  `cancel_reprice_cost_usd`) as required, fixed-point decimal string
+  fields, satisfying blueprint Phase 0 exit criterion "Passive-spread
+  edge is defined by a versioned expectancy decomposition."
+- `intent_id`, `market_ticker`, `market_archetype_id`, and
+  `queue_state_snapshot_id` as required identifiers, so every recorded
+  decomposition traces to the trade intent, market, market archetype,
+  and queue-state snapshot in effect at quote time (`docs/DATA_MODEL.md`
+  §6 traceability invariants).
 - An optional `quote_lifecycle` object for the efficiency metrics
   above.
 

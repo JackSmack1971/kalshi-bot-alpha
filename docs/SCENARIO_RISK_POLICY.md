@@ -34,17 +34,30 @@ versioned — never inferred ad hoc at approval time.
 
 ## Executable contract
 
-`schemas/risk_limits.schema.json` includes an optional
-`correlated_exposure_groups` array, each entry carrying a `group_id`,
-the `market_tickers` sharing that correlated scenario, and a
-`scenario_loss_limit`. This is shape only: no numeric limit values are
-presented as production-ready defaults (see
-`docs/adr/0001-phase-0-contracts-and-safety-model.md`).
+`schemas/risk-limits.schema.json` fixes a `scenario` object with:
+
+- `correlation_groups_version` — a version pointer to the deterministic,
+  reviewed, externally-maintained correlation-group definitions; `null`
+  only while no strategy is active, and must be frozen before Phase 5
+  activation.
+- `max_correlated_scenario_loss_usd` — worst reviewed scenario loss
+  limit.
+- `max_single_market_liability_usd` — worst-case outcome liability per
+  market.
+
+Correlation groups themselves (member `market_tickers` and their
+scenario-loss limits) are not embedded in the risk-limit configuration
+schema: they are a separately reviewed and versioned artifact
+referenced by `correlation_groups_version`, consistent with
+"Correlation groups and scenarios must be deterministic, reviewed, and
+versioned — never inferred ad hoc at approval time." This is shape
+only: no numeric limit values are presented as production-ready
+defaults (see `docs/adr/0001-phase-0-contracts-and-safety-model.md`).
 
 ## Non-goals of this phase
 
 No risk gateway, no scenario-loss calculator, and no correlation-group
-definitions exist yet. This policy and the `risk_limits.schema.json`
-shape fix the target contract; a later phase (blueprint SS5.9)
+definitions exist yet. This policy and the `risk-limits.schema.json`
+shape fix the target contract; a later phase (blueprint §5.9)
 implements the deterministic, versioned scenario-risk engine and its
 reviewed correlation groups.
