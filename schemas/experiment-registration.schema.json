@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot-alpha.invalid/schemas/experiment-registration.schema.json",
+  "title": "ExperimentRegistration",
+  "description": "Immutable preregistration record required before any confirmatory strategy analysis (blueprint §9; docs/RESEARCH_PROTOCOL.md). Frozen once the scored window begins; changes create a new version with a supersession link, never a mutation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "experiment_version",
+    "analysis_class",
+    "hypothesis",
+    "falsification_criteria",
+    "primary_metric",
+    "secondary_metrics",
+    "parameter_grid",
+    "included_market_archetypes",
+    "excluded_market_archetypes",
+    "windows",
+    "minimum_evidence",
+    "multiple_comparison_correction",
+    "missing_data_treatment",
+    "frozen_versions",
+    "registered_at"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "experiment_id": { "type": "string", "format": "uuid" },
+    "experiment_version": { "type": "integer", "minimum": 1 },
+    "supersedes_experiment_version": { "type": "integer", "minimum": 1 },
+    "analysis_class": {
+      "enum": ["exploratory", "confirmatory"],
+      "description": "Exploratory findings must be labeled exploratory; only confirmatory analyses can support promotion."
+    },
+    "hypothesis": { "type": "string", "minLength": 1 },
+    "falsification_criteria": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "primary_metric": { "type": "string", "minLength": 1 },
+    "secondary_metrics": { "type": "array", "items": { "type": "string" } },
+    "parameter_grid": {
+      "type": "object",
+      "description": "Fixed parameter grid; every tested variant is retained and disclosed, not only winners."
+    },
+    "included_market_archetypes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "excluded_market_archetypes": { "type": "array", "items": { "type": "string" } },
+    "windows": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["training", "development", "holdout"],
+      "properties": {
+        "training": { "$ref": "#/$defs/window" },
+        "development": { "$ref": "#/$defs/window" },
+        "holdout": {
+          "$ref": "#/$defs/window",
+          "description": "Must not have been used to formulate the hypothesis."
+        }
+      }
+    },
+    "minimum_evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_calendar_days",
+        "min_eligible_quote_opportunities",
+        "min_submitted_quotes",
+        "min_fills",
+        "min_fills_per_included_archetype",
+        "min_distinct_settlement_events",
+        "min_adverse_selection_observations",
+        "min_clean_restarts",
+        "max_unresolved_data_gaps",
+        "min_effective_sample_size"
+      ],
+      "properties": {
+        "min_calendar_days": { "type": "integer", "minimum": 30 },
+        "min_eligible_quote_opportunities": { "type": "integer", "minimum": 1 },
+        "min_submitted_quotes": { "type": "integer", "minimum": 1 },
+        "min_fills": { "type": "integer", "minimum": 1 },
+        "min_fills_per_included_archetype": { "type": "integer", "minimum": 1 },
+        "min_distinct_settlement_events": { "type": "integer", "minimum": 1 },
+        "min_adverse_selection_observations": { "type": "integer", "minimum": 1 },
+        "min_clean_restarts": { "type": "integer", "minimum": 1 },
+        "max_unresolved_data_gaps": { "type": "integer", "minimum": 0 },
+        "min_effective_sample_size": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "After clustering by market/settlement event and autocorrelation adjustment."
+        }
+      }
+    },
+    "multiple_comparison_correction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "declared_variant_count"],
+      "properties": {
+        "method": { "type": "string", "minLength": 1 },
+        "declared_variant_count": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "missing_data_treatment": { "type": "string", "minLength": 1 },
+    "frozen_versions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "strategy_version",
+        "feature_version",
+        "expectancy_model_version",
+        "archetype_classifier_version",
+        "fill_model_version"
+      ],
+      "properties": {
+        "strategy_version": { "type": "string", "minLength": 1 },
+        "feature_version": { "type": "string", "minLength": 1 },
+        "expectancy_model_version": { "type": "string", "minLength": 1 },
+        "archetype_classifier_version": { "type": "string", "minLength": 1 },
+        "fill_model_version": { "type": "string", "minLength": 1 },
+        "agent_policy_version": { "type": "string" },
+        "agent_prompt_version": { "type": "string" },
+        "agent_schema_version": { "type": "string" },
+        "agent_tool_registry_version": { "type": "string" }
+      }
+    },
+    "registered_at": { "type": "string", "format": "date-time" },
+    "scored_window_started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Once set, the record is immutable; mutation attempts are test-covered failures."
+    }
+  },
+  "$defs": {
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

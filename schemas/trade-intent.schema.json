@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kalshi-bot-alpha.invalid/schemas/trade-intent.schema.json",
+  "title": "TradeIntent",
+  "description": "Authoritative strategy output consumed only by the deterministic risk gateway. Produced exclusively by the deterministic strategy engine; no AI output path may deserialize into this schema. Signal confidence, fill probability, and expected net edge are deliberately separate fields (Phase 0 exit criterion). Monetary values are fixed-point decimal strings; prices are integer cents.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "intent_id",
+    "strategy_id",
+    "strategy_version",
+    "market_ticker",
+    "market_archetype_id",
+    "action",
+    "side",
+    "limit_price_cents",
+    "desired_count",
+    "time_in_force",
+    "reason_codes",
+    "feature_snapshot_id",
+    "signal_confidence",
+    "expected_fill_probability",
+    "expected_queue_wait_seconds",
+    "expected_gross_spread_capture_usd",
+    "expected_fee_cost_usd",
+    "expected_adverse_selection_usd",
+    "expected_inventory_cost_usd",
+    "expected_settlement_risk_usd",
+    "expected_cancel_probability",
+    "expected_net_edge_usd",
+    "edge_model_version",
+    "calibration_sample_size",
+    "calibration_confidence",
+    "created_at",
+    "expiry_timestamp"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "intent_id": { "type": "string", "format": "uuid" },
+    "strategy_id": { "type": "string", "minLength": 1 },
+    "strategy_version": { "type": "string", "minLength": 1 },
+    "market_ticker": { "type": "string", "minLength": 1 },
+    "market_archetype_id": { "type": "string", "minLength": 1 },
+    "action": { "enum": ["place", "cancel", "reprice"] },
+    "side": { "enum": ["yes", "no"] },
+    "limit_price_cents": { "type": "integer", "minimum": 1, "maximum": 99 },
+    "desired_count": { "type": "integer", "minimum": 1 },
+    "time_in_force": { "enum": ["good_till_canceled", "immediate_or_cancel"] },
+    "reason_codes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "feature_snapshot_id": { "type": "string", "minLength": 1 },
+    "signal_confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Confidence in the directional/quoting signal. Distinct from fill probability and net edge."
+    },
+    "expected_fill_probability": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Queue-aware probability the passive quote fills. Distinct from signal confidence and net edge."
+    },
+    "expected_queue_wait_seconds": { "type": "number", "minimum": 0 },
+    "expected_gross_spread_capture_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_fee_cost_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_adverse_selection_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_inventory_cost_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_settlement_risk_usd": { "$ref": "#/$defs/usdAmount" },
+    "expected_cancel_probability": { "type": "number", "minimum": 0, "maximum": 1 },
+    "expected_net_edge_usd": {
+      "$ref": "#/$defs/signedUsdAmount",
+      "description": "Expected net edge after all decomposition costs. Distinct from signal confidence and fill probability."
+    },
+    "edge_model_version": { "type": "string", "minLength": 1 },
+    "calibration_sample_size": { "type": "integer", "minimum": 0 },
+    "calibration_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "expiry_timestamp": { "type": "string", "format": "date-time" }
+  },
+  "$defs": {
+    "usdAmount": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]{2,6}$",
+      "description": "Non-negative fixed-point decimal USD amount serialized as a string."
+    },
+    "signedUsdAmount": {
+      "type": "string",
+      "pattern": "^-?[0-9]+\\.[0-9]{2,6}$",
+      "description": "Signed fixed-point decimal USD amount serialized as a string."
+    }
+  }
+}
