@@ -4,8 +4,11 @@
 - **Activation date:** 2026-07-20
 - **Decider:** Human repository owner
 - **Governs:** blueprint §12 Phase 1 ("Read-only connectivity") and its
-  exit criteria (blueprint §14; runs 4 hours without unhandled failure,
-  reconnects successfully, no order endpoint implemented).
+  exit criteria (runs 4 hours without unhandled failure, reconnects
+  successfully, no order endpoint implemented — all specified in §12).
+  Blueprint §14 ("Definition of Done") applies separately as the
+  broader completion bar and does not itself define these Phase 1
+  exit criteria.
 
 This document is the binding scope for Phase 1. It supersedes any
 informal plan discussed before this record. Each PR below still
@@ -356,9 +359,10 @@ in PR 6, which is explicitly opt-in and never part of the standard
   real 4-hour soak evidence directory exists showing zero unhandled
   failures and at least one successful reconnect, with local-mock and
   live-soak reconnect evidence clearly distinguished — this is the
-  literal Phase 1 exit criterion from blueprint §12/§14, so PR 6 is not
-  "done" for exit-criteria purposes until that real run has happened
-  and been reviewed.
+  literal Phase 1 exit criterion from blueprint §12, and must also
+  satisfy the broader completion bar in §14, so PR 6 is not "done" for
+  exit-criteria purposes until that real run has happened and been
+  reviewed.
 - **Dependencies:** PR 2, PR 3, PR 4, PR 5.
 
 ---

@@ -3,8 +3,8 @@
 Read this before planning or editing (per `CLAUDE.md`). Implement only
 the active phase; do not build later-phase behavior early.
 
-- **Branch:** `phase-zero-reconciliation` (7 commits ahead of
-  `origin/main`; nothing pushed).
+- **Planning baseline:** Phase 0 foundation is present on
+  `origin/main`; Phase 1 activation is introduced by PR #5.
 - **Active phase:** Phase 1 — Read-only connectivity.
 - **Phase 0 state:** **Accepted and complete.**
   `docs/adr/0001-blueprint-v3-baseline.md` status is **Accepted**
