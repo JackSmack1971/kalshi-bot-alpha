@@ -60,7 +60,14 @@ def test_reconfiguring_logging_replaces_handlers_rather_than_accumulating() -> N
     assert len(logging.getLogger().handlers) == 1
 
 
-def test_get_logger_returns_usable_logger_without_configure_logging_export() -> None:
+def test_public_api_stays_narrow() -> None:
+    """The redaction processor stays private; only the two logging
+    entry points plus the sensitive-value registration hook (needed by
+    kalshi_bot.credentials.loader) are exported."""
     import kalshi_bot.observability as observability_pkg
 
-    assert set(observability_pkg.__all__) == {"configure_logging", "get_logger"}
+    assert set(observability_pkg.__all__) == {
+        "configure_logging",
+        "get_logger",
+        "register_sensitive_value",
+    }

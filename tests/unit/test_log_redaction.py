@@ -14,8 +14,12 @@ from __future__ import annotations
 import io
 import json
 import logging
+from collections.abc import Iterator
 
-from kalshi_bot.observability import configure_logging, get_logger
+import pytest
+
+from kalshi_bot.observability import configure_logging, get_logger, register_sensitive_value
+from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
 
 # Exact registered synthetic secret values. Never realistic-looking.
 SYNTHETIC_ACCESS_KEY = "SYNTHETIC-ACCESS-KEY-0001"
@@ -26,6 +30,13 @@ SYNTHETIC_PEM = (
     "SYNTHETIC-KEY-MATERIAL-0004\n"
     "-----END PRIVATE KEY-----"
 )
+
+
+@pytest.fixture(autouse=True)
+def _reset_registry() -> Iterator[None]:
+    _reset_registered_sensitive_values_for_tests()
+    yield
+    _reset_registered_sensitive_values_for_tests()
 
 
 def _read_json_lines(stream: io.StringIO) -> list[dict[str, object]]:
@@ -167,3 +178,144 @@ def test_legitimate_hash_and_id_values_are_not_redacted() -> None:
     line = _read_json_lines(stream)[0]
     assert line["content_hash"] == legitimate_hash
     assert line["order_id"] == legitimate_order_id
+
+
+# -- Precise key matching: exact-name/normalized match, not substring --
+
+
+def test_exact_sensitive_key_names_are_redacted() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    fields = {
+        "access_key": "s1",
+        "access_key_id": "s2",
+        "api_key": "s3",
+        "authorization": "s4",
+        "authorization_header": "s5",
+        "signature": "s6",
+        "private_key": "s7",
+        "private_key_pem": "s8",
+        "password": "s9",
+        "secret": "s10",
+        "token": "s11",
+        "bearer_token": "s12",
+    }
+    get_logger("test.redaction.precise").info("event", **fields)
+
+    line = _read_json_lines(stream)[0]
+    for field_name in fields:
+        assert line[field_name] == "[REDACTED]", field_name
+
+
+def test_benign_lookalike_keys_are_not_redacted() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    get_logger("test.redaction.benign").info(
+        "event",
+        input_token_count=42,
+        output_token_count=7,
+        token_budget=1000,
+        secretary_id="employee-42",
+        bearer_status="active",
+    )
+
+    line = _read_json_lines(stream)[0]
+    assert line["input_token_count"] == 42
+    assert line["output_token_count"] == 7
+    assert line["token_budget"] == 1000
+    assert line["secretary_id"] == "employee-42"
+    assert line["bearer_status"] == "active"
+
+
+# -- Exact registered sensitive values --
+
+
+def test_registered_value_is_redacted_in_free_form_structlog_message() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-ACCESS-KEY-0005"
+    register_sensitive_value(registered_secret)
+
+    get_logger("test.redaction.registered").info(
+        f"authenticated request using key {registered_secret} succeeded"
+    )
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+    assert "[REDACTED]" in rendered
+
+
+def test_registered_value_is_redacted_in_exception_text() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-SIGNATURE-0006"
+    register_sensitive_value(registered_secret)
+
+    try:
+        raise ValueError(f"request failed for key {registered_secret}")
+    except ValueError:
+        get_logger("test.redaction.registered_exception").exception("request failed")
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_registered_value_is_redacted_in_stdlib_log() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-VALUE-0007"
+    register_sensitive_value(registered_secret)
+
+    logging.getLogger("test.redaction.registered_stdlib").info(
+        "value is %s", registered_secret
+    )
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_registered_value_is_redacted_in_nested_structure() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-NESTED-0008"
+    register_sensitive_value(registered_secret)
+
+    get_logger("test.redaction.registered_nested").info(
+        "event", details={"note": f"used {registered_secret} for this call"}
+    )
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_short_registered_value_is_ignored() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    short_value = "abc123"  # below the minimum registration length
+    register_sensitive_value(short_value)
+
+    get_logger("test.redaction.short").info(f"code is {short_value}")
+
+    rendered = stream.getvalue()
+    assert short_value in rendered  # too short to safely value-redact
+
+
+def test_registry_reset_stops_further_redaction() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-RESET-CHECK-0009"
+    register_sensitive_value(registered_secret)
+    _reset_registered_sensitive_values_for_tests()
+
+    get_logger("test.redaction.reset").info(f"value is {registered_secret}")
+
+    rendered = stream.getvalue()
+    assert registered_secret in rendered

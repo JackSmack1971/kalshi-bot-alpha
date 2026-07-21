@@ -5,20 +5,30 @@ file for Kalshi credentials anywhere in this repository. It consumes a
 :class:`~kalshi_bot.config.models.CredentialReferences` and produces a
 :class:`LoadedDemoCredentials` -- an opaque type constructed only here.
 
-Phase 1 PR 2 does not construct a signing capability: converting
-``LoadedDemoCredentials`` into a ``RequestSigner`` is Phase 1 PR 3's
-responsibility. Nothing in this module exposes the raw access-key ID
-or private-key bytes to a caller.
+Phase 1 PR 2 does not construct a signing capability or implement any
+cryptography. It does define the narrow internal seam Phase 1 PR 3
+will use to build a ``RequestSigner`` from the loaded material:
+:func:`_reveal_for_signer_construction`. That function is not public
+(not in ``__all__``), takes a caller-supplied factory rather than
+returning the raw material directly, and is documented as reserved for
+``kalshi_bot.auth.signer`` alone -- REST and WebSocket clients must
+depend only on the signer, never on this seam or on
+``LoadedDemoCredentials`` directly.
 """
 
 from __future__ import annotations
 
 import os
+from collections.abc import Callable
 from pathlib import Path
+from typing import TypeVar
 
 from kalshi_bot.config.models import CredentialReferences
+from kalshi_bot.observability import register_sensitive_value
 
 __all__ = ["CredentialLoadError", "LoadedDemoCredentials", "load_credentials"]
+
+_T = TypeVar("_T")
 
 
 class CredentialLoadError(Exception):
@@ -34,7 +44,11 @@ class LoadedDemoCredentials:
 
     Constructed only by :func:`load_credentials`. Exposes no public
     accessor for the access-key ID or private-key bytes; ``repr`` and
-    ``str`` never include the material.
+    ``str`` never include the material. Not iterable, not mappable,
+    and not serializable (pickling raises) -- the only sanctioned way
+    to reach the underlying material is
+    :func:`_reveal_for_signer_construction`, reserved for Phase 1 PR
+    3's signer construction.
     """
 
     __slots__ = ("_access_key_id", "_private_key_pem")
@@ -48,6 +62,26 @@ class LoadedDemoCredentials:
 
     __str__ = __repr__
 
+    def __reduce__(self) -> tuple[object, ...]:
+        raise TypeError("LoadedDemoCredentials must not be pickled or serialized")
+
+
+def _reveal_for_signer_construction(
+    credentials: LoadedDemoCredentials, factory: Callable[[str, bytes], _T]
+) -> _T:
+    """Module-private seam for Phase 1 PR 3's signer construction only.
+
+    ``factory`` receives the access-key ID and private-key PEM bytes
+    and must return a signing-capability object (Phase 1 PR 3's
+    ``kalshi_bot.auth.signer.RequestSigner``) -- this function never
+    returns the raw material itself to a caller. No module other than
+    the future ``kalshi_bot.auth.signer`` may call this function; REST
+    and WebSocket clients must never be its consumers -- they depend
+    only on the ``RequestSigner`` that ``kalshi_bot.auth.signer``
+    produces from it.
+    """
+    return factory(credentials._access_key_id, credentials._private_key_pem)
+
 
 def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
     """Load Kalshi demo credential material referenced by ``refs``.
@@ -55,6 +89,9 @@ def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
     Fails closed with a typed :class:`CredentialLoadError` on any
     missing environment variable, missing file, directory path, or
     unreadable file -- never falls back to an unauthenticated mode.
+    On success, registers the loaded access-key ID with
+    :func:`kalshi_bot.observability.register_sensitive_value` so it is
+    redacted if it ever reaches emitted log output.
     """
     access_key_id = os.environ.get(refs.access_key_env)
     if not access_key_id:
@@ -92,5 +129,7 @@ def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
         raise CredentialLoadError(
             f"private key file referenced by {refs.private_key_path_env!r} is empty"
         )
+
+    register_sensitive_value(access_key_id)
 
     return LoadedDemoCredentials(access_key_id, private_key_pem)

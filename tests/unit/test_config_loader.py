@@ -142,3 +142,73 @@ def test_credential_references_have_no_secret_field() -> None:
     )
 
     assert set(type(refs).model_fields) == {"access_key_env", "private_key_path_env"}
+
+
+# -- ConfigError sanitization: the supplied mapping is arbitrary at this
+# boundary and may contain a caller secret in an unexpected field. --
+
+
+def test_extra_field_secret_is_sanitized_from_config_error() -> None:
+    secret = "SYNTHETIC-EXTRA-FIELD-SECRET-0001"
+    data = {**VALID_DATA, "unexpected_field": secret}
+
+    with pytest.raises(ConfigError) as excinfo:
+        load_config(data)
+
+    assert secret not in str(excinfo.value)
+    assert secret not in repr(excinfo.value)
+    assert excinfo.value.__cause__ is None
+
+
+def test_wrong_type_field_secret_is_sanitized_from_config_error() -> None:
+    secret = "SYNTHETIC-WRONG-TYPE-SECRET-0002"
+    data = {**VALID_DATA, "rest_timeout_seconds": secret}
+
+    with pytest.raises(ConfigError) as excinfo:
+        load_config(data)
+
+    assert secret not in str(excinfo.value)
+    assert secret not in repr(excinfo.value)
+    assert excinfo.value.__cause__ is None
+
+
+def test_nested_credential_reference_secret_is_sanitized_from_config_error() -> None:
+    secret = "SYNTHETIC-NESTED-CREDENTIAL-SECRET-0003"
+    data = {
+        **VALID_DATA,
+        "credentials": {
+            "access_key_env": secret,  # invalid env-var-name syntax
+            "private_key_path_env": "KALSHI_DEMO_PRIVATE_KEY_PATH",
+        },
+    }
+
+    with pytest.raises(ConfigError) as excinfo:
+        load_config(data)
+
+    assert secret not in str(excinfo.value)
+    assert secret not in repr(excinfo.value)
+    assert excinfo.value.__cause__ is None
+
+
+def test_config_error_does_not_leak_secret_through_exception_logging() -> None:
+    import io
+    import json
+
+    from kalshi_bot.observability import configure_logging, get_logger
+
+    secret = "SYNTHETIC-LOGGED-CONFIG-SECRET-0004"
+    data = {**VALID_DATA, "unexpected_field": secret}
+
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    try:
+        load_config(data)
+    except ConfigError:
+        get_logger("test.config.error_logging").exception("config validation failed")
+
+    rendered = stream.getvalue()
+    assert secret not in rendered
+
+    lines = [json.loads(line) for line in rendered.splitlines() if line.strip()]
+    assert len(lines) == 1

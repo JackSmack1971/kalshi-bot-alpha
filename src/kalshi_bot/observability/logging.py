@@ -7,18 +7,27 @@ signatures, authorization headers, and private-key material can never
 reach emitted output, per ``docs/PHASE1_PLAN.md`` PR 2 and
 ``.claude/rules/credential-privacy.md``.
 
-Redaction is deliberately narrow and structural rather than a broad
-content scan:
+Redaction combines three narrow, precise mechanisms rather than a
+broad content scan:
 
-- Recursive key-based redaction over dict/list-shaped event data --
-  any key that looks like a credential (``access_key``, ``signature``,
-  ``authorization``, ``private_key``, ``api_key``, ``secret``,
-  ``password``, ``token``, ``bearer``, case-insensitive) has its value
-  replaced, at any nesting depth.
-- A narrow PEM-block marker scan (``-----BEGIN ...-----`` /
-  ``-----END ...-----``) over string values and rendered exception
-  text, so private-key material embedded in a message or traceback is
-  still caught.
+1. Recursive **exact-key** redaction over dict/list-shaped event data
+   -- a fixed set of known-sensitive field names (``access_key``,
+   ``signature``, ``authorization``, ``private_key``, ``api_key``,
+   ``secret``, ``password``, ``token``, ``bearer_token``, and their
+   documented variants), matched by normalized exact name so that
+   legitimate fields such as ``input_token_count`` or ``secretary_id``
+   are never caught by accident.
+2. A narrow **PEM-block marker scan** (``-----BEGIN ...-----`` /
+   ``-----END ...-----``) over string values and rendered exception
+   text, so private-key material embedded in a message or traceback is
+   still caught.
+3. **Exact registered sensitive values** -- runtime secret values
+   (currently: the loaded access-key ID; future PRs may register a
+   computed request signature) registered once via
+   :func:`register_sensitive_value` and then redacted wherever that
+   exact substring appears in emitted text, including free-form
+   messages and exception text, across both structlog and
+   stdlib/third-party logging paths.
 
 There is intentionally no generic base64/hex value-shape regex: that
 would also redact legitimate hashes, IDs, and evidence values that are
@@ -29,17 +38,35 @@ from __future__ import annotations
 
 import logging
 import re
+import threading
 from collections.abc import Mapping, MutableMapping
 from typing import IO, Any
 
 import structlog
 
-__all__ = ["configure_logging", "get_logger"]
+__all__ = ["configure_logging", "get_logger", "register_sensitive_value"]
 
-_SENSITIVE_KEY_PATTERN = re.compile(
-    r"(access[_-]?key|signature|authoriz|auth[_-]?header|private[_-]?key|"
-    r"api[_-]?key|secret|password|token|bearer)",
-    re.IGNORECASE,
+# Exact, normalized (lowercase, hyphens -> underscores) field names
+# redacted regardless of nesting depth. Deliberately not substring or
+# generic-suffix matching: "token_budget", "input_token_count", and
+# "secretary_id" must never be redacted, so only names identical to an
+# entry below (after normalization) match.
+_SENSITIVE_EXACT_KEYS: frozenset[str] = frozenset(
+    {
+        "access_key",
+        "access_key_id",
+        "api_key",
+        "authorization",
+        "authorization_header",
+        "signature",
+        "private_key",
+        "private_key_pem",
+        "password",
+        "secret",
+        "token",
+        "bearer",
+        "bearer_token",
+    }
 )
 
 _PEM_BLOCK_PATTERN = re.compile(
@@ -50,10 +77,62 @@ _PEM_BLOCK_PATTERN = re.compile(
 _REDACTED = "[REDACTED]"
 _REDACTED_PEM = "[REDACTED-PEM]"
 
+# Minimum length for a registered sensitive value before it is used for
+# substring redaction. Short values would over-match unrelated text;
+# real access-key IDs and signatures are always well above this length.
+_MIN_REGISTERED_VALUE_LENGTH = 8
+
+_registry_lock = threading.Lock()
+_registered_sensitive_values: set[str] = set()
+
+
+def register_sensitive_value(value: str) -> None:
+    """Register an exact runtime secret value for redaction.
+
+    Call this once, immediately after loading or computing a real
+    secret value -- for example the access-key ID returned by
+    :func:`kalshi_bot.credentials.loader.load_credentials`, or (in a
+    later Phase 1 PR) a computed request signature -- and never log
+    the value yourself in the interim. Once registered, the exact
+    value is redacted wherever it appears in emitted output: plain
+    messages, exception text, and nested structures, across both
+    structlog and stdlib/third-party logging paths.
+
+    Registered values cannot be read back through this module; there
+    is no accessor. Values shorter than
+    ``_MIN_REGISTERED_VALUE_LENGTH`` characters are ignored (too short
+    to safely value-redact without over-matching unrelated text), as
+    are empty or whitespace-only values.
+    """
+    if not value or not value.strip() or len(value) < _MIN_REGISTERED_VALUE_LENGTH:
+        return
+    with _registry_lock:
+        _registered_sensitive_values.add(value)
+
+
+def _reset_registered_sensitive_values_for_tests() -> None:
+    """Test-only: clear registered values so tests do not leak across cases.
+
+    Not part of the public API (not in ``__all__``); import it
+    directly from this module only from test fixtures.
+    """
+    with _registry_lock:
+        _registered_sensitive_values.clear()
+
+
+def _is_sensitive_key(key: str) -> bool:
+    normalized = key.strip().lower().replace("-", "_")
+    return normalized in _SENSITIVE_EXACT_KEYS
+
 
 def _redact_string(value: str) -> str:
     if _PEM_BLOCK_PATTERN.search(value):
-        return _PEM_BLOCK_PATTERN.sub(_REDACTED_PEM, value)
+        value = _PEM_BLOCK_PATTERN.sub(_REDACTED_PEM, value)
+    with _registry_lock:
+        registered = tuple(_registered_sensitive_values)
+    for secret_value in registered:
+        if secret_value in value:
+            value = value.replace(secret_value, _REDACTED)
     return value
 
 
@@ -70,7 +149,7 @@ def _redact_value(value: Any) -> Any:
 def _redact_mapping(mapping: Mapping[Any, Any]) -> dict[Any, Any]:
     redacted: dict[Any, Any] = {}
     for key, value in mapping.items():
-        if isinstance(key, str) and _SENSITIVE_KEY_PATTERN.search(key):
+        if isinstance(key, str) and _is_sensitive_key(key):
             redacted[key] = _REDACTED
         else:
             redacted[key] = _redact_value(value)

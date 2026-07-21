@@ -23,10 +23,24 @@ __all__ = ["ConfigError", "load_config"]
 class ConfigError(Exception):
     """Raised when supplied configuration data fails validation.
 
-    Configuration data is non-secret by construction (see
-    :class:`~kalshi_bot.config.models.AppConfig`), so it is safe for
-    this error's message to include the underlying validation detail.
+    The message contains only sanitized validation metadata -- field
+    location, the stable pydantic error-type code, and pydantic's
+    fixed message template -- never the rejected input value, the
+    supplied mapping, or the raw ``ValidationError`` text. The mapping
+    passed to :func:`load_config` is arbitrary at this boundary and may
+    contain a caller-supplied secret in an unexpected or malformed
+    field; the underlying ``ValidationError`` is deliberately not
+    chained (``raise ... from None``) so it can never reach a
+    traceback or the exception-logging pipeline.
     """
+
+
+def _sanitize_validation_error(exc: ValidationError) -> str:
+    parts = []
+    for error in exc.errors(include_url=False, include_context=False, include_input=False):
+        loc = ".".join(str(segment) for segment in error["loc"]) or "<root>"
+        parts.append(f"{loc}: {error['type']} ({error['msg']})")
+    return "; ".join(parts)
 
 
 def load_config(data: Mapping[str, Any]) -> AppConfig:
@@ -34,9 +48,10 @@ def load_config(data: Mapping[str, Any]) -> AppConfig:
 
     Raises a typed :class:`ConfigError` on any malformed or
     unrecognized field, before any network-capable object is
-    constructed.
+    constructed. The error message never includes the rejected value,
+    the supplied mapping, or any other part of ``data``.
     """
     try:
         return AppConfig.model_validate(dict(data))
     except ValidationError as exc:
-        raise ConfigError(f"invalid configuration: {exc}") from exc
+        raise ConfigError(f"invalid configuration: {_sanitize_validation_error(exc)}") from None
