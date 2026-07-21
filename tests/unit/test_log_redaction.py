@@ -18,8 +18,11 @@ from collections.abc import Iterator
 
 import pytest
 
-from kalshi_bot.observability import configure_logging, get_logger, register_sensitive_value
-from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
+from kalshi_bot.observability import configure_logging, get_logger
+from kalshi_bot.observability.logging import (
+    _register_sensitive_value,
+    _reset_registered_sensitive_values_for_tests,
+)
 
 # Exact registered synthetic secret values. Never realistic-looking.
 SYNTHETIC_ACCESS_KEY = "SYNTHETIC-ACCESS-KEY-0001"
@@ -237,7 +240,7 @@ def test_registered_value_is_redacted_in_free_form_structlog_message() -> None:
     configure_logging(level="INFO", stream=stream)
 
     registered_secret = "SYNTHETIC-REGISTERED-ACCESS-KEY-0005"
-    register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
 
     get_logger("test.redaction.registered").info(
         f"authenticated request using key {registered_secret} succeeded"
@@ -253,7 +256,7 @@ def test_registered_value_is_redacted_in_exception_text() -> None:
     configure_logging(level="INFO", stream=stream)
 
     registered_secret = "SYNTHETIC-REGISTERED-SIGNATURE-0006"
-    register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
 
     try:
         raise ValueError(f"request failed for key {registered_secret}")
@@ -269,7 +272,7 @@ def test_registered_value_is_redacted_in_stdlib_log() -> None:
     configure_logging(level="INFO", stream=stream)
 
     registered_secret = "SYNTHETIC-REGISTERED-VALUE-0007"
-    register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
 
     logging.getLogger("test.redaction.registered_stdlib").info(
         "value is %s", registered_secret
@@ -284,7 +287,7 @@ def test_registered_value_is_redacted_in_nested_structure() -> None:
     configure_logging(level="INFO", stream=stream)
 
     registered_secret = "SYNTHETIC-REGISTERED-NESTED-0008"
-    register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
 
     get_logger("test.redaction.registered_nested").info(
         "event", details={"note": f"used {registered_secret} for this call"}
@@ -299,7 +302,7 @@ def test_short_registered_value_is_ignored() -> None:
     configure_logging(level="INFO", stream=stream)
 
     short_value = "abc123"  # below the minimum registration length
-    register_sensitive_value(short_value)
+    _register_sensitive_value(short_value)
 
     get_logger("test.redaction.short").info(f"code is {short_value}")
 
@@ -312,10 +315,125 @@ def test_registry_reset_stops_further_redaction() -> None:
     configure_logging(level="INFO", stream=stream)
 
     registered_secret = "SYNTHETIC-REGISTERED-RESET-CHECK-0009"
-    register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
     _reset_registered_sensitive_values_for_tests()
 
     get_logger("test.redaction.reset").info(f"value is {registered_secret}")
 
     rendered = stream.getvalue()
     assert registered_secret in rendered
+
+
+# -- Overlap safety, duplicate registration, ordering, concurrency --
+
+
+def test_overlapping_registered_values_are_fully_redacted_without_suffix_leakage() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    shorter = "SYNTHETIC-OVERLAP-BASE-0010"
+    longer = shorter + "-ROTATED-EXTENSION"
+    _register_sensitive_value(shorter)
+    _register_sensitive_value(longer)
+
+    get_logger("test.redaction.overlap").info(f"key in use: {longer}")
+
+    rendered = stream.getvalue()
+    assert longer not in rendered
+    assert shorter not in rendered
+    # No leftover suffix from the longer value should survive as plaintext.
+    assert "-ROTATED-EXTENSION" not in rendered
+
+
+def test_repeated_occurrences_of_registered_value_are_all_redacted() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REPEATED-VALUE-0011"
+    _register_sensitive_value(registered_secret)
+
+    get_logger("test.redaction.repeated").info(
+        f"first use {registered_secret}, second use {registered_secret}, "
+        f"third use {registered_secret}"
+    )
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+    assert rendered.count("[REDACTED]") == 3
+
+
+def test_duplicate_registration_is_harmless() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-DUPLICATE-REGISTRATION-0012"
+    _register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
+    _register_sensitive_value(registered_secret)
+
+    get_logger("test.redaction.duplicate").info(f"value is {registered_secret}")
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_registration_before_configure_logging_still_redacts() -> None:
+    registered_secret = "SYNTHETIC-REGISTERED-BEFORE-CONFIGURE-0013"
+    _register_sensitive_value(registered_secret)
+
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    get_logger("test.redaction.before_configure").info(f"value is {registered_secret}")
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_registration_after_configure_logging_still_redacts() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    registered_secret = "SYNTHETIC-REGISTERED-AFTER-CONFIGURE-0014"
+    _register_sensitive_value(registered_secret)
+    get_logger("test.redaction.after_configure").info(f"value is {registered_secret}")
+
+    rendered = stream.getvalue()
+    assert registered_secret not in rendered
+
+
+def test_concurrent_registration_and_logging_does_not_raise_or_leak() -> None:
+    import threading
+
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+
+    secrets = [f"SYNTHETIC-CONCURRENT-SECRET-{i:04d}-PADDING" for i in range(20)]
+    errors: list[BaseException] = []
+
+    def register_and_log(secret: str) -> None:
+        try:
+            _register_sensitive_value(secret)
+            get_logger("test.redaction.concurrent").info(f"using {secret}")
+        except BaseException as exc:  # noqa: BLE001 - captured for the assertion below
+            errors.append(exc)
+
+    threads = [threading.Thread(target=register_and_log, args=(secret,)) for secret in secrets]
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join(timeout=5)
+
+    assert errors == []
+    rendered = stream.getvalue()
+    for secret in secrets:
+        assert secret not in rendered
+
+
+def test_no_public_accessor_exposes_registered_values() -> None:
+    import kalshi_bot.observability.logging as logging_module
+
+    public_names = [name for name in dir(logging_module) if not name.startswith("_")]
+    forbidden_terms = ("registered", "registry", "sensitive_value")
+    leaking = [name for name in public_names if any(term in name.lower() for term in forbidden_terms)]
+
+    assert leaking == []

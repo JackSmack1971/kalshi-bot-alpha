@@ -13,7 +13,9 @@ will use to build a ``RequestSigner`` from the loaded material:
 returning the raw material directly, and is documented as reserved for
 ``kalshi_bot.auth.signer`` alone -- REST and WebSocket clients must
 depend only on the signer, never on this seam or on
-``LoadedDemoCredentials`` directly.
+``LoadedDemoCredentials`` directly. See that function's docstring for
+the explicit limits of this boundary: it is architectural and
+convention-enforced, not a language-level security guarantee.
 """
 
 from __future__ import annotations
@@ -24,7 +26,7 @@ from pathlib import Path
 from typing import TypeVar
 
 from kalshi_bot.config.models import CredentialReferences
-from kalshi_bot.observability import register_sensitive_value
+from kalshi_bot.observability.logging import _register_sensitive_value
 
 __all__ = ["CredentialLoadError", "LoadedDemoCredentials", "load_credentials"]
 
@@ -48,7 +50,9 @@ class LoadedDemoCredentials:
     and not serializable (pickling raises) -- the only sanctioned way
     to reach the underlying material is
     :func:`_reveal_for_signer_construction`, reserved for Phase 1 PR
-    3's signer construction.
+    3's signer construction. See that function's docstring for why
+    this is an architectural and convention-enforced boundary, not a
+    language-level guarantee.
     """
 
     __slots__ = ("_access_key_id", "_private_key_pem")
@@ -73,12 +77,33 @@ def _reveal_for_signer_construction(
 
     ``factory`` receives the access-key ID and private-key PEM bytes
     and must return a signing-capability object (Phase 1 PR 3's
-    ``kalshi_bot.auth.signer.RequestSigner``) -- this function never
-    returns the raw material itself to a caller. No module other than
-    the future ``kalshi_bot.auth.signer`` may call this function; REST
-    and WebSocket clients must never be its consumers -- they depend
-    only on the ``RequestSigner`` that ``kalshi_bot.auth.signer``
-    produces from it.
+    ``kalshi_bot.auth.signer.RequestSigner``) -- this function does
+    not itself return the raw material to a caller that only wants the
+    signer.
+
+    **Limitations of this boundary, stated explicitly:**
+
+    - Python's single-underscore naming is a convention, not an
+      enforced access boundary. Nothing at the language level stops
+      another module in this repository from importing and calling
+      this function directly.
+    - The callback pattern does not make misuse impossible: a
+      maliciously or carelessly written ``factory`` could retain,
+      log, or return the raw ``access_key_id``/``private_key_pem`` it
+      is handed instead of transforming them into a signer. This
+      function cannot detect or prevent that.
+    - What actually restricts who calls this today is architecture
+      (only ``kalshi_bot.credentials`` and, once added,
+      ``kalshi_bot.auth.signer`` have a legitimate reason to), import
+      discipline, code review, and the static import-boundary test in
+      ``tests/unit/test_credential_loader.py`` -- not a runtime or
+      language-level guarantee.
+    - Phase 1 PR 3 must replace this generic callback seam with a
+      signer-specific construction path (for example, a function that
+      takes only a ``LoadedDemoCredentials`` and returns exactly a
+      ``RequestSigner``, with no caller-supplied callback). This
+      generic callback-based seam must not remain reachable by REST,
+      WebSocket, or any other downstream module once PR 3 lands.
     """
     return factory(credentials._access_key_id, credentials._private_key_pem)
 
@@ -89,9 +114,9 @@ def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
     Fails closed with a typed :class:`CredentialLoadError` on any
     missing environment variable, missing file, directory path, or
     unreadable file -- never falls back to an unauthenticated mode.
-    On success, registers the loaded access-key ID with
-    :func:`kalshi_bot.observability.register_sensitive_value` so it is
-    redacted if it ever reaches emitted log output.
+    On success, registers the loaded access-key ID with the internal
+    ``kalshi_bot.observability.logging._register_sensitive_value``
+    hook so it is redacted if it ever reaches emitted log output.
     """
     access_key_id = os.environ.get(refs.access_key_env)
     if not access_key_id:
@@ -130,6 +155,6 @@ def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
             f"private key file referenced by {refs.private_key_path_env!r} is empty"
         )
 
-    register_sensitive_value(access_key_id)
+    _register_sensitive_value(access_key_id)
 
     return LoadedDemoCredentials(access_key_id, private_key_pem)

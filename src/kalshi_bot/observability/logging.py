@@ -22,12 +22,15 @@ broad content scan:
    text, so private-key material embedded in a message or traceback is
    still caught.
 3. **Exact registered sensitive values** -- runtime secret values
-   (currently: the loaded access-key ID; future PRs may register a
-   computed request signature) registered once via
-   :func:`register_sensitive_value` and then redacted wherever that
+   (currently: the loaded access-key ID, registered internally by
+   ``kalshi_bot.credentials.loader``; future PRs may register a
+   computed request signature) registered once via the private
+   ``_register_sensitive_value`` hook and then redacted wherever that
    exact substring appears in emitted text, including free-form
    messages and exception text, across both structlog and
-   stdlib/third-party logging paths.
+   stdlib/third-party logging paths. Registration is internal, not a
+   public production API: only the credential-loading boundary
+   registers a value.
 
 There is intentionally no generic base64/hex value-shape regex: that
 would also redact legitimate hashes, IDs, and evidence values that are
@@ -44,7 +47,7 @@ from typing import IO, Any
 
 import structlog
 
-__all__ = ["configure_logging", "get_logger", "register_sensitive_value"]
+__all__ = ["configure_logging", "get_logger"]
 
 # Exact, normalized (lowercase, hyphens -> underscores) field names
 # redacted regardless of nesting depth. Deliberately not substring or
@@ -86,8 +89,14 @@ _registry_lock = threading.Lock()
 _registered_sensitive_values: set[str] = set()
 
 
-def register_sensitive_value(value: str) -> None:
+def _register_sensitive_value(value: str) -> None:
     """Register an exact runtime secret value for redaction.
+
+    Internal hook, not part of the public ``kalshi_bot.observability``
+    API (not in ``__all__``, not re-exported from ``__init__.py``).
+    ``kalshi_bot.credentials.loader`` imports this function directly
+    because it is the sole credential-loading boundary; no other
+    module should call it without an equivalent narrow justification.
 
     Call this once, immediately after loading or computing a real
     secret value -- for example the access-key ID returned by
@@ -102,7 +111,8 @@ def register_sensitive_value(value: str) -> None:
     is no accessor. Values shorter than
     ``_MIN_REGISTERED_VALUE_LENGTH`` characters are ignored (too short
     to safely value-redact without over-matching unrelated text), as
-    are empty or whitespace-only values.
+    are empty or whitespace-only values. Registering the same value
+    more than once is harmless (the registry is a set).
     """
     if not value or not value.strip() or len(value) < _MIN_REGISTERED_VALUE_LENGTH:
         return
@@ -128,9 +138,20 @@ def _is_sensitive_key(key: str) -> bool:
 def _redact_string(value: str) -> str:
     if _PEM_BLOCK_PATTERN.search(value):
         value = _PEM_BLOCK_PATTERN.sub(_REDACTED_PEM, value)
+
     with _registry_lock:
-        registered = tuple(_registered_sensitive_values)
-    for secret_value in registered:
+        snapshot = tuple(_registered_sensitive_values)
+    # Lock released before scanning: redaction never holds the lock
+    # while running string replacement, so a concurrent registration
+    # or reset cannot block or race with in-flight log rendering.
+
+    # Longest-first: if one registered value is a prefix/substring of
+    # another (e.g. an older and a rotated access-key ID that happen to
+    # share a prefix), redacting the shorter one first would leave the
+    # longer value's unmatched suffix behind as plaintext. Processing
+    # longest-first guarantees the full longer value is replaced before
+    # any shorter value could partially match inside it.
+    for secret_value in sorted(snapshot, key=len, reverse=True):
         if secret_value in value:
             value = value.replace(secret_value, _REDACTED)
     return value

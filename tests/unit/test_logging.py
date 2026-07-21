@@ -61,13 +61,18 @@ def test_reconfiguring_logging_replaces_handlers_rather_than_accumulating() -> N
 
 
 def test_public_api_stays_narrow() -> None:
-    """The redaction processor stays private; only the two logging
-    entry points plus the sensitive-value registration hook (needed by
-    kalshi_bot.credentials.loader) are exported."""
+    """The redaction processor and sensitive-value registration/reset
+    hooks stay private (internal to kalshi_bot.observability.logging,
+    imported directly only by kalshi_bot.credentials.loader and test
+    fixtures); only the two production entry points are exported."""
     import kalshi_bot.observability as observability_pkg
 
-    assert set(observability_pkg.__all__) == {
-        "configure_logging",
-        "get_logger",
-        "register_sensitive_value",
-    }
+    assert set(observability_pkg.__all__) == {"configure_logging", "get_logger"}
+
+
+def test_registration_and_reset_hooks_are_not_exported_from_package() -> None:
+    import kalshi_bot.observability as observability_pkg
+
+    assert not hasattr(observability_pkg, "register_sensitive_value")
+    assert not hasattr(observability_pkg, "_register_sensitive_value")
+    assert not hasattr(observability_pkg, "_reset_registered_sensitive_values_for_tests")

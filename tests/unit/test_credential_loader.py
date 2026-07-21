@@ -231,3 +231,29 @@ def test_reveal_for_signer_construction_hands_raw_material_only_to_factory(
     assert result == "signer-placeholder"
     assert captured["access_key_id"] == SYNTHETIC_ACCESS_KEY
     assert captured["private_key_pem"] == SYNTHETIC_PEM
+
+
+def test_reveal_for_signer_construction_is_not_imported_outside_credential_boundary() -> None:
+    """Static check: _reveal_for_signer_construction is a convention- and
+    review-enforced seam, not a language-level boundary (see its
+    docstring) -- so this test is the actual enforcement mechanism.
+    Only kalshi_bot.credentials (and, once PR 3 adds it,
+    kalshi_bot.auth.signer) may reference the name; REST, WebSocket, and
+    every other module must depend on the eventual RequestSigner
+    instead."""
+    src_root = Path(__file__).resolve().parents[2] / "src" / "kalshi_bot"
+    allowed_roots = {"credentials", "auth"}
+    violations: list[str] = []
+
+    for path in src_root.rglob("*.py"):
+        relative = path.relative_to(src_root)
+        top = relative.parts[0] if len(relative.parts) > 1 else None
+        if top in allowed_roots:
+            continue
+        if "_reveal_for_signer_construction" in path.read_text(encoding="utf-8"):
+            violations.append(str(relative).replace("\\", "/"))
+
+    assert violations == [], (
+        "Only kalshi_bot.credentials/auth may reference "
+        "_reveal_for_signer_construction; found in: " + ", ".join(violations)
+    )
