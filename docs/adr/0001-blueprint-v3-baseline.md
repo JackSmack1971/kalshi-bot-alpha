@@ -1,8 +1,22 @@
 # ADR-0001 — Adopt Blueprint v3 as the architecture baseline
 
-- **Status:** Proposed — awaiting human approval
+- **Status:** Accepted
 - **Date:** 2026-07-20
-- **Deciders:** repository owner (approval pending)
+- **Deciders:** repository owner
+
+## Acceptance record
+
+- **Acceptance date:** 2026-07-20
+- **Decider:** Human repository owner
+- **Basis:** explicit human review and approval of ADR-0001 with the
+  amendments recorded in this document.
+
+Acceptance requires all of the following:
+
+1. a durable human approval record in this ADR (this section);
+2. corresponding updates to `docs/IMPLEMENTATION_STATUS.md`;
+3. Phase 0 marked accepted in the active-phase status and phase ledger
+   in `docs/IMPLEMENTATION_STATUS.md`.
 
 ## Context
 
@@ -20,7 +34,10 @@ requires an architecture decision record before any trading code exists.
    delivery phases (§12), evaluation protocol (§13), definition of done
    (§14), microstructure contract (§15), and OpenRouter baseline (§16)
    govern implementation, subordinate only to explicit user instruction
-   and the safety invariants in `CLAUDE.md`.
+   and the safety invariants in `CLAUDE.md`. This ADR also incorporates
+   `docs/SAFETY_MODEL.md` and the governance invariants in `CLAUDE.md`
+   as co-equal binding sources for the deterministic authority split
+   and demo-only controls.
 2. **Demo-only, forever, for this project.** Only the two demo endpoints
    in `docs/SAFETY_MODEL.md` are reachable. No production switch,
    dormant production endpoint, or generic environment-parameterized
@@ -48,9 +65,11 @@ requires an architecture decision record before any trading code exists.
   change, which is reviewable and forbidden — not a config typo.
 - Every future subsystem change must cite the blueprint section it
   implements; deviations require a new ADR.
-- The frozen Phase 0 schemas (`schemas/*.schema.json`) are contracts:
-  changing them after acceptance requires a new version and a new ADR or
-  documented decision, never silent edits.
+- The frozen Phase 0 schemas (`schemas/*.schema.json`) are immutable
+  contracts. Any change after acceptance requires a new schema version
+  and a new ADR, or an approved `propose-contract-change` workflow that
+  produces an ADR. Silent edits are forbidden and must be rejected by
+  the Phase exit audit.
 
 ## Alternatives considered
 

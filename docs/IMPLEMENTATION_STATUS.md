@@ -3,16 +3,23 @@
 Read this before planning or editing (per `CLAUDE.md`). Implement only
 the active phase; do not build later-phase behavior early.
 
-- **Branch:** `phase-zero-reconciliation` (5 commits ahead of
+- **Branch:** `phase-zero-reconciliation` (7 commits ahead of
   `origin/main`; nothing pushed).
 - **Active phase:** Phase 0 — Contracts and safety model.
-- **Phase 0 state:** Delivered and objectively verified on this branch
-  (see "Verification evidence" below) — **awaiting human architectural
-  review and approval**. `docs/adr/0001-blueprint-v3-baseline.md`
-  status is **Proposed**, not accepted. Objective verification (tests,
-  static analysis, the demo-only scanner) is not a substitute for that
-  human review, and this document does not treat it as one. Phase 1
-  must not begin until human approval is durably recorded here.
+- **Phase 0 state:** **Accepted and complete.**
+  `docs/adr/0001-blueprint-v3-baseline.md` status is **Accepted**
+  (acceptance date 2026-07-20, decider: Human repository owner).
+  Human Phase 0 sign-off: **completed** on 2026-07-20. The Phase exit
+  audit verdict `PASS_PENDING_HUMAN_APPROVAL` recorded for this branch
+  is now satisfied by this explicit human decision. Objective
+  verification (tests, static analysis, the demo-only scanner) was not
+  itself a substitute for that human review; this entry records that
+  the human review has now occurred, in addition to that verification.
+  **Phase 1 is unlocked for planning only** — no Phase 1 implementation
+  has started. `.claude/**` (agents, rules, skills, hooks, statusline)
+  remains unreviewed process tooling and is explicitly outside the
+  scope of this product-foundation approval; see "Workflow and tooling
+  provenance" below.
 - **AI phases:** not started (AI Phase A is gated on stable
   deterministic simulation, risk, ledger, and replay evidence —
   Phases 3+).
@@ -215,21 +222,22 @@ directory is separately recorded. Reconciling `.claude/**` content
 between the two merged Phase 0 lines is remaining work not covered by
 this branch's commits.
 
-## Human-review gates still open
+## Human-review gates
 
-- ADR-0001 acceptance (`docs/adr/0001-blueprint-v3-baseline.md`
-  status is Proposed).
-- Overall Phase 0 sign-off recorded in this document (this entry
-  itself must be added by a human reviewer, not inferred or
-  self-granted by any agent).
-- `.claude/**` reconciliation and review (see previous section).
+- ADR-0001 acceptance: **closed** — `docs/adr/0001-blueprint-v3-baseline.md`
+  status is Accepted (acceptance date 2026-07-20, decider: Human
+  repository owner).
+- Overall Phase 0 sign-off: **closed** — recorded in this document on
+  2026-07-20.
+- `.claude/**` reconciliation and review: **still open** (see previous
+  section). This approval does not cover `.claude/**`.
 
 ## Phase ledger
 
 | Phase | Status |
 | --- | --- |
-| 0 — Contracts and safety model | Delivered and verified; pending human review |
-| 1 — Read-only connectivity | Not started |
+| 0 — Contracts and safety model | Accepted and complete (human sign-off 2026-07-20) |
+| 1 — Read-only connectivity | Not started; unlocked for planning only |
 | 2 — Order-book integrity | Not started |
 | 3 — Portfolio and simulated execution | Not started |
 | 4 — Demo order lifecycle | Not started |
