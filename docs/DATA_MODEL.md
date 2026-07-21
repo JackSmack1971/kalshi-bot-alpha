@@ -51,15 +51,25 @@ expected_fill_probability    expected_queue_wait_seconds
 expected_gross_spread_capture  expected_fee_cost
 expected_adverse_selection   expected_inventory_cost
 expected_settlement_risk     expected_cancel_probability
-expected_net_edge            edge_model_version
+expected_net_edge_usd        edge_model_version
 calibration_sample_size      calibration_confidence    expiry_timestamp
 ```
 
 Binding rules:
 
 - `signal_confidence`, `expected_fill_probability`, and
-  `expected_net_edge` are **three distinct fields** and must never share
-  one ambiguous field.
+  `expected_net_edge_usd` are **three distinct fields** and must never
+  share one ambiguous field.
+- `TradeIntent.expected_net_edge_usd` and
+  `QuoteExpectancyRecord.expected_net_edge_usd`
+  (`schemas/quote-expectancy.schema.json`, referenced above) are frozen
+  under the same field name by design, but are not the same value or
+  the same record: `TradeIntent`'s is the strategy engine's forward
+  estimate at decision time, owned by `trade-intent.schema.json`; the
+  quote-expectancy record's is the versioned decomposition persisted
+  per quote (`docs/STRATEGY_SPEC.md` §3), owned by
+  `quote-expectancy.schema.json`. Neither schema aliases or derives
+  from the other.
 - Every intent references exactly one immutable `feature_snapshot_id`
   and a versioned `edge_model_version`.
 - `TradeIntent` may be produced **only** by the deterministic strategy

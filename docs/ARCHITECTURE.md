@@ -3,7 +3,7 @@
 Deterministic, demo-only Kalshi crypto paper-trading bot with a
 separate, OpenRouter-exclusive AI research/control plane. The full
 system contract is `docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`
-(adopted by `docs/adr/0001-phase-0-contracts-and-safety-model.md`,
+(adopted by `docs/adr/0001-blueprint-v3-baseline.md`,
 status: Proposed, awaiting human approval — see
 `docs/IMPLEMENTATION_STATUS.md`). This page is an orientation map, not
 a replacement.

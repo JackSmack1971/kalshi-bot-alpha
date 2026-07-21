@@ -8,7 +8,7 @@ the active phase; do not build later-phase behavior early.
 - **Active phase:** Phase 0 — Contracts and safety model.
 - **Phase 0 state:** Delivered and objectively verified on this branch
   (see "Verification evidence" below) — **awaiting human architectural
-  review and approval**. `docs/adr/ADR-0001-blueprint-v3-baseline.md`
+  review and approval**. `docs/adr/0001-blueprint-v3-baseline.md`
   status is **Proposed**, not accepted. Objective verification (tests,
   static analysis, the demo-only scanner) is not a substitute for that
   human review, and this document does not treat it as one. Phase 1
@@ -42,7 +42,7 @@ rather than unioned. Commits on this branch, oldest first:
 `IMPLEMENTATION_STATUS.md` (this file), `MICROSTRUCTURE_CONTRACT.md`,
 `ORDER_STATE_MACHINE.md`, `PAPER_TRADING_PROTOCOL.md`,
 `RESEARCH_PROTOCOL.md`, `RISK_MODEL.md`, `SAFETY_MODEL.md`,
-`STRATEGY_SPEC.md`, `adr/ADR-0001-blueprint-v3-baseline.md`.
+`STRATEGY_SPEC.md`, `adr/0001-blueprint-v3-baseline.md`.
 
 `CREDENTIAL_POLICY.md` and `DEMO_ENDPOINT_POLICY.md` are not
 duplicates of `SAFETY_MODEL.md` §1–§2: `SAFETY_MODEL.md` is the
@@ -130,12 +130,14 @@ until Phase 2–3 introduces persistence.
   different schemas** with different names; they must not be read as
   the same field or conflated during implementation.
 - `expected_net_edge_usd` is the one frozen field name used by
-  **both** `trade-intent.schema.json` and `quote-expectancy.schema.json`.
-  `docs/DATA_MODEL.md` §2's field list still spells this
-  `expected_net_edge` (without the `_usd` suffix) — that prose listing
-  has drifted from the frozen schema and is recorded below as a known
-  gap, not silently corrected, since `docs/DATA_MODEL.md` is out of
-  this task's write scope.
+  **both** `trade-intent.schema.json` and `quote-expectancy.schema.json`,
+  but each schema owns its own field: `TradeIntent`'s is the strategy
+  engine's forward estimate at decision time; `QuoteExpectancyRecord`'s
+  is the versioned decomposition persisted per quote. Neither aliases
+  or derives from the other. `docs/DATA_MODEL.md` §2's field list
+  previously spelled this `expected_net_edge` (without the `_usd`
+  suffix); that prose drift has been corrected in this reconciliation
+  to match the frozen schema.
 
 ## Verification evidence
 
@@ -156,7 +158,8 @@ Additional evidence gathered for this reconciliation (not a repository-native co
 - Every schema filename matches `^[a-z0-9]+(-[a-z0-9]+)*\.schema\.json$` (kebab-case) — confirmed for all 9 files.
 - No reference to any of the 8 deleted WIP policy docs remains anywhere in `docs/`, `schemas/`, `src/`, `tests/`, `config/`, `scripts/`, or `pyproject.toml`.
 - No non-demo Kalshi hostname appears in `docs/`, `schemas/`, `src/`, or `config/` outside the two files that name production-looking hosts specifically as rejected negative examples (`docs/DEMO_ENDPOINT_POLICY.md`, `docs/SAFETY_MODEL.md`).
-- `docs/adr/ADR-0001-blueprint-v3-baseline.md` line 3 reads `**Status:** Proposed — awaiting human approval`; this document does not represent it as accepted.
+- `docs/adr/0001-blueprint-v3-baseline.md` line 3 reads `**Status:** Proposed — awaiting human approval`; this document does not represent it as accepted.
+- **Test-count investigation (71 vs. 69):** `uv run pytest --collect-only -q` on this branch's current commit collects exactly 69 tests (33 + 29 + 7, matching the three test files listed above), the same total the full run in this table reports. No commit reachable from this branch, `local-phase-zero-wip`, or `origin/main` was found — by direct collection on each — to produce 71. The `local-phase-zero-wip` bootstrap collects 26 schema tests against 8 snake_case schema files before `kalshi_bot` is installed as a package (a different, non-comparable state), and the post-import, pre-reconciliation commit `361b117` collects 67 once its missing `jsonschema` dependency is supplied, not 71. No tracked commit message, test file, or document in this repository's history contains the figure "71". Classification: **reporting error** — the current 69 is reproducible and internally consistent (69/69 passing, 29 of them schema tests across the 9 canonical kebab-case schemas); the earlier "71" claim could not be reproduced against any commit and is treated as a stale/incorrect prior report, not evidence of accidental test loss.
 
 ## Explicit Phase 0 non-goals and absent capabilities
 
@@ -179,14 +182,6 @@ None of the following exist anywhere in this repository as of Phase 0:
 
 ## Known gaps and deferred work
 
-- **`docs/DATA_MODEL.md` §2 field-name drift:** lists `expected_net_edge`
-  where the frozen `trade-intent.schema.json` field is
-  `expected_net_edge_usd`. Out of this task's write scope (docs are
-  excluded); flagged here for a follow-up doc-only fix.
-- **`docs/ARCHITECTURE.md` line 6 stale ADR path:** references
-  `docs/adr/0001-phase-0-contracts-and-safety-model.md`; the actual
-  file on this branch is `docs/adr/ADR-0001-blueprint-v3-baseline.md`.
-  Out of this task's write scope; flagged for a follow-up doc-only fix.
 - `README.md` was intentionally removed by the repository owner and
   has not been recreated.
 - `docs/RUNBOOK.md` is a Phase 6 deliverable (not started).
@@ -222,12 +217,11 @@ this branch's commits.
 
 ## Human-review gates still open
 
-- ADR-0001 acceptance (`docs/adr/ADR-0001-blueprint-v3-baseline.md`
+- ADR-0001 acceptance (`docs/adr/0001-blueprint-v3-baseline.md`
   status is Proposed).
 - Overall Phase 0 sign-off recorded in this document (this entry
   itself must be added by a human reviewer, not inferred or
   self-granted by any agent).
-- The two doc-drift items under "Known gaps" above.
 - `.claude/**` reconciliation and review (see previous section).
 
 ## Phase ledger
