@@ -5,7 +5,10 @@ description = "Deterministic, demo-only Kalshi crypto paper-trading bot. Phase 0
 readme = "docs/ARCHITECTURE.md"
 requires-python = ">=3.12"
 license = { text = "Proprietary" }
-dependencies = []
+dependencies = [
+    "pydantic>=2",
+    "structlog>=26.1.0",
+]
 
 [dependency-groups]
 dev = [
