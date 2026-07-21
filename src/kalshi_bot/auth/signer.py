@@ -51,6 +51,7 @@ import re
 from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
+from cryptography.exceptions import UnsupportedAlgorithm
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
@@ -79,13 +80,27 @@ class SigningError(Exception):
     """
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(frozen=True, slots=True, repr=False)
 class SignedHeaders:
-    """The three headers Kalshi requires on every authenticated request."""
+    """The three headers Kalshi requires on every authenticated request.
+
+    ``repr`` and ``str`` are fixed and redacted (never include
+    ``access_key`` or ``signature``) so that logging this object
+    directly -- including nested inside a dict or list, where
+    structlog's JSON renderer falls back to ``repr()`` for values it
+    cannot serialize natively -- cannot leak either value. Field
+    access, equality, and immutability are unaffected; only the
+    dataclass-generated ``__repr__`` is replaced.
+    """
 
     access_key: str
     signature: str
     timestamp_ms: int
+
+    def __repr__(self) -> str:
+        return "SignedHeaders(<redacted>)"
+
+    __str__ = __repr__
 
 
 def _canonical_message(method: str, path: str, timestamp_ms: int) -> bytes:
@@ -215,6 +230,10 @@ class _RequestSignerBuilder:
             ) from None
         except ValueError:
             raise SigningError("private key material is malformed or empty") from None
+        except UnsupportedAlgorithm:
+            raise SigningError(
+                "private key material uses an unsupported key format or algorithm"
+            ) from None
 
         if not isinstance(private_key, rsa.RSAPrivateKey):
             raise SigningError("only RSA private keys are supported")

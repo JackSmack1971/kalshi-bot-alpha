@@ -8,14 +8,16 @@ from __future__ import annotations
 
 import base64
 import io
+import logging
 from collections.abc import Iterator
 from pathlib import Path
+from unittest.mock import patch
 
 import pytest
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import ec, padding, rsa
 from cryptography.hazmat.primitives import hashes as crypto_hashes
-from cryptography.exceptions import InvalidSignature
+from cryptography.exceptions import InvalidSignature, UnsupportedAlgorithm
 
 from kalshi_bot.auth.signer import RequestSigner, SignedHeaders, SigningError, _canonical_message
 from kalshi_bot.config.models import CredentialReferences
@@ -339,3 +341,121 @@ def test_access_key_is_redacted_in_actual_signer_output(
 
     rendered = stream.getvalue()
     assert headers.access_key not in rendered
+
+
+def _signed_headers() -> SignedHeaders:
+    pem, _ = _generate_rsa_keypair()
+    signer = RequestSigner.from_credentials(_credentials(pem))
+    return signer.sign("GET", "/trade-api/v2/portfolio/balance", 1703123456789)
+
+
+def test_signed_headers_repr_and_str_are_redacted() -> None:
+    headers = _signed_headers()
+
+    assert repr(headers) == "SignedHeaders(<redacted>)"
+    assert str(headers) == "SignedHeaders(<redacted>)"
+    assert headers.access_key not in repr(headers)
+    assert headers.signature not in repr(headers)
+    assert headers.access_key not in str(headers)
+    assert headers.signature not in str(headers)
+
+
+def test_signed_headers_fields_remain_accessible() -> None:
+    headers = _signed_headers()
+
+    assert headers.access_key == SYNTHETIC_ACCESS_KEY
+    assert isinstance(headers.signature, str) and headers.signature
+    assert headers.timestamp_ms == 1703123456789
+
+
+def test_signed_headers_equality_and_immutability() -> None:
+    headers = _signed_headers()
+    same_values = SignedHeaders(
+        access_key=headers.access_key,
+        signature=headers.signature,
+        timestamp_ms=headers.timestamp_ms,
+    )
+
+    assert headers == same_values
+    with pytest.raises(AttributeError):
+        headers.access_key = "MUTATED"  # type: ignore[misc]
+
+
+def test_signed_headers_logged_via_structlog_does_not_leak() -> None:
+    headers = _signed_headers()
+
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    get_logger("test.auth.signed_headers_structlog").info("signed", headers=headers)
+
+    rendered = stream.getvalue()
+    assert headers.access_key not in rendered
+    assert headers.signature not in rendered
+    assert "SignedHeaders(<redacted>)" in rendered
+
+
+def test_signed_headers_logged_via_stdlib_logging_does_not_leak() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    headers = _signed_headers()
+
+    logging.getLogger("test.auth.signed_headers_stdlib").info("signed headers: %s", headers)
+
+    rendered = stream.getvalue()
+    assert headers.access_key not in rendered
+    assert headers.signature not in rendered
+    assert "SignedHeaders(<redacted>)" in rendered
+
+
+def test_signed_headers_nested_in_dict_and_list_does_not_leak() -> None:
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    headers = _signed_headers()
+
+    get_logger("test.auth.signed_headers_nested").info(
+        "signed", nested={"headers": headers}, listed=[headers]
+    )
+
+    rendered = stream.getvalue()
+    assert headers.access_key not in rendered
+    assert headers.signature not in rendered
+    assert rendered.count("SignedHeaders(<redacted>)") == 2
+
+
+def test_unsupported_algorithm_raises_sanitized_signing_error() -> None:
+    pem, _ = _generate_rsa_keypair()
+
+    with patch(
+        "kalshi_bot.auth.signer.serialization.load_pem_private_key",
+        side_effect=UnsupportedAlgorithm("unsupported by this OpenSSL build"),
+    ):
+        with pytest.raises(SigningError) as excinfo:
+            RequestSigner.from_credentials(_credentials(pem, access_key_id="SYNTHETIC-KEY-UAE"))
+
+    message = str(excinfo.value)
+    assert "unsupported by this OpenSSL build" not in message
+    assert "SYNTHETIC-KEY-UAE" not in message
+    assert pem.decode("ascii", errors="ignore") not in message
+
+
+def test_unsupported_algorithm_not_leaked_in_repr_or_logs() -> None:
+    pem, _ = _generate_rsa_keypair()
+
+    with patch(
+        "kalshi_bot.auth.signer.serialization.load_pem_private_key",
+        side_effect=UnsupportedAlgorithm("unsupported by this OpenSSL build"),
+    ):
+        with pytest.raises(SigningError) as excinfo:
+            RequestSigner.from_credentials(_credentials(pem, access_key_id="SYNTHETIC-KEY-UAE"))
+
+    assert "unsupported by this OpenSSL build" not in repr(excinfo.value)
+
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    try:
+        raise excinfo.value
+    except SigningError:
+        get_logger("test.auth.unsupported_algorithm").exception("signing failed")
+
+    rendered = stream.getvalue()
+    assert "unsupported by this OpenSSL build" not in rendered
