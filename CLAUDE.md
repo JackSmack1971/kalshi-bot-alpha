@@ -136,8 +136,17 @@ Multi-step procedures are in `.claude/skills/`:
 - `audit-safety-invariants` — cross-cutting check of demo-only, credential-isolation, AI-authority, and human-approval invariants on a diff
 - `propose-contract-change` — safe evolution of frozen schemas in `schemas/` and their governing docs
 - `phase-exit-audit` — evidence-based check of the active phase's deliverables and exit criteria before completion is claimed
+- `memory-domain-sync` — the read-before/write-after protocol every domain-engineering agent follows against `.claude/memory/` (see `.claude/memory/PROTOCOL.md`)
+- `swarm-status-briefing` — read-only synthesis of `docs/IMPLEMENTATION_STATUS.md` plus the full `.claude/memory/` state into one status report
 
 Use these skills for nontrivial repository modifications rather than duplicating their procedures here.
+
+Multi-agent orchestration scripts are in `.claude/workflows/` (see its `README.md`
+for the full list and design rationale). These are opt-in: invoke only when the
+user has explicitly asked for multi-agent orchestration, per the `Workflow` tool's
+own gating rules. They compose the agents and skills above; they never replace
+the human-approval, deterministic-authority, or active-phase-discipline
+invariants above.
 
 ## Completion bar
 
