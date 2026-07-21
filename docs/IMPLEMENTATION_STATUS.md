@@ -3,9 +3,9 @@
 Read this before planning or editing (per `CLAUDE.md`). Implement only
 the active phase; do not build later-phase behavior early.
 
-- **Branch:** `phase-zero-reconciliation` (7 commits ahead of
-  `origin/main`; nothing pushed).
-- **Active phase:** Phase 0 — Contracts and safety model.
+- **Planning baseline:** Phase 0 foundation is present on
+  `origin/main`; Phase 1 activation is introduced by PR #5.
+- **Active phase:** Phase 1 — Read-only connectivity.
 - **Phase 0 state:** **Accepted and complete.**
   `docs/adr/0001-blueprint-v3-baseline.md` status is **Accepted**
   (acceptance date 2026-07-20, decider: Human repository owner).
@@ -15,11 +15,28 @@ the active phase; do not build later-phase behavior early.
   verification (tests, static analysis, the demo-only scanner) was not
   itself a substitute for that human review; this entry records that
   the human review has now occurred, in addition to that verification.
-  **Phase 1 is unlocked for planning only** — no Phase 1 implementation
-  has started. `.claude/**` (agents, rules, skills, hooks, statusline)
-  remains unreviewed process tooling and is explicitly outside the
-  scope of this product-foundation approval; see "Workflow and tooling
+  `.claude/**` (agents, rules, skills, hooks, statusline) remains
+  unreviewed process tooling and is explicitly outside the scope of
+  this product-foundation approval; see "Workflow and tooling
   provenance" below.
+- **Phase 1 activation record:**
+  - **Activation date:** 2026-07-20
+  - **Decider:** Human repository owner
+  - **Basis:** explicit human review and approval of the binding
+    Phase 1 implementation plan recorded in `docs/PHASE1_PLAN.md`,
+    including the six-PR stack, the logging/redaction/config/
+    credential-loader separation, the corrected RSA-PSS test plan,
+    and the immutable soak-evidence layout.
+  - **Scope of this activation:** planning and PR-by-PR implementation
+    of Phase 1 exactly as bounded in `docs/PHASE1_PLAN.md`. No PR in
+    that stack is itself pre-approved by this entry — each PR still
+    requires its own review before merge. This entry authorizes
+    starting the PR 1 documentation change now recorded here; PR 2
+    onward remain unimplemented until reviewed in turn.
+  - No later-phase behavior (order endpoints, order-book
+    reconstruction, strategy, risk, portfolio, ledger, reconciliation,
+    persistence, replay, external-reference ingestion, or AI
+    control-plane code) is authorized by this activation.
 - **AI phases:** not started (AI Phase A is gated on stable
   deterministic simulation, risk, ledger, and replay evidence —
   Phases 3+).
@@ -229,6 +246,10 @@ this branch's commits.
   repository owner).
 - Overall Phase 0 sign-off: **closed** — recorded in this document on
   2026-07-20.
+- Phase 1 activation: **closed** — recorded in this document on
+  2026-07-20 (human repository owner), scoped to `docs/PHASE1_PLAN.md`.
+  Each PR in that plan still requires its own review before merge; this
+  gate authorizes starting the stack, not any individual PR's content.
 - `.claude/**` reconciliation and review: **still open** (see previous
   section). This approval does not cover `.claude/**`.
 
@@ -237,7 +258,7 @@ this branch's commits.
 | Phase | Status |
 | --- | --- |
 | 0 — Contracts and safety model | Accepted and complete (human sign-off 2026-07-20) |
-| 1 — Read-only connectivity | Not started; unlocked for planning only |
+| 1 — Read-only connectivity | Activated 2026-07-20 (human sign-off); implementation in progress per `docs/PHASE1_PLAN.md`, PR 1 of 6 (this documentation change) |
 | 2 — Order-book integrity | Not started |
 | 3 — Portfolio and simulated execution | Not started |
 | 4 — Demo order lifecycle | Not started |
