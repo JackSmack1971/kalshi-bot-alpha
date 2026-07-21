@@ -17,16 +17,27 @@ description: Produce a read-only synthesis of the domain-engineering swarm's cur
 4. Cross-check: does a domain log mark a task `done` while `INDEX.md`
    still lists a `[BLOCKER]`/`[DECISION-NEEDED]` for that same domain
    unresolved? Flag the discrepancy — do not resolve it yourself.
-5. Produce a report with these sections:
-   - **Active phase** and whether any in-flight work already exceeds
-     its scope.
-   - **Open items by tag** — each with domain, date, one-line
-     description, and which agent's action (or which human decision)
-     would resolve it.
-   - **Per-domain last activity** — one line per domain log that has an
-     entry, newest first.
-   - **Discrepancies** found in step 4, if any.
+5. Produce the report below.
 6. This skill is strictly read-only: never append to, edit, or resolve
    an `INDEX.md` or domain-log entry while producing this briefing. A
    finding that warrants escalation is handed back to the caller to
    record via `memory-domain-sync`, not written here.
+
+Final swarm status briefing:
+
+```text
+Swarm status briefing
+
+Active phase
+- Phase, and whether any in-flight work already exceeds its scope.
+
+Open items by tag
+- [BLOCKER] / [QUESTION] / [HANDOFF] / [DECISION-NEEDED] / [INVARIANT-RISK] / [FINDING]
+  — domain, date, one-line description, action or decision that resolves it.
+
+Per-domain last activity
+- One line per domain log that has an entry, newest first.
+
+Discrepancies
+- Domain log vs INDEX.md mismatches found in step 4, if any.
+```

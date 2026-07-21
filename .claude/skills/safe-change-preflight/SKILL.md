@@ -16,6 +16,28 @@ Perform this workflow before editing:
 7. Enumerate affected safety invariants, authority boundaries, persistence contracts, schemas, migrations, public interfaces, observability, failure modes, and tests.
 8. Confirm unrelated worktree changes will not be overwritten.
 9. Define the narrowest coherent implementation boundary and later-phase behavior that must remain unimplemented.
-10. State a bounded plan naming affected invariants and the verification strategy.
+10. Produce the report below.
 
 If authoritative sources conflict, preserve the safer current behavior and surface the conflict rather than silently resolving it.
+
+Final preflight plan:
+
+```text
+Preflight — <task>
+
+Current state
+- Active phase, relevant exit criteria, deferred work, known gaps.
+- Owning module(s), existing conventions/types reused instead of duplicated.
+
+Implementation boundary
+- What is in scope; what later-phase behavior stays unimplemented.
+
+Affected invariants
+- Safety, authority-boundary, persistence, schema, and interface contracts touched.
+
+Verification strategy
+- Checks this change will require (tests, lint, static analysis, migrations).
+
+Conflicts
+- Any authoritative-source conflict found and the safer behavior preserved, or "none found."
+```

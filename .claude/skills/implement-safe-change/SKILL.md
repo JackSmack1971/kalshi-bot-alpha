@@ -16,7 +16,7 @@ description: Use to execute a bounded code change after preflight while preservi
 9. Update schemas, migrations, documentation, and implementation status only when required and authorized.
 10. Never describe the work as complete until verification evidence supports it.
 
-Do not refactor unrelated code, rename broad APIs, reformat unrelated files, weaken safety tests, implement later phases opportunistically, or use stubs/mocks/skips as completion evidence.
+Keep the diff to the narrow boundary from step 2: touch only the files a reviewed acceptance criterion or invariant requires, in their existing style. Stubs, mocks, and skips are never completion evidence — only a passing run is.
 
 Final implementation report:
 
@@ -43,4 +43,4 @@ Phase status
 - Exit criteria advanced, satisfied, or still incomplete.
 ```
 
-Distinguish implemented, tested, mocked, simulated, partial, unverified, and deferred behavior.
+Distinguish implemented, tested, mocked, simulated, partially implemented, unverified, and deferred behavior — CLAUDE.md's completion-bar vocabulary.

@@ -28,7 +28,7 @@ Perform this workflow whenever a diff or area of work maps to a safety-invariant
 7. For any category judged out of scope for this diff, mark it "not applicable" in the report with a one-line reason; do not silently omit a category.
 8. Cite concrete evidence (file path, line, command output) for every pass or fail — do not assert a status without evidence.
 
-Do not run this skill's checks as a substitute for `verify-change`'s test/lint/static-analysis suite; run both when a diff qualifies for both. Do not edit code, weaken a check, or reinterpret a failing invariant as a warning to obtain a pass. Do not mark a category "not applicable" merely because checking it is inconvenient.
+Run this alongside `verify-change`, not instead of it, whenever a diff qualifies for both. Report every category exactly as found — a failing invariant stays a fail, and a category is "not applicable" only when it is genuinely out of scope, never because checking it is inconvenient.
 
 Final audit report:
 
