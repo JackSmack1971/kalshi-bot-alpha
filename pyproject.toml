@@ -6,6 +6,7 @@ readme = "docs/ARCHITECTURE.md"
 requires-python = ">=3.12"
 license = { text = "Proprietary" }
 dependencies = [
+    "cryptography>=49.0.0",
     "pydantic>=2",
     "structlog>=26.1.0",
 ]
@@ -17,6 +18,7 @@ dev = [
     "mypy>=1.10",
     "jsonschema>=4.18",
     "types-jsonschema>=4.18",
+    "hypothesis>=6.158.0",
 ]
 
 [build-system]
