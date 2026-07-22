@@ -21,16 +21,28 @@ broad content scan:
    ``-----END ...-----``) over string values and rendered exception
    text, so private-key material embedded in a message or traceback is
    still caught.
-3. **Exact registered sensitive values** -- runtime secret values
-   (currently: the loaded access-key ID, registered internally by
-   ``kalshi_bot.credentials.loader``; future PRs may register a
-   computed request signature) registered once via the private
-   ``_register_sensitive_value`` hook and then redacted wherever that
-   exact substring appears in emitted text, including free-form
-   messages and exception text, across both structlog and
-   stdlib/third-party logging paths. Registration is internal, not a
-   public production API: only the credential-loading boundary
-   registers a value.
+3. **Exact registered sensitive values**, split into two registries so
+   a long-running client's memory and per-log-line redaction cost stay
+   bounded:
+
+   - **Persistent** values (the loaded access-key ID, registered by
+     ``kalshi_bot.credentials.loader``) are few, long-lived for the
+     process, and registered once via the private
+     ``_register_sensitive_value`` hook.
+   - **Transient** values (the per-request RSA-PSS signature computed
+     by ``kalshi_bot.auth.signer``) are registered via the private
+     ``_register_transient_sensitive_value`` hook in a bounded,
+     time-expiring registry: entries older than
+     ``_TRANSIENT_VALUE_TTL_SECONDS`` are pruned, and the registry
+     never grows past ``_MAX_TRANSIENT_VALUES`` entries (oldest
+     evicted first), so a client that signs many requests over a long
+     session does not retain every historical signature forever.
+
+   Both registries are redacted wherever their values appear in
+   emitted text, including free-form messages and exception text,
+   across both structlog and stdlib/third-party logging paths.
+   Registration is internal, not a public production API: only the
+   credential-loading and signing boundaries register values.
 
 There is intentionally no generic base64/hex value-shape regex: that
 would also redact legitimate hashes, IDs, and evidence values that are
@@ -42,6 +54,7 @@ from __future__ import annotations
 import logging
 import re
 import threading
+import time
 from collections.abc import Mapping, MutableMapping
 from typing import IO, Any
 
@@ -85,26 +98,66 @@ _REDACTED_PEM = "[REDACTED-PEM]"
 # real access-key IDs and signatures are always well above this length.
 _MIN_REGISTERED_VALUE_LENGTH = 8
 
+# Conservative Phase 1 constants for the transient (per-request-signature)
+# registry. A signature is only ever needed for redaction while a request
+# it was computed for might still appear in in-flight logs; 10 minutes and
+# 4096 entries comfortably outlast any single request's log lifetime while
+# keeping worst-case memory and per-log-line redaction cost bounded for a
+# long-running client. Module-private: not user configuration in PR 3.
+_TRANSIENT_VALUE_TTL_SECONDS = 600.0
+_MAX_TRANSIENT_VALUES = 4096
+
 _registry_lock = threading.Lock()
-_registered_sensitive_values: set[str] = set()
+
+# Long-lived values (e.g. the access-key ID): retained for process
+# lifetime, deduplicated by set membership.
+_persistent_sensitive_values: set[str] = set()
+
+# Short-lived values (e.g. a per-request signature): value -> monotonic
+# expiry time. A plain dict is used (not a set) so each entry carries its
+# own expiry, and insertion order is preserved so the oldest entry can be
+# evicted first when the registry is at capacity.
+_transient_sensitive_values: dict[str, float] = {}
+
+
+def _monotonic() -> float:
+    """Indirection point so tests can inject a deterministic clock.
+
+    Real code always resolves this to :func:`time.monotonic`; tests may
+    monkeypatch this module attribute to advance time without sleeping.
+    Monotonic time is used (not wall-clock time) so registry expiry is
+    unaffected by system clock adjustments.
+    """
+    return time.monotonic()
+
+
+def _prune_expired_transient_values_locked(now: float) -> None:
+    """Remove expired transient entries. Caller must hold ``_registry_lock``."""
+    expired = [value for value, expires_at in _transient_sensitive_values.items() if expires_at <= now]
+    for value in expired:
+        del _transient_sensitive_values[value]
 
 
 def _register_sensitive_value(value: str) -> None:
-    """Register an exact runtime secret value for redaction.
+    """Register a long-lived exact runtime secret value for redaction.
 
     Internal hook, not part of the public ``kalshi_bot.observability``
     API (not in ``__all__``, not re-exported from ``__init__.py``).
     ``kalshi_bot.credentials.loader`` imports this function directly
     because it is the sole credential-loading boundary; no other
     module should call it without an equivalent narrow justification.
+    For values that change on every call (such as a computed request
+    signature), use :func:`_register_transient_sensitive_value`
+    instead -- this persistent registry never expires or evicts
+    entries, so it must only ever hold a small, fixed number of
+    long-lived values such as the access-key ID.
 
     Call this once, immediately after loading or computing a real
     secret value -- for example the access-key ID returned by
-    :func:`kalshi_bot.credentials.loader.load_credentials`, or (in a
-    later Phase 1 PR) a computed request signature -- and never log
-    the value yourself in the interim. Once registered, the exact
-    value is redacted wherever it appears in emitted output: plain
-    messages, exception text, and nested structures, across both
+    :func:`kalshi_bot.credentials.loader.load_credentials` -- and
+    never log the value yourself in the interim. Once registered, the
+    exact value is redacted wherever it appears in emitted output:
+    plain messages, exception text, and nested structures, across both
     structlog and stdlib/third-party logging paths.
 
     Registered values cannot be read back through this module; there
@@ -117,17 +170,67 @@ def _register_sensitive_value(value: str) -> None:
     if not value or not value.strip() or len(value) < _MIN_REGISTERED_VALUE_LENGTH:
         return
     with _registry_lock:
-        _registered_sensitive_values.add(value)
+        _persistent_sensitive_values.add(value)
+
+
+def _register_transient_sensitive_value(value: str) -> None:
+    """Register a short-lived exact runtime secret value for redaction.
+
+    Internal hook, not part of the public ``kalshi_bot.observability``
+    API (not in ``__all__``, not re-exported from ``__init__.py``).
+    ``kalshi_bot.auth.signer`` imports this function directly because
+    it is the sole per-request-signature boundary; no other module
+    should call it without an equivalent narrow justification.
+
+    Unlike :func:`_register_sensitive_value`, entries registered here
+    expire after ``_TRANSIENT_VALUE_TTL_SECONDS`` of monotonic time and
+    the registry never holds more than ``_MAX_TRANSIENT_VALUES``
+    entries -- the oldest entry is evicted first once that capacity is
+    exceeded. Expired entries are pruned both here (on registration)
+    and whenever a redaction snapshot is taken, so a long-running
+    client that signs many requests does not retain every historical
+    signature forever, and the per-log-line redaction scan does not
+    grow unbounded.
+
+    Registered values cannot be read back through this module; there
+    is no accessor. Values shorter than
+    ``_MIN_REGISTERED_VALUE_LENGTH`` characters are ignored, as are
+    empty or whitespace-only values. Registering the same value more
+    than once is harmless and does not reset its original expiry or
+    eviction order.
+    """
+    if not value or not value.strip() or len(value) < _MIN_REGISTERED_VALUE_LENGTH:
+        return
+    now = _monotonic()
+    with _registry_lock:
+        _prune_expired_transient_values_locked(now)
+        if value not in _transient_sensitive_values:
+            _transient_sensitive_values[value] = now + _TRANSIENT_VALUE_TTL_SECONDS
+            while len(_transient_sensitive_values) > _MAX_TRANSIENT_VALUES:
+                oldest_value = next(iter(_transient_sensitive_values))
+                del _transient_sensitive_values[oldest_value]
 
 
 def _reset_registered_sensitive_values_for_tests() -> None:
-    """Test-only: clear registered values so tests do not leak across cases.
+    """Test-only: clear both registries so tests do not leak across cases.
 
     Not part of the public API (not in ``__all__``); import it
     directly from this module only from test fixtures.
     """
     with _registry_lock:
-        _registered_sensitive_values.clear()
+        _persistent_sensitive_values.clear()
+        _transient_sensitive_values.clear()
+
+
+def _transient_registry_size_for_tests() -> int:
+    """Test-only: return the current transient-registry entry count.
+
+    Not part of the public API (not in ``__all__``); exists solely so
+    tests can assert capacity/eviction behavior without a public
+    inspection API.
+    """
+    with _registry_lock:
+        return len(_transient_sensitive_values)
 
 
 def _is_sensitive_key(key: str) -> bool:
@@ -139,11 +242,17 @@ def _redact_string(value: str) -> str:
     if _PEM_BLOCK_PATTERN.search(value):
         value = _PEM_BLOCK_PATTERN.sub(_REDACTED_PEM, value)
 
+    now = _monotonic()
     with _registry_lock:
-        snapshot = tuple(_registered_sensitive_values)
+        _prune_expired_transient_values_locked(now)
+        snapshot = tuple(_persistent_sensitive_values) + tuple(_transient_sensitive_values)
     # Lock released before scanning: redaction never holds the lock
     # while running string replacement, so a concurrent registration
-    # or reset cannot block or race with in-flight log rendering.
+    # or reset cannot block or race with in-flight log rendering. This
+    # keeps the scan itself proportional to the registries' bounded
+    # size (persistent values are few; transient values are capped at
+    # _MAX_TRANSIENT_VALUES and pruned of expired entries above), not
+    # to every signature ever computed over the process lifetime.
 
     # Longest-first: if one registered value is a prefix/substring of
     # another (e.g. an older and a rotated access-key ID that happen to

@@ -19,7 +19,14 @@ from cryptography.hazmat.primitives.asymmetric import ec, padding, rsa
 from cryptography.hazmat.primitives import hashes as crypto_hashes
 from cryptography.exceptions import InvalidSignature, UnsupportedAlgorithm
 
-from kalshi_bot.auth.signer import RequestSigner, SignedHeaders, SigningError, _canonical_message
+from kalshi_bot.auth.signer import (
+    RequestSigner,
+    SignedHeaders,
+    SigningError,
+    _canonical_message,
+    _CONSTRUCTION_TOKEN,
+    _RequestSignerBuilder,
+)
 from kalshi_bot.config.models import CredentialReferences
 from kalshi_bot.credentials.loader import LoadedDemoCredentials, load_credentials
 from kalshi_bot.observability import configure_logging, get_logger
@@ -277,6 +284,100 @@ def test_signing_error_never_includes_pem_or_access_key() -> None:
 
     assert "garbage-pem-data-that-should-never-appear-in-any-error" not in str(excinfo.value)
     assert "SYNTHETIC-KEY-XYZ" not in str(excinfo.value)
+
+
+# -- Direct-construction bypass prevention --
+
+
+def test_direct_construction_without_token_is_rejected() -> None:
+    pem, _ = _generate_rsa_keypair()
+    private_key = serialization.load_pem_private_key(pem, password=None)
+    assert isinstance(private_key, rsa.RSAPrivateKey)
+
+    with pytest.raises(TypeError):
+        RequestSigner(SYNTHETIC_ACCESS_KEY, private_key)  # type: ignore[call-arg]
+
+
+@pytest.mark.parametrize("key_size", [1024, 2048, 4096])
+def test_direct_construction_of_any_key_size_is_rejected_without_private_path(
+    key_size: int,
+) -> None:
+    pem, _ = _generate_rsa_keypair(key_size=key_size)
+    private_key = serialization.load_pem_private_key(pem, password=None)
+    assert isinstance(private_key, rsa.RSAPrivateKey)
+
+    with pytest.raises(TypeError):
+        RequestSigner(SYNTHETIC_ACCESS_KEY, private_key)  # type: ignore[call-arg]
+
+
+def test_direct_construction_with_wrong_token_object_is_rejected() -> None:
+    pem, _ = _generate_rsa_keypair()
+    private_key = serialization.load_pem_private_key(pem, password=None)
+    assert isinstance(private_key, rsa.RSAPrivateKey)
+
+    class _ForgedToken:
+        __slots__ = ()
+
+    with pytest.raises(TypeError):
+        RequestSigner(
+            SYNTHETIC_ACCESS_KEY,
+            private_key,
+            _construction_token=_ForgedToken(),  # type: ignore[arg-type]
+        )
+
+
+def test_builder_successfully_constructs_signer_from_valid_2048_bit_key() -> None:
+    pem, public_key = _generate_rsa_keypair(key_size=2048)
+
+    signer = _RequestSignerBuilder.from_raw_material(SYNTHETIC_ACCESS_KEY, pem)
+
+    headers = signer.sign("GET", "/trade-api/v2/portfolio/balance", 1703123456789)
+    message = _canonical_message("GET", "/trade-api/v2/portfolio/balance", 1703123456789)
+    _verify(public_key, message, headers.signature)
+
+
+def test_builder_still_rejects_wrong_size_key() -> None:
+    small_pem = _generate_rsa_pem(key_size=1024)
+
+    with pytest.raises(SigningError):
+        _RequestSignerBuilder.from_raw_material(SYNTHETIC_ACCESS_KEY, small_pem)
+
+
+def test_builder_still_rejects_non_rsa_key() -> None:
+    ec_key = ec.generate_private_key(ec.SECP256R1())
+    ec_pem = ec_key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
+
+    with pytest.raises(SigningError):
+        _RequestSignerBuilder.from_raw_material(SYNTHETIC_ACCESS_KEY, ec_pem)
+
+
+def test_no_public_factory_bypass_exists() -> None:
+    """RequestSigner exposes exactly one supported construction path."""
+    public_construction_names = [
+        name
+        for name in dir(RequestSigner)
+        if not name.startswith("_") and name not in {"sign"}
+    ]
+
+    assert public_construction_names == ["from_credentials"]
+
+
+def test_valid_construction_token_with_wrong_size_key_still_rejected() -> None:
+    """Holding the real token does not bypass this constructor's own
+    key-size/type validation -- it duplicates rather than trusts the
+    builder's checks."""
+    pem, _ = _generate_rsa_keypair(key_size=1024)
+    private_key = serialization.load_pem_private_key(pem, password=None)
+    assert isinstance(private_key, rsa.RSAPrivateKey)
+
+    with pytest.raises(SigningError):
+        RequestSigner(
+            SYNTHETIC_ACCESS_KEY, private_key, _construction_token=_CONSTRUCTION_TOKEN
+        )
 
 
 # -- Opacity / redaction --

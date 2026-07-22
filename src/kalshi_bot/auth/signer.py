@@ -55,7 +55,7 @@ from cryptography.exceptions import UnsupportedAlgorithm
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding, rsa
 
-from kalshi_bot.observability.logging import _register_sensitive_value
+from kalshi_bot.observability.logging import _register_transient_sensitive_value
 
 if TYPE_CHECKING:
     from kalshi_bot.credentials.loader import LoadedDemoCredentials
@@ -134,16 +134,69 @@ def _canonical_message(method: str, path: str, timestamp_ms: int) -> bytes:
     return message.encode("utf-8")
 
 
+class _SignerConstructionToken:
+    """Module-private sentinel gating :class:`RequestSigner` construction.
+
+    Only :class:`_RequestSignerBuilder` holds a reference to the single
+    instance below (``_CONSTRUCTION_TOKEN``). This is conventional
+    Python encapsulation -- it stops *accidental* direct construction
+    of ``RequestSigner`` (which would bypass ``_RequestSignerBuilder``'s
+    key-size and type validation), not a language-level security
+    boundary: any in-process code that imports this module can still
+    reach ``_CONSTRUCTION_TOKEN`` directly. It restricts what supported,
+    reviewed call sites do, the same way the single-underscore names
+    throughout this module and ``kalshi_bot.credentials.loader`` do.
+    """
+
+    __slots__ = ()
+
+
+_CONSTRUCTION_TOKEN = _SignerConstructionToken()
+
+
 class RequestSigner:
     """Signs Kalshi requests with RSA-PSS. Holds the parsed private key.
 
-    Constructed only via :meth:`from_credentials`. Opaque: ``repr`` and
-    ``str`` never include key material; not pickled or serialized.
+    Constructed only via :meth:`from_credentials` (which delegates to
+    :class:`_RequestSignerBuilder`). Opaque: ``repr`` and ``str`` never
+    include key material; not pickled or serialized.
     """
 
     __slots__ = ("_access_key_id", "_private_key")
 
-    def __init__(self, access_key_id: str, private_key: rsa.RSAPrivateKey) -> None:
+    def __init__(
+        self,
+        access_key_id: str,
+        private_key: rsa.RSAPrivateKey,
+        *,
+        _construction_token: _SignerConstructionToken,
+    ) -> None:
+        """Construct a signer. Not a supported public entry point.
+
+        Requires the private ``_construction_token`` sentinel that only
+        :class:`_RequestSignerBuilder` supplies, so
+        ``RequestSigner(access_key_id, private_key)`` called directly
+        (without the keyword-only token) raises ``TypeError`` before
+        this body runs, and a caller who does obtain the token still
+        cannot bypass this constructor's own key-size and type
+        validation -- it duplicates, rather than trusts,
+        ``_RequestSignerBuilder``'s checks so that no path into a
+        constructed ``RequestSigner`` skips them.
+        """
+        if _construction_token is not _CONSTRUCTION_TOKEN:
+            raise TypeError(
+                "RequestSigner must not be constructed directly; use "
+                "RequestSigner.from_credentials() instead"
+            )
+        if not isinstance(private_key, rsa.RSAPrivateKey):
+            raise SigningError("only RSA private keys are supported")
+        if private_key.key_size != _REQUIRED_RSA_KEY_SIZE_BITS:
+            raise SigningError(
+                f"Kalshi requires a {_REQUIRED_RSA_KEY_SIZE_BITS}-bit RSA key"
+            )
+        if not isinstance(access_key_id, str) or not access_key_id:
+            raise SigningError("access_key_id must be a nonempty string")
+
         self._access_key_id = access_key_id
         self._private_key = private_key
 
@@ -176,8 +229,14 @@ class RequestSigner:
         """Sign ``method``/``path``/``timestamp_ms`` and return the headers.
 
         Registers the resulting base64 signature with the internal
-        redaction registry before returning, so it is redacted if it
-        ever reaches emitted log output.
+        bounded, expiring transient-redaction registry before
+        returning, so it is redacted if it ever reaches emitted log
+        output. Uses transient (not persistent) registration because a
+        fresh signature is produced on every call: unlike the
+        long-lived access-key ID, retaining every historical signature
+        forever would grow the redaction registry and per-log-line
+        redaction cost without bound over a long-running client's
+        lifetime.
         """
         message = _canonical_message(method, path, timestamp_ms)
 
@@ -191,7 +250,7 @@ class RequestSigner:
         )
         signature_b64 = base64.b64encode(signature_bytes).decode("ascii")
 
-        _register_sensitive_value(signature_b64)
+        _register_transient_sensitive_value(signature_b64)
 
         return SignedHeaders(
             access_key=self._access_key_id,
@@ -243,4 +302,6 @@ class _RequestSignerBuilder:
                 f"Kalshi requires a {_REQUIRED_RSA_KEY_SIZE_BITS}-bit RSA key"
             )
 
-        return RequestSigner(access_key_id, private_key)
+        return RequestSigner(
+            access_key_id, private_key, _construction_token=_CONSTRUCTION_TOKEN
+        )
