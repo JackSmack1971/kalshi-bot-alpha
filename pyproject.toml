@@ -7,6 +7,7 @@ requires-python = ">=3.12"
 license = { text = "Proprietary" }
 dependencies = [
     "cryptography>=49.0.0",
+    "httpx>=0.28.1",
     "pydantic>=2",
     "structlog>=26.1.0",
 ]
