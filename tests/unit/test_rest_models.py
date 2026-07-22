@@ -103,9 +103,17 @@ def test_market_summary_is_frozen() -> None:
 # -- MarketListPage ------------------------------------------------------
 
 
-def test_market_list_page_requires_cursor() -> None:
-    with pytest.raises(ValidationError):
-        MarketListPage.model_validate({"markets": []})
+def test_market_list_page_cursor_defaults_to_none_when_absent() -> None:
+    """``cursor`` is tri-state (nonempty str / "" / None), and ``None``
+    covers both an explicit JSON ``null`` and the key being entirely
+    absent -- both mean "terminal page," per this client's binding
+    decision. This deliberately departs from the raw doc's ``required``
+    marking on ``cursor`` for the *envelope* (the doc's example always
+    populates it); see kalshi_bot.rest.client.KalshiDemoRestClient.list_markets's
+    docstring for the full behavioral contract."""
+    page = MarketListPage.model_validate({"markets": []})
+    assert page.markets == []
+    assert page.cursor is None
 
 
 def test_market_list_page_allows_empty_cursor_and_empty_markets() -> None:
@@ -114,12 +122,19 @@ def test_market_list_page_allows_empty_cursor_and_empty_markets() -> None:
     assert page.cursor == ""
 
 
-def test_market_list_page_rejects_non_string_cursor() -> None:
+def test_market_list_page_allows_explicit_null_cursor() -> None:
+    page = MarketListPage.model_validate({"markets": [], "cursor": None})
+    assert page.cursor is None
+
+
+@pytest.mark.parametrize("malformed_cursor", [12345, True, False, [], {}])
+def test_market_list_page_rejects_non_string_non_null_cursor(malformed_cursor: object) -> None:
     """This is this client's definition of a "malformed cursor": a
-    non-string value in the decoded JSON body. strict=True rejects it
-    at the type-validation layer, before any pagination logic runs."""
+    value that is neither a string nor null/absent in the decoded JSON
+    body. strict=True rejects it at the type-validation layer, before
+    any pagination logic runs."""
     with pytest.raises(ValidationError):
-        MarketListPage.model_validate({"markets": [], "cursor": 12345})
+        MarketListPage.model_validate({"markets": [], "cursor": malformed_cursor})
 
 
 def test_market_list_page_parses_nested_markets() -> None:

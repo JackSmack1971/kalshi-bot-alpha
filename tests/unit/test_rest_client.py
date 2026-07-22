@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import io
 import json
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 
 import httpx
 import pytest
@@ -26,9 +26,11 @@ from kalshi_bot.rest.errors import (
     KalshiApiError,
     KalshiAuthError,
     PaginationError,
+    RequestValidationError,
     ResponseDecodeError,
     ResponseValidationError,
     TransportExhaustedError,
+    TransportFailureError,
 )
 
 FAKE_ACCESS_KEY = "FAKE-ACCESS-KEY-FOR-REST-CLIENT-TESTS"
@@ -125,7 +127,7 @@ def _build_client(
     config: AppConfig | None = None,
     signer: _FakeSigner | None = None,
     sleeper: _RecordingSleeper | None = None,
-    clock: _FakeClock | None = None,
+    clock: Callable[[], int] | None = None,
 ) -> tuple[KalshiDemoRestClient, _FakeSigner, _RecordingSleeper]:
     fake_signer = signer or _FakeSigner()
     fake_sleeper = sleeper or _RecordingSleeper()
@@ -145,8 +147,15 @@ _EXCHANGE_SCHEDULE_BODY: dict[str, object] = {
 }
 
 
-def _markets_page(markets: list[dict[str, str]], cursor: str) -> dict[str, object]:
+def _markets_page(markets: list[dict[str, str]], cursor: str | None) -> dict[str, object]:
     return {"markets": markets, "cursor": cursor}
+
+
+def _markets_page_without_cursor_key(markets: list[dict[str, str]]) -> dict[str, object]:
+    """A page body where the ``cursor`` key is entirely absent, not just
+    empty/null -- the third form of "terminal page" this client must
+    accept."""
+    return {"markets": markets}
 
 
 # -- Basic successful calls -------------------------------------------------
@@ -600,19 +609,155 @@ def test_list_markets_exceeding_max_pages_raises_pagination_error(
     assert call_count == 2  # stopped exactly at the ceiling, no unbounded loop
 
 
-def test_list_markets_malformed_cursor_raises_response_validation_error() -> None:
-    """A non-string cursor in the decoded body is this client's
-    definition of "malformed cursor" -- rejected at schema validation,
-    before pagination reasoning ever inspects it."""
+@pytest.mark.parametrize("malformed_cursor", [12345, True, False, [], {}])
+def test_list_markets_malformed_cursor_raises_response_validation_error(
+    malformed_cursor: object,
+) -> None:
+    """A cursor value that is neither a string nor null/absent in the
+    decoded body is this client's definition of "malformed cursor" --
+    rejected at schema validation, before pagination reasoning ever
+    inspects it."""
 
     def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(200, json={"markets": [], "cursor": 12345})
+        return httpx.Response(200, json={"markets": [], "cursor": malformed_cursor})
 
     transport = httpx.MockTransport(handler)
     client, _, _ = _build_client(transport)
 
     with pytest.raises(ResponseValidationError):
         client.list_markets()
+
+
+def test_list_markets_no_partial_result_after_malformed_cursor_on_second_page() -> None:
+    """Proves a malformed cursor on a *later* page still raises rather
+    than returning page 1's already-collected items."""
+    pages = [
+        _markets_page([{"ticker": "T1"}], "cursor-1"),
+        {"markets": [{"ticker": "T2"}], "cursor": 999},  # malformed on page 2
+    ]
+    call_count = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal call_count
+        body = pages[call_count]
+        call_count += 1
+        return httpx.Response(200, json=body)
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    result = None
+    try:
+        result = client.list_markets()
+    except ResponseValidationError:
+        pass
+
+    assert result is None
+
+
+# -- Tri-state terminal cursor: "" / None / absent key -----------------------
+
+
+def test_list_markets_terminal_cursor_empty_string() -> None:
+    body = _markets_page([{"ticker": "T1"}], "")
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    markets = client.list_markets()
+
+    assert [m.ticker for m in markets] == ["T1"]
+
+
+def test_list_markets_terminal_cursor_explicit_json_null() -> None:
+    body = _markets_page([{"ticker": "T1"}], None)
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    markets = client.list_markets()
+
+    assert [m.ticker for m in markets] == ["T1"]
+
+
+def test_list_markets_terminal_cursor_absent_key() -> None:
+    body = _markets_page_without_cursor_key([{"ticker": "T1"}])
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    markets = client.list_markets()
+
+    assert [m.ticker for m in markets] == ["T1"]
+
+
+def test_list_markets_multi_page_terminates_on_absent_cursor_key() -> None:
+    pages = [
+        _markets_page([{"ticker": "T1"}], "cursor-1"),
+        _markets_page_without_cursor_key([{"ticker": "T2"}]),
+    ]
+    call_count = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal call_count
+        body = pages[call_count]
+        call_count += 1
+        return httpx.Response(200, json=body)
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    markets = client.list_markets()
+
+    assert [m.ticker for m in markets] == ["T1", "T2"]
+    assert call_count == 2
+
+
+def test_list_markets_multi_page_terminates_on_explicit_null_cursor() -> None:
+    pages = [
+        _markets_page([{"ticker": "T1"}], "cursor-1"),
+        _markets_page([{"ticker": "T2"}], None),
+    ]
+    call_count = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal call_count
+        body = pages[call_count]
+        call_count += 1
+        return httpx.Response(200, json=body)
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    markets = client.list_markets()
+
+    assert [m.ticker for m in markets] == ["T1", "T2"]
+    assert call_count == 2
+
+
+def test_list_markets_none_cursor_never_enters_repeated_cursor_detection() -> None:
+    """A None/absent terminal cursor on an early page must never be
+    treated as a "repeated cursor" if a later page also terminates with
+    None/absent -- None is never added to (or checked against) the
+    seen-cursors set at all, since only pagination actually continues
+    on a real string cursor."""
+    pages = [
+        _markets_page([{"ticker": "T1"}], "cursor-1"),
+        _markets_page([{"ticker": "T2"}], None),
+    ]
+    call_count = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal call_count
+        body = pages[call_count]
+        call_count += 1
+        return httpx.Response(200, json=body)
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    # Must complete successfully -- None appearing "again" conceptually
+    # (there is only one None here, but the point is it is not tracked)
+    # must never raise PaginationError.
+    markets = client.list_markets()
+    assert [m.ticker for m in markets] == ["T1", "T2"]
 
 
 def test_list_markets_pagination_failure_raises_before_second_page_used(
@@ -643,6 +788,214 @@ def test_list_markets_pagination_failure_raises_before_second_page_used(
         pass
 
     assert result is None
+
+
+# -- list_markets parameter validation ----------------------------------------
+
+
+class _NeverCalledTransport(httpx.BaseTransport):
+    """Fails the test loudly if the transport is ever invoked.
+
+    Used to prove that an invalid ``list_markets`` parameter is
+    rejected before any transport execution -- and, combined with
+    ``_FakeSigner.calls``, before any signing either.
+    """
+
+    def handle_request(self, request: httpx.Request) -> httpx.Response:
+        raise AssertionError("transport must not be called for an invalid parameter")
+
+
+def _build_client_with_spy_transport(
+    *, config: AppConfig | None = None
+) -> tuple[KalshiDemoRestClient, _FakeSigner, _RecordingSleeper]:
+    return _build_client(_NeverCalledTransport(), config=config)
+
+
+@pytest.mark.parametrize("bad_limit", [0, -1, 1001, 10.5, "10"])
+def test_list_markets_rejects_invalid_limit_before_any_io(bad_limit: object) -> None:
+    # limit=None is the documented "omit this filter" sentinel, not an
+    # invalid value -- deliberately excluded from this parametrization.
+    client, signer, sleeper = _build_client_with_spy_transport()
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(limit=bad_limit)  # type: ignore[arg-type]
+
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+@pytest.mark.parametrize("bad_limit", [True, False])
+def test_list_markets_rejects_bool_limit_before_any_io(bad_limit: bool) -> None:
+    client, signer, sleeper = _build_client_with_spy_transport()
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(limit=bad_limit)
+
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+@pytest.mark.parametrize("good_limit", [1, 100, 1000])
+def test_list_markets_accepts_documented_limit_boundaries(good_limit: int) -> None:
+    body = _markets_page([], "")
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    client.list_markets(limit=good_limit)  # must not raise
+
+
+def test_list_markets_rejects_status_not_in_documented_enum() -> None:
+    client, signer, sleeper = _build_client_with_spy_transport()
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(status="pending")
+
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+def test_list_markets_rejects_status_wrong_case() -> None:
+    """The doc's enum values are lowercase; a differently-cased value is
+    rejected rather than silently normalized."""
+    client, signer, sleeper = _build_client_with_spy_transport()
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(status="Open")
+
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+@pytest.mark.parametrize(
+    "good_status", ["unopened", "open", "paused", "closed", "settled"]
+)
+def test_list_markets_accepts_every_documented_status_value(good_status: str) -> None:
+    body = _markets_page([], "")
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    client.list_markets(status=good_status)  # must not raise
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("event_ticker", ""),
+        ("event_ticker", "  KXBTC  "),
+        ("event_ticker", " KXBTC"),
+        ("event_ticker", "KXBTC "),
+        ("series_ticker", ""),
+        ("series_ticker", "  KXBTC-SERIES  "),
+        ("tickers", ""),
+        ("tickers", ",AAA"),
+        ("tickers", "AAA,"),
+        ("tickers", "AAA,,BBB"),
+        ("tickers", "AAA, BBB"),
+    ],
+)
+def test_list_markets_rejects_malformed_ticker_like_params_before_any_io(
+    field: str, value: str
+) -> None:
+    client, signer, sleeper = _build_client_with_spy_transport()
+    kwargs: dict[str, str] = {field: value}
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(**kwargs)  # type: ignore[arg-type]
+
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+def test_list_markets_accepts_well_formed_tickers_list() -> None:
+    body = _markets_page([], "")
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
+    client, _, _ = _build_client(transport)
+
+    client.list_markets(tickers="AAA,BBB,CCC")  # must not raise
+
+
+def test_list_markets_invalid_param_raised_before_clock_or_signer_used() -> None:
+    """Combines the spy signer/transport proof with an explicit fake
+    clock that would record a call if ``_execute`` were ever reached."""
+    clock_calls: list[int] = []
+
+    def spy_clock() -> int:
+        clock_calls.append(1)
+        return 1_700_000_000_000
+
+    client, signer, sleeper = _build_client(_NeverCalledTransport(), clock=spy_clock)
+
+    with pytest.raises(RequestValidationError):
+        client.list_markets(limit=0)
+
+    assert clock_calls == []
+    assert signer.calls == []
+    assert sleeper.calls == []
+
+
+# -- Non-retryable transport failure wrapping ---------------------------------
+
+
+def test_protocol_error_raises_transport_failure_error_without_retry() -> None:
+    secret_marker = "SYNTHETIC-SECRET-MARKER-PROTOCOL-ERROR"
+    scripted = _ScriptedTransport([httpx.ProtocolError(secret_marker)])
+    client, _, sleeper = _build_client(scripted, config=_make_config(rest_max_retries=3))
+
+    with pytest.raises(TransportFailureError) as excinfo:
+        client.get_exchange_status()
+
+    assert len(scripted.requests) == 1  # exactly one attempt, no retry
+    assert sleeper.calls == []
+    assert secret_marker not in str(excinfo.value)
+    assert secret_marker not in repr(excinfo.value)
+
+
+def test_proxy_error_raises_transport_failure_error_without_retry() -> None:
+    secret_marker = "SYNTHETIC-SECRET-MARKER-PROXY-ERROR"
+    scripted = _ScriptedTransport([httpx.ProxyError(secret_marker)])
+    client, _, sleeper = _build_client(scripted, config=_make_config(rest_max_retries=3))
+
+    with pytest.raises(TransportFailureError) as excinfo:
+        client.get_exchange_status()
+
+    assert len(scripted.requests) == 1
+    assert sleeper.calls == []
+    assert secret_marker not in str(excinfo.value)
+    assert secret_marker not in repr(excinfo.value)
+
+
+def test_protocol_error_never_appears_in_logs() -> None:
+    secret_marker = "SYNTHETIC-SECRET-MARKER-PROTOCOL-ERROR-LOGGING"
+    stream = io.StringIO()
+    configure_logging(level="INFO", stream=stream)
+    monkey_logger = get_logger("test.rest_client.transport_failure_logging")
+    original_logger = rest_client_module._logger
+    rest_client_module._logger = monkey_logger
+    try:
+        scripted = _ScriptedTransport([httpx.ProtocolError(secret_marker)])
+        client, _, sleeper = _build_client(
+            scripted, config=_make_config(rest_max_retries=3)
+        )
+        with pytest.raises(TransportFailureError):
+            client.get_exchange_status()
+    finally:
+        rest_client_module._logger = original_logger
+
+    rendered = stream.getvalue()
+    assert secret_marker not in rendered
+    assert sleeper.calls == []
+
+    lines = [json.loads(line) for line in rendered.splitlines() if line.strip()]
+    failure_lines = [
+        line for line in lines if line.get("event") == "rest_request_transport_failure"
+    ]
+    assert failure_lines, rendered
+    assert failure_lines[0]["error_type"] == "ProtocolError"
+
+
+def test_transport_failure_error_is_distinct_from_transport_exhausted_error() -> None:
+    assert not issubclass(TransportFailureError, TransportExhaustedError)
+    assert not issubclass(TransportExhaustedError, TransportFailureError)
 
 
 # -- Logging: no header/signature leakage, structured fields present ---------

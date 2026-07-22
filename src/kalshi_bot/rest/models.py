@@ -127,22 +127,36 @@ class MarketSummary(_KalshiResponseModel):
 class MarketListPage(_KalshiResponseModel):
     """One raw, unvalidated-against-pagination-invariants page of ``GET /markets``.
 
-    Mirrors the documented envelope exactly: ``markets`` (required
-    array, possibly empty) and ``cursor`` (required string, possibly
-    empty on the last page). This model performs no pagination
-    reasoning of its own (no cursor-repetition, page-count, or
-    duplicate-ticker checks) -- that invariant enforcement lives in
+    Mirrors the documented envelope: ``markets`` (array, possibly
+    empty, defaulted here if absent) and ``cursor``.
+
+    ``cursor`` is tri-state and every state means "no further page":
+
+    - a nonempty ``str`` means there is a next page (pass it back
+      verbatim as the ``cursor`` query parameter);
+    - ``""`` (empty string) means this was the last page;
+    - ``None`` (JSON ``null`` **or** the key absent entirely from the
+      response body) also means this was the last page -- Kalshi's
+      documented contract is "the cursor is absent or empty on the
+      last page," and prior to this fix this model could only
+      represent the empty-string half of that contract, treating an
+      absent/``null`` cursor as a required-field validation failure
+      instead of a legitimate terminal signal. That gap is fixed here.
+
+    This model performs no pagination reasoning of its own (no
+    cursor-repetition, page-count, or duplicate-ticker checks) -- that
+    invariant enforcement lives in
     :meth:`kalshi_bot.rest.client.KalshiDemoRestClient.list_markets`,
     which validates each page against this model before applying those
-    invariants across the whole paginated fetch. A non-string cursor in
-    the decoded JSON body (Kalshi's "malformed cursor" case, as this
-    client defines it) is rejected right here, at the
-    ``strict=True`` type-validation layer, before any pagination logic
-    ever runs.
+    invariants across the whole paginated fetch. A cursor value that is
+    neither a string nor ``null``/absent (Kalshi's "malformed cursor"
+    case, as this client defines it -- e.g. an int, bool, list, or
+    object) is rejected right here, at the ``strict=True``
+    type-validation layer, before any pagination logic ever runs.
     """
 
     markets: list[MarketSummary] = Field(default_factory=list)
-    cursor: str
+    cursor: str | None = None
 
 
 class ExchangeIndexStatus(_KalshiResponseModel):

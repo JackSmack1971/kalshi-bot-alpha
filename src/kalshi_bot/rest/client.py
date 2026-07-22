@@ -63,9 +63,11 @@ from kalshi_bot.rest.errors import (
     KalshiAuthError,
     OperationNotAllowedError,
     PaginationError,
+    RequestValidationError,
     ResponseDecodeError,
     ResponseValidationError,
     TransportExhaustedError,
+    TransportFailureError,
 )
 from kalshi_bot.rest.models import (
     ExchangeSchedule,
@@ -124,9 +126,14 @@ _AUTH_STATUS_CODES: frozenset[int] = frozenset({401, 403})
 #: Transport-level exceptions this client retries: connection failures
 #: and any timeout (connect/read/write/pool -- httpx.TimeoutException is
 #: the shared base for all of them). Deliberately excludes other
-#: httpx.TransportError subclasses (e.g. ProtocolError), which more
-#: often indicate a client-side bug than a transient network condition
-#: and should surface immediately rather than being retried.
+#: httpx.TransportError subclasses (e.g. ProtocolError, ProxyError),
+#: which more often indicate a client-side bug or environment
+#: misconfiguration than a transient network condition. Nothing in the
+#: local docs pack justifies retrying them, so ``_execute`` wraps every
+#: other ``httpx.TransportError`` subclass in a single non-retried
+#: ``TransportFailureError`` instead (see the second ``except`` clause
+#: there) rather than letting a raw, unsanitized third-party exception
+#: propagate out of this client.
 _RETRYABLE_TRANSPORT_EXCEPTIONS: tuple[type[Exception], ...] = (
     httpx.ConnectError,
     httpx.TimeoutException,
@@ -181,6 +188,109 @@ def _validate_operation_request(method: str, path: str) -> None:
         raise OperationNotAllowedError(
             f"path {path!r} is not one of the allowlisted read-only operations"
         )
+
+
+#: ``GET /markets``'s documented ``status`` filter enum, per
+#: ``docs-dev/kalshi-docs-pack/docs/docs-kalshi-com-api-reference-market-get-markets-dde969d3.md``.
+#: Matched case-sensitively -- the doc never states this filter is
+#: case-insensitive, so a differently-cased caller value is rejected
+#: rather than silently normalized.
+_VALID_MARKET_STATUS_VALUES: frozenset[str] = frozenset(
+    {"unopened", "open", "paused", "closed", "settled"}
+)
+
+#: ``GET /markets``'s documented ``limit`` bound is "Required range:
+#: ``0 <= x <= 1000``" (default 100). This client deliberately narrows
+#: the *lower* bound to 1: a caller-requested ``limit=0`` is a
+#: degenerate, zero-result page request that is not a meaningful
+#: pagination call for this client, even though the raw doc text
+#: technically allows it. This is a disclosed, deliberate
+#: stricter-than-documented choice, not an oversight -- see this PR's
+#: final report for the explicit callout.
+_MIN_LIST_MARKETS_LIMIT = 1
+_MAX_LIST_MARKETS_LIMIT = 1000
+
+
+def _validate_ticker_like_component(value: str, *, field_name: str) -> None:
+    """Shared nonempty/no-surrounding-whitespace check for a single
+    ticker-shaped string value (``event_ticker``, ``series_ticker``, or
+    one comma-separated component of ``tickers``).
+
+    The grounding doc documents no format or maximum-length constraint
+    for any of these three parameters beyond "a string" / "comma-
+    separated list of market tickers" -- none is invented here.
+    """
+    if value == "":
+        raise RequestValidationError(f"{field_name} must not be an empty string")
+    if value != value.strip():
+        raise RequestValidationError(
+            f"{field_name} must not have leading or trailing whitespace"
+        )
+
+
+def _validate_list_markets_params(
+    *,
+    limit: int | None,
+    event_ticker: str | None,
+    series_ticker: str | None,
+    status: str | None,
+    tickers: str | None,
+) -> None:
+    """Fail-closed validation gate for every ``list_markets`` query parameter.
+
+    Called at the very start of ``list_markets``, before any clock
+    access, signing, signature registration, sleeper use, or transport
+    execution -- an invalid parameter never reaches the network. Every
+    bound/enum here is grounded in
+    ``docs-dev/kalshi-docs-pack/docs/docs-kalshi-com-api-reference-market-get-markets-dde969d3.md``
+    (see each check's own comment for the specific grounding, including
+    the one deliberate, disclosed deviation from the raw documented
+    ``limit`` range). No documented mutual-exclusivity or combination
+    constraint exists in that doc between any pair of the five
+    parameters this client currently exposes (``limit``,
+    ``event_ticker``, ``series_ticker``, ``status``, ``tickers``), so
+    none is enforced here -- they are passed through independently.
+    """
+    if limit is not None:
+        # isinstance(x, bool) is also isinstance(x, int) in Python;
+        # reject bool explicitly so True/False can never silently pass
+        # as 1/0.
+        if isinstance(limit, bool) or not isinstance(limit, int):
+            raise RequestValidationError("limit must be an int, not bool or another type")
+        if not (_MIN_LIST_MARKETS_LIMIT <= limit <= _MAX_LIST_MARKETS_LIMIT):
+            raise RequestValidationError(
+                f"limit must be between {_MIN_LIST_MARKETS_LIMIT} and "
+                f"{_MAX_LIST_MARKETS_LIMIT} inclusive"
+            )
+
+    if event_ticker is not None:
+        if not isinstance(event_ticker, str):
+            raise RequestValidationError("event_ticker must be a string")
+        _validate_ticker_like_component(event_ticker, field_name="event_ticker")
+
+    if series_ticker is not None:
+        if not isinstance(series_ticker, str):
+            raise RequestValidationError("series_ticker must be a string")
+        _validate_ticker_like_component(series_ticker, field_name="series_ticker")
+
+    if status is not None:
+        if not isinstance(status, str) or status not in _VALID_MARKET_STATUS_VALUES:
+            raise RequestValidationError(
+                f"status must be exactly one of {sorted(_VALID_MARKET_STATUS_VALUES)} "
+                "(case-sensitive)"
+            )
+
+    if tickers is not None:
+        if not isinstance(tickers, str):
+            raise RequestValidationError("tickers must be a string")
+        if tickers == "":
+            raise RequestValidationError("tickers must not be an empty string")
+        # A leading/trailing/doubled comma produces an empty component
+        # once split, so the per-component nonempty check below also
+        # rejects malformed separators (",AAA", "AAA,", "AAA,,BBB")
+        # without a separate check.
+        for component in tickers.split(","):
+            _validate_ticker_like_component(component, field_name="tickers component")
 
 
 def _sanitize_pydantic_error(exc: PydanticValidationError) -> str:
@@ -321,23 +431,41 @@ class KalshiDemoRestClient:
     ) -> tuple[MarketSummary, ...]:
         """``GET /markets``, fully paginated -> an ordered tuple of :class:`~kalshi_bot.rest.models.MarketSummary`.
 
+        Every parameter is validated by ``_validate_list_markets_params``
+        before anything else in this method runs -- before building any
+        query dict, before the pagination loop, and therefore before any
+        clock access, signing, signature registration, sleeper use, or
+        transport execution. An invalid parameter raises
+        :class:`~kalshi_bot.rest.errors.RequestValidationError` and
+        never reaches the network. See that function's docstring for
+        the exact per-parameter rules and their doc grounding.
+
         Pagination invariants (all fail closed -- never a silently
         truncated/partial result):
 
         - The opaque ``cursor`` is only ever compared for equality and
           passed back verbatim; its contents are never parsed or
           interpreted.
-        - Pagination stops as soon as a page's ``cursor`` is absent or
-          an empty string.
-        - A ``cursor`` value equal to one already seen on an earlier
-          page raises :class:`~kalshi_bot.rest.errors.PaginationError`
-          (the server is not making forward progress).
+        - ``cursor`` is tri-state: a nonempty string means "there is a
+          next page"; ``""`` (empty string) and ``None`` (JSON ``null``
+          or the key absent entirely) both mean "this was the last
+          page." Pagination stops as soon as either terminal form is
+          seen. Only ever-seen nonempty string cursors are added to the
+          repeated-cursor-detection set below -- ``None`` is never
+          added to (or checked against) that set, since every terminal
+          page's cursor is expected to differ in kind (or be entirely
+          absent) from a real pagination cursor.
+        - A nonempty ``cursor`` value equal to one already seen on an
+          earlier page raises
+          :class:`~kalshi_bot.rest.errors.PaginationError` (the server
+          is not making forward progress).
         - Fetching more than ``_MAX_MARKET_LIST_PAGES`` pages raises
           :class:`~kalshi_bot.rest.errors.PaginationError` rather than
           looping unboundedly.
         - A market ``ticker`` seen on more than one page raises
           :class:`~kalshi_bot.rest.errors.PaginationError`.
-        - A non-string cursor in a decoded response body is rejected by
+        - A cursor value that is neither a string nor ``null``/absent in
+          a decoded response body is rejected by
           :class:`~kalshi_bot.rest.models.MarketListPage`'s
           ``strict=True`` validation before any of the above pagination
           logic runs, surfacing as
@@ -349,6 +477,14 @@ class KalshiDemoRestClient:
         parameters and are sent via ``httpx``'s ``params=`` kwarg, never
         appended to the signed path.
         """
+        _validate_list_markets_params(
+            limit=limit,
+            event_ticker=event_ticker,
+            series_ticker=series_ticker,
+            status=status,
+            tickers=tickers,
+        )
+
         base_params: dict[str, Any] = {}
         if limit is not None:
             base_params["limit"] = limit
@@ -405,7 +541,7 @@ class KalshiDemoRestClient:
             )
 
             next_cursor = page.cursor
-            if next_cursor == "":
+            if next_cursor is None or next_cursor == "":
                 break
 
             if next_cursor in seen_cursors:
@@ -481,6 +617,25 @@ class KalshiDemoRestClient:
                 raise TransportExhaustedError(
                     f"{operation.value}: transport retries exhausted after "
                     f"{attempt} attempt(s)"
+                ) from None
+            except httpx.TransportError as exc:
+                # Any httpx.TransportError subclass not already matched
+                # by _RETRYABLE_TRANSPORT_EXCEPTIONS above (e.g.
+                # httpx.ProtocolError, httpx.ProxyError) is treated as
+                # non-transient: zero retries, zero sleeps, raised
+                # immediately. The message carries only the operation
+                # name and the exception's class name -- never
+                # str(exc)/repr(exc), which can embed a proxy URL,
+                # connection string, or other unsanitized detail.
+                _logger.warning(
+                    "rest_request_transport_failure",
+                    operation=operation.value,
+                    attempt=attempt,
+                    error_type=type(exc).__name__,
+                )
+                raise TransportFailureError(
+                    f"{operation.value}: non-retryable transport failure "
+                    f"({type(exc).__name__})"
                 ) from None
 
             status_code = response.status_code

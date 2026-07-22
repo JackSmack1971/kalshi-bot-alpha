@@ -13,9 +13,6 @@ client's models commit to matches what the docs actually document as
 
 from __future__ import annotations
 
-import pytest
-from pydantic import ValidationError
-
 from kalshi_bot.rest.models import (
     ExchangeStatus,
     MarketListPage,
@@ -23,12 +20,19 @@ from kalshi_bot.rest.models import (
     _ExchangeScheduleEnvelope,
 )
 
-# -- GET /markets: only "markets" and "cursor" are documented required --
+# -- GET /markets: doc marks "markets" and "cursor" required; this client's
+# -- binding pagination-termination decision treats an absent/null cursor
+# -- as a valid terminal-page signal instead, per
+# -- KalshiDemoRestClient.list_markets's documented tri-state contract.
 
 
-def test_get_markets_envelope_cursor_is_required() -> None:
-    with pytest.raises(ValidationError):
-        MarketListPage.model_validate({"markets": []})
+def test_get_markets_envelope_cursor_defaults_to_none_when_absent() -> None:
+    """Deliberate, documented departure from the raw doc's ``required``
+    marking on ``cursor``: this client treats an absent (or explicit
+    JSON ``null``) cursor as equivalent to an empty-string cursor --
+    both mean "no further page" -- rather than a validation failure."""
+    page = MarketListPage.model_validate({"markets": []})
+    assert page.cursor is None
 
 
 def test_get_markets_envelope_markets_defaults_when_absent() -> None:

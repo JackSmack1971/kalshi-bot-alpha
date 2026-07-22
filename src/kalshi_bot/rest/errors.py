@@ -18,7 +18,9 @@ __all__ = [
     "KalshiRestError",
     "DemoHostValidationError",
     "OperationNotAllowedError",
+    "RequestValidationError",
     "TransportExhaustedError",
+    "TransportFailureError",
     "KalshiApiError",
     "KalshiAuthError",
     "ResponseDecodeError",
@@ -65,6 +67,24 @@ class OperationNotAllowedError(KalshiRestError):
     """
 
 
+class RequestValidationError(KalshiRestError):
+    """Raised when a caller-supplied ``list_markets`` query parameter
+    fails this client's own validation (type, documented range, or
+    documented enum).
+
+    Distinct from :class:`OperationNotAllowedError`, which polices the
+    fixed HTTP method/path of a request, never its parameter *content*.
+    Raised before any clock access, signing, signature registration,
+    sleeper use, or transport execution -- an invalid parameter never
+    reaches the network, never reaches ``RequestSigner.sign()``, and
+    never advances the retry/backoff machinery. Carries only a
+    description of which parameter and constraint failed -- never
+    echoes the rejected value back in the message, since a caller could
+    (however unlikely for this client's own typed parameters) pass
+    something unexpectedly large or unusual.
+    """
+
+
 class TransportExhaustedError(KalshiRestError):
     """Raised when every configured retry attempt has been exhausted.
 
@@ -72,6 +92,23 @@ class TransportExhaustedError(KalshiRestError):
     never the underlying transport exception's full text, which can
     embed connection-string or header detail this client does not
     control.
+    """
+
+
+class TransportFailureError(KalshiRestError):
+    """Raised for a single non-retryable ``httpx.TransportError``.
+
+    Distinct from :class:`TransportExhaustedError` (which means
+    "retries were attempted and exhausted"): this means a transport
+    failure occurred that this client does not classify as transient
+    (i.e. not ``httpx.ConnectError``/``httpx.TimeoutException``, the
+    only two subclasses retried -- e.g. ``httpx.ProtocolError`` or
+    ``httpx.ProxyError``), so it is raised immediately with zero
+    retries and zero sleeps. The message contains only the operation
+    name and the failing exception's class name
+    (``type(exc).__name__``) -- never ``str(exc)``/``repr(exc)`` of the
+    underlying exception, which can embed a proxy URL, connection
+    string, or other unsanitized detail this client does not control.
     """
 
 
