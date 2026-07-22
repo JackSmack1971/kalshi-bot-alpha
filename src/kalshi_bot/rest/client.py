@@ -366,9 +366,21 @@ class KalshiDemoRestClient:
         # client never wants a redirect response to silently move a
         # request to a different host or path than the one it signed
         # and validated.
+        #
+        # trust_env=False: httpx.Client defaults to trust_env=True,
+        # which reads HTTP_PROXY/HTTPS_PROXY/ALL_PROXY, NO_PROXY, and
+        # CA-bundle environment variables and can silently route this
+        # client's requests -- including its signed Kalshi auth headers
+        # -- through infrastructure selected by the process environment
+        # rather than directly to the fixed demo host. That contradicts
+        # the demo-only transport boundary even though the URL string
+        # itself is still the allowlisted host, so environment trust is
+        # disabled unconditionally; this client never reads proxy or CA
+        # configuration from the environment.
         self._client = httpx.Client(
             timeout=config.rest_timeout_seconds,
             transport=transport,
+            trust_env=False,
         )
 
     @property

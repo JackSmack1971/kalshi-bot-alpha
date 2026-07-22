@@ -13,6 +13,9 @@ client's models commit to matches what the docs actually document as
 
 from __future__ import annotations
 
+import pytest
+from pydantic import ValidationError
+
 from kalshi_bot.rest.models import (
     ExchangeStatus,
     MarketListPage,
@@ -35,13 +38,14 @@ def test_get_markets_envelope_cursor_defaults_to_none_when_absent() -> None:
     assert page.cursor is None
 
 
-def test_get_markets_envelope_markets_defaults_when_absent() -> None:
-    """The doc marks "markets" required too, but this client tolerates an
-    absent array by defaulting to empty rather than hard-failing on a
-    field whose absence does not affect any behavior this client
-    performs (pagination degrades to "empty page", not a crash)."""
-    page = MarketListPage.model_validate({"cursor": ""})
-    assert page.markets == []
+def test_get_markets_envelope_markets_required_and_rejects_when_absent() -> None:
+    """The doc marks "markets" required and this client enforces that:
+    a page body missing the ``markets`` key fails closed with a
+    validation error rather than silently defaulting to an empty page,
+    which would make a malformed/truncated response indistinguishable
+    from a legitimately empty one."""
+    with pytest.raises(ValidationError):
+        MarketListPage.model_validate({"cursor": ""})
 
 
 def test_market_object_documented_example_round_trips() -> None:

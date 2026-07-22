@@ -128,7 +128,17 @@ class MarketListPage(_KalshiResponseModel):
     """One raw, unvalidated-against-pagination-invariants page of ``GET /markets``.
 
     Mirrors the documented envelope: ``markets`` (array, possibly
-    empty, defaulted here if absent) and ``cursor``.
+    empty but always present) and ``cursor``.
+
+    ``markets`` is required, matching the grounding doc's ``required``
+    marking. A response missing this key (e.g. ``{"cursor": ""}``) is a
+    malformed page, not a legitimate empty one -- defaulting it to an
+    empty list would make ``list_markets`` silently treat a broken or
+    truncated response the same as "no markets on this page," which
+    this client's fail-closed pagination contract does not permit.
+    Validation failure here surfaces as
+    :class:`~kalshi_bot.rest.errors.ResponseValidationError` from
+    :meth:`kalshi_bot.rest.client.KalshiDemoRestClient.list_markets`.
 
     ``cursor`` is tri-state and every state means "no further page":
 
@@ -155,7 +165,7 @@ class MarketListPage(_KalshiResponseModel):
     type-validation layer, before any pagination logic ever runs.
     """
 
-    markets: list[MarketSummary] = Field(default_factory=list)
+    markets: list[MarketSummary]
     cursor: str | None = None
 
 

@@ -263,6 +263,18 @@ def test_rest_timeout_seconds_propagated_to_httpx_client() -> None:
     assert timeout.read == 17.5
 
 
+def test_httpx_client_does_not_trust_environment_proxy_or_ca_settings() -> None:
+    """httpx.Client defaults to trust_env=True, which would let
+    HTTP_PROXY/HTTPS_PROXY/ALL_PROXY or environment-provided CA
+    settings silently route this client's signed requests through
+    infrastructure selected by the process environment instead of
+    directly to the fixed demo host. This client must disable that."""
+    transport = httpx.MockTransport(lambda request: httpx.Response(200, json=_EXCHANGE_STATUS_BODY))
+    client, _, _ = _build_client(transport)
+
+    assert client._client.trust_env is False  # noqa: SLF001 - internal attribute access is intentional here
+
+
 # -- Retry classification: transport-level -----------------------------------
 
 
@@ -620,6 +632,46 @@ def test_list_markets_malformed_cursor_raises_response_validation_error(
 
     def handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(200, json={"markets": [], "cursor": malformed_cursor})
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    with pytest.raises(ResponseValidationError):
+        client.list_markets()
+
+
+def test_list_markets_missing_markets_key_raises_response_validation_error() -> None:
+    """A page body missing the required ``markets`` array entirely
+    (e.g. ``{"cursor": ""}``) is a malformed response, not a
+    legitimately empty page -- it must fail closed with
+    ResponseValidationError rather than silently being treated as zero
+    markets on that page."""
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        return httpx.Response(200, json={"cursor": ""})
+
+    transport = httpx.MockTransport(handler)
+    client, _, _ = _build_client(transport)
+
+    with pytest.raises(ResponseValidationError):
+        client.list_markets()
+
+
+def test_list_markets_missing_markets_key_on_second_page_raises_no_partial_result() -> None:
+    """A malformed (missing-``markets``) page later in a paginated
+    fetch must still raise rather than silently returning the
+    already-collected first page's items."""
+    pages = [
+        _markets_page([{"ticker": "T1"}], "cursor-1"),
+        {"cursor": ""},  # missing "markets" entirely on page 2
+    ]
+    call_count = 0
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        nonlocal call_count
+        body = pages[call_count]
+        call_count += 1
+        return httpx.Response(200, json=body)
 
     transport = httpx.MockTransport(handler)
     client, _, _ = _build_client(transport)
