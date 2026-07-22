@@ -14,11 +14,12 @@ from unittest.mock import patch
 
 import pytest
 
+from kalshi_bot.auth.signer import RequestSigner
 from kalshi_bot.config.models import CredentialReferences
 from kalshi_bot.credentials.loader import (
     CredentialLoadError,
     LoadedDemoCredentials,
-    _reveal_for_signer_construction,
+    _build_request_signer,
     load_credentials,
 )
 from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
@@ -209,40 +210,79 @@ def test_access_key_id_is_registered_for_redaction(
     assert SYNTHETIC_ACCESS_KEY not in rendered
 
 
-def test_reveal_for_signer_construction_hands_raw_material_only_to_factory(
+def _generate_rsa_pem(key_size: int = 2048) -> bytes:
+    from cryptography.hazmat.primitives import serialization
+    from cryptography.hazmat.primitives.asymmetric import rsa
+
+    key = rsa.generate_private_key(public_exponent=65537, key_size=key_size)
+    return key.private_bytes(
+        encoding=serialization.Encoding.PEM,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
+
+
+def test_build_request_signer_returns_only_a_request_signer(
     monkeypatch: pytest.MonkeyPatch, tmp_path: Path
 ) -> None:
-    """Proves the PR 3 seam works as intended: a factory receives the
-    raw access-key ID and PEM bytes and must transform them into a
-    result object (in PR 3, a RequestSigner) -- this is the sole
-    sanctioned path to the material, reserved for
-    kalshi_bot.auth.signer."""
-    credentials = _load_valid_credentials(monkeypatch, tmp_path)
+    """Proves the final PR 3 boundary: the only conversion out of
+    LoadedDemoCredentials produces a RequestSigner -- never the raw
+    access-key ID, PEM bytes, a tuple, or any other raw-material
+    container. There is no callback/factory parameter anywhere in this
+    path, since a caller-supplied callback would be a wider surface
+    than this fixed, one-shot construction."""
+    key_file = tmp_path / "key.pem"
+    key_file.write_bytes(_generate_rsa_pem())
+    monkeypatch.setenv(ACCESS_KEY_ENV, SYNTHETIC_ACCESS_KEY)
+    monkeypatch.setenv(PRIVATE_KEY_PATH_ENV, str(key_file))
+    credentials = load_credentials(REFS)
 
-    captured: dict[str, object] = {}
+    result = _build_request_signer(credentials)
 
-    def factory(access_key_id: str, private_key_pem: bytes) -> str:
-        captured["access_key_id"] = access_key_id
-        captured["private_key_pem"] = private_key_pem
-        return "signer-placeholder"
-
-    result = _reveal_for_signer_construction(credentials, factory)
-
-    assert result == "signer-placeholder"
-    assert captured["access_key_id"] == SYNTHETIC_ACCESS_KEY
-    assert captured["private_key_pem"] == SYNTHETIC_PEM
+    assert isinstance(result, RequestSigner)
+    assert not isinstance(result, tuple)
 
 
-def test_reveal_for_signer_construction_is_not_imported_outside_credential_boundary() -> None:
-    """Static check: _reveal_for_signer_construction is a convention- and
-    review-enforced seam, not a language-level boundary (see its
-    docstring) -- so this test is the actual enforcement mechanism.
-    Only kalshi_bot.credentials (and, once PR 3 adds it,
-    kalshi_bot.auth.signer) may reference the name; REST, WebSocket, and
-    every other module must depend on the eventual RequestSigner
-    instead."""
+def test_generic_callback_seam_no_longer_exists() -> None:
+    """The PR 2 generic callback (_reveal_for_signer_construction) and
+    the PR 3-interim raw-tuple seam (_reveal_for_request_signer) must
+    not exist anywhere in this module -- only _build_request_signer,
+    which returns a RequestSigner, may remain."""
+    import kalshi_bot.credentials.loader as loader_module
+
+    assert not hasattr(loader_module, "_reveal_for_signer_construction")
+    assert not hasattr(loader_module, "_reveal_for_request_signer")
+
+
+def test_no_reveal_unwrap_or_consume_named_function_remains() -> None:
+    """No function name containing reveal/unwrap/consume may exist in
+    the credentials or auth packages -- the only sanctioned conversion
+    is the RequestSigner-returning _build_request_signer /
+    _RequestSignerBuilder.from_raw_material pair."""
+    import kalshi_bot.auth.signer as signer_module
+    import kalshi_bot.credentials.loader as loader_module
+
+    forbidden_substrings = ("reveal", "unwrap", "consume")
+
+    for module in (loader_module, signer_module):
+        for name in dir(module):
+            lowered = name.lower()
+            assert not any(substr in lowered for substr in forbidden_substrings), (
+                f"{module.__name__}.{name} contains a forbidden reveal/unwrap/"
+                "consume name"
+            )
+
+
+def test_build_request_signer_is_not_imported_outside_credential_boundary() -> None:
+    """Static check: _build_request_signer and _RequestSignerBuilder
+    are convention- and review-enforced seams, not language-level
+    boundaries -- so this test is the actual enforcement mechanism.
+    Only kalshi_bot.credentials and kalshi_bot.auth may reference
+    either name; REST, WebSocket, market-data, and every other module
+    must depend on RequestSigner instead."""
     src_root = Path(__file__).resolve().parents[2] / "src" / "kalshi_bot"
     allowed_roots = {"credentials", "auth"}
+    forbidden_names = ("_build_request_signer", "_RequestSignerBuilder")
     violations: list[str] = []
 
     for path in src_root.rglob("*.py"):
@@ -250,10 +290,25 @@ def test_reveal_for_signer_construction_is_not_imported_outside_credential_bound
         top = relative.parts[0] if len(relative.parts) > 1 else None
         if top in allowed_roots:
             continue
-        if "_reveal_for_signer_construction" in path.read_text(encoding="utf-8"):
+        text = path.read_text(encoding="utf-8")
+        if any(name in text for name in forbidden_names):
             violations.append(str(relative).replace("\\", "/"))
 
     assert violations == [], (
         "Only kalshi_bot.credentials/auth may reference "
-        "_reveal_for_signer_construction; found in: " + ", ".join(violations)
+        "_build_request_signer or _RequestSignerBuilder; found in: "
+        + ", ".join(violations)
     )
+
+
+def test_loaded_demo_credentials_raw_fields_not_reachable_via_public_surface(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    """Raw access-key and PEM values cannot be obtained through public
+    attributes, iteration, tuple conversion, or serialization -- only
+    through the fixed _build_request_signer construction path."""
+    credentials = _load_valid_credentials(monkeypatch, tmp_path)
+
+    assert not any(not name.startswith("_") for name in dir(credentials))
+    with pytest.raises(TypeError):
+        tuple(credentials)  # type: ignore[arg-type]

@@ -5,32 +5,34 @@ file for Kalshi credentials anywhere in this repository. It consumes a
 :class:`~kalshi_bot.config.models.CredentialReferences` and produces a
 :class:`LoadedDemoCredentials` -- an opaque type constructed only here.
 
-Phase 1 PR 2 does not construct a signing capability or implement any
-cryptography. It does define the narrow internal seam Phase 1 PR 3
-will use to build a ``RequestSigner`` from the loaded material:
-:func:`_reveal_for_signer_construction`. That function is not public
-(not in ``__all__``), takes a caller-supplied factory rather than
-returning the raw material directly, and is documented as reserved for
-``kalshi_bot.auth.signer`` alone -- REST and WebSocket clients must
-depend only on the signer, never on this seam or on
-``LoadedDemoCredentials`` directly. See that function's docstring for
-the explicit limits of this boundary: it is architectural and
-convention-enforced, not a language-level security guarantee.
+This module also defines the narrow internal seam Phase 1 PR 3 uses to
+build a signer from the loaded material: :func:`_build_request_signer`.
+That function is not public (not in ``__all__``), takes no callback or
+factory of any kind, and returns only a fully constructed
+``kalshi_bot.auth.signer.RequestSigner`` -- never the raw access-key ID
+or PEM bytes. Raw material crosses into ``kalshi_bot.auth.signer``
+exactly once, inside this function, via a local import of that
+module's private ``_RequestSignerBuilder``. REST and WebSocket clients
+must depend only on the ``RequestSigner`` this function returns, never
+on this seam or on ``LoadedDemoCredentials`` directly. See this
+function's docstring for the explicit limits of this boundary: it is
+architectural and convention-enforced, not a language-level security
+guarantee.
 """
 
 from __future__ import annotations
 
 import os
-from collections.abc import Callable
 from pathlib import Path
-from typing import TypeVar
+from typing import TYPE_CHECKING
 
 from kalshi_bot.config.models import CredentialReferences
 from kalshi_bot.observability.logging import _register_sensitive_value
 
-__all__ = ["CredentialLoadError", "LoadedDemoCredentials", "load_credentials"]
+if TYPE_CHECKING:
+    from kalshi_bot.auth.signer import RequestSigner
 
-_T = TypeVar("_T")
+__all__ = ["CredentialLoadError", "LoadedDemoCredentials", "load_credentials"]
 
 
 class CredentialLoadError(Exception):
@@ -47,11 +49,11 @@ class LoadedDemoCredentials:
     Constructed only by :func:`load_credentials`. Exposes no public
     accessor for the access-key ID or private-key bytes; ``repr`` and
     ``str`` never include the material. Not iterable, not mappable,
-    and not serializable (pickling raises) -- the only sanctioned way
-    to reach the underlying material is
-    :func:`_reveal_for_signer_construction`, reserved for Phase 1 PR
-    3's signer construction. See that function's docstring for why
-    this is an architectural and convention-enforced boundary, not a
+    and not serializable (pickling raises). The only sanctioned
+    conversion is :func:`_build_request_signer`, which returns a
+    ``kalshi_bot.auth.signer.RequestSigner`` -- never the raw
+    material itself. See that function's docstring for why this is an
+    architectural and convention-enforced boundary, not a
     language-level guarantee.
     """
 
@@ -70,42 +72,56 @@ class LoadedDemoCredentials:
         raise TypeError("LoadedDemoCredentials must not be pickled or serialized")
 
 
-def _reveal_for_signer_construction(
-    credentials: LoadedDemoCredentials, factory: Callable[[str, bytes], _T]
-) -> _T:
-    """Module-private seam for Phase 1 PR 3's signer construction only.
+def _build_request_signer(credentials: LoadedDemoCredentials) -> RequestSigner:
+    """Module-private seam: the sole path from credentials to a signer.
 
-    ``factory`` receives the access-key ID and private-key PEM bytes
-    and must return a signing-capability object (Phase 1 PR 3's
-    ``kalshi_bot.auth.signer.RequestSigner``) -- this function does
-    not itself return the raw material to a caller that only wants the
-    signer.
+    Returns a fully constructed
+    ``kalshi_bot.auth.signer.RequestSigner`` -- never the raw
+    access-key ID or PEM bytes, and never a tuple, dict, or other
+    reusable container of raw material. The raw material crosses into
+    ``kalshi_bot.auth.signer`` exactly once, inside this call, via a
+    local (function-scoped) import of that module's private
+    ``_RequestSignerBuilder.from_raw_material``. The import is local
+    rather than top-level to avoid a circular import: ``auth.signer``
+    also depends on this module (for the ``LoadedDemoCredentials``
+    type and to call this function from
+    ``RequestSigner.from_credentials``), so neither module may import
+    the other at module-load time.
+
+    There is deliberately no callback or factory parameter anywhere in
+    this path: a caller-supplied callback would let arbitrary code run
+    with the raw material inside this module's frame, which is a
+    strictly wider surface than this fixed, one-shot construction.
 
     **Limitations of this boundary, stated explicitly:**
 
     - Python's single-underscore naming is a convention, not an
       enforced access boundary. Nothing at the language level stops
       another module in this repository from importing and calling
-      this function directly.
-    - The callback pattern does not make misuse impossible: a
-      maliciously or carelessly written ``factory`` could retain,
-      log, or return the raw ``access_key_id``/``private_key_pem`` it
-      is handed instead of transforming them into a signer. This
-      function cannot detect or prevent that.
+      this function, or ``credentials._access_key_id`` /
+      ``credentials._private_key_pem`` directly -- this protects
+      against *accidental* misuse (an unrelated module reaching for
+      credentials it should not touch), not against a *malicious*
+      in-process caller, which Python cannot defend against once code
+      runs in the same interpreter.
     - What actually restricts who calls this today is architecture
-      (only ``kalshi_bot.credentials`` and, once added,
-      ``kalshi_bot.auth.signer`` have a legitimate reason to), import
-      discipline, code review, and the static import-boundary test in
-      ``tests/unit/test_credential_loader.py`` -- not a runtime or
-      language-level guarantee.
-    - Phase 1 PR 3 must replace this generic callback seam with a
-      signer-specific construction path (for example, a function that
-      takes only a ``LoadedDemoCredentials`` and returns exactly a
-      ``RequestSigner``, with no caller-supplied callback). This
-      generic callback-based seam must not remain reachable by REST,
-      WebSocket, or any other downstream module once PR 3 lands.
+      (only ``kalshi_bot.credentials`` and ``kalshi_bot.auth`` have a
+      legitimate reason to), import discipline, code review, and the
+      static import-boundary test in
+      ``tests/unit/test_credential_loader.py``, which asserts this
+      name (and ``_RequestSignerBuilder``) is referenced nowhere
+      outside those two packages -- not a runtime or language-level
+      guarantee.
+    - REST, WebSocket, and every other downstream module must depend
+      only on the ``RequestSigner`` this function returns, never on
+      this function, ``_RequestSignerBuilder``, or
+      ``LoadedDemoCredentials`` directly.
     """
-    return factory(credentials._access_key_id, credentials._private_key_pem)
+    from kalshi_bot.auth.signer import _RequestSignerBuilder
+
+    return _RequestSignerBuilder.from_raw_material(
+        credentials._access_key_id, credentials._private_key_pem
+    )
 
 
 def load_credentials(refs: CredentialReferences) -> LoadedDemoCredentials:
