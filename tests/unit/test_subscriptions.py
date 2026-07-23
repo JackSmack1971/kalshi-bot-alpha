@@ -439,4 +439,104 @@ def test_disconnect_ends_active_subscribe_iterators_cleanly() -> None:
 
         assert received == []
 
+
+# -- Regression: an abandoned subscription must not leak (review finding P2) -
+
+
+def test_abandoned_subscription_is_not_resubscribed_after_reconnect() -> None:
+    """When a caller's subscription iterator exits (here: is cancelled)
+    without a replacement subscribe_ticker call, the abandoned ticker
+    set must be cleared from tracked state -- otherwise
+    _resubscribe_all() would keep re-subscribing to it on every future
+    reconnect even though no queue exists to receive its frames."""
+
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        client = _make_client(
+            _FakeSigner(),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01
+            ),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_no_sleep,
+            jitter_source=lambda: 0.0,
+        )
+        try:
+            await client.connect()
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+            assert len(conn1.sent) == 1
+
+            # Caller abandons the iterator (cancels it) without a
+            # replacement subscribe_ticker call.
+            await _cancel_and_await(task)
+
+            conn1.push_close_ok()
+            for _ in range(100):
+                await asyncio.sleep(0)
+                if len(connector.calls) >= 2:
+                    break
+
+            await asyncio.sleep(0)
+            assert conn2.sent == []  # abandoned subscription must not be resent
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: replacing a subscription must not leak the old ticker
+# -- set's updates into the new consumer (review finding P1) -----------------
+
+
+def test_replacing_subscription_does_not_leak_old_ticker_set_updates() -> None:
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()
+
+            old_gen = client.subscribe_ticker(["KXBTC-OLD"])
+            old_task: "asyncio.Task[Any]" = asyncio.ensure_future(old_gen.__anext__())
+            await asyncio.sleep(0)
+
+            # Replaces the ticker channel's active subscription per this
+            # class's documented "replaces" semantics -- the old
+            # iterator is still technically live (not yet cancelled).
+            new_gen = client.subscribe_ticker(["KXBTC-NEW"])
+            new_task: "asyncio.Task[Any]" = asyncio.ensure_future(new_gen.__anext__())
+            await asyncio.sleep(0)
+
+            generation = client._generation  # noqa: SLF001
+            old_frame = _ticker_frame("KXBTC-OLD")
+            new_frame = _ticker_frame("KXBTC-NEW")
+
+            # An in-flight update for the OLD ticker set must be
+            # dropped, never delivered to the new consumer's queue.
+            client._dispatch_frame(old_frame, generation)  # noqa: SLF001
+            assert client.unmatched_ticker_drop_count == 1
+            assert not new_task.done()
+            assert not old_task.done()
+
+            # An update for the NEW ticker set is genuinely delivered.
+            client._dispatch_frame(new_frame, generation)  # noqa: SLF001
+            update = await asyncio.wait_for(new_task, timeout=1.0)
+            assert update.market_ticker == "KXBTC-NEW"
+
+            # The old iterator's queue was replaced, not fed -- it never
+            # receives anything either.
+            assert not old_task.done()
+            await _cancel_and_await(old_task)
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
     asyncio.run(run())

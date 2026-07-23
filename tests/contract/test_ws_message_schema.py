@@ -266,3 +266,20 @@ def test_unknown_response_field_is_tolerated_on_ticker() -> None:
     frame["msg"]["a_brand_new_field_kalshi_added"] = "surprise"
     result = parse_frame(json.dumps(frame))
     assert isinstance(result, TickerUpdate)
+
+
+def test_pathologically_deep_json_nesting_is_malformed_not_a_crash() -> None:
+    """CPython's json decoder raises RecursionError (a RuntimeError
+    subclass, not caught by a narrower ``except (ValueError,
+    TypeError)``) for pathologically deep JSON nesting. parse_frame's
+    contract is "never raises" -- this must yield MalformedFrame, not
+    propagate an uncaught exception to the caller."""
+    malicious = "[" * 200_000
+    result = parse_frame(malicious)
+    assert isinstance(result, MalformedFrame)
+
+
+def test_pathologically_deep_json_nesting_as_bytes_is_also_malformed() -> None:
+    malicious = ("[" * 200_000).encode("utf-8")
+    result = parse_frame(malicious)
+    assert isinstance(result, MalformedFrame)

@@ -29,6 +29,7 @@ from kalshi_bot.ws.errors import (
     WebSocketClientStateError,
     WebSocketConnectionError,
 )
+from kalshi_bot.ws.models import TickerUpdate
 
 FAKE_ACCESS_KEY = "FAKE-ACCESS-KEY-FOR-WS-CLIENT-TESTS"
 FAKE_SIGNATURE = "FAKE-SIGNATURE-FOR-WS-CLIENT-TESTS"
@@ -157,6 +158,15 @@ class _ScriptedConnector:
         if isinstance(item, Exception):
             raise item
         return item
+
+
+class _RaisingSendConnection(_FakeConnection):
+    """A connection that dials successfully but whose ``send()`` always
+    fails -- simulates the server closing the socket between a
+    successful reconnect and the resubscribe command's send completing."""
+
+    async def send(self, message: str) -> None:
+        raise ConnectionResetError("simulated: server closed the socket during resubscribe send")
 
 
 def _make_client(signer: Any, config: AppConfig, **kwargs: Any) -> KalshiDemoWebSocketClient:
@@ -657,5 +667,294 @@ def test_no_secret_leakage_during_connect_reconnect_and_failure_paths() -> None:
                 assert line["signature"] == "[REDACTED]"
             if "access_key" in line:
                 assert line["access_key"] == "[REDACTED]"
+
+
+# -- Regression: resubscribe-send failure after reconnect must not kill the
+# -- supervisor task (review finding P1) --------------------------------------
+
+
+def test_resubscribe_failure_after_reconnect_does_not_kill_supervisor() -> None:
+    """If the server closes the socket between a successful reconnect and
+    the resubscribe command's send completing, the client must treat
+    that exactly like another dropped connection -- close it, record
+    it, and keep retrying -- rather than letting the background
+    supervisor task die uncaught (which would leave the client
+    permanently dark with no further reconnect ever attempted)."""
+
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _RaisingSendConnection()
+        conn3 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2, conn3])
+        sleeper = _RecordingSleeper()
+
+        client = _make_client(
+            _FakeSigner(),
+            _make_config(ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=sleeper,
+            jitter_source=lambda: 0.0,
+        )
+        try:
+            await client.connect()
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+            assert len(conn1.sent) == 1
+
+            conn1.push_close_ok()  # drop 1 -> dial conn2 -> resubscribe send raises
+
+            for _ in range(200):
+                await asyncio.sleep(0)
+                if len(connector.calls) >= 3:
+                    break
+
+            # All three connections were dialed: the initial one, the
+            # one whose resubscribe send failed, and a third that
+            # recovered -- the supervisor task never died.
+            assert len(connector.calls) == 3
+            assert len(conn3.sent) == 1  # successfully resubscribed on the third connection
+            resubscribe_command = json.loads(conn3.sent[0])
+            assert resubscribe_command["params"]["market_tickers"] == ["KXBTC-25JAN01"]
+
+            # Two distinct disconnect events: the original clean drop,
+            # and the resubscribe failure -- both caller-observable.
+            assert len(client.disconnect_events) == 2
+            assert client.disconnect_events[0].reason == "closed_ok"
+            assert client.disconnect_events[1].reason == "resubscribe_failed"
+
+            # The client is still alive and can still deliver data.
+            conn3.push(json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}}))
+            update = await asyncio.wait_for(task, timeout=1.0)
+            assert update.market_ticker == "KXBTC-25JAN01"
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: bounded per-channel queue, drop-oldest on overflow
+# -- (review finding P2) -------------------------------------------------------
+
+
+def test_channel_queue_is_bounded_and_drops_oldest_on_overflow() -> None:
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+        )
+        try:
+            await client.connect()
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)  # register the queue; task then suspends on queue.get()
+
+            generation = client._generation  # noqa: SLF001
+            max_size = ws_client_module._MAX_CHANNEL_QUEUE_SIZE  # noqa: SLF001
+            overflow_count = max_size + 50
+
+            # All frames share the same (subscribed) market_ticker so
+            # none are dropped by the unmatched-ticker filter; ts_ms
+            # distinguishes them for ordering verification instead.
+            for i in range(overflow_count):
+                frame = json.dumps(
+                    {
+                        "type": "ticker",
+                        "sid": 1,
+                        "msg": {"market_ticker": "KXBTC-25JAN01", "ts_ms": i},
+                    }
+                )
+                client._dispatch_frame(frame, generation)  # noqa: SLF001 - proves this never raises
+
+            expected_drops = overflow_count - max_size
+            assert client.queue_full_drop_count == expected_drops
+
+            # Drop-oldest means the first item the pending consumer
+            # receives is the oldest *retained* one, not the very first
+            # pushed (which was evicted).
+            update = await asyncio.wait_for(task, timeout=1.0)
+            assert update.ts_ms == expected_drops
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+def test_disconnect_with_full_channel_queue_still_delivers_stop_sentinel() -> None:
+    """A completely full channel queue must never prevent disconnect()
+    from delivering the stop sentinel (a direct consequence of bounding
+    the queue for finding P2 above: put_nowait on a full queue would
+    otherwise raise asyncio.QueueFull).
+
+    Deliberately does not use a live subscribe_ticker consumer here:
+    once any item is queued, an awaiting consumer becomes eligible to
+    run on the very next scheduler tick, racing with disconnect()'s own
+    internal awaits over whether it drains an item before or after
+    disconnect() evicts one -- either outcome would still be correct,
+    but that raciness would make this test nondeterministic. Registering
+    the queue directly (whitebox, mirroring this file's existing
+    ``client._generation``/``client._dispatch_frame`` access pattern)
+    with no consumer ever attached removes that race entirely.
+    """
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+        )
+        await client.connect()
+
+        max_size = ws_client_module._MAX_CHANNEL_QUEUE_SIZE  # noqa: SLF001
+        queue: "asyncio.Queue[Any]" = asyncio.Queue(maxsize=max_size)
+        client._channel_queues[_Channel.TICKER] = queue  # noqa: SLF001
+        client._active_channel_tickers[_Channel.TICKER] = ("KXBTC-25JAN01",)  # noqa: SLF001
+        for i in range(max_size):
+            queue.put_nowait(TickerUpdate(market_ticker="KXBTC-25JAN01", ts_ms=i))
+        assert queue.full()
+
+        await client.disconnect()  # must not raise despite the full queue
+
+        remaining: list[Any] = []
+        while not queue.empty():
+            remaining.append(queue.get_nowait())
+
+        assert len(remaining) == max_size  # size unchanged: one evicted, one (STOP) added
+        assert remaining[-1] is ws_client_module._STOP  # noqa: SLF001
+        assert remaining[0].ts_ms == 1  # oldest item (ts_ms=0) was evicted to make room
+
+    asyncio.run(run())
+
+
+# -- Regression: server error message text must never be logged verbatim
+# -- (review finding P2) -------------------------------------------------------
+
+
+def test_error_frame_message_text_never_logged() -> None:
+    async def run() -> None:
+        stream = io.StringIO()
+        configure_logging(level="INFO", stream=stream)
+        monkey_logger = get_logger("test.ws_client.error_frame_redaction")
+        original_logger = ws_client_module._logger
+        ws_client_module._logger = monkey_logger
+        adversarial_text = "ADVERSARIAL-UPSTREAM-ERROR-TEXT-SHOULD-NEVER-BE-LOGGED"
+        try:
+            conn = _FakeConnection()
+            connector = _ScriptedConnector([conn])
+            client = _make_client(
+                _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            )
+            await client.connect()
+            generation = client._generation  # noqa: SLF001
+            frame = json.dumps({"id": 1, "type": "error", "msg": {"code": 6, "msg": adversarial_text}})
+            client._dispatch_frame(frame, generation)  # noqa: SLF001
+            await client.disconnect()
+        finally:
+            ws_client_module._logger = original_logger
+
+        rendered = stream.getvalue()
+        assert adversarial_text not in rendered
+
+        lines = [json.loads(line) for line in rendered.splitlines() if line.strip()]
+        error_lines = [line for line in lines if line.get("event") == "ws_error_frame"]
+        assert error_lines, rendered
+        assert error_lines[0]["code"] == 6
+        assert "message" not in error_lines[0]
+
+    asyncio.run(run())
+
+
+# -- Regression: unexpected exceptions during frame processing must never
+# -- crash the receive loop or leave disconnect() re-raising
+# -- (review finding: adversarial-frame resilience) ---------------------------
+
+
+def test_deeply_nested_frame_does_not_crash_receive_loop_or_disconnect() -> None:
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+        )
+        await client.connect()
+
+        # Pathologically deep JSON nesting makes CPython's json decoder
+        # raise RecursionError (a RuntimeError subclass), fed through
+        # the real receive path (not a direct _dispatch_frame call) to
+        # prove the whole chain -- json decode -> normalizer -> dispatch
+        # -- survives.
+        malicious_frame = "[" * 200_000
+        conn.push(malicious_frame)
+
+        for _ in range(50):
+            await asyncio.sleep(0)
+            if client.malformed_frame_count >= 1:
+                break
+        assert client.malformed_frame_count == 1
+
+        # The connection must still be alive/usable afterward.
+        gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+        task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+        await asyncio.sleep(0)
+        conn.push(json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}}))
+        update = await asyncio.wait_for(task, timeout=1.0)
+        assert update.market_ticker == "KXBTC-25JAN01"
+
+        await client.disconnect()  # must succeed cleanly, never re-raise
+
+    asyncio.run(run())
+
+
+def test_unexpected_dispatch_exception_is_treated_as_a_dropped_connection(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    """Defense in depth, independent of the normalizer's own
+    RecursionError fix: any unforeseen exception escaping frame
+    processing must be treated as a dropped connection and retried,
+    never let the supervisor task die uncaught."""
+
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        client = _make_client(
+            _FakeSigner(),
+            _make_config(ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
+            jitter_source=lambda: 0.0,
+        )
+        try:
+            await client.connect()
+
+            original_dispatch = client._dispatch_frame  # noqa: SLF001
+            call_count = 0
+
+            def flaky_dispatch(raw: str | bytes, generation: int) -> None:
+                nonlocal call_count
+                call_count += 1
+                if call_count == 1:
+                    raise RuntimeError("simulated unexpected dispatch failure")
+                original_dispatch(raw, generation)
+
+            monkeypatch.setattr(client, "_dispatch_frame", flaky_dispatch)
+
+            conn1.push("anything")  # triggers the forced failure on first dispatch
+
+            for _ in range(100):
+                await asyncio.sleep(0)
+                if len(connector.calls) >= 2:
+                    break
+
+            assert len(connector.calls) == 2  # supervisor recovered and reconnected
+            assert len(client.disconnect_events) == 1
+            assert client.disconnect_events[0].reason == "unexpected_error"
+        finally:
+            await client.disconnect()  # must succeed cleanly, never re-raise
+
+    asyncio.run(run())
 
     asyncio.run(run())

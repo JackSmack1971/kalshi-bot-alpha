@@ -59,3 +59,72 @@ Notes: Deviated from PHASE1_PLAN.md's literal PR5 paths
   covering handshake, reconnect, and initial-connect-failure paths.
   Not committed — left uncommitted per task instructions; orchestrating
   session handles commit/PR.
+
+## 2026-07-22 — transport-safety — PR #9 review-finding fixes: WS client resubscribe/queue/filtering/redaction hardening
+Task: fix 5 automated-reviewer findings on `src/kalshi_bot/ws/client.py`
+  from PR #9 (commit 27027e6) plus one self-identified adjacent
+  robustness gap (RecursionError from pathologically nested JSON, and
+  the disconnect()-with-a-full-queue consequence of the new bounded
+  queue), all in the same worktree/branch as the original PR 5 entry
+  above. Coordinator independently confirmed all findings as genuine
+  bugs before requesting fixes.
+Touched: src/kalshi_bot/ws/client.py, src/kalshi_bot/ws/normalizer.py;
+  tests/unit/test_websocket_client.py, tests/unit/test_subscriptions.py,
+  tests/contract/test_ws_message_schema.py.
+Verified: `uv run pytest tests/unit/test_websocket_client.py
+  tests/unit/test_subscriptions.py tests/contract/test_ws_message_schema.py
+  tests/integration/test_websocket_reconnect.py` — 81 passed;
+  `uv run pytest -q` — 456 passed; `uv run ruff check .` — All checks
+  passed!; `uv run mypy .` — Success: no issues found in 42 source
+  files; `uv run python scripts/verify_demo_only.py` — demo-only policy
+  OK (56 files scanned); `git diff --check` against commit 27027e6 —
+  clean (exit 0, only benign CRLF-normalization advisories, no
+  whitespace/conflict errors).
+Status: done
+Notes: (1) A resubscribe-command send failure right after a successful
+  reconnect no longer kills the background supervisor task uncaught —
+  it is now treated as another dropped connection via a new
+  `_reconnect_until_stable` helper (close, log, record, retry
+  indefinitely), proven by
+  `test_resubscribe_failure_after_reconnect_does_not_kill_supervisor`.
+  (2) An abandoned subscription (iterator exits without a replacement
+  call) now clears `_active_channel_tickers[channel]` in
+  `_subscribe_channel`'s `finally`, reusing the existing queue-identity
+  guard (both entries are set atomically together, so the same identity
+  check safely covers both) rather than a separate per-call token,
+  proven by `test_abandoned_subscription_is_not_resubscribed_after_reconnect`.
+  (3) Per-channel delivery queues are now bounded
+  (`_MAX_CHANNEL_QUEUE_SIZE = 1000`, drop-oldest-on-overflow, counted via
+  the new `queue_full_drop_count` property), proven by
+  `test_channel_queue_is_bounded_and_drops_oldest_on_overflow`; this
+  also required hardening `disconnect()`'s stop-sentinel delivery
+  (`_put_stop_sentinel`) since a full queue would otherwise make
+  `put_nowait(_STOP)` raise `QueueFull` — proven by
+  `test_disconnect_with_full_channel_queue_still_delivers_stop_sentinel`.
+  (4) `_route_to_queue` now filters by the channel's currently active
+  ticker set (new `unmatched_ticker_drop_count` counter) so an
+  in-flight frame for a ticker set a caller has since replaced can
+  never leak into a newer, unrelated consumer, proven by
+  `test_replacing_subscription_does_not_leak_old_ticker_set_updates`.
+  (5) The `error` frame's server-controlled `msg.msg` text is no longer
+  logged (only the fixed small-integer `code`), proven by
+  `test_error_frame_message_text_never_logged`. (6, self-identified
+  while fixing the above, not one of the 5 numbered findings but a
+  matching robustness gap): `kalshi_bot.ws.normalizer.parse_frame` now
+  has an outer catch-all converting any unexpected decode failure
+  (concretely: `RecursionError` from pathologically deep JSON nesting,
+  a `RuntimeError` subclass the prior narrower `except (ValueError,
+  TypeError)` did not catch) into `MalformedFrame` instead of
+  propagating; `_supervise_connection`'s receive-loop call now also has
+  a defense-in-depth `except Exception` treating any unforeseen
+  dispatch failure as a dropped connection, and `disconnect()` no
+  longer re-raises if the supervisor task had already ended with a
+  non-cancellation exception. Proven by
+  `test_deeply_nested_frame_does_not_crash_receive_loop_or_disconnect`,
+  `test_unexpected_dispatch_exception_is_treated_as_a_dropped_connection`,
+  and two normalizer-level contract tests. No
+  `.claude/rules/kalshi-transport-safety.md`/`credential-privacy.md`
+  invariant was weakened by any of these fixes; `orderbook_delta`
+  remains structurally unreachable throughout. Not committed — left
+  uncommitted per task instructions; orchestrating session reviews the
+  diff, then commits and pushes.

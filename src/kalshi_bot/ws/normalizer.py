@@ -121,11 +121,32 @@ FrameParseResult = (
 def parse_frame(raw: str | bytes) -> FrameParseResult:
     """Parse one raw WebSocket frame into a typed :data:`FrameParseResult`.
 
-    Never raises. A frame this function cannot decode or validate
-    against Kalshi's documented shape always yields
+    Never raises -- guaranteed by an outer safety net (see
+    ``_parse_frame_inner`` below) in addition to this function's own
+    conservative decode logic. A frame this function cannot decode or
+    validate against Kalshi's documented shape always yields
     :class:`MalformedFrame`, never a partially-populated model and
     never a propagated exception.
     """
+    try:
+        return _parse_frame_inner(raw)
+    except Exception as exc:  # noqa: BLE001 - parse_frame's contract is "never raises"
+        # Defense in depth beyond the specific except clauses in
+        # _parse_frame_inner: a pathologically deep/nested JSON payload
+        # (e.g. thousands of nested "[") makes CPython's json decoder
+        # raise RecursionError, which is a RuntimeError subclass and is
+        # therefore *not* caught by a narrower `except (ValueError,
+        # TypeError)` around json.loads. Any other unforeseen failure
+        # is handled the same way: converted into a typed
+        # MalformedFrame rather than propagating and killing the
+        # caller's receive loop. The message carries only the
+        # exception's class name -- never its text or the raw frame
+        # content -- mirroring kalshi_bot.rest.client's
+        # error_type=type(exc).__name__ redaction discipline.
+        return MalformedFrame(f"frame could not be parsed ({type(exc).__name__})")
+
+
+def _parse_frame_inner(raw: str | bytes) -> FrameParseResult:
     if isinstance(raw, bytes):
         try:
             text = raw.decode("utf-8")

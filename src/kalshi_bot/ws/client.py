@@ -103,6 +103,20 @@ _WS_HANDSHAKE_PATH = "/trade-api/ws/v2"
 #: not grow this list without bound.
 _MAX_TRACKED_DISCONNECT_EVENTS = 256
 
+#: Bound on each per-channel delivery queue (``subscribe_ticker``/
+#: ``subscribe_trades``). Without a bound, a caller that iterates its
+#: subscription slower than frames arrive would cause unbounded memory
+#: growth. When full, the *oldest* queued item is evicted to make room
+#: for the newest one (see ``_route_to_queue``): for streaming market
+#: data, the newest observation is more useful to a caller than a
+#: stale queued one, so this client favors freshness over completeness
+#: once a caller falls behind. 1000 comfortably covers a burst of
+#: ticker/trade updates across a handful of subscribed markets while
+#: still being a bound, not "effectively unbounded" (mirrors
+#: ``kalshi_bot.rest.client._MAX_MARKET_LIST_PAGES``'s same rationale
+#: for choosing a generous-but-finite ceiling).
+_MAX_CHANNEL_QUEUE_SIZE = 1000
+
 
 class _WebSocketConnection(Protocol):
     """Structural interface this client needs from a connected socket.
@@ -154,6 +168,20 @@ class _Stop:
 
 
 _STOP = _Stop()
+
+
+def _put_stop_sentinel(queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]") -> None:
+    """Push ``_STOP`` onto ``queue``, evicting the oldest item first if
+    the (now-bounded, see ``_MAX_CHANNEL_QUEUE_SIZE``) queue is full.
+
+    Clean shutdown must always be able to signal every active
+    subscription iterator to stop; a full queue must never make
+    ``disconnect()`` raise or silently fail to deliver the stop signal.
+    """
+    if queue.full():
+        with contextlib.suppress(asyncio.QueueEmpty):
+            queue.get_nowait()
+    queue.put_nowait(_STOP)
 
 
 class ReconnectPolicy:
@@ -317,6 +345,8 @@ class KalshiDemoWebSocketClient:
 
         self._malformed_frame_count = 0
         self._stale_frame_drop_count = 0
+        self._unmatched_ticker_drop_count = 0
+        self._queue_full_drop_count = 0
         self._disconnect_events: list[WebSocketDisconnected] = []
 
     # -- Properties ---------------------------------------------------------
@@ -336,6 +366,24 @@ class KalshiDemoWebSocketClient:
         """Count of typed events dropped because their connection
         generation was superseded before they could be delivered."""
         return self._stale_frame_drop_count
+
+    @property
+    def unmatched_ticker_drop_count(self) -> int:
+        """Count of typed events dropped because their ``market_ticker``
+        was not part of the currently active subscription for that
+        channel -- either because no subscription is active at all, or
+        because a newer ``subscribe_ticker``/``subscribe_trades`` call
+        replaced the subscription that originally requested it. This
+        prevents an in-flight update for a superseded ticker set from
+        ever being delivered to a newer, unrelated consumer."""
+        return self._unmatched_ticker_drop_count
+
+    @property
+    def queue_full_drop_count(self) -> int:
+        """Count of typed events evicted because a per-channel delivery
+        queue was at capacity (see ``_MAX_CHANNEL_QUEUE_SIZE``); the
+        oldest queued item is dropped to make room for the newest."""
+        return self._queue_full_drop_count
 
     @property
     def disconnect_events(self) -> tuple[WebSocketDisconnected, ...]:
@@ -381,7 +429,11 @@ class KalshiDemoWebSocketClient:
         Cancels the background supervisor task, closes the current
         connection if any, and releases every active
         ``subscribe_ticker``/``subscribe_trades`` iterator (they return
-        rather than raising).
+        rather than raising). Always completes cleanly -- even if the
+        supervisor task had already ended with an unexpected exception
+        before ``disconnect()`` was called, that original exception is
+        logged, never re-raised out of this method: clean shutdown must
+        always succeed regardless of what killed the supervisor task.
         """
         if self._closing:
             return
@@ -391,15 +443,21 @@ class KalshiDemoWebSocketClient:
         self._connection_task = None
         if task is not None:
             task.cancel()
-            with contextlib.suppress(asyncio.CancelledError):
+            try:
                 await task
+            except asyncio.CancelledError:
+                pass
+            except Exception as exc:  # noqa: BLE001 - disconnect() must always succeed regardless of what killed the supervisor task
+                _logger.warning(
+                    "ws_supervisor_task_failed_during_disconnect", error_type=type(exc).__name__
+                )
 
         if self._connection is not None:
             await self._safe_close(self._connection)
             self._connection = None
 
         for queue in self._channel_queues.values():
-            queue.put_nowait(_STOP)
+            _put_stop_sentinel(queue)
         _logger.info("ws_disconnected_clean")
 
     async def __aenter__(self) -> KalshiDemoWebSocketClient:
@@ -446,7 +504,19 @@ class KalshiDemoWebSocketClient:
         self, channel: _Channel, tickers: list[str]
     ) -> AsyncIterator[TickerUpdate | TradeUpdate]:
         validated = _validate_tickers(tickers)
-        queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]" = asyncio.Queue()
+        queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]" = asyncio.Queue(
+            maxsize=_MAX_CHANNEL_QUEUE_SIZE
+        )
+        # ``_channel_queues[channel]`` and ``_active_channel_tickers[channel]``
+        # are always set together, atomically, right here -- this pairing
+        # invariant is what makes the identity check in the ``finally``
+        # block below sufficient to also safely clear the ticker set
+        # without a separate per-call token: if this call's ``queue``
+        # object is still the one registered for ``channel`` when this
+        # generator exits, no newer subscribe_ticker/subscribe_trades
+        # call has taken over the channel (a newer call would have
+        # overwritten both entries here, in this same order, before this
+        # one's ``finally`` could observe the old ``queue``).
         self._channel_queues[channel] = queue
         self._active_channel_tickers[channel] = validated
 
@@ -462,6 +532,13 @@ class KalshiDemoWebSocketClient:
         finally:
             if self._channel_queues.get(channel) is queue:
                 del self._channel_queues[channel]
+                # Clear the abandoned ticker set too -- otherwise
+                # _resubscribe_all() would keep re-subscribing to it on
+                # every future reconnect even though no queue exists to
+                # receive its frames (a subscription leak). Only done
+                # when the identity check above confirms no newer call
+                # replaced this channel's subscription in the meantime.
+                self._active_channel_tickers.pop(channel, None)
 
     # -- Internal connection management ----------------------------------
 
@@ -536,12 +613,29 @@ class KalshiDemoWebSocketClient:
 
         Runs until ``disconnect()`` cancels this task (no further
         reconnect attempted) or the process managing this client exits.
+        Never lets an unexpected (non-cancellation) exception kill this
+        task silently: any such failure inside the receive loop is
+        treated exactly like a dropped connection (closed, logged,
+        recorded, and retried) rather than propagating uncaught, which
+        would otherwise leave ``self._connection`` pointing at a dead
+        connection with no further reconnect ever attempted.
         """
         current_conn = conn
         current_generation = generation
         try:
             while True:
-                reason = await self._receive_loop(current_conn, current_generation)
+                try:
+                    reason = await self._receive_loop(current_conn, current_generation)
+                except asyncio.CancelledError:
+                    raise
+                except Exception as exc:  # noqa: BLE001 - any unexpected receive-loop failure is treated as a dropped connection, never lets the supervisor task die uncaught
+                    _logger.warning(
+                        "ws_receive_loop_unexpected_error",
+                        generation=current_generation,
+                        error_type=type(exc).__name__,
+                    )
+                    reason = "unexpected_error"
+
                 await self._safe_close(current_conn)
                 self._connection = None
 
@@ -558,19 +652,59 @@ class KalshiDemoWebSocketClient:
 
                 self._record_disconnect(reason=reason, generation=current_generation, attempt=1)
 
-                next_conn = await self._reconnect_with_backoff(1)
+                next_conn = await self._reconnect_until_stable(1)
                 if next_conn is None:
                     return
 
-                self._generation += 1
-                current_generation = self._generation
                 current_conn = next_conn
-                self._connection = current_conn
-                await self._resubscribe_all()
-                _logger.info("ws_reconnected", generation=current_generation)
+                current_generation = self._generation
         except asyncio.CancelledError:
             await self._safe_close(current_conn)
             raise
+
+    async def _reconnect_until_stable(self, start_attempt: int) -> _WebSocketConnection | None:
+        """Dial (with bounded backoff) and resubscribe, retrying the
+        whole cycle if resubscribing ever fails, until both succeed or
+        shutdown is requested.
+
+        A resubscribe-command send can fail (e.g. the server closes the
+        socket between a successful reconnect and the resubscribe send
+        completing). Without this wrapper, that exception would
+        propagate out of ``_supervise_connection``'s loop body and kill
+        the background supervisor task silently, leaving ``self._connection``
+        pointing at a dead connection with no further reconnect attempted
+        -- the client would go permanently dark with no caller-visible
+        signal. Treating a resubscribe failure the same as a dropped
+        connection (close, log, record, retry) keeps that guarantee
+        intact. Returns ``None`` only if ``disconnect()`` requested
+        shutdown while this loop was waiting, dialing, or resubscribing.
+        """
+        attempt = start_attempt
+        while True:
+            conn = await self._reconnect_with_backoff(attempt)
+            if conn is None:
+                return None
+
+            self._generation += 1
+            generation = self._generation
+            self._connection = conn
+
+            try:
+                await self._resubscribe_all()
+            except Exception as exc:  # noqa: BLE001 - a resubscribe failure is treated as another dropped connection and retried, never lets the supervisor task die uncaught
+                _logger.warning(
+                    "ws_resubscribe_failed", generation=generation, error_type=type(exc).__name__
+                )
+                self._connection = None
+                await self._safe_close(conn)
+                if self._closing:
+                    return None
+                self._record_disconnect(reason="resubscribe_failed", generation=generation, attempt=1)
+                attempt = 1
+                continue
+
+            _logger.info("ws_reconnected", generation=generation)
+            return conn
 
     async def _reconnect_with_backoff(self, start_attempt: int) -> _WebSocketConnection | None:
         """Retry the dial indefinitely with bounded backoff.
@@ -651,7 +785,15 @@ class KalshiDemoWebSocketClient:
             return
 
         if isinstance(result, ErrorFrame):
-            _logger.warning("ws_error_frame", code=result.code, message=result.message)
+            # Never log result.message: it is server-controlled text
+            # straight off the wire (Kalshi's error msg.msg field) and
+            # this module's own docstring promises "never... raw frame
+            # content" is logged. `code` is Kalshi's fixed, documented
+            # small-integer error-code enum and carries all the
+            # diagnostic value this client needs -- mirrors
+            # kalshi_bot.rest.errors's "never echo raw upstream text"
+            # convention.
+            _logger.warning("ws_error_frame", code=result.code)
             return
 
     def _route_to_queue(
@@ -666,9 +808,44 @@ class KalshiDemoWebSocketClient:
                 current_generation=self._generation,
             )
             return
+
+        # Only deliver a frame whose market_ticker is part of the
+        # channel's *currently* active subscription. Without this, a
+        # frame that was already in flight for a ticker set a caller
+        # has since replaced (via a newer subscribe_ticker/
+        # subscribe_trades call on the same channel, per this class's
+        # documented "replaces" semantics) could be routed to the new,
+        # unrelated consumer's queue.
+        active_tickers = self._active_channel_tickers.get(channel, ())
+        if item.market_ticker not in active_tickers:
+            self._unmatched_ticker_drop_count += 1
+            _logger.info(
+                "ws_unmatched_ticker_dropped",
+                channel=channel.value,
+                unmatched_ticker_drop_count=self._unmatched_ticker_drop_count,
+            )
+            return
+
         queue = self._channel_queues.get(channel)
         if queue is None:
             return
+
+        if queue.full():
+            # Evict the oldest queued item to make room for the newest
+            # one -- see _MAX_CHANNEL_QUEUE_SIZE's docstring for why
+            # this client favors freshness over completeness once a
+            # caller falls behind. Never raises: queue.full() and this
+            # get_nowait() are not separated by an await, so nothing
+            # else can drain or refill the queue between them in this
+            # single-threaded asyncio program.
+            with contextlib.suppress(asyncio.QueueEmpty):
+                queue.get_nowait()
+            self._queue_full_drop_count += 1
+            _logger.warning(
+                "ws_channel_queue_full_dropped_oldest",
+                channel=channel.value,
+                queue_full_drop_count=self._queue_full_drop_count,
+            )
         queue.put_nowait(item)
 
     def _record_disconnect(self, *, reason: str, generation: int, attempt: int) -> None:
