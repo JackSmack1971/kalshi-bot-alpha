@@ -480,6 +480,23 @@ def test_reconnect_policy_bounded_exponential_growth_with_jitter() -> None:
     assert policy.next_delay_seconds(10, 1.0 - 1e-9) == pytest.approx(8.0, rel=1e-6)
 
 
+def test_reconnect_policy_never_overflows_for_very_large_attempt_counts() -> None:
+    """Regression: ``0.01 * (2 ** 1024)`` raises ``OverflowError: int too
+    large to convert to float`` in Python. A prolonged real-world outage
+    drives ``attempt`` arbitrarily high with no cutoff (by design), so
+    the exponent computed from it must be capped well before that point
+    regardless of how many attempts have actually occurred."""
+    policy = ReconnectPolicy(min_backoff_seconds=0.01, max_backoff_seconds=30.0)
+
+    for attempt in (1025, 2000, 10_000, 1_000_000):
+        delay = policy.next_delay_seconds(attempt, 0.5)
+        assert 0.01 <= delay <= 30.0
+
+    # Confirms the exact overflow case named in the finding never raises.
+    delay_at_overflow_threshold = policy.next_delay_seconds(1025, 0.0)
+    assert delay_at_overflow_threshold == pytest.approx(0.01)
+
+
 # -- Reconnect loop behavior ----------------------------------------------------
 
 
@@ -1062,5 +1079,55 @@ def test_unknown_frame_type_is_sanitized_and_bounded_in_logs() -> None:
         assert "\x01" not in logged_frame_type
         assert "\n" not in logged_frame_type
         assert '"' not in logged_frame_type
+
+    asyncio.run(run())
+
+
+# -- Regression: a failed initial resubscribe during connect() must not
+# -- strand the client in an unrecoverable "already connected" state
+# -- (review finding P2) -------------------------------------------------------
+
+
+def test_connect_recovers_after_initial_resubscribe_failure() -> None:
+    """Regression: if a subscription was already registered (via
+    subscribe_ticker/subscribe_trades) before connect()'s dial, and the
+    subsequent _resubscribe_all() send then fails, `self._connection`
+    was previously left set with no `self._connection_task` ever
+    created -- connect()'s own "already connected" guard would then
+    make every future connect() call raise forever, with no way to
+    recover without external intervention."""
+
+    async def run() -> None:
+        conn1 = _RaisingSendConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+        )
+
+        # Register a subscription before ever connecting, so
+        # _resubscribe_all() has something to send once connect() dials.
+        gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+        pending_task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+        await asyncio.sleep(0)  # registers tracked state; no connection yet, nothing sent
+
+        with pytest.raises(WebSocketConnectionError):
+            await client.connect()
+
+        # Must not be stuck: a fresh connect() attempt (against a
+        # connection whose send succeeds) must be able to succeed.
+        assert client._connection is None  # noqa: SLF001
+        assert client._connection_task is None  # noqa: SLF001
+        await client.connect()
+
+        assert client._connection is conn2  # noqa: SLF001
+        assert len(conn2.sent) == 1  # the resubscribe succeeded this time
+
+        await client.disconnect()
+        pending_task.cancel()
+        try:
+            await pending_task
+        except (asyncio.CancelledError, StopAsyncIteration):
+            pass
 
     asyncio.run(run())

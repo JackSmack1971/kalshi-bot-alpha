@@ -255,3 +255,94 @@ Notes: (1, P1 — the real architectural gap the earlier client-side
   invariant was weakened by any of these fixes. Not committed — left
   uncommitted per task instructions; orchestrating session reviews the
   diff, then commits.
+
+## 2026-07-23 — transport-safety — PR #9 re-review (commit 3d099e1): final round, 1 P1 + 3 P2 findings
+Task: fix 4 automated-reviewer findings on `src/kalshi_bot/ws/client.py`
+  (1 P1, 3 P2) from the re-review of commit 3d099e1 — explicitly flagged
+  by the coordinator as the final expected round for this PR, with
+  instructions to budget conservatively and not expand scope beyond
+  the 4 listed findings. Coordinator independently confirmed the P2
+  backoff-overflow finding by reproducing `0.01 * (2 ** 1024)` raising
+  `OverflowError` directly in Python. Same worktree/branch as all five
+  prior entries above.
+Touched: src/kalshi_bot/ws/client.py; tests/unit/test_subscriptions.py,
+  tests/unit/test_websocket_client.py.
+Verified: `uv run pytest tests/unit/test_websocket_client.py
+  tests/unit/test_subscriptions.py tests/contract/test_ws_message_schema.py
+  tests/integration/test_websocket_reconnect.py` — 92 passed;
+  `uv run pytest -q` — 467 passed; `uv run ruff check .` — All checks
+  passed!; `uv run mypy .` — Success: no issues found in 42 source
+  files; `uv run python scripts/verify_demo_only.py` — demo-only policy
+  OK (56 files scanned); `git diff --check` against commit 3d099e1 —
+  clean (exit 0, only a benign CRLF-normalization advisory on
+  client.py, no whitespace/conflict errors).
+Status: done
+Notes: (1, P1) The prior round's sid-tracking fix only covered
+  replacing a subscription *after* its predecessor's `subscribed` ack
+  had already arrived; replacing before that ack (no sid known yet)
+  still sent a bare second `subscribe`, risking server rejection (error
+  code 6) while the stale first subscription stayed live. Fixed with a
+  new per-channel pending/superseded state machine: `_pending_channels`
+  (a subscribe sent but not yet acked) and `_superseded_pending_channels`
+  (a pending subscribe replaced by a newer call before its ack
+  arrived). When a superseded ack eventually arrives, `_dispatch_frame`
+  schedules a new fire-and-forget `_retire_superseded_subscription`
+  background task (via `asyncio.ensure_future`, since `_dispatch_frame`
+  is a synchronous callback that cannot itself `await`) that
+  unsubscribes the now-stale sid and subscribes the channel's *current*
+  active ticker set for real — always converging to the latest desired
+  state even under repeated rapid replacement, since it reads
+  `_active_channel_tickers` fresh rather than a stale snapshot. All
+  subscribe-sending call sites now funnel through a new
+  `_send_subscribe_and_track_pending` helper so `_pending_channels`
+  stays accurate regardless of which code path sent the command. Both
+  new sets are cleared alongside `_channel_sids` on every new dial
+  (`connect()`, `_reconnect_until_stable`) and in `disconnect()`.
+  Proven by
+  `test_replacing_subscription_before_first_ack_arrives_retires_stale_sid_once_acked`.
+  (2, P2) If a subscription was registered before `connect()`'s dial
+  and the initial `_resubscribe_all()` send then failed,
+  `self._connection` was left set with no `self._connection_task` ever
+  created, permanently tripping `connect()`'s own "already connected"
+  guard on every future attempt with no way to recover. Fixed by
+  wrapping the initial `_resubscribe_all()` call in `connect()` with a
+  try/except that resets `self._connection` to `None`, closes the
+  socket via `_safe_close`, and raises the same typed
+  `WebSocketConnectionError` the initial-dial-failure path already
+  uses. Proven by `test_connect_recovers_after_initial_resubscribe_failure`
+  (a first `connect()` fails via a send-raising fake connection; a
+  second `connect()` against a working connection then succeeds). (3,
+  P2) `ReconnectPolicy.next_delay_seconds`'s `2 ** (attempt - 1)`
+  overflows `float` conversion once the exponent reaches roughly 1024
+  — reachable during a sufficiently long real-world outage, since
+  `attempt` is deliberately never bounded (indefinite retry is the
+  documented design). Fixed by capping the *exponent* (not `attempt`
+  itself) at a new `_MAX_BACKOFF_EXPONENT = 64` constant before the
+  `2 ** (...)` computation — chosen because
+  `min_backoff_seconds * 2**64` already vastly exceeds any sane
+  `max_backoff_seconds` for any realistic config, so the existing
+  `min(...)` bound already caps the *returned* delay long before this
+  exponent cap could ever change the result; it only prevents the
+  intermediate computation from overflowing. Proven by
+  `test_reconnect_policy_never_overflows_for_very_large_attempt_counts`
+  (attempts up to 1,000,000, including the exact confirmed-overflow
+  case at 1025). (4, P2) Abandoning a live, already-acknowledged
+  subscription (no replacement call) previously only cleared local
+  tracking — the sid stayed subscribed server-side indefinitely.
+  `_clear_channel_state_if_owned` now schedules a fire-and-forget
+  `_send_unsubscribe_background` task (same `asyncio.ensure_future`
+  pattern as finding 1, since it also runs from a `finally` block
+  inside an async generator) when it finds a tracked sid for an
+  abandoned channel. Documented one accepted, self-healing residual
+  gap: abandoning a subscription that is still *pending* its ack (no
+  sid known yet) has nothing to unsubscribe at abandonment time; the
+  eventual ack just records an orphaned sid that gets properly retired
+  the next time that channel is subscribed to again (or cleared by a
+  reconnect) — not explicitly required by this finding's scope (it is
+  scoped to "the acknowledged sid"). Proven by
+  `test_abandoning_live_subscription_sends_unsubscribe_for_its_sid`.
+  No `.claude/rules/kalshi-transport-safety.md`/`credential-privacy.md`
+  invariant was weakened by any of these fixes; `orderbook_delta`
+  remains structurally unreachable throughout. Not committed — left
+  uncommitted per task instructions; orchestrating session reviews the
+  diff, then commits.

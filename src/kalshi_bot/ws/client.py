@@ -211,6 +211,23 @@ def _put_stop_sentinel(queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]
     queue.put_nowait(_STOP)
 
 
+#: Upper bound on the exponent used by ``ReconnectPolicy.next_delay_seconds``.
+#: ``2 ** (attempt - 1)`` grows large enough that converting it to
+#: ``float`` raises ``OverflowError`` once the exponent reaches roughly
+#: 1024 (confirmed: ``0.01 * (2 ** 1024)`` raises ``OverflowError: int
+#: too large to convert to float``); a prolonged real-world outage
+#: drives ``attempt`` arbitrarily high with no cutoff (by design -- see
+#: the module docstring's "Reconnect" section), so the exponent itself
+#: must be capped well before that point regardless of how many
+#: attempts have actually occurred. 64 is comfortably below the
+#: overflow threshold and has no effect on the *returned* delay for any
+#: realistic configuration: ``min_backoff_seconds * 2**64`` already
+#: vastly exceeds any sane ``max_backoff_seconds``, so the ``min(...)``
+#: below always caps the result to ``max_backoff_seconds`` long before
+#: this exponent cap could ever matter.
+_MAX_BACKOFF_EXPONENT = 64
+
+
 class ReconnectPolicy:
     """Bounded exponential backoff with jitter for the reconnect loop.
 
@@ -222,7 +239,12 @@ class ReconnectPolicy:
     ``[min_backoff_seconds, min(max_backoff_seconds, min_backoff_seconds
     * 2**(attempt-1))]``. ``attempt`` always restarts at 1 after every
     successful reconnect -- there is no cumulative, ever-growing
-    backoff across a long-running client's full lifetime.
+    backoff across a long-running client's full lifetime. ``attempt``
+    itself is also never bounded by this class (the reconnect loop
+    retries indefinitely with no maximum-attempt-count cutoff), but the
+    *exponent* computed from it is capped at ``_MAX_BACKOFF_EXPONENT``
+    so an extremely long outage can never overflow the underlying
+    ``float`` computation.
     """
 
     __slots__ = ("min_backoff_seconds", "max_backoff_seconds")
@@ -241,8 +263,9 @@ class ReconnectPolicy:
             raise ValueError("attempt must be >= 1")
         if not (0.0 <= jitter_fraction < 1.0):
             raise ValueError("jitter_fraction must be in [0.0, 1.0)")
+        capped_exponent = min(attempt - 1, _MAX_BACKOFF_EXPONENT)
         base: float = min(
-            self.max_backoff_seconds, self.min_backoff_seconds * (2 ** (attempt - 1))
+            self.max_backoff_seconds, self.min_backoff_seconds * (2**capped_exponent)
         )
         return self.min_backoff_seconds + (base - self.min_backoff_seconds) * jitter_fraction
 
@@ -376,6 +399,25 @@ class KalshiDemoWebSocketClient:
         # socket is meaningless on a fresh one (a brand-new connection
         # has no server-side subscriptions of its own to unsubscribe).
         self._channel_sids: dict[_Channel, int] = {}
+        # Channels with a `subscribe` command sent but not yet acked by
+        # a matching `subscribed` response, on the *current* connection.
+        # Consulted so a replacement subscribe_ticker/subscribe_trades
+        # call never sends a second bare `subscribe` for a channel
+        # that's already awaiting its first ack (Kalshi's protocol does
+        # not treat that as a replacement -- it can be rejected with
+        # error code 6 "Already subscribed" or create a duplicate
+        # subscription). Cleared alongside `_channel_sids` on every new
+        # dial.
+        self._pending_channels: set[_Channel] = set()
+        # The subset of `_pending_channels` whose in-flight subscribe
+        # was superseded by a newer subscribe_ticker/subscribe_trades
+        # call while still awaiting its ack. When that ack eventually
+        # arrives (see `_dispatch_frame`'s `SubscribedFrame` handling),
+        # the now-stale sid it reports is immediately unsubscribed and
+        # the channel's *current* active ticker set is subscribed for
+        # real instead. Cleared alongside `_channel_sids` on every new
+        # dial.
+        self._superseded_pending_channels: set[_Channel] = set()
 
         self._malformed_frame_count = 0
         self._stale_frame_drop_count = 0
@@ -479,7 +521,33 @@ class KalshiDemoWebSocketClient:
         generation = self._generation
         self._connection = conn
         self._channel_sids.clear()
-        await self._resubscribe_all()
+        self._pending_channels.clear()
+        self._superseded_pending_channels.clear()
+
+        try:
+            await self._resubscribe_all()
+        except Exception as exc:
+            # A caller may already have registered a subscription (via
+            # subscribe_ticker/subscribe_trades) before or during this
+            # dial. If sending its resubscribe fails here, `self.
+            # _connection` was already assigned above while `self.
+            # _connection_task` was not yet created -- left as-is, this
+            # client's own `if self._connection is not None or self.
+            # _connection_task is not None:` guard at the top of this
+            # method would make every subsequent connect() call raise
+            # "already connected" forever, even though there is no
+            # working connection or supervisor task. Reset both back to
+            # a clean, retryable state and fail closed with the same
+            # typed error the initial dial failure above uses.
+            _logger.warning(
+                "ws_initial_resubscribe_failed", generation=generation, error_type=type(exc).__name__
+            )
+            self._connection = None
+            await self._safe_close(conn)
+            raise WebSocketConnectionError(
+                f"initial resubscribe failed after connect ({type(exc).__name__})"
+            ) from None
+
         self._connection_task = asyncio.ensure_future(self._supervise_connection(conn, generation))
         _logger.info("ws_connected", generation=generation)
 
@@ -539,6 +607,9 @@ class KalshiDemoWebSocketClient:
         # empty).
         self._channel_queues.clear()
         self._active_channel_tickers.clear()
+        self._channel_sids.clear()
+        self._pending_channels.clear()
+        self._superseded_pending_channels.clear()
         _logger.info("ws_disconnected_clean")
 
     async def __aenter__(self) -> KalshiDemoWebSocketClient:
@@ -623,21 +694,39 @@ class KalshiDemoWebSocketClient:
                 # documented error-code table that can return error 6
                 # ("Already subscribed") or create an additional,
                 # unwanted subscription, meaning the new ticker set
-                # might never actually be established server-side. If
-                # this channel already has a known subscription id on
-                # the *current* connection (an earlier ``subscribed``
-                # ack was received -- see ``_dispatch_frame``), the old
-                # server-side subscription is explicitly unsubscribed
-                # first, then a fresh ``subscribe`` is sent for the new
-                # ticker set. `_channel_sids` is cleared on every new
-                # dial (see ``connect()``/``_reconnect_until_stable``),
-                # so a reconnect's own resubscription never attempts an
-                # unsubscribe -- there is nothing to unsubscribe from on
-                # a brand-new socket, exactly per the plan's requirement.
+                # might never actually be established server-side.
                 previous_sid = self._channel_sids.pop(channel, None)
                 if previous_sid is not None:
+                    # An earlier subscribe on this channel has already
+                    # been acked -- explicitly unsubscribe the old
+                    # server-side subscription first, then send a fresh
+                    # ``subscribe`` for the new ticker set. `_channel_sids`
+                    # is cleared on every new dial (see
+                    # ``connect()``/``_reconnect_until_stable``), so a
+                    # reconnect's own resubscription never attempts an
+                    # unsubscribe -- there is nothing to unsubscribe
+                    # from on a brand-new socket, exactly per the plan's
+                    # requirement.
                     await self._send_unsubscribe(channel, previous_sid)
-                await self._send_subscribe(channel, validated)
+                    await self._send_subscribe_and_track_pending(channel, validated)
+                elif channel in self._pending_channels:
+                    # An earlier subscribe on this channel is already in
+                    # flight and not yet acked -- sending a second bare
+                    # ``subscribe`` right now would race the server's
+                    # ack for the first one and can be rejected with
+                    # error code 6. Defer instead: mark the pending ack
+                    # as superseded. When its ``subscribed`` frame
+                    # eventually arrives (see ``_dispatch_frame``), the
+                    # now-learned (and by then already stale) sid is
+                    # unsubscribed and this channel's *current* active
+                    # ticker set (already updated above, two lines up)
+                    # is subscribed for real at that point -- see
+                    # ``_retire_superseded_subscription``.
+                    self._superseded_pending_channels.add(channel)
+                else:
+                    # First-ever subscribe for this channel on this
+                    # connection -- nothing to replace.
+                    await self._send_subscribe_and_track_pending(channel, validated)
             except Exception as exc:  # noqa: BLE001 - the initial subscribe-send happens before this call's own try/finally below is entered; clean up this call's tracked state here too, then re-raise unchanged for the caller to observe
                 _logger.warning(
                     "ws_initial_subscribe_send_failed",
@@ -666,10 +755,40 @@ class KalshiDemoWebSocketClient:
         ``_resubscribe_all()`` would keep re-subscribing to an abandoned
         request on every future reconnect even though no queue exists
         to receive its frames (a subscription leak).
+
+        Also retires the abandoned subscription server-side, not just
+        locally: without this, an already-acknowledged sid would stay
+        subscribed on the server indefinitely -- wasting bandwidth and
+        processing on updates nobody consumes -- until a replacement
+        subscription, reconnect, or full ``disconnect()`` happened to
+        clear it. This method runs from a ``finally`` block inside an
+        async generator, which cannot itself ``await``, so the
+        unsubscribe send is scheduled as a fire-and-forget background
+        task (``asyncio.ensure_future``); any failure there is caught
+        and logged inside that task, never propagated, since nothing
+        awaits it directly.
+
+        A known, accepted, self-healing residual gap: if this channel's
+        subscribe was still *pending* its ack (no sid known yet) when
+        abandoned, there is nothing to unsubscribe here yet. When that
+        ack eventually arrives, ``_dispatch_frame`` records the sid
+        normally (this channel was never marked "superseded" by an
+        abandonment, only by a genuine replacement subscribe). The next
+        time this channel is subscribed to again, that stale sid is
+        found and properly unsubscribed before the new ``subscribe`` is
+        sent (see ``_subscribe_channel``); a reconnect clears it outright.
+        The only cost in the meantime is a subscription nobody is
+        consuming, exactly as this class already lived with before this
+        fix for the "abandoned entirely" case that had no fix at all.
         """
         if self._channel_queues.get(channel) is queue:
             del self._channel_queues[channel]
             self._active_channel_tickers.pop(channel, None)
+            self._pending_channels.discard(channel)
+            self._superseded_pending_channels.discard(channel)
+            stale_sid = self._channel_sids.pop(channel, None)
+            if stale_sid is not None and self._connection is not None:
+                asyncio.ensure_future(self._send_unsubscribe_background(channel, stale_sid))
 
     # -- Internal connection management ----------------------------------
 
@@ -718,7 +837,77 @@ class KalshiDemoWebSocketClient:
         """
         for channel, tickers in self._active_channel_tickers.items():
             if tickers:
-                await self._send_subscribe(channel, tickers)
+                await self._send_subscribe_and_track_pending(channel, tickers)
+
+    async def _send_subscribe_and_track_pending(
+        self, channel: _Channel, tickers: tuple[str, ...]
+    ) -> None:
+        """Send ``subscribe`` and record ``channel`` as awaiting its ack.
+
+        Every call site that sends a real subscribe request (the first
+        subscribe on a channel, a resubscribe after reconnect, and the
+        retry issued by ``_retire_superseded_subscription`` once a
+        superseded ack is retired) goes through this one method, so
+        ``_pending_channels`` always accurately reflects "there is an
+        outstanding, unacked subscribe for this channel on the current
+        connection" regardless of which code path sent it. Only marks
+        pending if a connection genuinely exists (mirroring
+        ``_send_subscribe``'s own no-op-when-disconnected guard) --
+        never marks a channel pending for a send that never actually
+        went out.
+        """
+        if self._connection is None:
+            return
+        await self._send_subscribe(channel, tickers)
+        self._pending_channels.add(channel)
+
+    async def _retire_superseded_subscription(self, channel: _Channel, stale_sid: int) -> None:
+        """Fire-and-forget: retire a subscribe whose ack arrived after
+        it had already been superseded by a newer subscribe_ticker/
+        subscribe_trades call while still pending (see
+        ``_subscribe_channel``'s ``elif channel in self._pending_channels``
+        branch). Unsubscribes the now-stale sid the server just
+        confirmed, then sends this channel's *current* active ticker
+        set for real -- ``_active_channel_tickers`` always reflects the
+        latest desired state regardless of how many replacements
+        stacked up while the original subscribe was still pending, so
+        this converges correctly even under rapid repeated replacement
+        (an even-later replacement simply marks this channel superseded
+        again once it observes ``_pending_channels`` still holds it).
+
+        Scheduled via ``asyncio.ensure_future`` from ``_dispatch_frame``,
+        a synchronous callback invoked from the receive loop that
+        cannot itself ``await``. Any failure here is caught and logged,
+        never propagated -- nothing awaits this task directly.
+        """
+        try:
+            await self._send_unsubscribe(channel, stale_sid)
+            tickers = self._active_channel_tickers.get(channel)
+            if tickers:
+                await self._send_subscribe_and_track_pending(channel, tickers)
+        except Exception as exc:  # noqa: BLE001 - fire-and-forget background task; must never crash anything since nothing awaits it
+            _logger.warning(
+                "ws_retire_superseded_subscription_failed",
+                channel=channel.value,
+                error_type=type(exc).__name__,
+            )
+
+    async def _send_unsubscribe_background(self, channel: _Channel, sid: int) -> None:
+        """Fire-and-forget wrapper around ``_send_unsubscribe``, used to
+        retire an abandoned subscription's server-side sid from a
+        synchronous context (``_clear_channel_state_if_owned``, called
+        from an async generator's ``finally`` block) that cannot itself
+        ``await``. Any failure here is caught and logged, never
+        propagated -- nothing awaits this task directly.
+        """
+        try:
+            await self._send_unsubscribe(channel, sid)
+        except Exception as exc:  # noqa: BLE001 - fire-and-forget background task; must never crash anything since nothing awaits it
+            _logger.warning(
+                "ws_abandoned_subscription_unsubscribe_failed",
+                channel=channel.value,
+                error_type=type(exc).__name__,
+            )
 
     async def _send_subscribe(self, channel: _Channel, tickers: tuple[str, ...]) -> None:
         conn = self._connection
@@ -844,12 +1033,15 @@ class KalshiDemoWebSocketClient:
             generation = self._generation
             self._connection = conn
             # A fresh socket has no server-side subscriptions of its
-            # own -- any sid recorded against the superseded connection
-            # is meaningless here (see `_channel_sids`'s docstring in
-            # `__init__`), so `_resubscribe_all()` below must always
-            # send plain `subscribe` commands on this new connection,
-            # never an `unsubscribe`.
+            # own -- any sid or pending/superseded tracking recorded
+            # against the superseded connection is meaningless here
+            # (see `_channel_sids`'s docstring in `__init__`), so
+            # `_resubscribe_all()` below must always send plain
+            # `subscribe` commands on this new connection, never an
+            # `unsubscribe`.
             self._channel_sids.clear()
+            self._pending_channels.clear()
+            self._superseded_pending_channels.clear()
 
             try:
                 await self._resubscribe_all()
@@ -943,21 +1135,35 @@ class KalshiDemoWebSocketClient:
 
         if isinstance(result, SubscribedFrame):
             _logger.info("ws_subscribed", channel=result.channel, sid=result.sid)
-            # Track the sid so a later subscribe_ticker/subscribe_trades
-            # call that replaces this channel's subscription (while
-            # still connected) can properly unsubscribe the old
-            # server-side subscription first -- see
-            # `_subscribe_channel`. `result.channel` is always one of
-            # this client's own two channel values (it is the server's
-            # echo of a command this client itself sent), but the
-            # lookup still fails closed rather than raising if it were
-            # ever something else.
+            # `result.channel` is always one of this client's own two
+            # channel values (it is the server's echo of a command this
+            # client itself sent), but the lookup still fails closed
+            # rather than raising if it were ever something else.
             try:
                 acked_channel = _Channel(result.channel)
             except ValueError:
                 pass
             else:
-                self._channel_sids[acked_channel] = result.sid
+                self._pending_channels.discard(acked_channel)
+                if acked_channel in self._superseded_pending_channels:
+                    # This ack belongs to a subscribe that was replaced
+                    # by a newer subscribe_ticker/subscribe_trades call
+                    # while it was still in flight (see
+                    # `_subscribe_channel`). The sid just learned is
+                    # already stale -- retire it and establish the
+                    # channel's actual current request instead of
+                    # tracking it as if it were still wanted.
+                    self._superseded_pending_channels.discard(acked_channel)
+                    asyncio.ensure_future(
+                        self._retire_superseded_subscription(acked_channel, result.sid)
+                    )
+                else:
+                    # Track the sid so a later subscribe_ticker/
+                    # subscribe_trades call that replaces this channel's
+                    # subscription (while still connected) can properly
+                    # unsubscribe the old server-side subscription
+                    # first -- see `_subscribe_channel`.
+                    self._channel_sids[acked_channel] = result.sid
             return
 
         if isinstance(result, UnsubscribedFrame):

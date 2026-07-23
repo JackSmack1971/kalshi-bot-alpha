@@ -778,3 +778,135 @@ def test_initial_subscribe_send_failure_cleans_up_tracked_state() -> None:
             await client.disconnect()
 
     asyncio.run(run())
+
+
+# -- Regression: replacing a subscription before its predecessor's ack
+# -- arrives must still eventually retire the stale sid (review finding P1) --
+
+
+def test_replacing_subscription_before_first_ack_arrives_retires_stale_sid_once_acked() -> None:
+    """Regression, narrower timing window than the previous round's Fix
+    1: if a caller replaces an active channel subscription before the
+    FIRST subscribe's `subscribed` ack has arrived (no sid known yet),
+    sending a bare second `subscribe` immediately risks the server
+    rejecting it with error code 6 ("Already subscribed") while the
+    first subscription stays live. The replacement must be deferred
+    until the pending ack arrives, then the now-stale sid it reports
+    must be unsubscribed and the *current* desired ticker set
+    subscribed for real."""
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()
+
+            old_gen = client.subscribe_ticker(["KXBTC-OLD"])
+            old_task: "asyncio.Task[Any]" = asyncio.ensure_future(old_gen.__anext__())
+            await asyncio.sleep(0)
+            assert len(conn.sent) == 1  # subscribe(OLD) sent, not yet acked
+
+            # Replace before the first ack has arrived.
+            new_gen = client.subscribe_ticker(["KXBTC-NEW"])
+            new_task: "asyncio.Task[Any]" = asyncio.ensure_future(new_gen.__anext__())
+            with pytest.raises(StopAsyncIteration):
+                await asyncio.wait_for(old_task, timeout=1.0)
+            await asyncio.sleep(0)
+
+            # No second bare subscribe was sent yet -- deferred until
+            # the pending ack arrives.
+            assert len(conn.sent) == 1
+
+            # The (now-stale) ack for the FIRST subscribe finally arrives.
+            client._dispatch_frame(  # noqa: SLF001
+                json.dumps(
+                    {"id": 1, "type": "subscribed", "msg": {"channel": "ticker", "sid": 55}}
+                ),
+                client._generation,  # noqa: SLF001
+            )
+
+            for _ in range(20):
+                await asyncio.sleep(0)
+                if len(conn.sent) >= 3:
+                    break
+
+            assert len(conn.sent) == 3
+            unsubscribe_command = conn.sent[1]
+            assert unsubscribe_command["cmd"] == "unsubscribe"
+            assert unsubscribe_command["params"]["sids"] == [55]
+            new_subscribe_command = conn.sent[2]
+            assert new_subscribe_command["cmd"] == "subscribe"
+            assert new_subscribe_command["params"]["market_tickers"] == ["KXBTC-NEW"]
+
+            # The new subscription is genuinely established once its own
+            # ack arrives, and delivers real data.
+            client._dispatch_frame(  # noqa: SLF001
+                json.dumps(
+                    {"id": 3, "type": "subscribed", "msg": {"channel": "ticker", "sid": 56}}
+                ),
+                client._generation,  # noqa: SLF001
+            )
+            assert client._channel_sids[_Channel.TICKER] == 56  # noqa: SLF001
+
+            client._dispatch_frame(_ticker_frame("KXBTC-NEW"), client._generation)  # noqa: SLF001
+            update = await asyncio.wait_for(new_task, timeout=1.0)
+            assert update.market_ticker == "KXBTC-NEW"
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: abandoning a live subscription must retire it
+# -- server-side too (review finding P2) --------------------------------------
+
+
+def test_abandoning_live_subscription_sends_unsubscribe_for_its_sid() -> None:
+    """Regression: previously, abandoning a subscription iterator (e.g.
+    cancelling it) with no replacement call only cleared local tracking
+    -- the acknowledged sid stayed subscribed server-side indefinitely,
+    wasting bandwidth/processing on updates nobody consumes."""
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+            assert len(conn.sent) == 1  # initial subscribe
+
+            client._dispatch_frame(  # noqa: SLF001
+                json.dumps(
+                    {"id": 1, "type": "subscribed", "msg": {"channel": "ticker", "sid": 77}}
+                ),
+                client._generation,  # noqa: SLF001
+            )
+            assert client._channel_sids[_Channel.TICKER] == 77  # noqa: SLF001
+
+            # Abandon the iterator (cancel it) without a replacement
+            # subscribe_ticker call.
+            await _cancel_and_await(task)
+
+            # Let the fire-and-forget unsubscribe background task run.
+            for _ in range(20):
+                await asyncio.sleep(0)
+                if len(conn.sent) >= 2:
+                    break
+
+            assert len(conn.sent) == 2
+            unsubscribe_command = conn.sent[1]
+            assert unsubscribe_command["cmd"] == "unsubscribe"
+            assert unsubscribe_command["params"]["sids"] == [77]
+            assert _Channel.TICKER not in client._channel_sids  # noqa: SLF001
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
