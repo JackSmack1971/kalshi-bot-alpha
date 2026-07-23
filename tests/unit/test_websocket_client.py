@@ -957,4 +957,110 @@ def test_unexpected_dispatch_exception_is_treated_as_a_dropped_connection(
 
     asyncio.run(run())
 
+
+# -- Regression: a disconnect() that races with an in-flight connect()
+# -- dial must not leave a live, unmanaged socket open (review finding P2) ---
+
+
+class _GatedConnector:
+    """A connector whose single dial blocks until explicitly released,
+    so a test can deterministically control exactly when a ``connect()``
+    call's dial "completes" relative to a concurrent ``disconnect()``."""
+
+    def __init__(self, connection: _FakeConnection) -> None:
+        self._connection = connection
+        self._release_event = asyncio.Event()
+        self.calls = 0
+
+    def release(self) -> None:
+        self._release_event.set()
+
+    async def __call__(self, url: str, headers: Mapping[str, str], timeout: float) -> Any:
+        self.calls += 1
+        await self._release_event.wait()
+        return self._connection
+
+
+def test_disconnect_racing_with_in_flight_connect_dial_closes_the_socket() -> None:
+    """Regression: if disconnect() runs while connect()'s _dial() is
+    still in flight (before any connection/task is stored), disconnect()
+    sees nothing to manage yet and returns immediately -- but connect()
+    must not then unconditionally publish and supervise the socket that
+    dial produces once it completes. It must close that socket instead
+    and report the race, never leave a live, unmanaged connection open
+    after the caller was already told shutdown succeeded."""
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _GatedConnector(conn)
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+        )
+
+        connect_task: "asyncio.Task[Any]" = asyncio.ensure_future(client.connect())
+        await asyncio.sleep(0)  # let connect() start dialing (blocks on the gate)
+        assert connector.calls == 1
+        assert not connect_task.done()
+
+        await client.disconnect()  # races ahead: sees no connection/task yet, returns immediately
+
+        connector.release()  # now let the in-flight dial "complete"
+
+        with pytest.raises(WebSocketClientStateError):
+            await asyncio.wait_for(connect_task, timeout=1.0)
+
+        # The freshly dialed connection must have been closed, never
+        # left open and unmanaged.
+        assert conn.close_calls == 1
+        assert client._connection is None  # noqa: SLF001
+        assert client._connection_task is None  # noqa: SLF001
+
+    asyncio.run(run())
+
+
+# -- Regression: an unrecognized frame's raw `type` value must never be
+# -- logged unbounded/verbatim (review finding P2) ---------------------------
+
+
+def test_unknown_frame_type_is_sanitized_and_bounded_in_logs() -> None:
+    async def run() -> None:
+        stream = io.StringIO()
+        configure_logging(level="INFO", stream=stream)
+        monkey_logger = get_logger("test.ws_client.frame_type_redaction")
+        original_logger = ws_client_module._logger
+        ws_client_module._logger = monkey_logger
+        # Malicious/control-character content placed near the *start* so
+        # it survives truncation and actually exercises the character
+        # filter, followed by enough padding to also exercise the
+        # length bound.
+        adversarial_type = '\n"injected":true,\x00\x01' + ("Z" * 5000)
+        try:
+            conn = _FakeConnection()
+            connector = _ScriptedConnector([conn])
+            client = _make_client(
+                _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            )
+            await client.connect()
+            generation = client._generation  # noqa: SLF001
+            frame = json.dumps({"type": adversarial_type, "sid": 1, "msg": {}})
+            client._dispatch_frame(frame, generation)  # noqa: SLF001
+            await client.disconnect()
+        finally:
+            ws_client_module._logger = original_logger
+
+        rendered = stream.getvalue()
+        assert adversarial_type not in rendered
+
+        lines = [json.loads(line) for line in rendered.splitlines() if line.strip()]
+        unknown_lines = [line for line in lines if line.get("event") == "ws_unknown_frame_type"]
+        assert unknown_lines, rendered
+        logged_frame_type = unknown_lines[0]["frame_type"]
+
+        max_len = ws_client_module._MAX_LOGGED_FRAME_TYPE_LENGTH  # noqa: SLF001
+        assert len(logged_frame_type) <= max_len + len("...(truncated)")
+        assert "\x00" not in logged_frame_type
+        assert "\x01" not in logged_frame_type
+        assert "\n" not in logged_frame_type
+        assert '"' not in logged_frame_type
+
     asyncio.run(run())

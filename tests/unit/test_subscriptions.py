@@ -17,7 +17,7 @@ import pytest
 from kalshi_bot.auth.signer import SignedHeaders
 from kalshi_bot.config.models import AppConfig, CredentialReferences
 from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
-from kalshi_bot.ws.client import KalshiDemoWebSocketClient
+from kalshi_bot.ws.client import KalshiDemoWebSocketClient, _Channel
 from kalshi_bot.ws.errors import RequestValidationError
 
 FAKE_ACCESS_KEY = "FAKE-ACCESS-KEY-FOR-SUBSCRIPTION-TESTS"
@@ -100,6 +100,16 @@ class _FakeConnection:
                 return
             assert isinstance(item, str)
             yield item
+
+
+class _RaisingSendConnection(_FakeConnection):
+    """A connection that dials successfully but whose ``send()`` always
+    fails -- simulates the connection dropping between a subscribe
+    caller's ``if self._connection is not None`` check and the send
+    actually completing."""
+
+    async def send(self, message: str) -> None:
+        raise ConnectionResetError("simulated: connection dropped during subscribe send")
 
 
 class _ScriptedConnector:
@@ -614,5 +624,157 @@ def test_reconnect_after_disconnect_does_not_resubscribe_ended_channel() -> None
             await asyncio.wait_for(task, timeout=1.0)
 
         await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: replacing a live subscription must properly retire the
+# -- old server-side subscription (review finding P1) ------------------------
+
+
+def test_replacing_subscription_with_known_sid_sends_unsubscribe_then_subscribe() -> None:
+    """Regression: Kalshi's WS protocol does not replace an existing
+    server-side subscription with a second bare ``subscribe`` for the
+    same channel (it can create a duplicate subscription or return
+    error code 6 "Already subscribed"). Once this channel's sid is
+    known (an earlier ``subscribed`` ack was received), replacing the
+    subscription while still connected must send ``unsubscribe`` for
+    the old sid before a fresh ``subscribe`` for the new ticker set."""
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()
+            old_gen = client.subscribe_ticker(["KXBTC-OLD"])
+            old_task: "asyncio.Task[Any]" = asyncio.ensure_future(old_gen.__anext__())
+            await asyncio.sleep(0)
+            assert len(conn.sent) == 1  # the initial subscribe
+
+            # The server acks the first subscribe with a sid.
+            client._dispatch_frame(  # noqa: SLF001
+                json.dumps(
+                    {"id": 1, "type": "subscribed", "msg": {"channel": "ticker", "sid": 42}}
+                ),
+                client._generation,  # noqa: SLF001
+            )
+            assert client._channel_sids[_Channel.TICKER] == 42  # noqa: SLF001
+
+            # Replace the subscription while still connected.
+            new_gen = client.subscribe_ticker(["KXBTC-NEW"])
+            new_task: "asyncio.Task[Any]" = asyncio.ensure_future(new_gen.__anext__())
+
+            with pytest.raises(StopAsyncIteration):
+                await asyncio.wait_for(old_task, timeout=1.0)
+            await asyncio.sleep(0)
+
+            assert len(conn.sent) == 3  # initial subscribe, unsubscribe(42), new subscribe
+            unsubscribe_command = conn.sent[1]
+            assert unsubscribe_command["cmd"] == "unsubscribe"
+            assert unsubscribe_command["params"]["sids"] == [42]
+            new_subscribe_command = conn.sent[2]
+            assert new_subscribe_command["cmd"] == "subscribe"
+            assert new_subscribe_command["params"]["market_tickers"] == ["KXBTC-NEW"]
+
+            # The old sid is no longer tracked -- it has been unsubscribed.
+            assert _Channel.TICKER not in client._channel_sids  # noqa: SLF001
+
+            await _cancel_and_await(new_task)
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+def test_resubscribe_after_reconnect_never_sends_unsubscribe_for_stale_sid() -> None:
+    """Regression: a fresh connection has no server-side subscriptions
+    of its own -- a sid recorded against a superseded connection must
+    never be used to build an ``unsubscribe`` command on the new
+    socket. `_resubscribe_all()` after a reconnect must always send
+    plain ``subscribe`` commands."""
+
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        client = _make_client(
+            _FakeSigner(),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01
+            ),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_no_sleep,
+            jitter_source=lambda: 0.0,
+        )
+        try:
+            await client.connect()
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+
+            # The server acks the subscribe with a sid on the first connection.
+            client._dispatch_frame(  # noqa: SLF001
+                json.dumps(
+                    {"id": 1, "type": "subscribed", "msg": {"channel": "ticker", "sid": 99}}
+                ),
+                client._generation,  # noqa: SLF001
+            )
+            assert client._channel_sids[_Channel.TICKER] == 99  # noqa: SLF001
+
+            conn1.push_close_ok()
+            for _ in range(100):
+                await asyncio.sleep(0)
+                if conn2.sent:
+                    break
+
+            assert len(conn2.sent) == 1  # exactly one command: a plain subscribe
+            assert conn2.sent[0]["cmd"] == "subscribe"
+            assert conn2.sent[0]["params"]["market_tickers"] == ["KXBTC-25JAN01"]
+            # The stale sid from the superseded connection was cleared,
+            # not carried over.
+            assert _Channel.TICKER not in client._channel_sids  # noqa: SLF001
+
+            await _cancel_and_await(task)
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: initial subscribe-send failure must clean up tracked
+# -- state (review finding P2) ------------------------------------------------
+
+
+def test_initial_subscribe_send_failure_cleans_up_tracked_state() -> None:
+    """Regression: if `conn.send()` inside the initial subscribe-send
+    raises (e.g. the connection drops between the `if self._connection
+    is not None` check and the send completing), this happens before
+    `_subscribe_channel`'s own try/finally block is entered. The
+    exception must still propagate to the caller (unchanged behavior),
+    but the channel's queue/ticker-set entries must not linger --
+    otherwise a later reconnect would resubscribe an abandoned request."""
+
+    async def run() -> None:
+        conn = _RaisingSendConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()  # succeeds: _resubscribe_all() has nothing to send yet
+
+            gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+            with pytest.raises(ConnectionResetError):
+                await gen.__anext__()
+
+            # Tracked state must not linger for a later reconnect to pick up.
+            assert client._channel_queues == {}  # noqa: SLF001
+            assert client._active_channel_tickers == {}  # noqa: SLF001
+        finally:
+            await client.disconnect()
 
     asyncio.run(run())

@@ -117,6 +117,33 @@ _MAX_TRACKED_DISCONNECT_EVENTS = 256
 #: for choosing a generous-but-finite ceiling).
 _MAX_CHANNEL_QUEUE_SIZE = 1000
 
+#: Bound on how much of an unrecognized frame's server-controlled
+#: ``type`` string is ever logged (see ``_sanitize_frame_type_for_logging``).
+#: Kalshi's own documented channel names are short, fixed tokens (e.g.
+#: ``"orderbook_delta"``, ``"market_lifecycle_v2"``); 64 characters is
+#: generous headroom for any legitimate value while still being a
+#: bound, mirroring this module's ``ErrorFrame`` redaction discipline
+#: (never log raw, unbounded upstream text verbatim).
+_MAX_LOGGED_FRAME_TYPE_LENGTH = 64
+
+
+def _sanitize_frame_type_for_logging(frame_type: str) -> str:
+    """Bound and sanitize an untrusted, server-controlled ``type`` value
+    before it is ever logged.
+
+    Truncates to ``_MAX_LOGGED_FRAME_TYPE_LENGTH`` and replaces every
+    character outside a conservative safe set (alphanumeric,
+    underscore, hyphen, period -- covering every documented Kalshi
+    channel name) with ``"?"``, so an adversarially long or
+    control-character-laden ``type`` value can never appear unbounded
+    or verbatim in emitted log output.
+    """
+    truncated = frame_type[:_MAX_LOGGED_FRAME_TYPE_LENGTH]
+    safe = "".join(char if (char.isalnum() or char in "_-.") else "?" for char in truncated)
+    if len(frame_type) > _MAX_LOGGED_FRAME_TYPE_LENGTH:
+        safe += "...(truncated)"
+    return safe
+
 
 class _WebSocketConnection(Protocol):
     """Structural interface this client needs from a connected socket.
@@ -342,6 +369,13 @@ class KalshiDemoWebSocketClient:
 
         self._active_channel_tickers: dict[_Channel, tuple[str, ...]] = {}
         self._channel_queues: dict[_Channel, "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"] = {}
+        # The server-assigned subscription id for each channel's most
+        # recently acked `subscribed` response, on the *current*
+        # connection only -- cleared on every new dial (see `connect()`
+        # and `_reconnect_until_stable`) because a sid from a superseded
+        # socket is meaningless on a fresh one (a brand-new connection
+        # has no server-side subscriptions of its own to unsubscribe).
+        self._channel_sids: dict[_Channel, int] = {}
 
         self._malformed_frame_count = 0
         self._stale_frame_drop_count = 0
@@ -403,6 +437,19 @@ class KalshiDemoWebSocketClient:
         fail-closed posture. Every subsequent drop (after this initial
         success) is instead retried indefinitely with bounded backoff
         by the background supervisor task; see the module docstring.
+
+        Raises :class:`~kalshi_bot.ws.errors.WebSocketClientStateError`
+        if a concurrent ``disconnect()`` call completes while this
+        method's dial is still in flight: ``disconnect()`` would have
+        seen no connection or task to manage yet and returned
+        immediately, so without this check the just-dialed socket would
+        be published and supervised anyway -- a live, unmanaged
+        connection left open despite the caller having already been
+        told shutdown succeeded. This check covers exactly that narrow
+        race (a concurrent ``disconnect()`` finishing before this
+        dial); it is not a general mutual-exclusion guarantee across
+        every other possible interleaving of this class's lifecycle
+        methods.
         """
         if self._connection is not None or self._connection_task is not None:
             raise WebSocketClientStateError("connect() called while already connected")
@@ -416,9 +463,22 @@ class KalshiDemoWebSocketClient:
                 f"initial WebSocket connection failed ({type(exc).__name__})"
             ) from None
 
+        if self._closing:
+            # Lost the race described in this method's docstring: close
+            # the freshly dialed socket immediately rather than
+            # publishing it, and report the race to the caller instead
+            # of silently leaving an unmanaged connection open.
+            _logger.warning("ws_connect_lost_race_with_disconnect")
+            await self._safe_close(conn)
+            raise WebSocketClientStateError(
+                "connect() lost a race with a concurrent disconnect() call; "
+                "the freshly dialed connection was closed immediately"
+            )
+
         self._generation += 1
         generation = self._generation
         self._connection = conn
+        self._channel_sids.clear()
         await self._resubscribe_all()
         self._connection_task = asyncio.ensure_future(self._supervise_connection(conn, generation))
         _logger.info("ws_connected", generation=generation)
@@ -544,19 +604,48 @@ class KalshiDemoWebSocketClient:
 
         # ``_channel_queues[channel]`` and ``_active_channel_tickers[channel]``
         # are always set together, atomically, right here -- this pairing
-        # invariant is what makes the identity check in the ``finally``
-        # block below sufficient to also safely clear the ticker set
-        # without a separate per-call token: if this call's ``queue``
-        # object is still the one registered for ``channel`` when this
-        # generator exits, no newer subscribe_ticker/subscribe_trades
-        # call has taken over the channel (a newer call would have
-        # overwritten both entries here, in this same order, before this
-        # one's ``finally`` could observe the old ``queue``).
+        # invariant is what makes the identity check in
+        # ``_clear_channel_state_if_owned`` sufficient to safely clear
+        # the ticker set too, without a separate per-call token: if this
+        # call's ``queue`` object is still the one registered for
+        # ``channel`` when it is checked, no newer
+        # subscribe_ticker/subscribe_trades call has taken over the
+        # channel (a newer call would have overwritten both entries
+        # here, in this same order, first).
         self._channel_queues[channel] = queue
         self._active_channel_tickers[channel] = validated
 
         if self._connection is not None:
-            await self._send_subscribe(channel, validated)
+            try:
+                # Kalshi's WS protocol does not replace an existing
+                # server-side subscription with a second bare
+                # ``subscribe`` command for the same channel -- per the
+                # documented error-code table that can return error 6
+                # ("Already subscribed") or create an additional,
+                # unwanted subscription, meaning the new ticker set
+                # might never actually be established server-side. If
+                # this channel already has a known subscription id on
+                # the *current* connection (an earlier ``subscribed``
+                # ack was received -- see ``_dispatch_frame``), the old
+                # server-side subscription is explicitly unsubscribed
+                # first, then a fresh ``subscribe`` is sent for the new
+                # ticker set. `_channel_sids` is cleared on every new
+                # dial (see ``connect()``/``_reconnect_until_stable``),
+                # so a reconnect's own resubscription never attempts an
+                # unsubscribe -- there is nothing to unsubscribe from on
+                # a brand-new socket, exactly per the plan's requirement.
+                previous_sid = self._channel_sids.pop(channel, None)
+                if previous_sid is not None:
+                    await self._send_unsubscribe(channel, previous_sid)
+                await self._send_subscribe(channel, validated)
+            except Exception as exc:  # noqa: BLE001 - the initial subscribe-send happens before this call's own try/finally below is entered; clean up this call's tracked state here too, then re-raise unchanged for the caller to observe
+                _logger.warning(
+                    "ws_initial_subscribe_send_failed",
+                    channel=channel.value,
+                    error_type=type(exc).__name__,
+                )
+                self._clear_channel_state_if_owned(channel, queue)
+                raise
 
         try:
             while True:
@@ -565,15 +654,22 @@ class KalshiDemoWebSocketClient:
                     return
                 yield item
         finally:
-            if self._channel_queues.get(channel) is queue:
-                del self._channel_queues[channel]
-                # Clear the abandoned ticker set too -- otherwise
-                # _resubscribe_all() would keep re-subscribing to it on
-                # every future reconnect even though no queue exists to
-                # receive its frames (a subscription leak). Only done
-                # when the identity check above confirms no newer call
-                # replaced this channel's subscription in the meantime.
-                self._active_channel_tickers.pop(channel, None)
+            self._clear_channel_state_if_owned(channel, queue)
+
+    def _clear_channel_state_if_owned(
+        self, channel: _Channel, queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"
+    ) -> None:
+        """Remove this call's own tracked state for ``channel`` -- but
+        only if a newer subscribe_ticker/subscribe_trades call hasn't
+        already taken over (see the atomic-pairing identity-check
+        invariant documented in ``_subscribe_channel``). Otherwise
+        ``_resubscribe_all()`` would keep re-subscribing to an abandoned
+        request on every future reconnect even though no queue exists
+        to receive its frames (a subscription leak).
+        """
+        if self._channel_queues.get(channel) is queue:
+            del self._channel_queues[channel]
+            self._active_channel_tickers.pop(channel, None)
 
     # -- Internal connection management ----------------------------------
 
@@ -640,6 +736,30 @@ class KalshiDemoWebSocketClient:
             "ws_subscribe_sent",
             channel=channel.value,
             ticker_count=len(tickers),
+            command_id=command_id,
+        )
+
+    async def _send_unsubscribe(self, channel: _Channel, sid: int) -> None:
+        """Send the documented ``unsubscribe`` command for a single
+        subscription id -- used only to retire a channel's previous
+        server-side subscription before replacing it with a fresh
+        ``subscribe`` for a new ticker set (see ``_subscribe_channel``).
+        """
+        conn = self._connection
+        if conn is None:
+            return
+        self._command_id += 1
+        command_id = self._command_id
+        command = {
+            "id": command_id,
+            "cmd": "unsubscribe",
+            "params": {"sids": [sid]},
+        }
+        await conn.send(json.dumps(command))
+        _logger.info(
+            "ws_unsubscribe_sent",
+            channel=channel.value,
+            sid=sid,
             command_id=command_id,
         )
 
@@ -723,6 +843,13 @@ class KalshiDemoWebSocketClient:
             self._generation += 1
             generation = self._generation
             self._connection = conn
+            # A fresh socket has no server-side subscriptions of its
+            # own -- any sid recorded against the superseded connection
+            # is meaningless here (see `_channel_sids`'s docstring in
+            # `__init__`), so `_resubscribe_all()` below must always
+            # send plain `subscribe` commands on this new connection,
+            # never an `unsubscribe`.
+            self._channel_sids.clear()
 
             try:
                 await self._resubscribe_all()
@@ -796,7 +923,14 @@ class KalshiDemoWebSocketClient:
             return
 
         if isinstance(result, UnknownChannelFrame):
-            _logger.info("ws_unknown_frame_type", frame_type=result.frame_type)
+            # result.frame_type is an arbitrary, unbounded,
+            # server-controlled string straight off the wire -- never
+            # logged verbatim, mirroring the ErrorFrame redaction
+            # discipline just below.
+            _logger.info(
+                "ws_unknown_frame_type",
+                frame_type=_sanitize_frame_type_for_logging(result.frame_type),
+            )
             return
 
         if isinstance(result, TickerUpdate):
@@ -809,6 +943,21 @@ class KalshiDemoWebSocketClient:
 
         if isinstance(result, SubscribedFrame):
             _logger.info("ws_subscribed", channel=result.channel, sid=result.sid)
+            # Track the sid so a later subscribe_ticker/subscribe_trades
+            # call that replaces this channel's subscription (while
+            # still connected) can properly unsubscribe the old
+            # server-side subscription first -- see
+            # `_subscribe_channel`. `result.channel` is always one of
+            # this client's own two channel values (it is the server's
+            # echo of a command this client itself sent), but the
+            # lookup still fails closed rather than raising if it were
+            # ever something else.
+            try:
+                acked_channel = _Channel(result.channel)
+            except ValueError:
+                pass
+            else:
+                self._channel_sids[acked_channel] = result.sid
             return
 
         if isinstance(result, UnsubscribedFrame):

@@ -175,3 +175,83 @@ Notes: (1) `_subscribe_channel` overwriting `_channel_queues[channel]`
   No `.claude/rules/kalshi-transport-safety.md`/`credential-privacy.md`
   invariant was weakened. Not committed — left uncommitted per task
   instructions; orchestrating session reviews the diff, then commits.
+
+## 2026-07-23 — transport-safety — PR #9 re-review (commit 014cc94): 1 P1 architectural gap + 3 P2 findings
+Task: fix 4 automated-reviewer findings on `src/kalshi_bot/ws/client.py`
+  (1 P1, 3 P2) from the re-review of commit 014cc94. Coordinator
+  independently confirmed the P1 by reading the code before requesting
+  fixes; flagged as the last expected round for this PR. Same
+  worktree/branch as all four prior entries above.
+Touched: src/kalshi_bot/ws/client.py; tests/unit/test_subscriptions.py,
+  tests/unit/test_websocket_client.py.
+Verified: `uv run pytest tests/unit/test_websocket_client.py
+  tests/unit/test_subscriptions.py tests/contract/test_ws_message_schema.py
+  tests/integration/test_websocket_reconnect.py` — 88 passed;
+  `uv run pytest -q` — 463 passed; `uv run ruff check .` — All checks
+  passed!; `uv run mypy .` — Success: no issues found in 42 source
+  files; `uv run python scripts/verify_demo_only.py` — demo-only policy
+  OK (56 files scanned); `git diff --check` against commit 014cc94 —
+  clean (exit 0, only a benign CRLF-normalization advisory on
+  client.py, no whitespace/conflict errors).
+Status: done
+Notes: (1, P1 — the real architectural gap the earlier client-side
+  ticker-filter fix only band-aided) Replacing an active channel
+  subscription while still connected previously just sent a second
+  bare `subscribe` command, which Kalshi's documented WS protocol does
+  not treat as a replacement (can create a duplicate server-side
+  subscription or return error 6 "Already subscribed" — the new ticker
+  set might never actually get established server-side). Fixed by
+  tracking each channel's server-assigned `sid` (from the `subscribed`
+  ack, now recorded in a new `_channel_sids` dict) and, when a known
+  sid exists on the *current* connection, sending `unsubscribe` for it
+  before the fresh `subscribe`. `_channel_sids` is cleared on every new
+  dial (both `connect()` and `_reconnect_until_stable`) since a sid
+  from a superseded connection is meaningless on a fresh socket — a
+  reconnect's own `_resubscribe_all()` therefore always sends plain
+  `subscribe`, never `unsubscribe`, matching the plan's explicit
+  requirement. Proven by
+  `test_replacing_subscription_with_known_sid_sends_unsubscribe_then_subscribe`
+  and `test_resubscribe_after_reconnect_never_sends_unsubscribe_for_stale_sid`.
+  (2, P2) The initial subscribe-send (`_subscribe_channel`'s first
+  `_send_subscribe`/now also possible `_send_unsubscribe` call) runs
+  before that call's own try/finally block is entered; a send failure
+  there previously left the channel's queue/ticker-set entries
+  orphaned for a later reconnect to pick up. Fixed by wrapping that
+  initial send in its own try/except that cleans up via a new shared
+  `_clear_channel_state_if_owned` helper (factored out of the
+  pre-existing `finally` block's identity-guarded cleanup, now used in
+  both places) before re-raising unchanged. Proven by
+  `test_initial_subscribe_send_failure_cleans_up_tracked_state`. (3,
+  P2) A `disconnect()` racing ahead of an in-flight `connect()` dial
+  (before any connection/task was stored) previously left `connect()`
+  free to unconditionally publish and supervise the socket once its
+  dial completed, even though the caller had already been told
+  shutdown succeeded — a live, unmanaged connection. Fixed by
+  rechecking `self._closing` in `connect()` immediately after a
+  successful dial; if set, the freshly dialed connection is closed via
+  `_safe_close` and `WebSocketClientStateError` is raised instead of
+  publishing it. Explicitly scoped/documented as covering this one
+  narrow race, not a general mutual-exclusion guarantee across every
+  interleaving of this class's lifecycle methods. Proven by
+  `test_disconnect_racing_with_in_flight_connect_dial_closes_the_socket`
+  (a gated test connector deterministically controls when the dial
+  "completes" relative to the concurrent `disconnect()` call). (4, P2)
+  `UnknownChannelFrame`'s raw, unbounded, server-controlled `frame_type`
+  was logged verbatim (same class of issue as the earlier `ErrorFrame`
+  message fix). Fixed with a new `_sanitize_frame_type_for_logging`
+  helper (bounds to `_MAX_LOGGED_FRAME_TYPE_LENGTH` = 64 chars,
+  replaces every non-alphanumeric/`_`/`-`/`.` character with `?`).
+  Proven by `test_unknown_frame_type_is_sanitized_and_bounded_in_logs`.
+  Also fixed, while touching these test files: two pre-existing
+  duplicate trailing `asyncio.run(run())` lines (harmless but sloppy
+  leftovers from earlier edit rounds) in
+  `tests/unit/test_subscriptions.py` and
+  `tests/unit/test_websocket_client.py`, and updated one pre-existing
+  test (`test_replacing_subscription_does_not_leak_old_ticker_set_updates`)
+  whose old assertion (`not old_task.done()`) had encoded a bug fixed
+  in the prior round (the old iterator hanging forever) — it now
+  correctly asserts `StopAsyncIteration`. No
+  `.claude/rules/kalshi-transport-safety.md`/`credential-privacy.md`
+  invariant was weakened by any of these fixes. Not committed — left
+  uncommitted per task instructions; orchestrating session reviews the
+  diff, then commits.
