@@ -128,3 +128,50 @@ Notes: (1) A resubscribe-command send failure right after a successful
   remains structurally unreachable throughout. Not committed — left
   uncommitted per task instructions; orchestrating session reviews the
   diff, then commits and pushes.
+
+## 2026-07-23 — transport-safety — PR #9 re-review (commit f6c53f4): 2 new gaps from the prior fix round
+Task: fix 2 automated-reviewer findings on `src/kalshi_bot/ws/client.py`
+  exposed by the previous fix round (commit f6c53f4, which the
+  reviewer confirmed resolved the original 5 findings without
+  re-flagging any of them). Coordinator independently confirmed both
+  new findings as genuine before requesting fixes. Same worktree/branch
+  as both prior entries above.
+Touched: src/kalshi_bot/ws/client.py; tests/unit/test_subscriptions.py.
+Verified: `uv run pytest tests/unit/test_websocket_client.py
+  tests/unit/test_subscriptions.py tests/contract/test_ws_message_schema.py
+  tests/integration/test_websocket_reconnect.py` — 83 passed;
+  `uv run pytest -q` — 458 passed; `uv run ruff check .` — All checks
+  passed!; `uv run mypy .` — Success: no issues found in 42 source
+  files; `uv run python scripts/verify_demo_only.py` — demo-only policy
+  OK (56 files scanned); `git diff --check` against commit f6c53f4 —
+  clean (exit 0, only a benign CRLF-normalization advisory on
+  client.py, no whitespace/conflict errors).
+Status: done
+Notes: (1) `_subscribe_channel` overwriting `_channel_queues[channel]`
+  for a second `subscribe_ticker`/`subscribe_trades` call on the same
+  channel left the OLD iterator permanently blocked on `await
+  queue.get()` -- nothing would ever push to the now-orphaned queue
+  object again, contradicting the class's own documented "the older
+  iterator stops receiving further items" semantics (it must *stop*,
+  not hang). Fixed by pushing `_STOP` onto the old queue (via the
+  existing `_put_stop_sentinel` helper) before installing the new one.
+  Proven by
+  `test_replacing_subscription_ends_old_iterator_instead_of_hanging`
+  (dedicated) and an updated
+  `test_replacing_subscription_does_not_leak_old_ticker_set_updates`
+  (which previously asserted the old task stayed pending forever --
+  that assertion encoded the bug and had to be corrected to assert
+  `StopAsyncIteration` instead, now that the fix makes the old iterator
+  end promptly). (2) `disconnect()` pushed stop sentinels but left
+  `_active_channel_tickers`/`_channel_queues` populated until each
+  generator's own `finally` block happened to run; a `connect()` called
+  again on the same instance before that cleanup completed would
+  resubscribe to a channel the caller had already ended via
+  `_resubscribe_all()`. Fixed by having `disconnect()` synchronously
+  clear both dicts right after queuing the stop sentinels (the
+  generators' own later `finally` guard becomes a harmless no-op once
+  already cleared). Proven by
+  `test_reconnect_after_disconnect_does_not_resubscribe_ended_channel`.
+  No `.claude/rules/kalshi-transport-safety.md`/`credential-privacy.md`
+  invariant was weakened. Not committed — left uncommitted per task
+  instructions; orchestrating session reviews the diff, then commits.

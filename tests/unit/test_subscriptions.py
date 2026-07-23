@@ -508,11 +508,20 @@ def test_replacing_subscription_does_not_leak_old_ticker_set_updates() -> None:
             await asyncio.sleep(0)
 
             # Replaces the ticker channel's active subscription per this
-            # class's documented "replaces" semantics -- the old
-            # iterator is still technically live (not yet cancelled).
+            # class's documented "replaces" semantics. The old iterator
+            # is told to stop cleanly (StopAsyncIteration) as soon as
+            # the replacement registers -- see
+            # test_replacing_subscription_ends_old_iterator_instead_of_hanging
+            # for a dedicated proof of that; here it just needs to be
+            # drained so it cannot be confused with "still receiving
+            # frames."
             new_gen = client.subscribe_ticker(["KXBTC-NEW"])
             new_task: "asyncio.Task[Any]" = asyncio.ensure_future(new_gen.__anext__())
-            await asyncio.sleep(0)
+
+            with pytest.raises(StopAsyncIteration):
+                await asyncio.wait_for(old_task, timeout=1.0)
+
+            await asyncio.sleep(0)  # let new_gen finish registering + sending its subscribe
 
             generation = client._generation  # noqa: SLF001
             old_frame = _ticker_frame("KXBTC-OLD")
@@ -523,20 +532,87 @@ def test_replacing_subscription_does_not_leak_old_ticker_set_updates() -> None:
             client._dispatch_frame(old_frame, generation)  # noqa: SLF001
             assert client.unmatched_ticker_drop_count == 1
             assert not new_task.done()
-            assert not old_task.done()
 
             # An update for the NEW ticker set is genuinely delivered.
             client._dispatch_frame(new_frame, generation)  # noqa: SLF001
             update = await asyncio.wait_for(new_task, timeout=1.0)
             assert update.market_ticker == "KXBTC-NEW"
-
-            # The old iterator's queue was replaced, not fed -- it never
-            # receives anything either.
-            assert not old_task.done()
-            await _cancel_and_await(old_task)
         finally:
             await client.disconnect()
 
     asyncio.run(run())
+
+
+def test_replacing_subscription_ends_old_iterator_instead_of_hanging() -> None:
+    """Regression: before this fix, overwriting ``_channel_queues[channel]``
+    without first signaling the old queue left its iterator permanently
+    blocked on ``await queue.get()`` -- nothing would ever push to the
+    now-orphaned queue object again. The old iterator must *stop*, not
+    hang, matching this class's own documented "replaces" semantics."""
+
+    async def run() -> None:
+        conn = _FakeConnection()
+        connector = _ScriptedConnector([conn])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        try:
+            await client.connect()
+
+            old_gen = client.subscribe_ticker(["KXBTC-OLD"])
+            old_task: "asyncio.Task[Any]" = asyncio.ensure_future(old_gen.__anext__())
+            await asyncio.sleep(0)
+            assert not old_task.done()  # genuinely suspended awaiting its queue
+
+            new_gen = client.subscribe_ticker(["KXBTC-NEW"])
+            asyncio.ensure_future(new_gen.__anext__())
+
+            # Must end cleanly and promptly -- never hang forever.
+            with pytest.raises(StopAsyncIteration):
+                await asyncio.wait_for(old_task, timeout=1.0)
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
+# -- Regression: disconnect() then connect() must not revive an ended
+# -- subscription (review finding P2) -----------------------------------------
+
+
+def test_reconnect_after_disconnect_does_not_resubscribe_ended_channel() -> None:
+    """Regression: disconnect() pushed the stop sentinel but previously
+    left `_active_channel_tickers`/`_channel_queues` populated until each
+    subscription generator's own `finally` block happened to run. If
+    `connect()` was called again before that cleanup ran,
+    `_resubscribe_all()` would resubscribe to a channel the caller had
+    already explicitly ended."""
+
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        client = _make_client(
+            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_no_sleep
+        )
+        await client.connect()
+        gen = client.subscribe_ticker(["KXBTC-25JAN01"])
+        task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
+        await asyncio.sleep(0)
+        assert len(conn1.sent) == 1
+
+        # disconnect() immediately followed by connect() on the same
+        # instance, before the old generator's own finally block is
+        # guaranteed to have run (the pending `task` below has not been
+        # awaited or scheduled again yet).
+        await client.disconnect()
+        await client.connect()
+
+        assert conn2.sent == []  # must NOT resubscribe to the ended channel
+
+        with pytest.raises(StopAsyncIteration):
+            await asyncio.wait_for(task, timeout=1.0)
+
+        await client.disconnect()
 
     asyncio.run(run())

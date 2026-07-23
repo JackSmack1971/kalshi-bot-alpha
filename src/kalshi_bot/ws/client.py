@@ -434,6 +434,18 @@ class KalshiDemoWebSocketClient:
         before ``disconnect()`` was called, that original exception is
         logged, never re-raised out of this method: clean shutdown must
         always succeed regardless of what killed the supervisor task.
+
+        Synchronously clears every tracked subscription (``self.
+        _channel_queues``/``self._active_channel_tickers``), not just the
+        queue-side stop signal: each subscription generator's own
+        cleanup only runs once its consumer task is scheduled and
+        actually observes the ``_Stop`` sentinel, which is not
+        guaranteed to have happened by the time this method returns. If
+        ``connect()`` is called again on this same instance before that
+        cleanup runs, its ``_resubscribe_all()`` call must never revive
+        a subscription this ``disconnect()`` already ended -- clearing
+        both dicts here, synchronously, guarantees that regardless of
+        when (or whether) the old generators get scheduled.
         """
         if self._closing:
             return
@@ -458,6 +470,15 @@ class KalshiDemoWebSocketClient:
 
         for queue in self._channel_queues.values():
             _put_stop_sentinel(queue)
+        # Clear synchronously, after the sentinels are queued (pushing
+        # them needs the queue references) but without waiting for the
+        # generators' own `finally` blocks to run -- see the docstring
+        # above. Each generator's later `finally` block still runs
+        # (its `if self._channel_queues.get(channel) is queue:` guard
+        # simply becomes a harmless no-op once these dicts are already
+        # empty).
+        self._channel_queues.clear()
+        self._active_channel_tickers.clear()
         _logger.info("ws_disconnected_clean")
 
     async def __aenter__(self) -> KalshiDemoWebSocketClient:
@@ -507,6 +528,20 @@ class KalshiDemoWebSocketClient:
         queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]" = asyncio.Queue(
             maxsize=_MAX_CHANNEL_QUEUE_SIZE
         )
+
+        previous_queue = self._channel_queues.get(channel)
+        if previous_queue is not None:
+            # A caller is replacing an already-active subscription on
+            # this channel (per this class's documented "replaces"
+            # semantics). The old queue is about to become unreachable
+            # via `_channel_queues` once overwritten below -- nothing
+            # will ever push to it again -- so its iterator must be told
+            # to stop now, or it would hang forever on `await
+            # queue.get()` instead of cleanly ending, contradicting the
+            # documented "the older iterator stops receiving further
+            # items" semantics (it must *stop*, not hang).
+            _put_stop_sentinel(previous_queue)
+
         # ``_channel_queues[channel]`` and ``_active_channel_tickers[channel]``
         # are always set together, atomically, right here -- this pairing
         # invariant is what makes the identity check in the ``finally``
