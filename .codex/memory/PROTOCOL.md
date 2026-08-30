@@ -1,8 +1,7 @@
 # Stigmergic Memory Protocol
 
 Purpose: a file-based, asynchronous coordination substrate for the project's
-domain-engineering agent swarm (`.codex/agents/*-engineer.md`,
-`*-reviewer.md`, `*-verifier.md`, `phase-integrator.md`). Modeled on
+domain-engineering agent swarm (`.codex/agents/*.toml` custom roles). Modeled on
 stigmergy: agents do not message each other directly. Each agent leaves a
 trace in the shared environment, and other agents read those traces before
 acting. The environment — this directory — is the coordination medium.

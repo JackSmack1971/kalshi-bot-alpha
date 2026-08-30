@@ -20,6 +20,11 @@ Create the 20 surface × lens review tasks. Run them through `security-adversari
 
 Each raw finding must include title, file/location, severity (`low|medium|high|critical`), description, surface, lens, and owner.
 
+For each surface/lens cell, emit `surface_lens_result` with `count`, `confirmed`,
+and `refuted`. Report the confirmed/refuted ratio, retries, and repeated-finding
+count at the end. This measures yield but never reduces mandatory 20-cell
+coverage. A failed reviewer or partial batch is blocking, not an empty result.
+
 ## Independent refutation
 
 For every raw finding, launch a fresh `security-adversarial-reviewer` context whose job is to reproduce/substantiate or refute that finding. Process in bounded batches of at most four. Treat an unsubstantiated finding as refuted/unverified, not confirmed. Preserve raw and refutation evidence.
@@ -33,3 +38,12 @@ When authorized, route confirmed findings to their owning domain engineer. Apply
 ## Reverify
 
 If any fixes were made, run `verify-change` over the resulting diff and re-run the relevant threat lens on each fixed finding. Report exact evidence. A failed re-verification remains blocking.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `surface_lens_result`, `finding_recorded`, `finding_refuted`, `fix_authorization`, `reverification_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

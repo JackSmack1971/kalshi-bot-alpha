@@ -1,6 +1,6 @@
 ---
 name: propose-contract-change
-description: Use to evolve one of the frozen JSON Schemas in schemas/ (trade-intent, risk-limits, market-archetype, quote-expectancy, experiment-registration) or its governing doc (DATA_MODEL.md, RISK_MODEL.md, MICROSTRUCTURE_CONTRACT.md, STRATEGY_SPEC.md, RESEARCH_PROTOCOL.md). Trigger on requests to add, change, rename, retype, or version a schema field, or to update a documented contract those schemas encode. Produces a reviewable proposal only; never activates configuration, never marks a phase or exit criterion complete, and never fabricates approval. NOT for implementing trading code against an already-approved schema, NOT for routine doc typo/wording fixes that do not change contract meaning, and NOT a substitute for audit-safety-invariants when the change also touches transport, credential, or authority boundaries.
+description: Propose reviewable changes to frozen JSON Schemas or governing contracts, including field additions, renames, types, and versions. Never activates config, marks phases complete, or fabricates approval. Not for approved-schema implementation, wording-only edits, or sensitive diff audits.
 ---
 
 # Propose a contract change
@@ -43,3 +43,12 @@ Conflicts surfaced
 Approval required
 - This proposal activates nothing and satisfies no exit criterion by itself. Durable human review and approval, per governance-and-approvals, are required before any schema or configuration derived from it is treated as active.
 ```
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `change_classified`, `dependent_count`, `authority_conflict`, `versioning_gap`, `proposal_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

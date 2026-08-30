@@ -1,6 +1,6 @@
 ---
 name: phase-exit-audit
-description: Use to check whether the currently active phase in docs/IMPLEMENTATION_STATUS.md actually satisfies its own deliverables and exit criteria, with objective evidence, before anyone claims the phase is complete. Trigger on requests like "is phase N done", "can we close out this phase", "check exit criteria", "is this ready for phase review", or before a phase transition is recorded. Reports readiness only; never edits docs/IMPLEMENTATION_STATUS.md and never records a phase transition, since that is a human-reviewed action. NOT for auditing cross-cutting safety invariants on a diff (use audit-safety-invariants) and NOT for evolving a frozen schema contract (use propose-contract-change).
+description: Audit the active phase's deliverables and exit criteria with objective evidence before completion claims. Use for phase review or readiness questions. Reports only; never edits IMPLEMENTATION_STATUS.md. Not for diff safety audits or frozen schema changes.
 ---
 
 # Phase exit audit
@@ -40,3 +40,12 @@ Overall readiness
 - Ready for human review | Not ready — blocking gaps listed above.
 - This report does not change docs/IMPLEMENTATION_STATUS.md. Recording a phase transition requires a human to review this evidence and update the phase ledger themselves.
 ```
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `criterion_evaluated`, `evidence_classified`, `later_phase_leakage`, `ledger_discrepancy`, `readiness_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

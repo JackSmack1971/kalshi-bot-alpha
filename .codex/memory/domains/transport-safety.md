@@ -1,7 +1,7 @@
 # Domain log — transport-safety
 
 Append-only. See `.codex/memory/PROTOCOL.md` for format and rules.
-Owning agent: `.codex/agents/transport-safety-engineer.md`.
+Owning agent: `.codex/agents/transport-safety-engineer.toml`.
 
 ## 2026-07-22 — transport-safety — Phase 1 PR 5: demo WebSocket client, reconnect, ticker/trade subscriptions
 Task: implement docs/PHASE1_PLAN.md PR 5 (KalshiDemoWebSocketClient:

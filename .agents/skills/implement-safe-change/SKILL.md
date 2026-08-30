@@ -5,6 +5,15 @@ description: Use to execute a bounded code change after preflight while preservi
 
 # Implement a safe change
 
+## Repository-specific decision boundary
+
+This skill owns the mutation loop after preflight: failure-mode tests, the
+smallest implementation inside the resolved write set, immediate targeted
+checks, and final scope/invariant review. It does not rediscover phase or
+policy scope, choose domain ownership, or replace independent verification;
+those remain preflight and verify-change responsibilities. If preflight did
+not produce a resolved write set, stop with `blocked`.
+
 1. Establish current behavior from code and tests.
 2. Reconfirm the narrow implementation boundary and affected invariants.
 3. Add or update failure-mode tests before or with implementation.
@@ -44,3 +53,12 @@ Phase status
 ```
 
 Distinguish implemented, tested, mocked, simulated, partially implemented, unverified, and deferred behavior — AGENTS.md's completion-bar vocabulary.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `implementation_boundary`, `failure_test_coverage`, `targeted_verification`, `scope_drift`, `workflow_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

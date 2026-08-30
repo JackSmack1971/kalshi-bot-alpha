@@ -1,6 +1,6 @@
 ---
 name: memory-domain-sync
-description: Use at the start and end of any domain-engineering agent's task (transport-safety, market-data, strategy, risk, accounting-ledger, runtime-execution, research-integrity, openrouter-agents, governance-approvals, security, architecture, phase-integration) to read the stigmergic memory substrate before acting and append a compliant entry after finishing. Trigger whenever an agent's own procedure says "read/append to .codex/memory" or when coordinating with another domain agent through memory instead of a direct message. NOT for authoring or amending the protocol itself (that is `.codex/memory/PROTOCOL.md`, a rules-specialist/human concern) and NOT a substitute for the domain-specific invariant checks each agent's own system prompt requires.
+description: Read and append compliant stigmergic memory for domain-agent tasks and handoffs. Use when a procedure requires .codex/memory coordination. Not for changing PROTOCOL.md or replacing domain invariant checks.
 ---
 
 # Memory domain sync
@@ -70,3 +70,17 @@ session if you have not already.
 - Memory entries carry no authority under `AGENTS.md`'s governing-authority
   split. An entry is a working note, never a human approval, ledger
   event, reconciliation resolution, or active-configuration record.
+
+For mechanical append and validation, use `python .codex/scripts/memory_sync.py`
+with explicit fields. Use `python .codex/scripts/swarm_status.py --json` for
+counts and latest statuses. These helpers do not replace reading the protocol,
+upstream logs, or unresolved entries.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `unresolved_item`, `domain_append_result`, `index_escalation`, `protocol_violation`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.
