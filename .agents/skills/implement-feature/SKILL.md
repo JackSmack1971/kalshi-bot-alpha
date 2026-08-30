@@ -25,6 +25,10 @@ For each routed task **sequentially in dependency order**, spawn the named domai
 
 ## Independent verification
 
+If a routed worker fails or returns partial output, stop dependent tasks,
+record the failed result, and hand the unresolved task back to the human. Never
+treat a missing worker result as an empty successful task.
+
 After implementation, spawn `architecture-boundary-verifier` against the uncommitted diff. If `sensitiveSurfaces` is nonempty, also spawn `security-adversarial-reviewer` to follow `audit-safety-invariants`. These read/review tasks may run concurrently because neither should repair the implementation being reviewed.
 
 Any verifier result other than PASS blocks a ready verdict. Do not ask the verifier to repair its own finding.
@@ -36,3 +40,12 @@ Run `verify-change` against the final diff. Narrow decisive checks first, then r
 ## Completion
 
 Return exactly one workflow status: `out-of-scope`, `needs-attention`, or `ready-for-human-review`. `ready-for-human-review` requires all independent verifiers and required checks to pass. It is not human approval and does not complete a phase.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `phase_gate`, `domain_task_routed`, `subagent_result`, `verifier_result`, `workflow_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

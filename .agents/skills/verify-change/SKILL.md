@@ -38,3 +38,12 @@ Verification sequence:
 7. Report every command, exit result, failure, skipped suite, and reason.
 
 Never claim “all tests pass” unless the full stated suite actually ran and passed. Never run credentialed demo acceptance tests unless explicitly authorized and configured for demo-only operation. A failed required check blocks completion; do not weaken the check to obtain a pass.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `check_selected`, `check_result`, `required_check_skipped`, `credential_gate`, `final_verdict`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "implement-safe-change telemetry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "timestamp",
+    "run_id",
+    "skill",
+    "skill_revision",
+    "event",
+    "outcome",
+    "reason_code"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "skill": {
+      "const": "implement-safe-change"
+    },
+    "skill_revision": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{16}$"
+    },
+    "event": {
+      "type": "string",
+      "enum": [
+        "implementation_boundary",
+        "failure_test_coverage",
+        "targeted_verification",
+        "scope_drift",
+        "workflow_result"
+      ]
+    },
+    "outcome": {
+      "type": "string",
+      "enum": [
+        "started",
+        "passed",
+        "failed",
+        "blocked",
+        "skipped",
+        "recovered",
+        "not_applicable"
+      ]
+    },
+    "reason_code": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]{1,80}$"
+    },
+    "duration_ms": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "matched": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "failed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "skipped": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(?!.*\\.\\.).+$"
+      }
+    },
+    "surface": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "lens": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "domain": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "lane": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "status": {
+      "type": "string",
+      "maxLength": 80
+    },
+    "authorized": {
+      "type": "boolean"
+    },
+    "coverage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "confirmed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "refuted": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "retries": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}

@@ -9,5 +9,15 @@ Run two read-only tasks concurrently and wait for both:
 
 1. A general subagent follows `swarm-status-briefing` exactly and prioritizes unresolved `[BLOCKER]` and `[DECISION-NEEDED]`, then `[INVARIANT-RISK]`, then `[QUESTION]`/`[HANDOFF]`, followed by one line per domain's latest activity.
 2. A general read-only subagent inspects `git status --short` and `git diff --stat`, compares touched `src/`, `schemas/`, and `config/` paths with the ownership table in `.codex/agents/phase-integrator.toml` and recent `.codex/memory/domains/*.md` entries, and reports any missing domain-memory coverage as a **memory-sync gap**, not a code defect.
+3. Run `python .codex/scripts/memory_coverage.py <product-paths...>` for the mechanical coverage check. A `memory-sync-gap` result is incomplete evidence, never a clean result.
 
 Do not edit memory while briefing. Return both reports and surface contradictions without resolving them silently.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `briefing_result`, `memory_coverage_gap`, `contradiction_found`, `worker_failure`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

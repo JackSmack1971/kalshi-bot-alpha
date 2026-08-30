@@ -42,3 +42,12 @@ Verification strategy
 Conflicts
 - Any authoritative-source conflict found and the safer behavior preserved, or "none found."
 ```
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `phase_resolved`, `policies_resolved`, `invariants_identified`, `dirty_worktree_conflict`, `preflight_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

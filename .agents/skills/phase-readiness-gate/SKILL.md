@@ -18,4 +18,16 @@ Launch these four independent audit tasks concurrently, then wait for all four:
 
 After all four return, synthesize without reconciling away disagreements. Order the report as: blocking gaps, invariant risks, disagreements/inconclusive evidence, then overall evidence picture.
 
+If any auditor fails, times out, or returns indeterminate, preserve that lane as
+unknown and report `not-ready`; never synthesize a pass from remaining lanes.
+
 Never state that the phase is approved. The strongest permissible conclusion is `evidence-ready-for-human-phase-decision`; otherwise report `not-ready` or `indeterminate`.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `lane_verdict`, `lane_failure`, `cross_lane_disagreement`, `synthesis_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

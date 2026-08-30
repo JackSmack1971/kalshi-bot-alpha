@@ -23,6 +23,19 @@ Spawn the selected specialist with the original request and exact target files. 
 
 ## Verify
 
+If the author, verifier, or required validator is unavailable or indeterminate,
+preserve that state and report blocked; do not self-certify or downgrade the
+missing evidence.
+
 After the author returns, spawn `control-plane-verifier`. It is independent and read-only. Give it the original request, target write set, and resulting diff/evidence. It must return PASS, FAIL, or INDETERMINATE and must not repair the change.
 
 A FAIL or INDETERMINATE verdict blocks completion. Do not ask the author to self-certify. Run `.codex/scripts/validate_control_plane.py` before reporting PASS.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `owner_routed`, `write_set_expanded`, `validator_result`, `verifier_verdict`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

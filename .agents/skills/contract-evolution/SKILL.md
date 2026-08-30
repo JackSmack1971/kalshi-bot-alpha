@@ -18,3 +18,12 @@ After the proposal exists, run three independent checks concurrently and wait fo
 3. `security-adversarial-reviewer` checks authority-sensitive fields: risk limits, approval/promotion state, credential/transport config, and the AI/deterministic-authority boundary.
 
 Each check reports `pass`, `fail`, or `needs-human-approval`, with concrete findings. A failed or indeterminate check blocks the proposal from being described as review-ready. No result is itself human approval.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `proposal_result`, `review_verdict`, `reviewer_disagreement`, `workflow_result`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

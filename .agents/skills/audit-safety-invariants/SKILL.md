@@ -1,6 +1,6 @@
 ---
 name: audit-safety-invariants
-description: Use for a standalone cross-cutting audit of AGENTS.md's universal safety invariants (demo-only transport, credential/process isolation, AI/deterministic authority boundary, human approval) whenever a change touches Kalshi transport or endpoints, credentials or secrets, agent/OpenRouter code, or authority-sensitive areas mapped by kalshi-transport-safety.md, credential-privacy.md, agents/openrouter-governance.md, governance-and-approvals.md, or architecture/dependency-boundaries.md. Trigger on requests to audit safety, check invariants, review authority boundaries, or before verify-change declares such a diff complete. Runs in addition to, not instead of, verify-change's test/lint/static-analysis suite. NOT for checking whether a phase's deliverables/exit criteria are met (use phase-exit-audit) and NOT for evolving a frozen schema contract (use propose-contract-change).
+description: Audit demo-only transport, credential isolation, AI authority, and human-approval invariants for sensitive diffs or before completion. Use alongside verify-change. Not for phase exit criteria (phase-exit-audit) or frozen schema changes (propose-contract-change).
 ---
 
 # Audit safety invariants
@@ -57,3 +57,12 @@ Blocking findings (if any):
 ```
 
 A failed check blocks completion. It cannot be waived, downgraded, or deferred to obtain an overall "pass" — report it as blocking and stop.
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `category_scope_decided`, `invariant_checked`, `category_not_applicable`, `blocking_invariant`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.

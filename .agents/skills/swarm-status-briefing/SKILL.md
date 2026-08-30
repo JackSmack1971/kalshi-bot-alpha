@@ -1,9 +1,13 @@
 ---
 name: swarm-status-briefing
-description: Produce a read-only synthesis of the domain-engineering swarm's current state by combining docs/IMPLEMENTATION_STATUS.md, .codex/memory/INDEX.md, and every .codex/memory/domains/*.md log. Trigger on "what's the state of the swarm", "what's in flight", "any open blockers", "catch me up", session handoff, or before dispatching new work across more than one domain. Used directly by a human, by phase-integrator's own routing step, or by any agent picking up mid-stream work. Does not replace phase-integrator's dispatch decision and never edits any file — pure synthesis.
+description: Produce a read-only swarm-state synthesis from implementation status, memory index, and domain logs. Use for blockers, in-flight work, handoffs, or multi-domain routing. Never edits files or replaces phase-integrator dispatch.
 ---
 
 # Swarm status briefing
+
+Run `python .codex/scripts/swarm_status.py --json` first for deterministic
+unresolved counts and latest domain statuses, then inspect source entries needed
+to explain them. If it fails, report partial evidence explicitly.
 
 1. Read `docs/IMPLEMENTATION_STATUS.md` for the active phase, its
    exit-criteria table, known gaps, and the phase ledger.
@@ -41,3 +45,12 @@ Per-domain last activity
 Discrepancies
 - Domain log vs INDEX.md mismatches found in step 4, if any.
 ```
+
+
+## Observable workflow and telemetry
+
+Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+
+Declared events: `unresolved_counts`, `domain_latest_status`, `index_domain_discrepancy`.
+
+Completion requires the workflow report, objective evidence, and a terminal telemetry record. If a required tool, worker, policy, or evidence source fails, record the relevant event with failed or blocked, preserve the failure, and stop or report the unresolved gap; never convert missing evidence into a pass.
