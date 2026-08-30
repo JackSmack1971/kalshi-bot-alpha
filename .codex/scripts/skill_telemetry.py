@@ -16,6 +16,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[2]
 SECRET_KEY = re.compile(r"(?i)(api[_-]?key|authorization|credential|password|secret|token|private[_-]?key|cookie|header)")
 SECRET_VALUE = re.compile(r"(?i)(bearer\s+\S+|-----begin|sk-[A-Za-z0-9]{16,}|api[_-]?key\s*[:=]\s*\S+)")
+SYNTHETIC_SECRET = re.compile(r"(?i)synthetic[-_ ](?:secret|key|token|credential|signature)")
 ABSOLUTE = re.compile(r"^(?:[A-Za-z]:[\\/]|/|\\\\)")
 ALLOWED_KEYS = {
     "schema_version", "timestamp", "run_id", "skill", "skill_revision", "event",
@@ -27,7 +28,9 @@ FIELD_KEYS = ALLOWED_KEYS - {"schema_version", "timestamp", "run_id", "skill", "
 
 
 def _sanitize(value: Any, key: str) -> Any:
-    if SECRET_KEY.search(key) or (isinstance(value, str) and SECRET_VALUE.search(value)):
+    if SECRET_KEY.search(key) or (
+        isinstance(value, str) and (SECRET_VALUE.search(value) or SYNTHETIC_SECRET.search(value))
+    ):
         raise ValueError(f"sensitive telemetry field rejected: {key}")
     if isinstance(value, dict):
         return {str(k): _sanitize(v, str(k)) for k, v in value.items()}

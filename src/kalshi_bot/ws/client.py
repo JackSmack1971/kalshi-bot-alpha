@@ -264,9 +264,7 @@ class ReconnectPolicy:
         if not (0.0 <= jitter_fraction < 1.0):
             raise ValueError("jitter_fraction must be in [0.0, 1.0)")
         capped_exponent = min(attempt - 1, _MAX_BACKOFF_EXPONENT)
-        base: float = min(
-            self.max_backoff_seconds, self.min_backoff_seconds * (2**capped_exponent)
-        )
+        base: float = min(self.max_backoff_seconds, self.min_backoff_seconds * (2**capped_exponent))
         return self.min_backoff_seconds + (base - self.min_backoff_seconds) * jitter_fraction
 
 
@@ -295,11 +293,12 @@ def _validate_tickers(tickers: list[str]) -> tuple[str, ...]:
         if not isinstance(value, str) or value == "":
             raise RequestValidationError("each ticker must be a nonempty string")
         if value != value.strip():
-            raise RequestValidationError(
-                "each ticker must not have leading or trailing whitespace"
-            )
+            raise RequestValidationError("each ticker must not have leading or trailing whitespace")
         if value in seen:
-            raise RequestValidationError(f"duplicate ticker {value!r} in subscription request")
+            # Do not echo caller-controlled ticker text: this validation
+            # error is also used at an observability boundary and a caller
+            # may accidentally supply credential-bearing data.
+            raise RequestValidationError("subscription request contains duplicate tickers")
         seen.add(value)
         validated.append(value)
     return tuple(validated)
@@ -336,7 +335,8 @@ class KalshiDemoWebSocketClient:
     proceeding if that check ever fails.
 
     Public surface is exactly ``connect``, ``disconnect``,
-    ``subscribe_ticker``, ``subscribe_trades``, plus async
+    ``simulate_local_disconnect``, ``subscribe_ticker``,
+    ``subscribe_trades``, plus async
     context-manager support. There is no generic ``subscribe(channels,
     tickers)`` method and no method that can ever request a channel
     other than ``ticker``/``trade``.
@@ -374,7 +374,9 @@ class KalshiDemoWebSocketClient:
         self._signer = signer
         self._config = config
         self._clock_ms = clock_ms if clock_ms is not None else _default_clock_ms
-        self._connector: _Connector = connector if connector is not None else self._default_connector
+        self._connector: _Connector = (
+            connector if connector is not None else self._default_connector
+        )
         self._jitter_source = jitter_source if jitter_source is not None else _default_jitter_source
         self._sleeper = sleeper if sleeper is not None else _default_sleeper
 
@@ -391,7 +393,9 @@ class KalshiDemoWebSocketClient:
         self._command_id = 0
 
         self._active_channel_tickers: dict[_Channel, tuple[str, ...]] = {}
-        self._channel_queues: dict[_Channel, "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"] = {}
+        self._channel_queues: dict[
+            _Channel, "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"
+        ] = {}
         # The server-assigned subscription id for each channel's most
         # recently acked `subscribed` response, on the *current*
         # connection only -- cleared on every new dial (see `connect()`
@@ -431,6 +435,11 @@ class KalshiDemoWebSocketClient:
     def ws_url(self) -> str:
         """The fixed demo WebSocket URL this client is permanently bound to."""
         return self._ws_url
+
+    @property
+    def connection_generation(self) -> int:
+        """Monotonic generation of the currently managed connection."""
+        return self._generation
 
     @property
     def malformed_frame_count(self) -> int:
@@ -540,7 +549,9 @@ class KalshiDemoWebSocketClient:
             # a clean, retryable state and fail closed with the same
             # typed error the initial dial failure above uses.
             _logger.warning(
-                "ws_initial_resubscribe_failed", generation=generation, error_type=type(exc).__name__
+                "ws_initial_resubscribe_failed",
+                generation=generation,
+                error_type=type(exc).__name__,
             )
             self._connection = None
             await self._safe_close(conn)
@@ -611,6 +622,16 @@ class KalshiDemoWebSocketClient:
         self._pending_channels.clear()
         self._superseded_pending_channels.clear()
         _logger.info("ws_disconnected_clean")
+
+    async def simulate_local_disconnect(self) -> None:
+        """Close this client's socket while leaving reconnect enabled.
+
+        This safe soak hook only closes the currently-owned connection. It
+        sends no frame and never exposes the socket to its caller.
+        """
+        if self._closing or self._connection is None:
+            raise WebSocketClientStateError("no active connection to disconnect")
+        await self._safe_close(self._connection)
 
     async def __aenter__(self) -> KalshiDemoWebSocketClient:
         await self.connect()
@@ -1053,7 +1074,9 @@ class KalshiDemoWebSocketClient:
                 await self._safe_close(conn)
                 if self._closing:
                     return None
-                self._record_disconnect(reason="resubscribe_failed", generation=generation, attempt=1)
+                self._record_disconnect(
+                    reason="resubscribe_failed", generation=generation, attempt=1
+                )
                 attempt = 1
                 continue
 

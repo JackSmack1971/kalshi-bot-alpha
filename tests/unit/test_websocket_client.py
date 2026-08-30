@@ -26,6 +26,7 @@ from kalshi_bot.observability.logging import _reset_registered_sensitive_values_
 from kalshi_bot.ws.client import KalshiDemoWebSocketClient, ReconnectPolicy, _Channel
 from kalshi_bot.ws.errors import (
     DemoHostValidationError,
+    RequestValidationError,
     WebSocketClientStateError,
     WebSocketConnectionError,
 )
@@ -308,6 +309,20 @@ def test_connect_twice_raises_state_error() -> None:
     asyncio.run(run())
 
 
+def test_duplicate_ticker_validation_does_not_echo_caller_text() -> None:
+    secret_marker = "SYNTHETIC-SECRET-MARKER-DUPLICATE-TICKER"
+    client = _make_client(_FakeSigner(), _make_config())
+
+    async def run() -> None:
+        with pytest.raises(RequestValidationError) as excinfo:
+            await client.subscribe_ticker([secret_marker, secret_marker]).__anext__()
+
+        assert secret_marker not in str(excinfo.value)
+        assert secret_marker not in repr(excinfo.value)
+
+    asyncio.run(run())
+
+
 def test_disconnect_without_connect_is_a_noop() -> None:
     async def run() -> None:
         client = _make_client(_FakeSigner(), _make_config())
@@ -509,7 +524,9 @@ def test_reconnect_after_clean_drop_uses_bounded_backoff() -> None:
 
         client = _make_client(
             _FakeSigner(),
-            _make_config(ws_reconnect_backoff_min_seconds=0.05, ws_reconnect_backoff_max_seconds=0.4),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.05, ws_reconnect_backoff_max_seconds=0.4
+            ),
             connector=connector,
             clock_ms=_FakeClock(),
             sleeper=sleeper,
@@ -544,7 +561,9 @@ def test_reconnect_after_protocol_error_records_closed_error_reason() -> None:
 
         client = _make_client(
             _FakeSigner(),
-            _make_config(ws_reconnect_backoff_min_seconds=0.05, ws_reconnect_backoff_max_seconds=0.4),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.05, ws_reconnect_backoff_max_seconds=0.4
+            ),
             connector=connector,
             clock_ms=_FakeClock(),
             sleeper=sleeper,
@@ -707,7 +726,9 @@ def test_resubscribe_failure_after_reconnect_does_not_kill_supervisor() -> None:
 
         client = _make_client(
             _FakeSigner(),
-            _make_config(ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01
+            ),
             connector=connector,
             clock_ms=_FakeClock(),
             sleeper=sleeper,
@@ -742,7 +763,9 @@ def test_resubscribe_failure_after_reconnect_does_not_kill_supervisor() -> None:
             assert client.disconnect_events[1].reason == "resubscribe_failed"
 
             # The client is still alive and can still deliver data.
-            conn3.push(json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}}))
+            conn3.push(
+                json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}})
+            )
             update = await asyncio.wait_for(task, timeout=1.0)
             assert update.market_ticker == "KXBTC-25JAN01"
         finally:
@@ -760,7 +783,11 @@ def test_channel_queue_is_bounded_and_drops_oldest_on_overflow() -> None:
         conn = _FakeConnection()
         connector = _ScriptedConnector([conn])
         client = _make_client(
-            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
         )
         try:
             await client.connect()
@@ -820,7 +847,11 @@ def test_disconnect_with_full_channel_queue_still_delivers_stop_sentinel() -> No
         conn = _FakeConnection()
         connector = _ScriptedConnector([conn])
         client = _make_client(
-            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
         )
         await client.connect()
 
@@ -861,11 +892,17 @@ def test_error_frame_message_text_never_logged() -> None:
             conn = _FakeConnection()
             connector = _ScriptedConnector([conn])
             client = _make_client(
-                _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+                _FakeSigner(),
+                _make_config(),
+                connector=connector,
+                clock_ms=_FakeClock(),
+                sleeper=_RecordingSleeper(),
             )
             await client.connect()
             generation = client._generation  # noqa: SLF001
-            frame = json.dumps({"id": 1, "type": "error", "msg": {"code": 6, "msg": adversarial_text}})
+            frame = json.dumps(
+                {"id": 1, "type": "error", "msg": {"code": 6, "msg": adversarial_text}}
+            )
             client._dispatch_frame(frame, generation)  # noqa: SLF001
             await client.disconnect()
         finally:
@@ -893,7 +930,11 @@ def test_deeply_nested_frame_does_not_crash_receive_loop_or_disconnect() -> None
         conn = _FakeConnection()
         connector = _ScriptedConnector([conn])
         client = _make_client(
-            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
         )
         await client.connect()
 
@@ -915,7 +956,9 @@ def test_deeply_nested_frame_does_not_crash_receive_loop_or_disconnect() -> None
         gen = client.subscribe_ticker(["KXBTC-25JAN01"])
         task: "asyncio.Task[Any]" = asyncio.ensure_future(gen.__anext__())
         await asyncio.sleep(0)
-        conn.push(json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}}))
+        conn.push(
+            json.dumps({"type": "ticker", "sid": 1, "msg": {"market_ticker": "KXBTC-25JAN01"}})
+        )
         update = await asyncio.wait_for(task, timeout=1.0)
         assert update.market_ticker == "KXBTC-25JAN01"
 
@@ -938,7 +981,9 @@ def test_unexpected_dispatch_exception_is_treated_as_a_dropped_connection(
         connector = _ScriptedConnector([conn1, conn2])
         client = _make_client(
             _FakeSigner(),
-            _make_config(ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01),
+            _make_config(
+                ws_reconnect_backoff_min_seconds=0.001, ws_reconnect_backoff_max_seconds=0.01
+            ),
             connector=connector,
             clock_ms=_FakeClock(),
             sleeper=_RecordingSleeper(),
@@ -1011,7 +1056,11 @@ def test_disconnect_racing_with_in_flight_connect_dial_closes_the_socket() -> No
         conn = _FakeConnection()
         connector = _GatedConnector(conn)
         client = _make_client(
-            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
         )
 
         connect_task: "asyncio.Task[Any]" = asyncio.ensure_future(client.connect())
@@ -1055,7 +1104,11 @@ def test_unknown_frame_type_is_sanitized_and_bounded_in_logs() -> None:
             conn = _FakeConnection()
             connector = _ScriptedConnector([conn])
             client = _make_client(
-                _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+                _FakeSigner(),
+                _make_config(),
+                connector=connector,
+                clock_ms=_FakeClock(),
+                sleeper=_RecordingSleeper(),
             )
             await client.connect()
             generation = client._generation  # noqa: SLF001
@@ -1102,7 +1155,11 @@ def test_connect_recovers_after_initial_resubscribe_failure() -> None:
         conn2 = _FakeConnection()
         connector = _ScriptedConnector([conn1, conn2])
         client = _make_client(
-            _FakeSigner(), _make_config(), connector=connector, clock_ms=_FakeClock(), sleeper=_RecordingSleeper()
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
         )
 
         # Register a subscription before ever connecting, so
