@@ -1,0 +1,24 @@
+# Project-scoped Codex CLI control-plane configuration.
+# Intentionally does not pin `model`: available models vary by account/runtime, and custom
+# agents inherit the active parent model unless explicitly overridden.
+
+[agents]
+enabled = true
+max_concurrent_threads_per_session = 6
+
+[tui]
+# Native Codex status line replacing the Claude command-backed PowerShell status line.
+status_line = [
+  "model-with-reasoning",
+  "run-state",
+  "current-dir",
+  "git-branch",
+  "permissions",
+  "approval-mode",
+  "context-remaining",
+  "five-hour-limit",
+  "weekly-limit",
+  "used-tokens",
+  "estimated-thread-cost",
+]
+status_line_use_colors = true

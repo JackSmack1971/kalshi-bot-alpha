@@ -1,0 +1,50 @@
+{"id": "route-001", "kind": "positive", "expected_skill": "safe-change-preflight", "prompt": "Implement a nontrivial refactor, but first inspect scope, invariants, and current worktree state."}
+{"id": "route-002", "kind": "positive", "expected_skill": "safe-change-preflight", "prompt": "Before changing persistence code, give me a bounded preflight plan and identify affected contracts."}
+{"id": "route-003", "kind": "positive", "expected_skill": "implement-safe-change", "prompt": "Implement this bounded bug fix after the preflight and preserve all repository safety invariants."}
+{"id": "route-004", "kind": "positive", "expected_skill": "verify-change", "prompt": "Verify the current uncommitted change with the repository-native tests and report exact command evidence."}
+{"id": "route-005", "kind": "positive", "expected_skill": "audit-safety-invariants", "prompt": "Audit this transport diff for demo-only, credential isolation, AI authority, and human approval invariants."}
+{"id": "route-006", "kind": "positive", "expected_skill": "propose-contract-change", "prompt": "Add an optional field to the trade-intent schema and update its governing contract as a proposal."}
+{"id": "route-007", "kind": "positive", "expected_skill": "phase-exit-audit", "prompt": "Is the active phase actually done? Check every exit criterion with evidence but do not edit phase status."}
+{"id": "route-008", "kind": "positive", "expected_skill": "memory-domain-sync", "prompt": "Read the risk domain memory before this agent starts and append a compliant handoff when it finishes."}
+{"id": "route-009", "kind": "positive", "expected_skill": "swarm-status-briefing", "prompt": "Catch me up on the swarm: blockers, decisions needed, invariant risks, and each domain’s latest activity."}
+{"id": "route-010", "kind": "positive", "expected_skill": "verify-change", "prompt": "Run targeted and broader validation before I merge this code change."}
+{"id": "route-011", "kind": "positive", "expected_skill": "implement-feature", "prompt": "Use the multi-agent swarm to implement this feature across market data, strategy, and risk, then independently verify it."}
+{"id": "route-012", "kind": "positive", "expected_skill": "implement-feature", "prompt": "Orchestrate domain subagents for this bounded cross-domain fix and route upstream to downstream."}
+{"id": "route-013", "kind": "positive", "expected_skill": "phase-readiness-gate", "prompt": "Run the multi-agent phase readiness gate with independent safety, architecture, exit-criteria, and memory auditors."}
+{"id": "route-014", "kind": "positive", "expected_skill": "swarm-standup", "prompt": "Run a parallel swarm standup and memory-drift check before we dispatch more work."}
+{"id": "route-015", "kind": "positive", "expected_skill": "control-plane-change", "prompt": "Use the multi-agent control-plane workflow to add a new Codex skill and independently verify the change."}
+{"id": "route-016", "kind": "positive", "expected_skill": "contract-evolution", "prompt": "Use multiple independent reviewers to evaluate this frozen schema change for versioning, dependents, and authority risk."}
+{"id": "route-017", "kind": "positive", "expected_skill": "security-sweep", "prompt": "Run a multi-agent adversarial security sweep across transport, OpenRouter agents, governance, and persistence."}
+{"id": "route-018", "kind": "positive", "expected_skill": "security-sweep", "prompt": "Do the full swarm security sweep and auto-fix only confirmed findings; reverify each remediation."}
+{"id": "route-019", "kind": "positive", "expected_skill": "control-plane-change", "prompt": "Orchestrate a Codex control-plane change to the custom subagent definitions and have a separate verifier inspect it."}
+{"id": "route-020", "kind": "positive", "expected_skill": "phase-readiness-gate", "prompt": "Before proposing the phase transition, use independent subagents to prove whether we are actually ready."}
+{"id": "route-021", "kind": "negative", "expected_skill": null, "prompt": "Explain what a Kalshi binary market is. Do not change files."}
+{"id": "route-022", "kind": "negative", "expected_skill": null, "prompt": "Summarize this Python function."}
+{"id": "route-023", "kind": "negative", "expected_skill": null, "prompt": "Fix a typo in README.md."}
+{"id": "route-024", "kind": "negative", "expected_skill": null, "prompt": "What is OpenRouter?"}
+{"id": "route-025", "kind": "negative", "expected_skill": null, "prompt": "Write a unit test example for a generic calculator, outside this repository."}
+{"id": "route-026", "kind": "negative", "expected_skill": null, "prompt": "Show me git status."}
+{"id": "route-027", "kind": "negative", "expected_skill": null, "prompt": "Explain the current architecture without making changes."}
+{"id": "route-028", "kind": "negative", "expected_skill": null, "prompt": "Draft a human-readable release note."}
+{"id": "route-029", "kind": "negative", "expected_skill": null, "prompt": "Compare two database ORMs in general terms."}
+{"id": "route-030", "kind": "negative", "expected_skill": null, "prompt": "Tell me which files are in the repository root."}
+{"id": "route-031", "kind": "negative", "expected_skill": null, "prompt": "Calculate 17 * 42."}
+{"id": "route-032", "kind": "negative", "expected_skill": null, "prompt": "Translate this paragraph to Spanish."}
+{"id": "route-033", "kind": "negative", "expected_skill": null, "prompt": "Explain JSON Schema versioning conceptually; do not touch this project."}
+{"id": "route-034", "kind": "negative", "expected_skill": null, "prompt": "What does fail-closed mean?"}
+{"id": "route-035", "kind": "negative", "expected_skill": null, "prompt": "Give me naming ideas for a strategy class."}
+{"id": "route-036", "kind": "negative", "expected_skill": null, "prompt": "Summarize AGENTS.md without editing it."}
+{"id": "route-037", "kind": "negative", "expected_skill": null, "prompt": "List the available skills."}
+{"id": "route-038", "kind": "negative", "expected_skill": null, "prompt": "Explain how Codex subagents work in general."}
+{"id": "route-039", "kind": "negative", "expected_skill": null, "prompt": "Review this prose for grammar only."}
+{"id": "route-040", "kind": "negative", "expected_skill": null, "prompt": "Create a short checklist for my meeting."}
+{"id": "route-041", "kind": "neighbor", "expected_skill": "safe-change-preflight", "prompt": "Implement this single-module fix normally; no swarm or multi-agent fan-out."}
+{"id": "route-042", "kind": "neighbor", "expected_skill": "implement-safe-change", "prompt": "Make the already-preflighted single-domain change; do not delegate."}
+{"id": "route-043", "kind": "neighbor", "expected_skill": "swarm-status-briefing", "prompt": "What is in flight across domains? A single read-only briefing is enough; do not spawn agents."}
+{"id": "route-044", "kind": "neighbor", "expected_skill": "phase-exit-audit", "prompt": "Check whether the phase exit criteria are met, but do not run a multi-agent gate."}
+{"id": "route-045", "kind": "neighbor", "expected_skill": "audit-safety-invariants", "prompt": "Audit this one sensitive diff; do not run the full multi-surface security sweep."}
+{"id": "route-046", "kind": "neighbor", "expected_skill": "propose-contract-change", "prompt": "Draft the schema proposal only; I do not want multi-agent independent reviewers."}
+{"id": "route-047", "kind": "neighbor", "expected_skill": null, "prompt": "Create a normal application feature in one domain without multi-agent orchestration."}
+{"id": "route-048", "kind": "neighbor", "expected_skill": null, "prompt": "Edit AGENTS.md directly as a small single-agent control-plane change; no multi-agent workflow requested."}
+{"id": "route-049", "kind": "neighbor", "expected_skill": "verify-change", "prompt": "Test this completed change, but do not implement or repair anything."}
+{"id": "route-050", "kind": "neighbor", "expected_skill": "memory-domain-sync", "prompt": "Update only the durable domain handoff entry; do not modify product code."}

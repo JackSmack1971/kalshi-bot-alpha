@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "control_plane": "codex-cli",
+  "version": "1.0.0",
+  "root_instruction": "AGENTS.md",
+  "policy_root": ".codex/policies",
+  "policy_resolver": ".codex/scripts/resolve_policies.py",
+  "skill_root": ".agents/skills",
+  "agent_root": ".codex/agents",
+  "memory_root": ".codex/memory",
+  "orchestration_skills": [
+    "implement-feature",
+    "phase-readiness-gate",
+    "swarm-standup",
+    "control-plane-change",
+    "contract-evolution",
+    "security-sweep"
+  ],
+  "ownership": {
+    "rules-specialist": [
+      "AGENTS.md",
+      ".codex/policies/**",
+      ".codex/scripts/resolve_policies.py",
+      ".codex/tests/test_policy_resolution.py"
+    ],
+    "skills-specialist": [
+      ".agents/skills/** except orchestration_skills"
+    ],
+    "workflow-specialist": [
+      ".codex/agents/**",
+      ".codex/config.toml",
+      ".codex/hooks.json",
+      ".codex/hooks/**",
+      ".codex/control-plane/**",
+      ".codex/scripts/validate_control_plane.py",
+      ".agents/skills/implement-feature/**",
+      ".agents/skills/phase-readiness-gate/**",
+      ".agents/skills/swarm-standup/**",
+      ".agents/skills/control-plane-change/**",
+      ".agents/skills/contract-evolution/**",
+      ".agents/skills/security-sweep/**"
+    ],
+    "control-plane-verifier": [
+      "read-only all control-plane artifacts"
+    ]
+  }
+}
