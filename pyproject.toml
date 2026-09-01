@@ -1,10 +1,10 @@
 [project]
 name = "kalshi-bot"
 version = "0.0.0"
-description = "Deterministic, demo-only Kalshi crypto paper-trading bot. Phase 0: contracts and safety model only — no trading code."
+description = "Deterministic, demo-only Kalshi crypto paper-trading bot with a Phase 3 portfolio and simulated-execution kernel."
 readme = "docs/ARCHITECTURE.md"
 requires-python = ">=3.12"
-license = { text = "Proprietary" }
+license = { text = "MIT" }
 dependencies = [
     "alembic>=1.16.0",
     "cryptography>=49.0.0",

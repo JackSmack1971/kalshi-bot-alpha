@@ -36,7 +36,7 @@ APPROVED_PHASE_0_POLICY_MODULES: frozenset[str] = frozenset(
 # warned about, so the continuing executable invariant is no longer
 # "no runtime code exists" -- it is "no trading-mutation authority or
 # later-phase capability exists yet": no order creation/amendment/
-# cancellation, execution, strategy, risk authorization, portfolio/
+# cancellation, execution, risk authorization, portfolio/
 # positions/P&L/ledger, reconciliation, migrations-as-runtime-code,
 # replay, external-reference ingestion, or AI/agent control-plane package
 # may exist under src/kalshi_bot/ until its own phase authorizes it. The
@@ -50,9 +50,7 @@ _FORBIDDEN_LATER_PHASE_PACKAGE_NAMES: frozenset[str] = frozenset(
         # authorized by PR 6.
         "orders",
         "order_management",
-        # Strategy
-        "strategy",
-        "strategies",
+        # Passive-spread v0.1 is explicitly authorized by the PR9 task.
         # Portfolio / positions / P&L / accounting / ledger
         "portfolio",
         "positions",

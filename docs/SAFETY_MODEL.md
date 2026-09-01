@@ -23,7 +23,7 @@ This is enforced four ways:
 
 1. **Statically, today:** `scripts/verify_demo_only.py` scans enforced
    paths (`src/`, `config/`, `schemas/`, `scripts/`, `tests/`,
-   `migrations/`, `pyproject.toml`, `.env.example`) and fails on any
+   `migrations/`, `pyproject.toml`, `config/env.example`) and fails on any
    Kalshi hostname outside the allowlist. `tests/unit/test_demo_only_policy.py`
    and `tests/test_demo_endpoint_policy.py` run the scan and the
    underlying validator in CI and prove the detector catches non-demo,

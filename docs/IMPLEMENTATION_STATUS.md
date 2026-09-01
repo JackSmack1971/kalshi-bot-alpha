@@ -102,7 +102,7 @@ proven correct by `tests/test_demo_endpoint_policy.py`).
 
 Static scanner over `ENFORCED_PATHS`
 (`src/`, `config/`, `schemas/`, `scripts/`, `tests/`, `migrations/`,
-`pyproject.toml`, `.env.example`) that fails on any non-demo Kalshi
+`pyproject.toml`, `config/env.example`) that fails on any non-demo Kalshi
 hostname, honoring a narrow `demo-scan: allow-negative-fixture` marker
 that only suppresses scanning inside `tests/`. Status: **implemented
 and verified** — see "Verification evidence" below.
@@ -130,7 +130,7 @@ example, not loaded or parsed by any code**.
 
 `pyproject.toml` (declares `pytest`, `ruff`, `mypy`, `jsonschema`,
 `types-jsonschema` as dev dependencies; `dependencies = []` — no
-runtime dependency exists), `uv.lock`, `.env.example`. Status:
+runtime dependency exists), `uv.lock`, `config/env.example`, and `LICENSE`. Status:
 **implemented**. `migrations/` contains only `.gitkeep` — **deferred**
 until Phase 2–3 introduces persistence.
 

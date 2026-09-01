@@ -87,7 +87,7 @@ def run_demo_smoke_order(
         intent,
         MarketState(book_quality=book.quality, book_age_seconds=Decimal("0")),
         PortfolioState(store.replay()),
-        RuntimeState(demo_mode=True),
+        RuntimeState(demo_mode=True, reconciliation_required=False),
         limits,
         now=now,
     )
@@ -139,6 +139,8 @@ def run_demo_smoke_order(
     final = ReconciliationService(store, client).reconcile(trigger="acceptance-final")
     if not final.clean:
         raise RuntimeError("acceptance ended suspended: reconciliation required")
-    if client.list_open_orders() or store.replay().positions:
+    if client.list_open_orders() or any(
+        position.quantity != Decimal("0") for position in store.replay().positions
+    ):
         raise RuntimeError("acceptance left residual order or exposure")
     return DemoSmokeResult(order_id, final)

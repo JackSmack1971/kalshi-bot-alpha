@@ -1,12 +1,13 @@
 # Kalshi Crypto Paper-Trading Bot v3
 
-Deterministic, demo-only Kalshi crypto paper-trading foundations for engineers and reviewers who need an auditable, fail-closed system before simulated execution is introduced.
+Deterministic, demo-only Kalshi crypto paper-trading software for engineers and reviewers who need an auditable, fail-closed system.
 
-> **DEMO ONLY.** This repository is not production-trading software. The current active phase is **Phase 1 — Read-only connectivity**. Order mutation, strategy execution, risk authorization, accounting, persistence, and AI control-plane runtime are not implemented.
+> **DEMO ONLY.** This repository is not production-trading software. The current active phase is **Phase 3 — Portfolio and simulated execution**. Exchange mutation, live trading, and the AI control plane remain out of scope.
 
 ## What exists today
 
 - Demo-only Kalshi REST and WebSocket clients with fixed demo endpoints.
+- Deterministic market-data eligibility, order-book, risk, passive-spread, simulated-execution, persistence, and reconciliation modules.
 - RSA-PSS request signing, demo credential loading, configuration validation, and structured log redaction.
 - Typed REST/WebSocket models, normalization, reconnect handling, and read-only request validation.
 - Nine frozen JSON Schema contracts covering trade intent, order state, risk limits, market archetypes, expectancy, queue calibration, markout toxicity, experiments, and statistical sufficiency.
@@ -36,7 +37,7 @@ uv run mypy .
 uv run python scripts/verify_demo_only.py
 ```
 
-These commands validate the current read-only foundation. There is no application entrypoint or live trading command in the current phase.
+These commands validate the deterministic demo-only runtime. The `demo-smoke-order --mock` command exercises simulated execution without credentials or network access.
 
 ## Safety boundaries
 
@@ -55,7 +56,7 @@ Deterministic code owns calculation, authorization, execution, reconciliation, a
 
 ## Architecture
 
-The current runtime is read-only connectivity and contract enforcement:
+The current runtime combines read-only market connectivity with a deterministic simulated-execution kernel:
 
 ```text
 demo-only endpoint constants
@@ -67,9 +68,10 @@ demo-only endpoint constants
         +--> auth signer + credential loader
         |
         +--> config validation + redacted observability
+        +--> eligibility/order book -> strategy -> risk -> simulator -> ledger/reconciliation
 ```
 
-The planned deterministic pipeline is documented, but not yet implemented:
+The remaining production-like lifecycle is documented, but not implemented:
 
 ```text
 market data -> eligibility -> order book -> features -> strategy
@@ -102,7 +104,7 @@ migrations/            placeholder; persistence is deferred
 
 Start from [`config/demo.example.yaml`](config/demo.example.yaml). It locks `environment.mode` to `demo`, references credentials by environment variable or external file, and displays the operator status `DEMO MODE`.
 
-Use [`.env.example`](.env.example) as the safe variable template:
+Use [`config/env.example`](config/env.example) as the safe variable template:
 
 ```text
 KALSHI_DEMO_ACCESS_KEY=
@@ -161,12 +163,12 @@ Exact resolved versions are maintained in `uv.lock`; the README intentionally do
 
 Contributions must preserve demo isolation, credential privacy, deterministic authority, fail-closed behavior, auditability, and active-phase scope. Before submitting a change, run the verification commands and describe any unverified or deferred behavior.
 
-Repository governance is defined by [`AGENTS.md`](AGENTS.md) and the policy files under [`.codex/policies/`](.codex/policies/). The blueprint is [`docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`](docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md). No separate `CONTRIBUTING.md`, `SECURITY.md`, or Code of Conduct file was found.
+Repository governance is defined by [`AGENTS.md`](AGENTS.md), [`CONTRIBUTING.md`](.github/CONTRIBUTING.md), [`SECURITY.md`](.github/SECURITY.md), and the policy files under [`.codex/policies/`](.codex/policies/). The blueprint is [`docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`](docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md).
 
 ## Roadmap and status
 
-Phase 0 contracts and safety model are accepted. Phase 1 read-only connectivity is active and in progress. Later phases are recorded as not started in [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATUS.md): order-book integrity, simulated execution, demo order lifecycle, passive-spread strategy, evaluation/hardening, and gated AI phases. This README does not add commitments beyond that phase ledger.
+Phase 0 contracts and safety model are accepted. Phase 3 portfolio and simulated execution is the active implementation phase. Later phases and the gated AI phases are recorded in [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATUS.md). This README does not add commitments beyond that phase ledger.
 
 ## License
 
-`pyproject.toml` declares the project license as **Proprietary**. No standalone `LICENSE` file was found. Confirm licensing terms with the repository owner before redistribution or accepting external contributions.
+This project is licensed under the [MIT License](LICENSE).

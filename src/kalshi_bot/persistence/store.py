@@ -340,6 +340,49 @@ class LedgerStore:
             "(snapshot_id, market_ticker, market_archetype_id, payload_json, captured_at)",
         )
 
+    def record_queue_state_snapshot(
+        self,
+        snapshot_id: str,
+        intent_id: str,
+        market_ticker: str,
+        payload: Mapping[str, Any],
+        captured_at: str | None = None,
+    ) -> None:
+        self._insert(
+            "queue_state_snapshots",
+            (
+                snapshot_id,
+                intent_id,
+                market_ticker,
+                json.dumps(dict(payload), sort_keys=True),
+                captured_at or _now(),
+            ),
+            "(queue_state_snapshot_id, intent_id, market_ticker, payload_json, captured_at)",
+        )
+
+    def record_quote_expectancy(
+        self,
+        expectancy_id: str,
+        intent_id: str,
+        queue_state_snapshot_id: str,
+        market_ticker: str,
+        payload: Mapping[str, Any],
+        created_at: str | None = None,
+    ) -> None:
+        self._insert(
+            "quote_expectancy_records",
+            (
+                expectancy_id,
+                intent_id,
+                queue_state_snapshot_id,
+                market_ticker,
+                json.dumps(dict(payload), sort_keys=True),
+                created_at or _now(),
+            ),
+            "(quote_expectancy_id, intent_id, queue_state_snapshot_id, market_ticker, "
+            "payload_json, created_at)",
+        )
+
     def record_risk_decision(
         self,
         risk_decision_id: str,

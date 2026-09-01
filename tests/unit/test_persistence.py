@@ -52,6 +52,8 @@ def test_migration_creates_only_minimal_tables(store: LedgerStore) -> None:
         "ledger_entries",
         "positions",
         "reconciliation_runs",
+        "queue_state_snapshots",
+        "quote_expectancy_records",
     }
 
 
