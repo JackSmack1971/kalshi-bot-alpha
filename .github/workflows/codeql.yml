@@ -1,0 +1,53 @@
+name: CodeQL
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  # Full repository scan once per week.
+  schedule:
+    - cron: "17 6 * * 1"
+
+  # Allows manual scans from the Actions tab.
+  workflow_dispatch:
+
+# Minimum permissions needed by this workflow.
+permissions:
+  contents: read
+  security-events: write
+
+# If new commits arrive while CodeQL is still scanning the same
+# branch/PR, cancel the stale run and analyze the newest commit.
+concurrency:
+  group: codeql-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze Python
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: python
+          build-mode: none
+
+          # Adds additional security-focused queries beyond
+          # CodeQL's default query suite.
+          queries: security-extended
+
+      - name: Perform CodeQL analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:python"
