@@ -23,10 +23,14 @@ from dataclasses import dataclass
 from pydantic import ValidationError
 
 from kalshi_bot.ws.models import (
+    OrderBookDeltaUpdate,
+    OrderBookSnapshotUpdate,
     TickerUpdate,
     TradeUpdate,
     _ErrorFrame,
     _OkFrame,
+    _OrderBookDeltaFrame,
+    _OrderBookSnapshotFrame,
     _SubscribedFrame,
     _TickerFrame,
     _TradeFrame,
@@ -41,6 +45,8 @@ __all__ = [
     "UnsubscribedFrame",
     "OkFrame",
     "ErrorFrame",
+    "OrderBookSnapshotFrame",
+    "OrderBookDeltaFrame",
     "parse_frame",
 ]
 
@@ -106,6 +112,20 @@ class ErrorFrame:
     message: str
 
 
+@dataclass(frozen=True, slots=True)
+class OrderBookSnapshotFrame:
+    event: OrderBookSnapshotUpdate
+    sequence: int
+    sid: int
+
+
+@dataclass(frozen=True, slots=True)
+class OrderBookDeltaFrame:
+    event: OrderBookDeltaUpdate
+    sequence: int
+    sid: int
+
+
 FrameParseResult = (
     TickerUpdate
     | TradeUpdate
@@ -113,6 +133,8 @@ FrameParseResult = (
     | UnsubscribedFrame
     | OkFrame
     | ErrorFrame
+    | OrderBookSnapshotFrame
+    | OrderBookDeltaFrame
     | UnknownChannelFrame
     | MalformedFrame
 )
@@ -181,6 +203,22 @@ def _parse_frame_inner(raw: str | bytes) -> FrameParseResult:
             return MalformedFrame("trade frame failed schema validation")
         return trade_envelope.msg
 
+    if frame_type == "orderbook_snapshot":
+        try:
+            snapshot_envelope = _OrderBookSnapshotFrame.model_validate(decoded)
+        except ValidationError:
+            return MalformedFrame("orderbook snapshot frame failed schema validation")
+        return OrderBookSnapshotFrame(
+            snapshot_envelope.msg, snapshot_envelope.seq, snapshot_envelope.sid
+        )
+
+    if frame_type == "orderbook_delta":
+        try:
+            delta_envelope = _OrderBookDeltaFrame.model_validate(decoded)
+        except ValidationError:
+            return MalformedFrame("orderbook delta frame failed schema validation")
+        return OrderBookDeltaFrame(delta_envelope.msg, delta_envelope.seq, delta_envelope.sid)
+
     if frame_type == "subscribed":
         try:
             subscribed_envelope = _SubscribedFrame.model_validate(decoded)
@@ -211,6 +249,5 @@ def _parse_frame_inner(raw: str | bytes) -> FrameParseResult:
             return MalformedFrame("error frame failed schema validation")
         return ErrorFrame(code=error_envelope.msg.code, message=error_envelope.msg.msg)
 
-    # Every other type value -- including "orderbook_delta" -- is
-    # unrecognized by this client and is never treated as known.
+    # Every other type value is unrecognized by this client.
     return UnknownChannelFrame(frame_type)

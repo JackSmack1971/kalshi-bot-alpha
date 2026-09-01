@@ -15,7 +15,7 @@ This skill replaces the former Claude JavaScript workflow with native Codex suba
 
 ## Route
 
-Spawn `phase-integrator` to produce: `inScope`, `reason`, `sensitiveSurfaces`, and an ordered `tasks` list of `{domain, agentType, task}`. Allowed implementation roles are `transport-safety-engineer`, `market-data-engineer`, `strategy-engineer`, `risk-engineer`, `accounting-ledger-engineer`, `runtime-execution-engineer`, `research-integrity-engineer`, `openrouter-agent-engineer`, and `governance-approvals-engineer`.
+Spawn `phase-router` to produce: `inScope`, `reason`, `sensitiveSurfaces`, and an ordered `tasks` list of `{domain, agentType, task}`. Allowed implementation roles are `transport-safety-engineer`, `market-data-engineer`, `strategy-engineer`, `risk-engineer`, `accounting-ledger-engineer`, `runtime-execution-engineer`, `research-integrity-engineer`, `openrouter-agent-engineer`, and `governance-approvals-engineer`.
 
 Require upstream-to-downstream ordering when one domain's output feeds another. Do not begin implementation until routing is complete and in scope.
 
@@ -29,7 +29,7 @@ If a routed worker fails or returns partial output, stop dependent tasks,
 record the failed result, and hand the unresolved task back to the human. Never
 treat a missing worker result as an empty successful task.
 
-After implementation, spawn `architecture-boundary-verifier` against the uncommitted diff. If `sensitiveSurfaces` is nonempty, also spawn `security-adversarial-reviewer` to follow `audit-safety-invariants`. These read/review tasks may run concurrently because neither should repair the implementation being reviewed.
+After implementation, spawn `architecture-boundary-verifier` against the uncommitted diff. If `sensitiveSurfaces` is nonempty, also spawn `security-finding-reviewer` to follow `audit-safety-invariants`. These read/review tasks may run concurrently because neither should repair the implementation being reviewed.
 
 Any verifier result other than PASS blocks a ready verdict. Do not ask the verifier to repair its own finding.
 
@@ -44,7 +44,7 @@ Return exactly one workflow status: `out-of-scope`, `needs-attention`, or `ready
 
 ## Observable workflow and telemetry
 
-Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+Create exactly one telemetry run per Skill invocation. Start with `python .codex/scripts/skill_telemetry.py start <skill> invocation_started --reason-code <reason>` and capture the returned `run_id`. Reuse that same `run_id` for every `emit` event and for `finish <skill> invocation_finished --run-id <id> --outcome <terminal>`. Never generate a new run ID for each event. When an execution snapshot or UoW ID exists, attach it to the same run. Emit only the consequential events below; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
 
 Declared events: `phase_gate`, `domain_task_routed`, `subagent_result`, `verifier_result`, `workflow_result`.
 

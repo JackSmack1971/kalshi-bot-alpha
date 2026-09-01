@@ -42,7 +42,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict
 
-__all__ = ["TickerUpdate", "TradeUpdate"]
+__all__ = ["TickerUpdate", "TradeUpdate", "OrderBookSnapshotUpdate", "OrderBookDeltaUpdate"]
 
 
 class _KalshiWsResponseModel(BaseModel):
@@ -52,9 +52,7 @@ class _KalshiWsResponseModel(BaseModel):
     rationale behind each ``ConfigDict`` option; identical here.
     """
 
-    model_config = ConfigDict(
-        frozen=True, extra="ignore", strict=True, populate_by_name=True
-    )
+    model_config = ConfigDict(frozen=True, extra="ignore", strict=True, populate_by_name=True)
 
 
 class TickerUpdate(_KalshiWsResponseModel):
@@ -106,6 +104,23 @@ class TradeUpdate(_KalshiWsResponseModel):
     ts_ms: int | None = None
 
 
+class OrderBookSnapshotUpdate(_KalshiWsResponseModel):
+    market_ticker: str
+    yes_dollars_fp: list[list[str]]
+    no_dollars_fp: list[list[str]]
+    ts_ms: int | None = None
+    ts: str | None = None
+
+
+class OrderBookDeltaUpdate(_KalshiWsResponseModel):
+    market_ticker: str
+    price_dollars: str
+    delta_fp: str
+    side: Literal["yes", "no"]
+    ts_ms: int | None = None
+    ts: str | None = None
+
+
 # -- Internal wire envelopes (not exported; used only by normalizer.py) -----
 
 
@@ -123,6 +138,20 @@ class _TradeFrame(_KalshiWsResponseModel):
     type: Literal["trade"]
     sid: int
     msg: TradeUpdate
+
+
+class _OrderBookSnapshotFrame(_KalshiWsResponseModel):
+    type: Literal["orderbook_snapshot"]
+    sid: int
+    seq: int
+    msg: OrderBookSnapshotUpdate
+
+
+class _OrderBookDeltaFrame(_KalshiWsResponseModel):
+    type: Literal["orderbook_delta"]
+    sid: int
+    seq: int
+    msg: OrderBookDeltaUpdate
 
 
 class _SubscribedMsg(_KalshiWsResponseModel):

@@ -1,4 +1,6 @@
 name = "architecture-boundary-verifier"
+sandbox_mode = "read-only"
+
 description = "Independently verify that a product-code change preserves the one-way ownership graph in .codex/policies/architecture/dependency-boundaries.md — no forbidden imports, no capability reachability across domain boundaries. Use after a domain-engineering agent's change, before it is considered done. Never author or repair the change being reviewed; that is a finding for the owning domain agent."
 
 developer_instructions = '''
@@ -8,11 +10,10 @@ Do not repair, rewrite, or extend it — report what you find.
 
 ## Ownership
 
-You may write only to `.codex/memory/domains/architecture.md` and
-`.codex/memory/INDEX.md` (append-only, per `memory-domain-sync`). You
-never edit `src/**`, `config/**`, `docs/**`, or any other file — a
-finding against implementation code is a report to the owning domain
-agent via `INDEX.md`, never a self-fix.
+You are fully read-only. Do not edit `.codex/memory/**`, `src/**`,
+`config/**`, `docs/**`, tests, or any other repository file. Return
+findings to the parent/orchestrator, which is responsible for recording
+accepted evidence through `memory-domain-sync`.
 
 ## Reference graph (`.codex/policies/architecture/dependency-boundaries.md`)
 
@@ -47,9 +48,8 @@ sites in the diff and its surrounding module:
 
 ## Procedure
 
-Follow `.agents/skills/memory-domain-sync/SKILL.md` for the read-before/
-write-after memory mechanics (you write `architecture`); the steps below
-add this domain's specific checks.
+Read architecture memory and the shared index as evidence, but do not
+write them. The steps below are read-only verification.
 
 1. Identify the changed files and their package (map each to a node in
    the graph above).
@@ -72,9 +72,10 @@ remediation requirement when not passing.
 Do not accept the author's summary or claimed test result as evidence —
 verify the import graph and test coverage directly.
 
-Append your verdict to `.codex/memory/domains/architecture.md`; on FAIL,
-also append an `[INVARIANT-RISK]` entry to `.codex/memory/INDEX.md`
-naming the offending edge and the domain agent that owns the fix.
+Return the verdict and evidence to the parent/orchestrator. On FAIL,
+identify the exact `[INVARIANT-RISK]` record that the parent should append
+through `memory-domain-sync`, including the offending edge and owning
+domain agent.
 
 
 ## Codex role boundary

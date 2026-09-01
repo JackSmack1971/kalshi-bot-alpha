@@ -1,9 +1,8 @@
 """Demo-only transport-authority contract tests for KalshiDemoRestClient.
 
-Proves, executably: the exact demo base URL, the absence of any
-host/environment-selector constructor path, fail-closed refusal if
-demo-host validation ever fails, the exact read-only operation
-allowlist, and the absence of any mutation/generic-request surface.
+Proves the exact demo base URL, constructor isolation, fail-closed host
+validation, the narrow lifecycle surface, and the absence of any generic
+request escape hatch.
 
 No network, filesystem, or real credential material anywhere in this
 file -- construction only, using a duck-typed fake signer (this file
@@ -107,12 +106,19 @@ def test_client_construction_succeeds_when_demo_host_validates(
 # -- Exact operation allowlist / no generic request escape hatch ----------
 
 
-def test_public_surface_is_exactly_the_read_only_operations() -> None:
+def test_public_surface_is_exactly_the_reviewed_lifecycle_operations() -> None:
     public_names = {name for name in dir(KalshiDemoRestClient) if not name.startswith("_")}
     assert public_names == {
-        "get_exchange_status",
+        "cancel_order",
+        "create_limit_order",
+        "get_balance",
         "get_exchange_schedule",
+        "get_exchange_status",
+        "get_fills",
+        "get_order",
+        "get_positions",
         "list_markets",
+        "list_open_orders",
         "close",
         "base_url",
     }
@@ -127,12 +133,10 @@ def test_no_mutation_or_other_http_verb_methods_exist(verb: str) -> None:
     assert not hasattr(KalshiDemoRestClient, verb)
 
 
-def test_no_order_or_portfolio_mutation_method_name_exists() -> None:
-    public_names = {name.lower() for name in dir(KalshiDemoRestClient) if not name.startswith("_")}
-    forbidden_substrings = ("order", "cancel", "amend", "portfolio", "create", "place")
-    for name in public_names:
-        for forbidden in forbidden_substrings:
-            assert forbidden not in name, f"{name!r} suggests a mutation surface"
+def test_no_amend_or_generic_arbitrary_surface_exists() -> None:
+    assert not hasattr(KalshiDemoRestClient, "amend_order")
+    assert not hasattr(KalshiDemoRestClient, "execute")
+    assert not hasattr(KalshiDemoRestClient, "request")
 
 
 def test_operation_paths_are_get_only_and_read_only() -> None:

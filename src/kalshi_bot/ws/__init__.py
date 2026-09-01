@@ -39,7 +39,12 @@ from kalshi_bot.ws.errors import (
     WebSocketConnectionError,
     WebSocketDisconnected,
 )
-from kalshi_bot.ws.models import TickerUpdate, TradeUpdate
+from kalshi_bot.ws.models import (
+    OrderBookDeltaUpdate,
+    OrderBookSnapshotUpdate,
+    TickerUpdate,
+    TradeUpdate,
+)
 
 __all__ = [
     "KalshiDemoWebSocketClient",
@@ -52,4 +57,6 @@ __all__ = [
     "WebSocketDisconnected",
     "TickerUpdate",
     "TradeUpdate",
+    "OrderBookSnapshotUpdate",
+    "OrderBookDeltaUpdate",
 ]

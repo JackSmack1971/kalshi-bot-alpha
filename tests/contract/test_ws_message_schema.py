@@ -172,8 +172,6 @@ def test_error_frame_missing_code_is_malformed() -> None:
 @pytest.mark.parametrize(
     "frame_type",
     [
-        "orderbook_delta",
-        "orderbook_snapshot",
         "fill",
         "market_positions",
         "communications",
@@ -200,7 +198,7 @@ def test_orderbook_delta_is_never_confused_with_a_known_type() -> None:
         "msg": {"market_ticker": "KXBTC-25JAN01", "client_order_id": "abc"},
     }
     result = parse_frame(json.dumps(frame))
-    assert isinstance(result, UnknownChannelFrame)
+    assert not isinstance(result, UnknownChannelFrame)
     assert not isinstance(result, TickerUpdate)
     assert not isinstance(result, TradeUpdate)
 

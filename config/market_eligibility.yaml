@@ -1,0 +1,6 @@
+# Human-reviewed static eligibility configuration.  An empty mapping is
+# fail-closed until a reviewer approves concrete crypto series identifiers.
+approved_series: {}
+min_remaining_minutes: 30
+max_data_age_seconds: 2
+crypto_category: crypto

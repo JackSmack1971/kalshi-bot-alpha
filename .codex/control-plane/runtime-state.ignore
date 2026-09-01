@@ -1,0 +1,7 @@
+# Merge these patterns into the target repository's ignore policy if they are
+# not already covered. They are runtime state, not control-plane definition.
+.control-plane-state/
+.agents/skills/*/telemetry/events.jsonl
+**/__pycache__/
+*.pyc
+.pytest_cache/

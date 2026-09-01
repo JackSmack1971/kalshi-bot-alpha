@@ -1,50 +1,75 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "implement-feature telemetry",
-  "type": "object",
   "additionalProperties": false,
-  "required": [
-    "schema_version",
-    "timestamp",
-    "run_id",
-    "skill",
-    "skill_revision",
-    "event",
-    "outcome",
-    "reason_code"
-  ],
   "properties": {
-    "schema_version": {
-      "const": 1
+    "authorized": {
+      "type": "boolean"
     },
-    "timestamp": {
-      "type": "string",
-      "format": "date-time"
+    "confirmed": {
+      "minimum": 0,
+      "type": "integer"
     },
-    "run_id": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 100
+    "count": {
+      "minimum": 0,
+      "type": "integer"
     },
-    "skill": {
-      "const": "implement-feature"
+    "coverage": {
+      "maximum": 1,
+      "minimum": 0,
+      "type": "number"
     },
-    "skill_revision": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{16}$"
+    "domain": {
+      "maxLength": 80,
+      "type": "string"
+    },
+    "duration_ms": {
+      "minimum": 0,
+      "type": "integer"
     },
     "event": {
-      "type": "string",
       "enum": [
+        "invocation_started",
         "phase_gate",
         "domain_task_routed",
         "subagent_result",
         "verifier_result",
-        "workflow_result"
-      ]
+        "workflow_result",
+        "invocation_finished"
+      ],
+      "type": "string"
+    },
+    "event_hash": {
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "evidence_refs": {
+      "items": {
+        "pattern": "^(?!.*\\.\\.).+$",
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "execution_snapshot_id": {
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "type": "string"
+    },
+    "failed": {
+      "minimum": 0,
+      "type": "integer"
+    },
+    "lane": {
+      "maxLength": 80,
+      "type": "string"
+    },
+    "lens": {
+      "maxLength": 80,
+      "type": "string"
+    },
+    "matched": {
+      "minimum": 0,
+      "type": "integer"
     },
     "outcome": {
-      "type": "string",
       "enum": [
         "started",
         "passed",
@@ -53,91 +78,94 @@
         "skipped",
         "recovered",
         "not_applicable"
+      ],
+      "type": "string"
+    },
+    "parent_event_hash": {
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "type": [
+        "string",
+        "null"
       ]
     },
     "reason_code": {
-      "type": "string",
-      "pattern": "^[a-z0-9_.-]{1,80}$"
+      "pattern": "^[a-z0-9_.-]{1,80}$",
+      "type": "string"
     },
-    "duration_ms": {
-      "type": "integer",
-      "minimum": 0
+    "refuted": {
+      "minimum": 0,
+      "type": "integer"
     },
-    "count": {
-      "type": "integer",
-      "minimum": 0
+    "retries": {
+      "minimum": 0,
+      "type": "integer"
     },
-    "matched": {
-      "type": "integer",
-      "minimum": 0
+    "reviewer": {
+      "maxLength": 80,
+      "type": "string"
     },
-    "failed": {
-      "type": "integer",
-      "minimum": 0
+    "run_id": {
+      "maxLength": 100,
+      "minLength": 1,
+      "type": "string"
     },
-    "skipped": {
-      "type": "integer",
-      "minimum": 0
+    "schema_version": {
+      "const": 2
     },
-    "evidence_refs": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "pattern": "^(?!.*\\.\\.).+$"
-      }
-    },
-    "surface": {
-      "type": "string",
-      "maxLength": 80
-    },
-    "lens": {
-      "type": "string",
-      "maxLength": 80
+    "sequence": {
+      "minimum": 1,
+      "type": "integer"
     },
     "severity": {
-      "type": "string",
       "enum": [
         "low",
         "medium",
         "high",
         "critical"
-      ]
+      ],
+      "type": "string"
     },
-    "reviewer": {
-      "type": "string",
-      "maxLength": 80
+    "skill": {
+      "const": "implement-feature"
     },
-    "domain": {
-      "type": "string",
-      "maxLength": 80
+    "skill_revision": {
+      "pattern": "^[a-f0-9]{16}$",
+      "type": "string"
     },
-    "lane": {
-      "type": "string",
-      "maxLength": 80
+    "skipped": {
+      "minimum": 0,
+      "type": "integer"
     },
     "status": {
-      "type": "string",
-      "maxLength": 80
+      "maxLength": 80,
+      "type": "string"
     },
-    "authorized": {
-      "type": "boolean"
+    "surface": {
+      "maxLength": 80,
+      "type": "string"
     },
-    "coverage": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 1
+    "timestamp": {
+      "format": "date-time",
+      "type": "string"
     },
-    "confirmed": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "refuted": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "retries": {
-      "type": "integer",
-      "minimum": 0
+    "uow_id": {
+      "pattern": "^sha256:[a-f0-9]{64}$",
+      "type": "string"
     }
-  }
+  },
+  "required": [
+    "schema_version",
+    "timestamp",
+    "run_id",
+    "sequence",
+    "parent_event_hash",
+    "event_hash",
+    "skill",
+    "skill_revision",
+    "event",
+    "outcome",
+    "reason_code"
+  ],
+  "title": "implement-feature telemetry",
+  "type": "object"
 }

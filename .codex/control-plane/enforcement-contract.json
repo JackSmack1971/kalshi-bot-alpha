@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "kind": "required-external-authority-state",
+  "statement": "This file declares authority assumptions that external Codex/runtime policy must satisfy. It does not grant permissions, approvals, credentials, network access, tool access, or deployment authority.",
+  "required": {
+    "project_trust": {
+      "equals": true,
+      "reason": "Project-scoped Codex configuration must only participate for a trusted project."
+    },
+    "approval_policy": {
+      "not_in": [
+        "never"
+      ],
+      "reason": "Boundary-crossing operations must not run under an approval posture that suppresses review."
+    },
+    "permission_profile": {
+      "not_in": [
+        ":danger-full-access",
+        "danger-full-access"
+      ],
+      "reason": "Unrestricted filesystem/network execution is outside the repository safety envelope."
+    },
+    "unrestricted_mode": {
+      "equals": false,
+      "reason": "Approval/sandbox bypass modes are forbidden for governed repository work."
+    },
+    "production_kalshi_credentials_present": {
+      "equals": false,
+      "reason": "Codex must never receive production Kalshi credentials."
+    },
+    "codex_has_kalshi_execution_credentials": {
+      "equals": false,
+      "reason": "The Codex/agent process must not receive Kalshi execution credentials or authentication material."
+    },
+    "production_kalshi_network_enabled": {
+      "equals": false,
+      "reason": "Production Kalshi network reachability must remain unavailable to Codex-governed execution."
+    }
+  },
+  "optional_evidence": {
+    "managed_policy_revision": {
+      "present": true,
+      "reason": "Managed deployments should identify the externally enforced policy revision."
+    },
+    "capability_snapshot_id": {
+      "present": true,
+      "reason": "A runtime capability snapshot improves reproducibility but may be unavailable in local-only deployments."
+    },
+    "environment_id": {
+      "present": true,
+      "reason": "Environment identity improves reproducibility but does not itself grant authority."
+    }
+  }
+}

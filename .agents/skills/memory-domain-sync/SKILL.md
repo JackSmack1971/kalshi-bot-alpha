@@ -12,6 +12,9 @@ agent follows to read and write it correctly; `.codex/memory/PROTOCOL.md`
 is the source of truth this skill implements — read it in full once per
 session if you have not already.
 
+On a fresh control-plane installation, if `.codex/memory/PROTOCOL.md` or the
+domain scaffolding is missing, run `python .codex/scripts/initialize_runtime_state.py --initialize` before using this Skill. The initializer copies immutable seed files only when missing and never overwrites existing runtime memory. Do not reconstruct missing memory from model recollection.
+
 ## Before starting work (read)
 
 1. Read your own domain log, `.codex/memory/domains/<domain>.md`,
@@ -28,9 +31,14 @@ session if you have not already.
    blocks the requested task, stop and report it — do not work around
    it or proceed as if it were resolved.
 
-## After finishing work (write)
+## After finishing work (write-capable roles or parent recorder)
 
-5. Append exactly one entry to your own domain log, in this shape (from
+A role whose effective runtime is read-only must not widen authority to satisfy
+this protocol. It returns its evidence to the parent/orchestrator; the parent
+records the entry with source-role attribution. For write-capable domain roles,
+the role records its own entry.
+
+5. Append exactly one entry to the applicable domain log, in this shape (from
    `PROTOCOL.md`):
 
    ```markdown
@@ -79,7 +87,7 @@ upstream logs, or unresolved entries.
 
 ## Observable workflow and telemetry
 
-Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+Create exactly one telemetry run per Skill invocation. Start with `python .codex/scripts/skill_telemetry.py start <skill> invocation_started --reason-code <reason>` and capture the returned `run_id`. Reuse that same `run_id` for every `emit` event and for `finish <skill> invocation_finished --run-id <id> --outcome <terminal>`. Never generate a new run ID for each event. When an execution snapshot or UoW ID exists, attach it to the same run. Emit only the consequential events below; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
 
 Declared events: `unresolved_item`, `domain_append_result`, `index_escalation`, `protocol_violation`.
 

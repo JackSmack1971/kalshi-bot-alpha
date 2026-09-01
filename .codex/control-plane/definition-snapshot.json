@@ -1,0 +1,500 @@
+{
+  "aggregate_digest": "sha256:d7d75193263111cd30257ccba5745ed5f53b154a8dba281f1c1b53f55a04bdd8",
+  "builder": "definition-snapshot/v1",
+  "file_count": 121,
+  "files": [
+    {
+      "path": ".agents/skills/README.md",
+      "sha256": "8d100ebd73db4af4084383bf8239668998f92a13abf8a8e4202001d988a8b54f"
+    },
+    {
+      "path": ".agents/skills/audit-safety-invariants/SKILL.md",
+      "sha256": "1e3651a9d5d7a1f00292a840843bb02e9a71a4686f5e41a2b5e7008753764638"
+    },
+    {
+      "path": ".agents/skills/audit-safety-invariants/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/audit-safety-invariants/telemetry/schema.json",
+      "sha256": "12773492f8210f1f32dcbc482f8f06dcf0d9468b649e1970c4fd4c4e98208360"
+    },
+    {
+      "path": ".agents/skills/contract-evolution/SKILL.md",
+      "sha256": "1f334314b9f7e268cb5f217247cd139c9daf35963afd3147d77a3206b147c63f"
+    },
+    {
+      "path": ".agents/skills/contract-evolution/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/contract-evolution/telemetry/schema.json",
+      "sha256": "4d07cd534ac56482e726555e842efe8bf7fb2db0ab277e845d029541c370e848"
+    },
+    {
+      "path": ".agents/skills/control-plane-change/SKILL.md",
+      "sha256": "d0f7f48b161611bce3567c5c04589bae61a9f016549a7c8e3ae7227deb39f492"
+    },
+    {
+      "path": ".agents/skills/control-plane-change/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/control-plane-change/telemetry/schema.json",
+      "sha256": "d57ffd6de870d3474b3a52a5a9570407accdf922203421614e8501e4742b050a"
+    },
+    {
+      "path": ".agents/skills/implement-feature/SKILL.md",
+      "sha256": "f3ffe29d31d3960cc945a5215acc066b2a8e9aa3c62015797e2b1cf8fab1d040"
+    },
+    {
+      "path": ".agents/skills/implement-feature/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/implement-feature/telemetry/schema.json",
+      "sha256": "414cedb085f5769a7495affd45e617d1d8dcdd7ff935086c761a294bccdb1fb7"
+    },
+    {
+      "path": ".agents/skills/implement-safe-change/SKILL.md",
+      "sha256": "42d7bddd5d6b34c816617e525d52d087c1bc01b56df0d9e46f40db713ec02b63"
+    },
+    {
+      "path": ".agents/skills/implement-safe-change/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/implement-safe-change/telemetry/schema.json",
+      "sha256": "d08788f2b518439cc11508041dacac124b09f126936e177ba4a506cbf8a17282"
+    },
+    {
+      "path": ".agents/skills/memory-domain-sync/SKILL.md",
+      "sha256": "4ce6e9de5b8f31952446a799db4bffd1bde5bb9da1ea95388abbbb7db735012e"
+    },
+    {
+      "path": ".agents/skills/memory-domain-sync/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/memory-domain-sync/telemetry/schema.json",
+      "sha256": "c2f467eca02b49d5c7974dfab22f898e6a854d75fb53fc3d099f64aad328a111"
+    },
+    {
+      "path": ".agents/skills/phase-exit-audit/SKILL.md",
+      "sha256": "91c50c80e2e7ffd7e1dda0eabd970db413ddde2810d64ea6492ab7f6c80336ac"
+    },
+    {
+      "path": ".agents/skills/phase-exit-audit/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/phase-exit-audit/telemetry/schema.json",
+      "sha256": "5a8e6083a45b4a915d4156ea6fcaeccbcd8d4d446efb971a362368711a6ae302"
+    },
+    {
+      "path": ".agents/skills/phase-readiness-gate/SKILL.md",
+      "sha256": "a2638935f8c9ff1c8169821c4717ebed6eedd537520ff60b4c15be93a94a1eb3"
+    },
+    {
+      "path": ".agents/skills/phase-readiness-gate/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/phase-readiness-gate/telemetry/schema.json",
+      "sha256": "a51169a997b5ca2619cf19b5f8dde8f0af68611c11ba1680425d65d1b5ceb0fb"
+    },
+    {
+      "path": ".agents/skills/propose-contract-change/SKILL.md",
+      "sha256": "bd55b4c4dd5beee5690900210a17b91fcf7bea3f0936941f0a39410e2edc991e"
+    },
+    {
+      "path": ".agents/skills/propose-contract-change/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/propose-contract-change/telemetry/schema.json",
+      "sha256": "bc2daedc06113a05d078647e37697288dc350d1f3a293127a616378a19cbf450"
+    },
+    {
+      "path": ".agents/skills/safe-change-preflight/SKILL.md",
+      "sha256": "94b075fe96f1636e03472deca0a204196bb3241fb150a4797aaa1476fa3ae777"
+    },
+    {
+      "path": ".agents/skills/safe-change-preflight/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/safe-change-preflight/telemetry/schema.json",
+      "sha256": "f30834022ab3a14669bf06e640ac1054e6d12a6c194a1e85bf65dd6fffa9462a"
+    },
+    {
+      "path": ".agents/skills/security-sweep/SKILL.md",
+      "sha256": "e7c202570d7b65d41dd1e4a9e0224e3435f0813823a214a0c6559d2361aa780d"
+    },
+    {
+      "path": ".agents/skills/security-sweep/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/security-sweep/telemetry/schema.json",
+      "sha256": "dd05daa28f5eaf1b28e62527ddc8f980c317d884a22520b9b772f508639d6530"
+    },
+    {
+      "path": ".agents/skills/swarm-standup/SKILL.md",
+      "sha256": "60ced319e90620d8b8567e211ab7adb8c9f596e8e6e8c980e8ed6dce3756652a"
+    },
+    {
+      "path": ".agents/skills/swarm-standup/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/swarm-standup/telemetry/schema.json",
+      "sha256": "c245d83209a6888336b13a3fb2d665199dedbb800a4b9fe3334ba9aa86f840a1"
+    },
+    {
+      "path": ".agents/skills/swarm-status-briefing/SKILL.md",
+      "sha256": "85d8717f7dd0109429755001743d8d6e09681521b8d8e7411d9e4e50ed363f1f"
+    },
+    {
+      "path": ".agents/skills/swarm-status-briefing/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/swarm-status-briefing/telemetry/schema.json",
+      "sha256": "708f0c29f3e68da8cd512c2b3f41cacac835f8f1b497dba581f2910bb89b9bd0"
+    },
+    {
+      "path": ".agents/skills/verify-change/SKILL.md",
+      "sha256": "a9a1ddbfa0e705213d029be090126cfe84214b7b473498b2659ac9a7ad70f700"
+    },
+    {
+      "path": ".agents/skills/verify-change/telemetry/.gitignore",
+      "sha256": "93cbe782f9df0231d9a92056cff0ebbf282de9d175015c15ec836b2b0142c979"
+    },
+    {
+      "path": ".agents/skills/verify-change/telemetry/schema.json",
+      "sha256": "349136105a1f3f7edea3a9d1e7948f4ab486b0447eb34be378cbcae9f2e54ac2"
+    },
+    {
+      "path": ".codex/MIGRATION_REPORT.md",
+      "sha256": "d96a22a65a480019462a5a69be140d789d6c0d9e2e1e31f3901b10d02554a48d"
+    },
+    {
+      "path": ".codex/README.md",
+      "sha256": "9c2546588abfc3921da78f4b9a69728d18464d70857afcc8bad79ade1bd254de"
+    },
+    {
+      "path": ".codex/agents/accounting-ledger-engineer.toml",
+      "sha256": "c380722cf1dcdcec8d68227278e201f48ae7364ad6e3557236c34448435e5273"
+    },
+    {
+      "path": ".codex/agents/architecture-boundary-verifier.toml",
+      "sha256": "75ab9c5737cf2419f72c263ab63e997b2766592a1274f0ec34256679fd935049"
+    },
+    {
+      "path": ".codex/agents/control-plane-verifier.toml",
+      "sha256": "d0e2d748d6f53d5320d651f785f98d6bb943e8b3f2270390ea9d947283758165"
+    },
+    {
+      "path": ".codex/agents/governance-approvals-engineer.toml",
+      "sha256": "354a9380333ba4f615e4fdd03bfcc6279682b30a5c18f63e594d50329ec21ab9"
+    },
+    {
+      "path": ".codex/agents/market-data-engineer.toml",
+      "sha256": "09dfe2b850b08d4292f4698dbdb6cd4d3b5d8dfacae4d10460ca1c072215aaef"
+    },
+    {
+      "path": ".codex/agents/openrouter-agent-engineer.toml",
+      "sha256": "33845e4570cd69a5a6f08cbab495078ff70ca8b85511b01492bc3fbbd1134e01"
+    },
+    {
+      "path": ".codex/agents/phase-router.toml",
+      "sha256": "604f8f67d2455f644851bbdc79f29e4be734e1278a85e9a810441a22b2eec544"
+    },
+    {
+      "path": ".codex/agents/research-integrity-engineer.toml",
+      "sha256": "6d60e3d121787171c9b898b3d0589d3a5309d11a07e048cc99952696eb06f2ad"
+    },
+    {
+      "path": ".codex/agents/risk-engineer.toml",
+      "sha256": "6cdbe4e44982d83eaa0987e3b434d1c049c065aae109df2dbf78dddb180d965e"
+    },
+    {
+      "path": ".codex/agents/rules-specialist.toml",
+      "sha256": "385bf6a0e7050b2ba99ff49c40b8c476c7c0c715def91913580ab8521bcc3157"
+    },
+    {
+      "path": ".codex/agents/runtime-execution-engineer.toml",
+      "sha256": "c281af847cc77a9eabc63c62d256c8308608a61d1a1f79428bf72faf7dfb47a8"
+    },
+    {
+      "path": ".codex/agents/security-finding-reviewer.toml",
+      "sha256": "7ea3411d431173f5de71dbf4ab74cd23f5263980e4ee9c554ac033b1eed26cce"
+    },
+    {
+      "path": ".codex/agents/security-test-author.toml",
+      "sha256": "2257f603a4c68cbfddd21bf15965d374146115fa0391488f0e012734d28a551e"
+    },
+    {
+      "path": ".codex/agents/skills-specialist.toml",
+      "sha256": "2dfa9376e2edca8aac523d637eee2880964c20efa4b88196c5970dddf11c7cef"
+    },
+    {
+      "path": ".codex/agents/strategy-engineer.toml",
+      "sha256": "ff9f324488cd275afcdcaa5782cb1bca21431fc3e366481078cc02c640f5c0df"
+    },
+    {
+      "path": ".codex/agents/transport-safety-engineer.toml",
+      "sha256": "e032604eef6349309b40e6b5494e6302b3a7db3c9811a30c97e2699d4a9d5e13"
+    },
+    {
+      "path": ".codex/agents/workflow-specialist.toml",
+      "sha256": "c73a6845c41757b87497712efed3f5d23aa4666d9a5d2981837c2c04407f13b0"
+    },
+    {
+      "path": ".codex/config.toml",
+      "sha256": "63bd3abc4c6772a0f42338ea1cf96016c2a22cd7aefe7b7dc4f78dddedd3be81"
+    },
+    {
+      "path": ".codex/control-plane/AUDIT_REMEDIATION.md",
+      "sha256": "44bea62af98dfb5af12fd41b3c55dbecb3b566bb931abb60749e1d965d589c7b"
+    },
+    {
+      "path": ".codex/control-plane/EVALUATION.md",
+      "sha256": "6904d873beb0b2e0df1d8e41f2ba970e8b49d5a790ef5a2336a87ce0fc3e52f2"
+    },
+    {
+      "path": ".codex/control-plane/audit-event.schema.json",
+      "sha256": "75b585d4962c8a0de7d283670f2176deb5a8a38bc92eab41ebb3151236a57eec"
+    },
+    {
+      "path": ".codex/control-plane/authority-state.example.json",
+      "sha256": "e94bbd1bcab86ba2949646b54bf74e7ec1f8e659610025dde24169e1ae23c4d3"
+    },
+    {
+      "path": ".codex/control-plane/enforcement-contract.json",
+      "sha256": "d9eb1a5d269444f37c2b90970fdfed081460a6ef148e1a27293fd5a3c935ec73"
+    },
+    {
+      "path": ".codex/control-plane/eval-observation.example.jsonl",
+      "sha256": "3dba6d8ced82e8d5c7f9272a520b2963db12b26d6a85cb82d14bdce8985e5c73"
+    },
+    {
+      "path": ".codex/control-plane/evals/failure_cases.jsonl",
+      "sha256": "cfc640bcc578f616f3b76071820e578e4bd0ad1b2834d2115e3b4fd17aad1469"
+    },
+    {
+      "path": ".codex/control-plane/evals/routing_cases.jsonl",
+      "sha256": "9c4adbfe0f4fbde28862daf7d85152c04cc205544d016fe559969f75fb45b3f1"
+    },
+    {
+      "path": ".codex/control-plane/evals/task_cases.jsonl",
+      "sha256": "b78c44b3287b091077c87fbbdc9fe6478cd14bcdb30532153d49d42796ffde3f"
+    },
+    {
+      "path": ".codex/control-plane/manifest.json",
+      "sha256": "0b1c642044516b68f3c2d1dde78a6ca076c0b53847eacea8edf2a366e4e60939"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/README.md",
+      "sha256": "da227b842b8154f6ec903a011b49993cb3f1cd10194eb601b83d8ced289b665d"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/INDEX.md",
+      "sha256": "da642935eaf89e138ebbc9e9f4a44af119b7318f3a6ca2f033a5605341d4187e"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/PROTOCOL.md",
+      "sha256": "0e8961f4c1ad435aaa8b6dfed6f012e009b282ec439aa2353077680d77be0760"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/accounting-ledger.md",
+      "sha256": "bc45d8798c6200fb376b3554d09fb3e1d33e3060f92961abbf62ab4e806a4958"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/architecture.md",
+      "sha256": "4310f3c329879da952133bcbdac002348afb3eef89a2550456f3927f6af97447"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/governance-approvals.md",
+      "sha256": "c4ccabd6b4721769ceaa95a8d29e3e24e07fc4c218f4b52bc8bfd72eae0c56e1"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/market-data.md",
+      "sha256": "b815726e800ad3c2b4dc7346436760db0a7a92510cda1763e713901e3266421e"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/openrouter-agents.md",
+      "sha256": "483f324f6315a3835db90605b8c1db8528e51b07c67147fe0587963954071951"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/phase-integration.md",
+      "sha256": "f9d56b23db7d8f7586665f7e171d778722a10d04f7bb199b3c6373fea90823f3"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/research-integrity.md",
+      "sha256": "aff070f86ae07e4ddd3715a69bfb4319e112f07130b024b27e76cd3f4a2bac8c"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/risk.md",
+      "sha256": "764392ae00549522feb09d6403602b295f526eebe97e11cf3bee3d2d358c3617"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/runtime-execution.md",
+      "sha256": "fc32fc912c7bada2f903b9dde2cf757cc8c58b8f94a3909bddcc5a8a70d6e874"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/security.md",
+      "sha256": "7b51fbeea70e456b0685dcbc30b14f7af921c3a585782a8ef5aa5e5ce4f4a56b"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/strategy.md",
+      "sha256": "150c65c11c2f2a4106b774e87e38a1e69c2fde9e1c936f4d4f381730f10602f3"
+    },
+    {
+      "path": ".codex/control-plane/runtime-seed/memory/domains/transport-safety.md",
+      "sha256": "17dfc8528d065ee3bf14dc3f0275312fc75a98a270bdf3b400b01c1604d8fc6a"
+    },
+    {
+      "path": ".codex/control-plane/runtime-state.ignore",
+      "sha256": "5269272dd87310fdda641e20714fa1dc530d9efac1e9116222cc639fc5558ceb"
+    },
+    {
+      "path": ".codex/evals/README.md",
+      "sha256": "37b8b6d1d1ac6d5ce1fc3edb0c29037a38c0248e831443e98c01d7e974b060dc"
+    },
+    {
+      "path": ".codex/evals/skill-routing.json",
+      "sha256": "26ddc6d076187036e451e30a2d7a928b6a294c752e3748dc933b772575eafda5"
+    },
+    {
+      "path": ".codex/policies/accounting-and-domain-models.md",
+      "sha256": "971e2edc4d26f016ace0cc55bbabef9b2ac949f3d430199dcf3e2c3c0e68e8c8"
+    },
+    {
+      "path": ".codex/policies/agents/openrouter-governance.md",
+      "sha256": "1751e92e84dbea8a5240090c340a957bcf91b3c6fd63e95b54a5fb85ba0f8a28"
+    },
+    {
+      "path": ".codex/policies/architecture/dependency-boundaries.md",
+      "sha256": "c29f8ed96f2a75c273b0049c8754e1e8db66545754f12de312d41e0bf9f27079"
+    },
+    {
+      "path": ".codex/policies/credential-privacy.md",
+      "sha256": "6647c984d900114d25ad956ea857216654bdd8740ef9f7ab810087a06a4fd3dc"
+    },
+    {
+      "path": ".codex/policies/governance-and-approvals.md",
+      "sha256": "361fe5006cbe02b2468a87dff1825d72aaee5fe7f92d985f904d501be09b61f3"
+    },
+    {
+      "path": ".codex/policies/kalshi-transport-safety.md",
+      "sha256": "aaa2fcb8497c3b6ff6df172042e270d88b345b8febc927ffa3668fb8e05f67cb"
+    },
+    {
+      "path": ".codex/policies/market-data-and-eligibility.md",
+      "sha256": "9c7db6badf36b536c3b394a98eb28f1905725d59af76996768dd19293b9bb08f"
+    },
+    {
+      "path": ".codex/policies/persistence-and-migrations.md",
+      "sha256": "0872ea30f261365f6502bdd114df0b4de7d30807fa6b259ec72657d207227183"
+    },
+    {
+      "path": ".codex/policies/research-evaluation-integrity.md",
+      "sha256": "088b8522ef6659ea4dc58a2cb40e5f52c08625abcaafe266d93d82b9585799ca"
+    },
+    {
+      "path": ".codex/policies/runtime-lifecycle.md",
+      "sha256": "e623062eb6273c09426df4e3ce2f73b893cd8afa073c6995f81344718f02ac50"
+    },
+    {
+      "path": ".codex/policies/security-adversarial-review.md",
+      "sha256": "6a544714c466e6fdf0cd8aefd3e55ab7a09f05592d83411b5577070e15559f95"
+    },
+    {
+      "path": ".codex/policies/strategy-and-risk.md",
+      "sha256": "48035e2b2e8640a87e777b9863490d543103df817598007def64145af32e5811"
+    },
+    {
+      "path": ".codex/scripts/build_definition_snapshot.py",
+      "sha256": "92f4e560a9725c682b14b46113a7988885807ceead0b9b624b391f21bb929239"
+    },
+    {
+      "path": ".codex/scripts/build_release_archive.py",
+      "sha256": "13079578fbbd962a45e3957db01bac4d0800545310198da38386e676caa21336"
+    },
+    {
+      "path": ".codex/scripts/capture_uow.py",
+      "sha256": "09463cb932d5f5246d0c9ae83f6a21a7ad8430c19e1f8a8f83cb54908e7edfce"
+    },
+    {
+      "path": ".codex/scripts/compile_effective_state.py",
+      "sha256": "d13697b48582c464b652ed39ab818153a29d731670883e469f8864b49ace18f2"
+    },
+    {
+      "path": ".codex/scripts/control_plane_eval.py",
+      "sha256": "e74e50a83f446b35b055e4b2f525f0a2d2ef824e4a9ea3a1e057c32d2cf34b55"
+    },
+    {
+      "path": ".codex/scripts/execution_audit.py",
+      "sha256": "e637e8b4930327590a95f6cabe7eeb7d32426722fd9e5654313e9b37b1cbc7d7"
+    },
+    {
+      "path": ".codex/scripts/initialize_runtime_state.py",
+      "sha256": "92bc61d8df19d8ed8775df7a8e6c03ff63853f103bfff4e80c5f1cf23feba133"
+    },
+    {
+      "path": ".codex/scripts/memory_coverage.py",
+      "sha256": "eeb3c4259c18ba70f26911329a769694592db2c1e88d2834a73635b43fb99083"
+    },
+    {
+      "path": ".codex/scripts/memory_sync.py",
+      "sha256": "42e2bce56b9fc1ebad3e7aabc4c72a5726a627e436e3ad4f121f7cb3868f8de9"
+    },
+    {
+      "path": ".codex/scripts/resolve_policies.py",
+      "sha256": "57eddcfb4a8a688bb8b5ddfedf0308de621da82e4f5183eb2972a013fb46b7dc"
+    },
+    {
+      "path": ".codex/scripts/skill_eval.py",
+      "sha256": "cc07674dc4a9cd3accd55394507ee22f956854b6ebb450231e740a8b70edc473"
+    },
+    {
+      "path": ".codex/scripts/skill_telemetry.py",
+      "sha256": "1e7de9c84e29d0d413c061c71a773eb3537759a57c6f94041a8b8c6c1fad1392"
+    },
+    {
+      "path": ".codex/scripts/swarm_status.py",
+      "sha256": "cee680fa93b18b37453d91b4a4e69d12434aecade4ecb7554375ea3bbfdb056f"
+    },
+    {
+      "path": ".codex/scripts/validate_control_plane.py",
+      "sha256": "0d4f5b4594ea382bc56b9ef3161aa330680454833e9135ac95f415dc8191d746"
+    },
+    {
+      "path": ".codex/scripts/verify_enforcement_contract.py",
+      "sha256": "87615487b5e260040c1169b82688d85aea28a382b8b69209fe0566c25d5f9d76"
+    },
+    {
+      "path": ".codex/tests/test_control_plane_compiler.py",
+      "sha256": "755a7140f4c51cd9a50b99c8b18181c21e6d3bf263838313866c7f730c9bf55e"
+    },
+    {
+      "path": ".codex/tests/test_policy_resolution.py",
+      "sha256": "c81bd5bcc768855e530cde38cb6bad47f1c135f8e899d4a17435e792e3da6024"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "8d2c980168fd89073a735084b94673c1534e731c5102beebac74c33ed9b0d7a8"
+    }
+  ],
+  "mutable_state_excluded": [
+    ".codex/memory/**",
+    ".agents/skills/**/telemetry/events.jsonl",
+    ".control-plane-state/**",
+    "**/__pycache__/**",
+    "**/*.pyc",
+    "**/.pytest_cache/**"
+  ],
+  "schema_version": 1
+}

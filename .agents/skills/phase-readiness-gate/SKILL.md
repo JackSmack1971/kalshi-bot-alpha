@@ -10,7 +10,7 @@ description: Use only when the user explicitly asks for a multi-agent phase-read
 Launch these four independent audit tasks concurrently, then wait for all four:
 
 1. A general subagent follows `phase-exit-audit` and classifies every deliverable/exit criterion using the exact `AGENTS.md` completion vocabulary: implemented, tested, mocked, simulated, partially implemented, unverified, deferred. It must not edit `docs/IMPLEMENTATION_STATUS.md`.
-2. `security-adversarial-reviewer` follows `audit-safety-invariants` against the full repository state and records exact output of `python scripts/verify_demo_only.py` if that script exists. Missing required script is a gap, not a pass.
+2. `security-finding-reviewer` follows `audit-safety-invariants` against the full repository state and records exact output of `python scripts/verify_demo_only.py` if that script exists. Missing required script is a gap, not a pass.
 3. `architecture-boundary-verifier` verifies dependency and capability reachability against the full current `src/` tree.
 4. A read-only general subagent follows `swarm-status-briefing` and reports unresolved `[BLOCKER]`, `[DECISION-NEEDED]`, `[INVARIANT-RISK]`, plus domain logs whose latest status is blocked or needs human approval.
 
@@ -26,7 +26,7 @@ Never state that the phase is approved. The strongest permissible conclusion is 
 
 ## Observable workflow and telemetry
 
-Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+Create exactly one telemetry run per Skill invocation. Start with `python .codex/scripts/skill_telemetry.py start <skill> invocation_started --reason-code <reason>` and capture the returned `run_id`. Reuse that same `run_id` for every `emit` event and for `finish <skill> invocation_finished --run-id <id> --outcome <terminal>`. Never generate a new run ID for each event. When an execution snapshot or UoW ID exists, attach it to the same run. Emit only the consequential events below; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
 
 Declared events: `lane_verdict`, `lane_failure`, `cross_lane_disagreement`, `synthesis_result`.
 

@@ -1,6 +1,6 @@
 ---
 name: swarm-status-briefing
-description: Produce a read-only swarm-state synthesis from implementation status, memory index, and domain logs. Use for blockers, in-flight work, handoffs, or multi-domain routing. Never edits files or replaces phase-integrator dispatch.
+description: Produce a read-only swarm-state synthesis from implementation status, memory index, and domain logs. Use for blockers, in-flight work, handoffs, or multi-domain routing. Never edits files or replaces phase-router dispatch.
 ---
 
 # Swarm status briefing
@@ -49,7 +49,7 @@ Discrepancies
 
 ## Observable workflow and telemetry
 
-Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+Create exactly one telemetry run per Skill invocation. Start with `python .codex/scripts/skill_telemetry.py start <skill> invocation_started --reason-code <reason>` and capture the returned `run_id`. Reuse that same `run_id` for every `emit` event and for `finish <skill> invocation_finished --run-id <id> --outcome <terminal>`. Never generate a new run ID for each event. When an execution snapshot or UoW ID exists, attach it to the same run. Emit only the consequential events below; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
 
 Declared events: `unresolved_counts`, `domain_latest_status`, `index_domain_discrepancy`.
 
