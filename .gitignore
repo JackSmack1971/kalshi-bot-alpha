@@ -2,7 +2,7 @@ __pycache__/
 *.pyc
 .env
 .env.*
-!.env.example
+docs-dev/openapi-github-source-docs-pack/index/chunks.jsonl
 var/
 .pytest_cache/
 .mypy_cache/

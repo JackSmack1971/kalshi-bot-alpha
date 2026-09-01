@@ -4,7 +4,7 @@ Deterministic, demo-only Kalshi crypto paper-trading bot with a
 separate, OpenRouter-exclusive AI research/control plane. The full
 system contract is `docs-dev/Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`
 (adopted by `docs/adr/0001-blueprint-v3-baseline.md`,
-status: Proposed, awaiting human approval — see
+status: Accepted — see
 `docs/IMPLEMENTATION_STATUS.md`). This page is an orientation map, not
 a replacement.
 
@@ -68,15 +68,14 @@ This is a structural, not configurable, boundary — see
 `docs/SAFETY_MODEL.md` §1 and `docs/DEMO_ENDPOINT_POLICY.md` for the
 enforcement mechanisms that exist today.
 
-## Current Phase 0 artifacts
+## Current Phase 3 implementation
 
-`src/kalshi_bot/` is not an empty package: it contains one narrow,
-pure, side-effect-free exception —
-`src/kalshi_bot/contracts/demo_endpoints.py` (the demo hostname
-allowlist and `validate_host` predicate; see
-`docs/SAFETY_MODEL.md` §1). No other trading code exists. Everything
-else delivered by Phase 0 is a documented or machine-checkable
-contract:
+The deterministic runtime includes read-only Kalshi connectivity, market
+eligibility and order-book models, synchronous risk checks, passive-spread
+strategy evaluation, simulated execution, persistence, reconciliation, and
+the CLI mock acceptance path. Exchange mutation and the separate AI control
+plane remain out of scope. The following contracts and modules define the
+current implementation:
 
 | Contract | Location |
 | --- | --- |
@@ -146,26 +145,21 @@ Matches blueprint §11:
 ```text
 docs/            prose contracts and policy documents
 schemas/         frozen machine-checkable JSON Schema contracts
-src/kalshi_bot/  the deterministic runtime package (Phase 0: contracts
-                 exception only, see above)
+src/kalshi_bot/  the deterministic demo-only runtime package (Phase 3)
 tests/           unit, contract, integration, acceptance, property
 config/          risk and other operator-reviewed configuration
-migrations/      placeholder until Phase 2-3 introduces persistence
+migrations/      persistence migrations
 ```
 
-`docs-dev/` (the blueprint and reference API docs) is reference
-material and is not modified by this phase.
+`docs-dev/` contains the blueprint and retained Kalshi reference material.
+Generated OpenAPI source/site indexes are intentionally excluded from the
+repository because they are not consumed by the runtime or tests.
 `scripts/verify_demo_only.py` enforces the endpoint policy from Phase
 0 onward.
 
 ## Current implementation limitations
 
-No Kalshi REST or WebSocket client, no order-book builder, no feature
-engine, no strategy engine, no risk gateway, no execution engine, no
-reconciliation service, no ledger, no persistence/migration code, and
-no AI-agent runtime or OpenRouter client exist in this repository.
-Every diagram and table above describes a target contract fixed for
-future phases to implement, not current runtime behavior. Future
-phases implement these against the contracts fixed here; see blueprint
-§12 "Delivery Phases" and `docs/IMPLEMENTATION_STATUS.md` for the
+The current implementation is deterministic and demo-only. It does not
+place live orders, use production endpoints, or provide an AI-agent runtime
+or OpenRouter client. See `docs/IMPLEMENTATION_STATUS.md` for the
 authoritative phase ledger and exit criteria.

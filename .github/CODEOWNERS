@@ -1,0 +1,13 @@
+# Default ownership: repository owner reviews all changes.
+* @JackSmack1971
+
+# High-risk boundaries require explicit owner review.
+/.github/ @JackSmack1971
+/.codex/ @JackSmack1971
+/config/ @JackSmack1971
+/schemas/ @JackSmack1971
+/src/kalshi_bot/auth/ @JackSmack1971
+/src/kalshi_bot/credentials/ @JackSmack1971
+/src/kalshi_bot/execution/ @JackSmack1971
+/src/kalshi_bot/persistence/ @JackSmack1971
+/src/kalshi_bot/reconciliation/ @JackSmack1971

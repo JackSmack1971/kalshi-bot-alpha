@@ -40,6 +40,13 @@ def _decimal(value: str | int | Decimal | None) -> Decimal:
     return Decimal("0") if value is None else Decimal(str(value))
 
 
+def _exchange_side(value: str | None) -> str | None:
+    if value is None:
+        return None
+    normalized = value.upper()
+    return {"BID": "YES", "ASK": "NO", "YES": "YES", "NO": "NO"}.get(normalized)
+
+
 class ReconciliationService:
     """Compare all four exchange/local truth surfaces without repairing either."""
 
@@ -49,16 +56,21 @@ class ReconciliationService:
         self.suspended = store.reconciliation_required()
 
     def reconcile(self, *, trigger: str) -> ReconciliationResult:
-        exchange_orders = tuple(self.client.list_open_orders())
-        exchange_fills = tuple(self.client.get_fills())
-        exchange_positions = tuple(self.client.get_positions())
-        exchange_balance = self.client.get_balance()
-        mismatches = tuple(
-            self._compare_orders(exchange_orders)
-            + self._compare_fills(exchange_fills)
-            + self._compare_positions(exchange_positions)
-            + self._compare_balance(exchange_balance)
-        )
+        try:
+            exchange_orders = tuple(self.client.list_open_orders())
+            exchange_fills = tuple(self.client.get_fills())
+            exchange_positions = tuple(self.client.get_positions())
+            exchange_balance = self.client.get_balance()
+            mismatches = tuple(
+                self._compare_orders(exchange_orders)
+                + self._compare_fills(exchange_fills)
+                + self._compare_positions(exchange_positions)
+                + self._compare_balance(exchange_balance)
+            )
+        except Exception as exc:
+            # A partial or unavailable truth surface is not clean. Persist only
+            # the stable exception type; never expose response/request details.
+            mismatches = (f"reconciliation_unavailable:{type(exc).__name__}",)
         status = ReconciliationStatus.CLEAN
         self.suspended = self.suspended or bool(mismatches)
         if self.suspended:
@@ -84,22 +96,22 @@ class ReconciliationService:
     def _compare_orders(self, exchange: tuple[Order, ...]) -> list[str]:
         local_rows = {row["client_order_id"]: row for row in self.store.local_open_orders()}
         local = set(local_rows)
-        remote_rows = {
-            order.client_order_id: order for order in exchange if order.client_order_id is not None
-        }
+        result = ["open_order_missing_exchange_id" for order in exchange if order.client_order_id is None]
+        remote_rows = {order.client_order_id: order for order in exchange if order.client_order_id}
         remote = set(remote_rows)
-        result = [f"open_orders_missing_local:{value}" for value in sorted(remote - local)] + [
+        result.extend(f"open_orders_missing_local:{value}" for value in sorted(remote - local))
+        result.extend(
             f"open_orders_missing_exchange:{value}" for value in sorted(local - remote)
-        ]
+        )
         for order_id in sorted(local & remote):
             row = local_rows[order_id]
             order = remote_rows[order_id]
             remote_price = order.yes_price_dollars or order.no_price_dollars
             remote_count = order.initial_count_fp or order.count
-            remote_side = (
-                "YES" if order.side == "bid" else "NO" if order.side == "ask" else order.side
-            )
-            if (
+            remote_side = _exchange_side(order.side)
+            if remote_price is None or remote_count is None or order.side is None:
+                result.append(f"open_order_incomplete_exchange_evidence:{order_id}")
+            elif (
                 row["ticker"] != order.ticker
                 or row["side"] != remote_side
                 or _decimal(row["quantity"]) != _decimal(remote_count)
@@ -111,23 +123,34 @@ class ReconciliationService:
     def _compare_fills(self, exchange: tuple[Fill, ...]) -> list[str]:
         local = {
             row["exchange_fill_id"]: (
+                row["client_order_id"],
                 _decimal(row["quantity"]),
                 _decimal(row["price"]),
                 _decimal(row["fee"]),
             )
             for row in self.store.local_fills()
         }
-        remote: dict[str, tuple[Decimal, Decimal, Decimal]] = {}
+        remote: dict[str, tuple[str | None, Decimal, Decimal, Decimal]] = {}
+        result: list[str] = []
         for fill in exchange:
             fill_id = fill.fill_id or fill.trade_id
-            if fill_id:
-                price = fill.yes_price_dollars or fill.no_price_dollars
-                remote[fill_id] = (
-                    _decimal(fill.count_fp),
-                    _decimal(price),
-                    _decimal(fill.fee_cost),
-                )
-        result = [f"fills_missing_local:{value}" for value in sorted(remote.keys() - local.keys())]
+            if not fill_id:
+                result.append("fill_missing_exchange_id")
+                continue
+            price = fill.yes_price_dollars or fill.no_price_dollars
+            if price is None or fill.count_fp is None or fill.fee_cost is None:
+                result.append(f"incomplete_exchange_fill:{fill_id}")
+                continue
+            if fill_id in remote:
+                result.append(f"duplicate_exchange_fill:{fill_id}")
+                continue
+            remote[fill_id] = (
+                getattr(fill, "client_order_id", None),
+                _decimal(fill.count_fp),
+                _decimal(price),
+                _decimal(fill.fee_cost),
+            )
+        result.extend(f"fills_missing_local:{value}" for value in sorted(remote.keys() - local.keys()))
         result.extend(
             f"fills_missing_exchange:{value}" for value in sorted(local.keys() - remote.keys())
         )
@@ -145,20 +168,24 @@ class ReconciliationService:
             local[position.market_ticker] = (
                 local.get(position.market_ticker, Decimal("0")) + sign * position.quantity
             )
+        result = ["position_missing_exchange_ticker" for position in exchange if position.ticker is None]
         remote = {
             position.ticker: _decimal(position.position_fp)
             for position in exchange
-            if position.ticker
+            if position.ticker is not None
         }
         keys = local.keys() | remote.keys()
-        return [
+        result.extend(
             f"position_mismatch:{key}"
             for key in sorted(keys)
             if local.get(key, Decimal("0")) != remote.get(key, Decimal("0"))
-        ]
+        )
+        return result
 
     def _compare_balance(self, exchange: object) -> list[str]:
         dollars = getattr(exchange, "balance_dollars", None)
+        if dollars is None and getattr(exchange, "balance", None) is None:
+            return ["balance_missing_exchange_value"]
         remote = (
             _decimal(dollars)
             if dollars is not None

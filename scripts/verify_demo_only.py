@@ -40,7 +40,7 @@ ENFORCED_PATHS: tuple[str, ...] = (
     "tests",
     "migrations",
     "pyproject.toml",
-    ".env.example",
+    "config/env.example",
 )
 
 SCANNED_SUFFIXES: frozenset[str] = frozenset(
@@ -53,7 +53,7 @@ SCANNED_SUFFIXES: frozenset[str] = frozenset(
 # real rejection of production-looking and lookalike hostnames without those
 # literals being mistaken for deployable configuration. The marker has no
 # effect anywhere else in ENFORCED_PATHS (src, config, schemas, scripts,
-# migrations, pyproject.toml, .env.example), so it cannot be used to smuggle
+# migrations, pyproject.toml, config/env.example), so it cannot be used to smuggle
 # a real endpoint into runtime-reachable code.
 NEGATIVE_FIXTURE_MARKER = "demo-scan: allow-negative-fixture"
 
