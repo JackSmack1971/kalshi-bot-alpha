@@ -272,6 +272,11 @@ in PR 6, which is explicitly opt-in and never part of the standard
 
 ## PR 6 — Phase 1 supervisor, opt-in four-hour soak tooling, evidence report, and phase-exit audit
 
+This section records the historical Phase 1 delivery plan. The former
+`application.py` supervisor described below was retired after Phase 3 became
+the active implementation; the supported runtime and soak boundaries are
+documented in the current phase ledger and architecture map.
+
 - **Paths:** `src/kalshi_bot/application.py` (minimal Phase 1
   supervisor: wires config → credential loader → signer → REST/WS
   clients → subscriptions, using PR 2's logger throughout — a
@@ -336,8 +341,12 @@ in PR 6, which is explicitly opt-in and never part of the standard
   Kalshi under any circumstance; the soak script must not run as part
   of the standard `pytest` gate or any CI-equivalent invocation; no
   overwriting a prior `artifacts/phase1/soak/<run-id>/` directory.
-- **Interfaces:** `run_phase1_supervisor(config, credentials) -> None`;
-  CLI entry `uv run python scripts/soak_phase1.py --duration-hours 4`.
+- **Historical interface:** the Phase 1 composition-root function
+  `run_phase1_supervisor` was retired when the Phase 3 CLI became the
+  supported runtime composition. It is not a public library interface and
+  must not be reintroduced as a second supervisor. The supported Phase 1
+  operator workflow remains `uv run python scripts/soak_phase1.py
+  --duration-hours 4`.
 - **Failure states:** any unhandled exception during the soak → nonzero
   exit, the evidence directory is still written with the failure
   recorded (never discarded).
