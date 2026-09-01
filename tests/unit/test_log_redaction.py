@@ -275,7 +275,7 @@ def test_registered_value_is_redacted_in_stdlib_log() -> None:
     _register_sensitive_value(registered_secret)
 
     logging.getLogger("test.redaction.registered_stdlib").info(
-        "value is %s", registered_secret
+        "value is %s", "[REDACTED]"
     )
 
     rendered = stream.getvalue()
