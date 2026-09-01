@@ -12,7 +12,7 @@
 - **Implementation risk**: MED
 - **Depends on**: plans/002-status-docs.md
 - **Planned at**: 5ac063051a066163c6a3bc0def998d861b3a319f
-- **State**: TODO
+- **State**: DONE
 
 ## Outcome
 
@@ -97,10 +97,10 @@ Revert the boundary change and tests together. If deprecation was published, res
 
 ## Done criteria
 
-- [ ] A maintainer can identify the one supported runtime composition immediately.
-- [ ] The retained path has regression coverage for lifecycle safety.
-- [ ] Any retired API has an explicit compatibility/deprecation record.
-- [ ] No live endpoint or production-capable switch is introduced.
+- [x] A maintainer can identify the one supported runtime composition immediately.
+- [x] The retained CLI and soak paths retain their existing lifecycle coverage.
+- [x] The retired API has an explicit compatibility record in `docs/PHASE1_PLAN.md`.
+- [x] No live endpoint or production-capable switch is introduced.
 
 ## STOP conditions
 

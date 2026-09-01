@@ -20,7 +20,7 @@ active configuration, and promotion changes.
 This split is binding for every future component. See
 `docs/SAFETY_MODEL.md` for how it is enforced.
 
-## Trading pipeline (deterministic, single process — target, not yet implemented)
+## Trading pipeline (deterministic, single process)
 
 ```text
 Kalshi Demo REST/WS
@@ -35,10 +35,12 @@ Kalshi Demo REST/WS
   -> reconciliation service (suspends trading on mismatch)
 ```
 
-None of these components exist yet (see "Current implementation
-limitations" below). This diagram fixes the target sequencing and
-module boundaries that the phase introducing each component must
-satisfy.
+The current Phase 3 tree implements the market-data, eligibility,
+order-book, strategy, risk, simulated-execution, persistence, and
+reconciliation portions of this composition. Exchange mutation and the
+AI control plane remain deferred. The installed `kalshi-bot` CLI is the
+supported operator composition; the Phase 1 soak is a separate explicit
+operator workflow, not another application supervisor.
 
 ## AI control plane (separate process, later phases)
 

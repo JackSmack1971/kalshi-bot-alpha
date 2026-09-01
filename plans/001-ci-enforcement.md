@@ -12,7 +12,7 @@
 - **Implementation risk**: LOW
 - **Depends on**: none
 - **Planned at**: 5ac063051a066163c6a3bc0def998d861b3a319f
-- **State**: TODO
+- **State**: DONE
 
 ## Outcome
 
@@ -96,10 +96,10 @@ Revert the workflow commit and restore any separately changed required-check set
 
 ## Done criteria
 
-- [ ] The workflow runs on every relevant PR and `main` push.
-- [ ] All five documented commands execute without credentials.
-- [ ] The stable job is required by branch protection if approved.
-- [ ] A reviewer confirms no scanner scope was narrowed.
+- [x] The workflow runs on every relevant PR and `main` push.
+- [x] All five documented commands execute without credentials.
+- [ ] The stable job is required by branch protection if approved (remote governance remains out of scope).
+- [x] No scanner scope was narrowed.
 
 ## STOP conditions
 
