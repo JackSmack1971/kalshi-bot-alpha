@@ -1,53 +1,63 @@
-name: CodeQL
+name: CodeQL Advanced
 
 on:
-  push:
-    branches:
-      - main
+push:
+branches:
+- main
 
-  pull_request:
-    branches:
-      - main
+pull_request:
+branches:
+- main
 
-  # Full repository scan once per week.
-  schedule:
-    - cron: "17 6 * * 1"
+schedule:
+# Weekly security scan: Tuesday at 01:40 UTC
+- cron: "40 1 * * 2"
 
-  # Allows manual scans from the Actions tab.
-  workflow_dispatch:
+# Allow manual scans from the Actions tab.
 
-# Minimum permissions needed by this workflow.
+workflow_dispatch:
+
+# Least-privilege permissions required by this workflow.
+
 permissions:
-  contents: read
-  security-events: write
+contents: read
+security-events: write
 
-# If new commits arrive while CodeQL is still scanning the same
-# branch/PR, cancel the stale run and analyze the newest commit.
+# Cancel stale scans when a newer commit arrives on the same ref.
+
 concurrency:
-  group: codeql-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+group: codeql-${{ github.workflow }}-${{ github.ref }}
+cancel-in-progress: true
 
 jobs:
-  analyze:
-    name: Analyze Python
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
+analyze:
+name: Analyze (${{ matrix.language }})
+runs-on: ubuntu-latest
+timeout-minutes: 30
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
+```
+strategy:
+  fail-fast: false
+  matrix:
+    language:
+      - actions
+      - python
 
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
-        with:
-          languages: python
-          build-mode: none
+steps:
+  - name: Checkout repository
+    uses: actions/checkout@v7
+    with:
+      persist-credentials: false
 
-          # Adds additional security-focused queries beyond
-          # CodeQL's default query suite.
-          queries: security-extended
+  - name: Initialize CodeQL
+    uses: github/codeql-action/init@v4
+    with:
+      languages: ${{ matrix.language }}
+      build-mode: none
+      queries: security-extended
 
-      - name: Perform CodeQL analysis
-        uses: github/codeql-action/analyze@v4
-        with:
-          category: "/language:python"
+  - name: Perform CodeQL analysis
+    uses: github/codeql-action/analyze@v4
+    with:
+      category: "/language:${{ matrix.language }}"
+```
