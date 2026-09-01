@@ -90,7 +90,7 @@ The repository-native verification contract is documented in
 | Demo safety | `uv run python scripts/verify_demo_only.py` | Enforced source/config/schema/test paths |
 | Diff hygiene | `git diff --check` | Proposed diff |
 
-Verification for remediation commit `fad3a0c` completed locally: `uv run
+Verification for remediation commit `94e51a9` completed locally: `uv run
 pytest -q` passed, `uv run ruff check .` passed, `uv run mypy .` passed for
 76 source files, `uv run python scripts/verify_demo_only.py` passed for 88
 files, and `git diff --check` passed. CI repeats these checks on pull

@@ -93,7 +93,7 @@ Revert the documentation commit only; preserve independent code, CI, or governan
 ## Done criteria
 
 - [x] Status and architecture agree with the merged tree.
-- [x] Current evidence names the current tree, verification commands, and remediation commit `fad3a0c`.
+- [x] Current evidence names the current tree, verification commands, and remediation commit `94e51a9`.
 - [x] Active/deferred boundaries and approval gates are explicit.
 - [x] No prose update grants runtime authority.
 
