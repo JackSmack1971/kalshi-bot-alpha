@@ -17,10 +17,13 @@ exit criterion is satisfied. Treat every entry as a working note.
 - `INDEX.md` — shared signal board. Append-only. Cross-domain traces:
   blockers, questions, handoffs, decisions needed, invariant risk,
   notable findings.
-- `domains/<domain>.md` — one append-only log per domain agent. Local
-  traces: what that agent did, touched, verified, and left open.
+- `domains/<domain>.md` — one append-only log per domain. Local traces:
+  what a domain worker or read-only evidence producer did, touched,
+  verified, and left open. Read-only reviewers/routers do not write these
+  files directly; the parent/orchestrator records their returned evidence
+  with source-role attribution.
 
-Domains (one file per agent, created on first write):
+Domains (one file per coordination domain, created on first write):
 `transport-safety.md`, `market-data.md`, `strategy.md`, `risk.md`,
 `accounting-ledger.md`, `runtime-execution.md`, `research-integrity.md`,
 `openrouter-agents.md`, `governance-approvals.md`, `security.md`,
@@ -36,10 +39,14 @@ Domains (one file per agent, created on first write):
    entries tagged for your domain, and (c) the domain logs of any
    upstream domain you consume per
    `.codex/policies/architecture/dependency-boundaries.md`.
-3. **Write after you finish.** Append one entry to your own domain log
-   for every task with observable effect (code change, test added,
-   finding, refusal). Planning-only or read-only investigation still
-   gets an entry if it produced a conclusion another agent should see.
+3. **Write after you finish, unless the active role is read-only.** A
+   write-capable domain worker appends one entry to its domain log for every
+   task with observable effect. A read-only reviewer/router/verifier returns
+   evidence to the parent/orchestrator instead; the parent records that
+   evidence through `memory-domain-sync` and attributes the source role.
+   Planning-only or read-only investigation still gets an entry when it
+   produced a conclusion another agent should see, but read-only roles never
+   widen their authority merely to record it.
 4. **Escalate cross-domain effects to `INDEX.md`.** If your change
    affects another domain's assumptions, creates a blocker, raises a
    question only a human or another specialist can resolve, or exposes

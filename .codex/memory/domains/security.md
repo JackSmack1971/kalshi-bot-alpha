@@ -1,4 +1,4 @@
 # Domain log — security
 
 Append-only. See `.codex/memory/PROTOCOL.md` for format and rules.
-Owning agent: `.codex/agents/security-adversarial-reviewer.toml`.
+Recorder: parent/orchestrator via `memory-domain-sync`; finding evidence source is normally `.codex/agents/security-finding-reviewer.toml` and test evidence may come from `.codex/agents/security-test-author.toml`.

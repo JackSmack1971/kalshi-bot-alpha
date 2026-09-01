@@ -52,9 +52,9 @@ def test_telemetry_rejects_reserved_and_sensitive_fields() -> None:
 
     with pytest.raises(ValueError, match="undeclared"):
         telemetry.append_event(
-            "verify-change", "check_selected", outcome="started", schema_version=99
+            "verify-change", "check_selected", outcome="started", run_id="test-run", schema_version=99
         )
     with pytest.raises(ValueError, match="sensitive"):
         telemetry.append_event(
-            "verify-change", "check_selected", outcome="started", api_key="synthetic"
+            "verify-change", "invocation_started", outcome="started", run_id="test-run", surface="synthetic-secret"
         )
