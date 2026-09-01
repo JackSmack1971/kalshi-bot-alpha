@@ -49,6 +49,9 @@ import time
 from collections.abc import Callable, Mapping
 from types import TracebackType
 from typing import Any, cast
+from decimal import Decimal
+from urllib.parse import quote
+from uuid import UUID, uuid4
 
 import httpx
 from pydantic import ValidationError as PydanticValidationError
@@ -68,6 +71,9 @@ from kalshi_bot.rest.errors import (
     ResponseValidationError,
     TransportExhaustedError,
     TransportFailureError,
+    AmbiguousOutcomeError,
+    DuplicateSubmissionError,
+    PreTransmissionFailure,
 )
 from kalshi_bot.rest.models import (
     ExchangeSchedule,
@@ -75,6 +81,13 @@ from kalshi_bot.rest.models import (
     MarketListPage,
     MarketSummary,
     _ExchangeScheduleEnvelope,
+    Balance,
+    Fill,
+    FillList,
+    Order,
+    OrderList,
+    Position,
+    PositionList,
 )
 
 __all__ = ["KalshiDemoRestClient"]
@@ -86,6 +99,10 @@ _TRADE_API_ROOT = "/trade-api/v2"
 #: The only HTTP method this client ever issues. There is no code path
 #: -- public or private -- that can substitute a different verb.
 _ALLOWED_METHOD = "GET"
+
+class _StoredSide(enum.StrEnum):
+    YES = "YES"
+    NO = "NO"
 
 #: Hard ceiling on pages fetched by a single ``list_markets`` call, so a
 #: misbehaving or malicious server that never returns an empty cursor
@@ -570,6 +587,178 @@ class KalshiDemoRestClient:
             item_count=len(collected),
         )
         return tuple(collected)
+
+    # -- Narrow order/portfolio lifecycle --------------------------------
+
+    def create_limit_order(
+        self,
+        *,
+        ticker: str,
+        client_order_id: str | UUID,
+        side: str,
+        count: int,
+        price: Decimal | str | int,
+        store: Any,
+        intent_id: str | None = None,
+        feature_snapshot_id: str | None = None,
+        risk_decision_id: str | None = None,
+        time_in_force: str = "good_till_canceled",
+    ) -> Order:
+        """Create exactly one demo, limit, post-only order.
+
+        A local order and its ``SUBMISSION_PENDING`` transition are committed
+        before the POST.  Once transmission begins this method never retries;
+        uncertain outcomes are persisted as ``OUTCOME_UNKNOWN`` then
+        ``RECONCILING`` and raised for the reconciliation owner.
+        """
+        order_key = str(client_order_id)
+        self._validate_order_request(ticker, order_key, side, count, price, time_in_force)
+        if store is None or not (intent_id and feature_snapshot_id and risk_decision_id):
+            raise PreTransmissionFailure(
+                "create_limit_order requires a local store and approved-order provenance"
+            )
+        existing = store.get_order(order_key)
+        if existing is not None:
+            raise DuplicateSubmissionError("client_order_id already has a local submission")
+        price_d = Decimal(str(price))
+        try:
+            store.record_order(
+                order_key, intent_id, feature_snapshot_id, risk_decision_id,
+                ticker, self._side(side), count, price_d, "SUBMISSION_PENDING",
+            )
+            store.record_transition(
+                str(uuid4()), order_key, None, "SUBMISSION_PENDING", "local-before-transmission"
+            )
+        except Exception as exc:
+            raise PreTransmissionFailure("local submission could not be persisted") from exc
+
+        payload = {
+            "ticker": ticker, "client_order_id": order_key, "side": side.lower(),
+            "count": str(count), "price": format(price_d, "f"),
+            "time_in_force": time_in_force,
+            "self_trade_prevention_type": "taker_at_cross", "post_only": True,
+        }
+        try:
+            body = self._execute_lifecycle("POST", f"{_TRADE_API_ROOT}/portfolio/orders", json_body=payload)
+            result = Order.model_validate(body.get("order", body))
+            if result.order_id is None or result.client_order_id != order_key:
+                raise ValueError("acknowledgement did not identify the submitted order")
+        except (KalshiApiError, KalshiAuthError):
+            store.transition_order(order_key, "SUBMISSION_PENDING", "REJECTED", "exchange-definitive-response")
+            raise
+        except PreTransmissionFailure:
+            raise
+        except Exception as exc:
+            self._mark_unknown(store, order_key)
+            raise AmbiguousOutcomeError("create_limit_order acknowledgement is uncertain") from exc
+        try:
+            store.transition_order(order_key, "SUBMISSION_PENDING", "ACKNOWLEDGED", "exchange-acknowledgement")
+        except Exception as exc:
+            self._mark_unknown(store, order_key)
+            raise AmbiguousOutcomeError("local acknowledgement persistence is uncertain") from exc
+        return result
+
+    def cancel_order(self, *, order_id: str) -> Order:
+        self._validate_path_id(order_id)
+        body = self._execute_lifecycle("DELETE", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}")
+        return Order.model_validate(body.get("order", body))
+
+    def get_order(self, *, order_id: str) -> Order:
+        self._validate_path_id(order_id)
+        body = self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}")
+        return Order.model_validate(body.get("order", body))
+
+    def list_open_orders(self) -> tuple[Order, ...]:
+        body = self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/orders", params={"status": "resting"})
+        return tuple(OrderList.model_validate(body).orders)
+
+    def get_fills(self) -> tuple[Fill, ...]:
+        return tuple(FillList.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/fills")).fills)
+
+    def get_positions(self) -> tuple[Position, ...]:
+        return tuple(PositionList.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/positions")).market_positions)
+
+    def get_balance(self) -> Balance:
+        return Balance.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/balance"))
+
+    @staticmethod
+    def _side(value: str) -> _StoredSide:
+        if not isinstance(value, str):
+            raise PreTransmissionFailure("side must be bid or ask") from None
+        if value.lower() == "bid":
+            return _StoredSide.YES
+        if value.lower() == "ask":
+            return _StoredSide.NO
+        raise PreTransmissionFailure("side must be bid or ask") from None
+
+    @staticmethod
+    def _validate_path_id(value: str) -> None:
+        if not isinstance(value, str) or not value or quote(value, safe="") != value:
+            raise PreTransmissionFailure("order_id must be a nonempty path-safe string")
+
+    @classmethod
+    def _validate_order_request(cls, ticker: str, order_id: str, side: str, count: int, price: Any, tif: str) -> None:
+        if not isinstance(ticker, str) or not ticker or ticker != ticker.strip():
+            raise PreTransmissionFailure("ticker is invalid")
+        cls._validate_path_id(order_id)
+        cls._side(side)
+        if isinstance(count, bool) or not isinstance(count, int) or count <= 0:
+            raise PreTransmissionFailure("count must be a positive integer")
+        try:
+            value = Decimal(price)
+        except Exception:
+            raise PreTransmissionFailure("price must be a finite Decimal") from None
+        if not value.is_finite() or not Decimal("0.01") <= value <= Decimal("0.99"):
+            raise PreTransmissionFailure("price must be between 0.01 and 0.99")
+        if tif != "good_till_canceled":
+            raise PreTransmissionFailure("only good_till_canceled limit orders are supported")
+
+    @staticmethod
+    def _mark_unknown(store: Any, order_id: str) -> None:
+        store.transition_order(order_id, "SUBMISSION_PENDING", "OUTCOME_UNKNOWN", "post-transmission-uncertain")
+        store.transition_order(order_id, "OUTCOME_UNKNOWN", "RECONCILING", "reconciliation-required")
+
+    def _execute_lifecycle(self, method: str, path: str, *, params: Mapping[str, Any] | None = None, json_body: Mapping[str, Any] | None = None) -> dict[str, Any]:
+        if not self._is_allowlisted_lifecycle_path(method, path):
+            raise PreTransmissionFailure("lifecycle operation is not allowlisted")
+        try:
+            timestamp_ms = self._clock_ms()
+            signed = self._signer.sign(method, path, timestamp_ms)
+        except Exception as exc:
+            raise PreTransmissionFailure("request could not be prepared before transmission") from exc
+        headers = {"KALSHI-ACCESS-KEY": signed.access_key, "KALSHI-ACCESS-SIGNATURE": signed.signature, "KALSHI-ACCESS-TIMESTAMP": str(signed.timestamp_ms)}
+        try:
+            response = self._client.request(method, f"https://{DEMO_REST_HOST}{path}", params=params, json=json_body, headers=headers)
+        except Exception as exc:
+            raise AmbiguousOutcomeError("lifecycle request transmission outcome is uncertain") from exc
+        if response.status_code in _AUTH_STATUS_CODES:
+            raise KalshiAuthError(method.lower(), response.status_code)
+        if response.status_code in _RETRYABLE_STATUS_CODES:
+            raise AmbiguousOutcomeError("lifecycle response may not reflect the mutation outcome")
+        if not (200 <= response.status_code < 300):
+            raise KalshiApiError(method.lower(), response.status_code)
+        try:
+            decoded = response.json()
+        except ValueError:
+            raise ResponseDecodeError("lifecycle response is not valid JSON") from None
+        if not isinstance(decoded, dict):
+            raise ResponseDecodeError("lifecycle response is not a JSON object")
+        return cast(dict[str, Any], decoded)
+
+    @staticmethod
+    def _is_allowlisted_lifecycle_path(method: str, path: str) -> bool:
+        fixed = {
+            ("POST", f"{_TRADE_API_ROOT}/portfolio/orders"),
+            ("GET", f"{_TRADE_API_ROOT}/portfolio/orders"),
+            ("GET", f"{_TRADE_API_ROOT}/portfolio/fills"),
+            ("GET", f"{_TRADE_API_ROOT}/portfolio/positions"),
+            ("GET", f"{_TRADE_API_ROOT}/portfolio/balance"),
+        }
+        if (method, path) in fixed:
+            return True
+        return method in {"GET", "DELETE"} and path.startswith(
+            f"{_TRADE_API_ROOT}/portfolio/orders/"
+        ) and "/" not in path.rsplit("/", 1)[-1]
 
     # -- Internal request execution --------------------------------------
 

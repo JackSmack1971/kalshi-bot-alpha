@@ -12,6 +12,7 @@ from __future__ import annotations
 import io
 import json
 from collections.abc import Callable, Iterator
+from pathlib import Path
 
 import httpx
 import pytest
@@ -20,6 +21,7 @@ from kalshi_bot.auth.signer import SignedHeaders
 from kalshi_bot.config.models import AppConfig, CredentialReferences
 from kalshi_bot.observability import configure_logging, get_logger
 from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
+from kalshi_bot.persistence import LedgerStore
 from kalshi_bot.rest import client as rest_client_module
 from kalshi_bot.rest.client import KalshiDemoRestClient
 from kalshi_bot.rest.errors import (
@@ -31,6 +33,9 @@ from kalshi_bot.rest.errors import (
     ResponseValidationError,
     TransportExhaustedError,
     TransportFailureError,
+    AmbiguousOutcomeError,
+    DuplicateSubmissionError,
+    PreTransmissionFailure,
 )
 
 FAKE_ACCESS_KEY = "FAKE-ACCESS-KEY-FOR-REST-CLIENT-TESTS"
@@ -145,6 +150,84 @@ _EXCHANGE_STATUS_BODY: dict[str, object] = {"exchange_active": True, "trading_ac
 _EXCHANGE_SCHEDULE_BODY: dict[str, object] = {
     "schedule": {"standard_hours": [], "maintenance_windows": []}
 }
+
+
+def _seed_submission_store(path: Path) -> LedgerStore:
+    store = LedgerStore.connect(path, migrate=True)
+    store.record_strategy_intent("intent-1", "strategy", "KXBTC-TEST", "A", {})
+    store.record_feature_snapshot("feature-1", "KXBTC-TEST", "A", {})
+    store.record_risk_decision("risk-1", "intent-1", True, {})
+    return store
+
+
+def test_create_order_persists_pending_before_an_ambiguous_transport_failure(tmp_path: Path) -> None:
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        raise httpx.ConnectError("connection lost")
+
+    store = _seed_submission_store(tmp_path / "pending.sqlite3")
+    try:
+        client, _, _ = _build_client(httpx.MockTransport(handler))
+        with pytest.raises(AmbiguousOutcomeError):
+            client.create_limit_order(
+                ticker="KXBTC-TEST", client_order_id="client-1", side="bid",
+                count=1, price="0.40", store=store,
+                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+            )
+        row = store.get_order("client-1")
+        assert row is not None and row["state"] == "RECONCILING"
+        states = [row[0] for row in store._connection.execute(
+            "SELECT state FROM order_state_transitions WHERE client_order_id = ? ORDER BY rowid",
+            ("client-1",),
+        )]
+        assert states == ["SUBMISSION_PENDING", "OUTCOME_UNKNOWN", "RECONCILING"]
+        assert len(requests) == 1
+        with pytest.raises(DuplicateSubmissionError):
+            client.create_limit_order(
+                ticker="KXBTC-TEST", client_order_id="client-1", side="bid",
+                count=1, price="0.40", store=store,
+                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+            )
+        assert len(requests) == 1
+    finally:
+        store.close()
+
+
+def test_create_order_validation_fails_before_local_write_or_transport() -> None:
+    requests: list[httpx.Request] = []
+    client, _, _ = _build_client(httpx.MockTransport(lambda request: requests.append(request)))
+    with pytest.raises(PreTransmissionFailure):
+        client.create_limit_order(
+            ticker="KXBTC-TEST", client_order_id="client-2", side="bid",
+            count=1, price="0.40", store=None,  # type: ignore[arg-type]
+            intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+        )
+    assert not requests
+
+
+def test_create_order_signing_failure_is_pretransmission(tmp_path: Path) -> None:
+    class _BrokenSigner(_FakeSigner):
+        def sign(self, method: str, path: str, timestamp_ms: int) -> SignedHeaders:
+            raise ValueError("signing unavailable")
+
+    store = _seed_submission_store(tmp_path / "signing.sqlite3")
+    try:
+        client, _, _ = _build_client(
+            httpx.MockTransport(lambda request: httpx.Response(500)),
+            signer=_BrokenSigner(),
+        )
+        with pytest.raises(PreTransmissionFailure):
+            client.create_limit_order(
+                ticker="KXBTC-TEST", client_order_id="client-3", side="bid",
+                count=1, price="0.40", store=store,
+                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+            )
+        row = store.get_order("client-3")
+        assert row is not None and row["state"] == "SUBMISSION_PENDING"
+    finally:
+        store.close()
 
 
 def _markets_page(markets: list[dict[str, str]], cursor: str | None) -> dict[str, object]:

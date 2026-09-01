@@ -33,6 +33,13 @@ __all__ = [
     "ExchangeStatus",
     "DailyOpenClose",
     "StandardHoursBlock",
+    "Order",
+    "OrderList",
+    "Fill",
+    "FillList",
+    "Position",
+    "PositionList",
+    "Balance",
     "MaintenanceWindow",
     "ExchangeSchedule",
     # "_ExchangeScheduleEnvelope" is deliberately not exported; see its
@@ -274,3 +281,68 @@ class _ExchangeScheduleEnvelope(_KalshiResponseModel):
     """
 
     schedule: ExchangeSchedule
+
+
+class Order(_KalshiResponseModel):
+    """A validated exchange order snapshot (never a local authority type)."""
+
+    order_id: str | None = None
+    client_order_id: str | None = None
+    ticker: str | None = None
+    side: str | None = None
+    action: str | None = None
+    status: str | None = None
+    type: str | None = None
+    count: str | None = None
+    remaining_count: str | None = None
+    fill_count: str | None = None
+    yes_price_dollars: str | None = None
+    no_price_dollars: str | None = None
+    created_time: str | None = None
+    ts_ms: int | None = None
+
+
+class OrderList(_KalshiResponseModel):
+    orders: list[Order]
+    cursor: str | None = None
+
+
+class Fill(_KalshiResponseModel):
+    fill_id: str | None = None
+    order_id: str | None = None
+    client_order_id: str | None = None
+    ticker: str | None = None
+    side: str | None = None
+    trade_id: str | None = None
+    market_ticker: str | None = None
+    count_fp: str | None = None
+    yes_price_dollars: str | None = None
+    no_price_dollars: str | None = None
+    fee_cost: str | None = None
+    created_time: str | None = None
+
+
+class FillList(_KalshiResponseModel):
+    fills: list[Fill]
+    cursor: str | None = None
+
+
+class Position(_KalshiResponseModel):
+    ticker: str | None = None
+    total_traded_dollars: str | None = None
+    position_fp: str | None = None
+    market_exposure_dollars: str | None = None
+    realized_pnl_dollars: str | None = None
+    fees_paid_dollars: str | None = None
+
+
+class PositionList(_KalshiResponseModel):
+    market_positions: list[Position]
+    cursor: str | None = None
+
+
+class Balance(_KalshiResponseModel):
+    balance: int | None = None
+    balance_dollars: str | None = None
+    portfolio_value: int | None = None
+    updated_ts: int | None = None

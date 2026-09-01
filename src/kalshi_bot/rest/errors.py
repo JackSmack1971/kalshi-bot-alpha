@@ -21,6 +21,9 @@ __all__ = [
     "RequestValidationError",
     "TransportExhaustedError",
     "TransportFailureError",
+    "PreTransmissionFailure",
+    "AmbiguousOutcomeError",
+    "DuplicateSubmissionError",
     "KalshiApiError",
     "KalshiAuthError",
     "ResponseDecodeError",
@@ -110,6 +113,18 @@ class TransportFailureError(KalshiRestError):
     underlying exception, which can embed a proxy URL, connection
     string, or other unsanitized detail this client does not control.
     """
+
+
+class PreTransmissionFailure(KalshiRestError):
+    """A mutation was rejected locally before any request was sent."""
+
+
+class AmbiguousOutcomeError(KalshiRestError):
+    """A mutation may have reached Kalshi; callers must reconcile, never retry."""
+
+
+class DuplicateSubmissionError(KalshiRestError):
+    """The client-order id already identifies a local submission."""
 
 
 class KalshiApiError(KalshiRestError):

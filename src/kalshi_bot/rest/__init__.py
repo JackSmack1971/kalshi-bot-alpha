@@ -1,8 +1,7 @@
-"""Read-only demo Kalshi REST client (Phase 1 PR 4).
+"""Narrow demo Kalshi REST lifecycle client.
 
-Public API: :class:`KalshiDemoRestClient` plus the response models and
-typed error hierarchy it uses. There is no order, portfolio-mutation,
-or generic ``request(method, path)`` surface anywhere in this package.
+The client exposes only the reviewed order and portfolio operations; it has
+no generic ``request(method, path)`` escape hatch.
 """
 
 from kalshi_bot.rest.client import KalshiDemoRestClient
@@ -16,6 +15,10 @@ from kalshi_bot.rest.errors import (
     ResponseDecodeError,
     ResponseValidationError,
     TransportExhaustedError,
+    TransportFailureError,
+    PreTransmissionFailure,
+    AmbiguousOutcomeError,
+    DuplicateSubmissionError,
 )
 from kalshi_bot.rest.models import (
     DailyOpenClose,
@@ -26,6 +29,13 @@ from kalshi_bot.rest.models import (
     MarketListPage,
     MarketSummary,
     StandardHoursBlock,
+    Order,
+    OrderList,
+    Fill,
+    FillList,
+    Position,
+    PositionList,
+    Balance,
 )
 
 __all__ = [
@@ -39,6 +49,10 @@ __all__ = [
     "ResponseDecodeError",
     "ResponseValidationError",
     "TransportExhaustedError",
+    "TransportFailureError",
+    "PreTransmissionFailure",
+    "AmbiguousOutcomeError",
+    "DuplicateSubmissionError",
     "DailyOpenClose",
     "ExchangeIndexStatus",
     "ExchangeSchedule",
@@ -47,4 +61,11 @@ __all__ = [
     "MarketListPage",
     "MarketSummary",
     "StandardHoursBlock",
+    "Order",
+    "OrderList",
+    "Fill",
+    "FillList",
+    "Position",
+    "PositionList",
+    "Balance",
 ]
