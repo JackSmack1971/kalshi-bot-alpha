@@ -1,13 +1,58 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "control_plane": "codex-cli",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "root_instruction": "AGENTS.md",
   "policy_root": ".codex/policies",
   "policy_resolver": ".codex/scripts/resolve_policies.py",
   "skill_root": ".agents/skills",
   "agent_root": ".codex/agents",
   "memory_root": ".codex/memory",
+  "runtime_state_root": ".control-plane-state",
+  "runtime_state_seed": {
+    "root": ".codex/control-plane/runtime-seed",
+    "initializer": ".codex/scripts/initialize_runtime_state.py",
+    "overwrite_existing": false
+  },
+  "definition_snapshot": {
+    "metadata": ".codex/control-plane/definition-snapshot.json",
+    "hashes": ".codex/control-plane/DEFINITION_HASHES.sha256",
+    "builder": ".codex/scripts/build_definition_snapshot.py",
+    "excludes_mutable_state": true
+  },
+  "enforcement_contract": ".codex/control-plane/enforcement-contract.json",
+  "effective_state_compiler": ".codex/scripts/compile_effective_state.py",
+  "uow_capture": ".codex/scripts/capture_uow.py",
+  "release_archive_builder": ".codex/scripts/build_release_archive.py",
+  "audit_ledger": {
+    "schema": ".codex/control-plane/audit-event.schema.json",
+    "writer": ".codex/scripts/execution_audit.py",
+    "runtime_path": ".control-plane-state/runs/<run-id>/audit.jsonl"
+  },
+  "artifact_classes": {
+    "definition": [
+      "AGENTS.md",
+      ".codex/config.toml",
+      ".codex/policies/**",
+      ".codex/agents/**",
+      ".agents/skills/**/SKILL.md",
+      ".agents/skills/**/telemetry/schema.json",
+      ".codex/scripts/**",
+      ".codex/tests/**",
+      ".codex/evals/**",
+      ".codex/control-plane/** except generated definition snapshot outputs"
+    ],
+    "mutable_runtime_state": [
+      ".codex/memory/**",
+      ".agents/skills/**/telemetry/events.jsonl",
+      ".control-plane-state/**"
+    ],
+    "generated_non_identity": [
+      "**/__pycache__/**",
+      "**/*.pyc",
+      "**/.pytest_cache/**"
+    ]
+  },
   "orchestration_skills": [
     "implement-feature",
     "phase-readiness-gate",
@@ -16,6 +61,8 @@
     "contract-evolution",
     "security-sweep"
   ],
+  "orchestration_owner": "primary-agent-or-orchestration-skill",
+  "router_role": "phase-router",
   "ownership": {
     "rules-specialist": [
       "AGENTS.md",
@@ -24,7 +71,8 @@
       ".codex/tests/test_policy_resolution.py"
     ],
     "skills-specialist": [
-      ".agents/skills/** except orchestration_skills"
+      ".agents/skills/** except orchestration_skills",
+      ".codex/scripts/skill_telemetry.py"
     ],
     "workflow-specialist": [
       ".codex/agents/**",
@@ -33,6 +81,15 @@
       ".codex/hooks/**",
       ".codex/control-plane/**",
       ".codex/scripts/validate_control_plane.py",
+      ".codex/control-plane/eval-observation.example.jsonl",
+      ".codex/scripts/control_plane_eval.py",
+      ".codex/scripts/build_definition_snapshot.py",
+      ".codex/scripts/compile_effective_state.py",
+      ".codex/scripts/verify_enforcement_contract.py",
+      ".codex/scripts/capture_uow.py",
+      ".codex/scripts/execution_audit.py",
+      ".codex/scripts/initialize_runtime_state.py",
+      ".codex/scripts/build_release_archive.py",
       ".agents/skills/implement-feature/**",
       ".agents/skills/phase-readiness-gate/**",
       ".agents/skills/swarm-standup/**",

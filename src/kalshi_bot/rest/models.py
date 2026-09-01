@@ -64,9 +64,7 @@ class _KalshiResponseModel(BaseModel):
       Python identifiers throughout the fields modeled here).
     """
 
-    model_config = ConfigDict(
-        frozen=True, extra="ignore", strict=True, populate_by_name=True
-    )
+    model_config = ConfigDict(frozen=True, extra="ignore", strict=True, populate_by_name=True)
 
 
 class MarketSummary(_KalshiResponseModel):
@@ -293,6 +291,11 @@ class Order(_KalshiResponseModel):
     action: str | None = None
     status: str | None = None
     type: str | None = None
+    initial_count_fp: str | None = None
+    remaining_count_fp: str | None = None
+    fill_count_fp: str | None = None
+    # Compatibility with older demo fixtures; the current documented API
+    # names these values with the *_fp suffixes above.
     count: str | None = None
     remaining_count: str | None = None
     fill_count: str | None = None

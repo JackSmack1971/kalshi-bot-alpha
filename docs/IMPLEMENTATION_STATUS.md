@@ -5,7 +5,7 @@ the active phase; do not build later-phase behavior early.
 
 - **Planning baseline:** Phase 0 foundation is present on
   `origin/main`; Phase 1 activation is introduced by PR #5.
-- **Active phase:** Phase 1 — Read-only connectivity.
+- **Active phase:** Phase 3 — Portfolio and simulated execution.
 - **Phase 0 state:** **Accepted and complete.**
   `docs/adr/0001-blueprint-v3-baseline.md` status is **Accepted**
   (acceptance date 2026-07-20, decider: Human repository owner).
@@ -258,9 +258,9 @@ this branch's commits.
 | Phase | Status |
 | --- | --- |
 | 0 — Contracts and safety model | Accepted and complete (human sign-off 2026-07-20) |
-| 1 — Read-only connectivity | Activated 2026-07-20 (human sign-off); implementation in progress per `docs/PHASE1_PLAN.md`, PR 1 of 6 (this documentation change) |
+| 1 — Read-only connectivity | Implemented in the current worktree; exchange mutation remains deferred |
 | 2 — Order-book integrity | Not started |
-| 3 — Portfolio and simulated execution | Not started |
+| 3 — Portfolio and simulated execution | PR 6 local deterministic kernel implemented; verification gate passing |
 | 4 — Demo order lifecycle | Not started |
 | 5 — Passive spread strategy | Not started |
 | 6 — Evaluation and hardening | Not started |

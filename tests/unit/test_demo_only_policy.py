@@ -37,32 +37,31 @@ APPROVED_PHASE_0_POLICY_MODULES: frozenset[str] = frozenset(
 # "no runtime code exists" -- it is "no trading-mutation authority or
 # later-phase capability exists yet": no order creation/amendment/
 # cancellation, execution, strategy, risk authorization, portfolio/
-# positions/P&L/ledger, reconciliation, persistence/migrations-as-
-# runtime-code, replay, external-reference ingestion, or AI/agent
-# control-plane package may exist under src/kalshi_bot/ until its own
-# phase authorizes it. See
+# positions/P&L/ledger, reconciliation, migrations-as-runtime-code,
+# replay, external-reference ingestion, or AI/agent control-plane package
+# may exist under src/kalshi_bot/ until its own phase authorizes it. The
+# explicitly authorized PR 4 persistence and PR 6 local-kernel packages are
+# bounded exceptions;
+# it remains append-only and has no exchange mutation capability. See
 # test_no_trading_authority_or_later_phase_code_exists_in_phase_1 below.
 _FORBIDDEN_LATER_PHASE_PACKAGE_NAMES: frozenset[str] = frozenset(
     {
-        # Order mutation / execution
+        # Exchange order mutation remains forbidden; local simulation is now
+        # authorized by PR 6.
         "orders",
         "order_management",
-        "execution",
         # Strategy
         "strategy",
         "strategies",
-        # Risk authorization
-        "risk",
         # Portfolio / positions / P&L / accounting / ledger
         "portfolio",
         "positions",
         "pnl",
         "ledger",
         "accounting",
-        # Reconciliation
-        "reconciliation",
-        # Persistence / migrations implemented as runtime code
-        "persistence",
+        # Reconciliation is authorized by the PR 8 task in the active
+        # Phase 3/4 implementation work.
+        # Migrations implemented as runtime code
         "migrations",
         # Replay
         "replay",
@@ -130,9 +129,8 @@ verifier = _load_verifier()
 
 def test_repository_contains_no_non_demo_kalshi_hostnames() -> None:
     violations = verifier.scan_repository(REPO_ROOT)
-    assert violations == [], (
-        "Non-demo Kalshi hostnames found in enforced paths: "
-        + ", ".join(f"{v.path}:{v.line}:{v.hostname}" for v in violations)
+    assert violations == [], "Non-demo Kalshi hostnames found in enforced paths: " + ", ".join(
+        f"{v.path}:{v.line}:{v.hostname}" for v in violations
     )
 
 

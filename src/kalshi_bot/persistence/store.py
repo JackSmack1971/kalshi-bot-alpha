@@ -374,6 +374,12 @@ class LedgerStore:
             "(reconciliation_id, status, evidence_reference, started_at, completed_at)",
         )
 
+    def reconciliation_required(self) -> bool:
+        row = self._connection.execute(
+            "SELECT status FROM reconciliation_runs ORDER BY rowid DESC LIMIT 1"
+        ).fetchone()
+        return row is not None and row["status"] == "TRADING_SUSPENDED_RECONCILIATION_REQUIRED"
+
     def record_order(
         self,
         client_order_id: str,
@@ -413,6 +419,16 @@ class LedgerStore:
                 "SELECT * FROM orders WHERE client_order_id = ?", (client_order_id,)
             ).fetchone(),
         )
+
+    def local_open_orders(self) -> tuple[sqlite3.Row, ...]:
+        return tuple(
+            self._connection.execute(
+                "SELECT * FROM orders WHERE state IN ('ACKNOWLEDGED', 'OPEN', 'PARTIALLY_FILLED', 'CANCEL_PENDING')"
+            ).fetchall()
+        )
+
+    def local_fills(self) -> tuple[sqlite3.Row, ...]:
+        return tuple(self._connection.execute("SELECT * FROM fills ORDER BY rowid").fetchall())
 
     def record_transition(
         self,
@@ -478,7 +494,9 @@ class LedgerStore:
         identical fill is a no-op; a conflicting replay is rejected.
         """
         quantity_d, price_d, fee_d = (
-            _decimal(quantity, "quantity"), _decimal(price, "price"), _decimal(fee, "fee")
+            _decimal(quantity, "quantity"),
+            _decimal(price, "price"),
+            _decimal(fee, "fee"),
         )
         existing = self._connection.execute(
             "SELECT client_order_id, quantity, price, fee FROM fills WHERE exchange_fill_id = ?",
@@ -496,29 +514,83 @@ class LedgerStore:
             self._connection.execute(
                 "INSERT INTO fills (fill_id, client_order_id, exchange_fill_id, quantity, price, fee, filled_at) "
                 "VALUES (?, ?, ?, ?, ?, ?, ?)",
-                (fill_id, client_order_id, fill_id, _text(quantity_d, "quantity"),
-                 _text(price_d, "price"), _text(fee_d, "fee"), timestamp),
+                (
+                    fill_id,
+                    client_order_id,
+                    fill_id,
+                    _text(quantity_d, "quantity"),
+                    _text(price_d, "price"),
+                    _text(fee_d, "fee"),
+                    timestamp,
+                ),
             )
             event_rows = [
-                (f"fill:{fill_id}", FinancialEventType.FILL_APPLIED, market_ticker, client_order_id,
-                 side, direction, quantity_d, price_d, amount),
-                (f"release:{fill_id}", FinancialEventType.ORDER_RELEASED, market_ticker, client_order_id,
-                 side, direction, Decimal("0"), Decimal("0"), amount),
+                (
+                    f"fill:{fill_id}",
+                    FinancialEventType.FILL_APPLIED,
+                    market_ticker,
+                    client_order_id,
+                    side,
+                    direction,
+                    quantity_d,
+                    price_d,
+                    amount,
+                ),
+                (
+                    f"release:{fill_id}",
+                    FinancialEventType.ORDER_RELEASED,
+                    market_ticker,
+                    client_order_id,
+                    side,
+                    direction,
+                    Decimal("0"),
+                    Decimal("0"),
+                    amount,
+                ),
             ]
             if fee_d:
                 event_rows.append(
-                    (f"fee:{fill_id}", FinancialEventType.FEE_APPLIED, market_ticker, client_order_id,
-                     side, direction, Decimal("0"), Decimal("0"), fee_d)
+                    (
+                        f"fee:{fill_id}",
+                        FinancialEventType.FEE_APPLIED,
+                        market_ticker,
+                        client_order_id,
+                        side,
+                        direction,
+                        Decimal("0"),
+                        Decimal("0"),
+                        fee_d,
+                    )
                 )
-            for key, kind, ticker, order_id, event_side, event_direction, qty, event_price, event_amount in event_rows:
+            for (
+                key,
+                kind,
+                ticker,
+                order_id,
+                event_side,
+                event_direction,
+                qty,
+                event_price,
+                event_amount,
+            ) in event_rows:
                 self._connection.execute(
                     """INSERT INTO ledger_entries
                     (event_id, idempotency_key, event_type, market_ticker, client_order_id,
                      side, direction, quantity, price, amount, event_at)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (str(uuid4()), key, kind.value, ticker, order_id,
-                     event_side.value, event_direction.value, _text(qty, "quantity"),
-                     _text(event_price, "price"), _text(event_amount, "amount"), timestamp),
+                    (
+                        str(uuid4()),
+                        key,
+                        kind.value,
+                        ticker,
+                        order_id,
+                        event_side.value,
+                        event_direction.value,
+                        _text(qty, "quantity"),
+                        _text(event_price, "price"),
+                        _text(event_amount, "amount"),
+                        timestamp,
+                    ),
                 )
             self.replay()
         except Exception:
@@ -548,8 +620,14 @@ class LedgerStore:
             """INSERT INTO order_state_transitions
              (transition_id, client_order_id, previous_state, state, evidence_reference, transitioned_at)
              VALUES (?, ?, ?, ?, ?, ?)""",
-            (str(uuid4()), client_order_id, previous_state, state, evidence_reference,
-             transitioned_at or _now()),
+            (
+                str(uuid4()),
+                client_order_id,
+                previous_state,
+                state,
+                evidence_reference,
+                transitioned_at or _now(),
+            ),
         )
         self._connection.execute(
             "UPDATE orders SET state = ? WHERE client_order_id = ?", (state, client_order_id)

@@ -100,9 +100,11 @@ _TRADE_API_ROOT = "/trade-api/v2"
 #: -- public or private -- that can substitute a different verb.
 _ALLOWED_METHOD = "GET"
 
+
 class _StoredSide(enum.StrEnum):
     YES = "YES"
     NO = "NO"
+
 
 #: Hard ceiling on pages fetched by a single ``list_markets`` call, so a
 #: misbehaving or malicious server that never returns an empty cursor
@@ -111,6 +113,7 @@ class _StoredSide(enum.StrEnum):
 #: any real Kalshi crypto-market catalog while still being a bound, not
 #: "effectively unbounded."
 _MAX_MARKET_LIST_PAGES = 1000
+_MAX_LIFECYCLE_LIST_PAGES = 1000
 
 #: Retryable HTTP statuses, each individually grounded in the local
 #: docs pack -- nothing here is guessed:
@@ -240,9 +243,7 @@ def _validate_ticker_like_component(value: str, *, field_name: str) -> None:
     if value == "":
         raise RequestValidationError(f"{field_name} must not be an empty string")
     if value != value.strip():
-        raise RequestValidationError(
-            f"{field_name} must not have leading or trailing whitespace"
-        )
+        raise RequestValidationError(f"{field_name} must not have leading or trailing whitespace")
 
 
 def _validate_list_markets_params(
@@ -536,8 +537,7 @@ class KalshiDemoRestClient:
             page_number += 1
             if page_number > _MAX_MARKET_LIST_PAGES:
                 raise PaginationError(
-                    f"list_markets: exceeded maximum page count "
-                    f"({_MAX_MARKET_LIST_PAGES})"
+                    f"list_markets: exceeded maximum page count ({_MAX_MARKET_LIST_PAGES})"
                 )
 
             page_params = dict(base_params)
@@ -575,8 +575,7 @@ class KalshiDemoRestClient:
 
             if next_cursor in seen_cursors:
                 raise PaginationError(
-                    f"list_markets: repeated pagination cursor detected "
-                    f"(page {page_number})"
+                    f"list_markets: repeated pagination cursor detected (page {page_number})"
                 )
             seen_cursors.add(next_cursor)
             cursor = next_cursor
@@ -623,8 +622,15 @@ class KalshiDemoRestClient:
         price_d = Decimal(str(price))
         try:
             store.record_order(
-                order_key, intent_id, feature_snapshot_id, risk_decision_id,
-                ticker, self._side(side), count, price_d, "SUBMISSION_PENDING",
+                order_key,
+                intent_id,
+                feature_snapshot_id,
+                risk_decision_id,
+                ticker,
+                self._side(side),
+                count,
+                price_d,
+                "SUBMISSION_PENDING",
             )
             store.record_transition(
                 str(uuid4()), order_key, None, "SUBMISSION_PENDING", "local-before-transmission"
@@ -633,18 +639,26 @@ class KalshiDemoRestClient:
             raise PreTransmissionFailure("local submission could not be persisted") from exc
 
         payload = {
-            "ticker": ticker, "client_order_id": order_key, "side": side.lower(),
-            "count": str(count), "price": format(price_d, "f"),
+            "ticker": ticker,
+            "client_order_id": order_key,
+            "side": side.lower(),
+            "count": str(count),
+            "price": format(price_d, "f"),
             "time_in_force": time_in_force,
-            "self_trade_prevention_type": "taker_at_cross", "post_only": True,
+            "self_trade_prevention_type": "taker_at_cross",
+            "post_only": True,
         }
         try:
-            body = self._execute_lifecycle("POST", f"{_TRADE_API_ROOT}/portfolio/orders", json_body=payload)
+            body = self._execute_lifecycle(
+                "POST", f"{_TRADE_API_ROOT}/portfolio/events/orders", json_body=payload
+            )
             result = Order.model_validate(body.get("order", body))
             if result.order_id is None or result.client_order_id != order_key:
                 raise ValueError("acknowledgement did not identify the submitted order")
         except (KalshiApiError, KalshiAuthError):
-            store.transition_order(order_key, "SUBMISSION_PENDING", "REJECTED", "exchange-definitive-response")
+            store.transition_order(
+                order_key, "SUBMISSION_PENDING", "REJECTED", "exchange-definitive-response"
+            )
             raise
         except PreTransmissionFailure:
             raise
@@ -652,7 +666,9 @@ class KalshiDemoRestClient:
             self._mark_unknown(store, order_key)
             raise AmbiguousOutcomeError("create_limit_order acknowledgement is uncertain") from exc
         try:
-            store.transition_order(order_key, "SUBMISSION_PENDING", "ACKNOWLEDGED", "exchange-acknowledgement")
+            store.transition_order(
+                order_key, "SUBMISSION_PENDING", "ACKNOWLEDGED", "exchange-acknowledgement"
+            )
         except Exception as exc:
             self._mark_unknown(store, order_key)
             raise AmbiguousOutcomeError("local acknowledgement persistence is uncertain") from exc
@@ -660,26 +676,84 @@ class KalshiDemoRestClient:
 
     def cancel_order(self, *, order_id: str) -> Order:
         self._validate_path_id(order_id)
-        body = self._execute_lifecycle("DELETE", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}")
+        body = self._execute_lifecycle(
+            "DELETE", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}"
+        )
         return Order.model_validate(body.get("order", body))
 
     def get_order(self, *, order_id: str) -> Order:
         self._validate_path_id(order_id)
-        body = self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}")
+        body = self._execute_lifecycle(
+            "GET", f"{_TRADE_API_ROOT}/portfolio/orders/{quote(order_id, safe='')}"
+        )
         return Order.model_validate(body.get("order", body))
 
     def list_open_orders(self) -> tuple[Order, ...]:
-        body = self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/orders", params={"status": "resting"})
-        return tuple(OrderList.model_validate(body).orders)
+        orders: list[Order] = []
+        cursor: str | None = None
+        seen_cursors: set[str] = set()
+        for _ in range(_MAX_LIFECYCLE_LIST_PAGES):
+            params: dict[str, Any] = {"status": "resting"}
+            if cursor:
+                params["cursor"] = cursor
+            page = OrderList.model_validate(
+                self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/orders", params=params)
+            )
+            orders.extend(page.orders)
+            if not page.cursor:
+                return tuple(orders)
+            if page.cursor in seen_cursors:
+                raise PaginationError("list_open_orders: repeated pagination cursor detected")
+            seen_cursors.add(page.cursor)
+            cursor = page.cursor
+        raise PaginationError("list_open_orders: page limit exceeded")
 
     def get_fills(self) -> tuple[Fill, ...]:
-        return tuple(FillList.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/fills")).fills)
+        fills: list[Fill] = []
+        cursor: str | None = None
+        seen_cursors: set[str] = set()
+        for _ in range(_MAX_LIFECYCLE_LIST_PAGES):
+            params: dict[str, Any] = {}
+            if cursor:
+                params["cursor"] = cursor
+            page = FillList.model_validate(
+                self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/fills", params=params)
+            )
+            fills.extend(page.fills)
+            if not page.cursor:
+                return tuple(fills)
+            if page.cursor in seen_cursors:
+                raise PaginationError("get_fills: repeated pagination cursor detected")
+            seen_cursors.add(page.cursor)
+            cursor = page.cursor
+        raise PaginationError("get_fills: page limit exceeded")
 
     def get_positions(self) -> tuple[Position, ...]:
-        return tuple(PositionList.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/positions")).market_positions)
+        positions: list[Position] = []
+        cursor: str | None = None
+        seen_cursors: set[str] = set()
+        for _ in range(_MAX_LIFECYCLE_LIST_PAGES):
+            params: dict[str, Any] = {}
+            if cursor:
+                params["cursor"] = cursor
+            page = PositionList.model_validate(
+                self._execute_lifecycle(
+                    "GET", f"{_TRADE_API_ROOT}/portfolio/positions", params=params
+                )
+            )
+            positions.extend(page.market_positions)
+            if not page.cursor:
+                return tuple(positions)
+            if page.cursor in seen_cursors:
+                raise PaginationError("get_positions: repeated pagination cursor detected")
+            seen_cursors.add(page.cursor)
+            cursor = page.cursor
+        raise PaginationError("get_positions: page limit exceeded")
 
     def get_balance(self) -> Balance:
-        return Balance.model_validate(self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/balance"))
+        return Balance.model_validate(
+            self._execute_lifecycle("GET", f"{_TRADE_API_ROOT}/portfolio/balance")
+        )
 
     @staticmethod
     def _side(value: str) -> _StoredSide:
@@ -697,7 +771,9 @@ class KalshiDemoRestClient:
             raise PreTransmissionFailure("order_id must be a nonempty path-safe string")
 
     @classmethod
-    def _validate_order_request(cls, ticker: str, order_id: str, side: str, count: int, price: Any, tif: str) -> None:
+    def _validate_order_request(
+        cls, ticker: str, order_id: str, side: str, count: int, price: Any, tif: str
+    ) -> None:
         if not isinstance(ticker, str) or not ticker or ticker != ticker.strip():
             raise PreTransmissionFailure("ticker is invalid")
         cls._validate_path_id(order_id)
@@ -715,22 +791,47 @@ class KalshiDemoRestClient:
 
     @staticmethod
     def _mark_unknown(store: Any, order_id: str) -> None:
-        store.transition_order(order_id, "SUBMISSION_PENDING", "OUTCOME_UNKNOWN", "post-transmission-uncertain")
-        store.transition_order(order_id, "OUTCOME_UNKNOWN", "RECONCILING", "reconciliation-required")
+        store.transition_order(
+            order_id, "SUBMISSION_PENDING", "OUTCOME_UNKNOWN", "post-transmission-uncertain"
+        )
+        store.transition_order(
+            order_id, "OUTCOME_UNKNOWN", "RECONCILING", "reconciliation-required"
+        )
 
-    def _execute_lifecycle(self, method: str, path: str, *, params: Mapping[str, Any] | None = None, json_body: Mapping[str, Any] | None = None) -> dict[str, Any]:
+    def _execute_lifecycle(
+        self,
+        method: str,
+        path: str,
+        *,
+        params: Mapping[str, Any] | None = None,
+        json_body: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
         if not self._is_allowlisted_lifecycle_path(method, path):
             raise PreTransmissionFailure("lifecycle operation is not allowlisted")
         try:
             timestamp_ms = self._clock_ms()
             signed = self._signer.sign(method, path, timestamp_ms)
         except Exception as exc:
-            raise PreTransmissionFailure("request could not be prepared before transmission") from exc
-        headers = {"KALSHI-ACCESS-KEY": signed.access_key, "KALSHI-ACCESS-SIGNATURE": signed.signature, "KALSHI-ACCESS-TIMESTAMP": str(signed.timestamp_ms)}
+            raise PreTransmissionFailure(
+                "request could not be prepared before transmission"
+            ) from exc
+        headers = {
+            "KALSHI-ACCESS-KEY": signed.access_key,
+            "KALSHI-ACCESS-SIGNATURE": signed.signature,
+            "KALSHI-ACCESS-TIMESTAMP": str(signed.timestamp_ms),
+        }
         try:
-            response = self._client.request(method, f"https://{DEMO_REST_HOST}{path}", params=params, json=json_body, headers=headers)
+            response = self._client.request(
+                method,
+                f"https://{DEMO_REST_HOST}{path}",
+                params=params,
+                json=json_body,
+                headers=headers,
+            )
         except Exception as exc:
-            raise AmbiguousOutcomeError("lifecycle request transmission outcome is uncertain") from exc
+            raise AmbiguousOutcomeError(
+                "lifecycle request transmission outcome is uncertain"
+            ) from exc
         if response.status_code in _AUTH_STATUS_CODES:
             raise KalshiAuthError(method.lower(), response.status_code)
         if response.status_code in _RETRYABLE_STATUS_CODES:
@@ -748,7 +849,7 @@ class KalshiDemoRestClient:
     @staticmethod
     def _is_allowlisted_lifecycle_path(method: str, path: str) -> bool:
         fixed = {
-            ("POST", f"{_TRADE_API_ROOT}/portfolio/orders"),
+            ("POST", f"{_TRADE_API_ROOT}/portfolio/events/orders"),
             ("GET", f"{_TRADE_API_ROOT}/portfolio/orders"),
             ("GET", f"{_TRADE_API_ROOT}/portfolio/fills"),
             ("GET", f"{_TRADE_API_ROOT}/portfolio/positions"),
@@ -756,9 +857,11 @@ class KalshiDemoRestClient:
         }
         if (method, path) in fixed:
             return True
-        return method in {"GET", "DELETE"} and path.startswith(
-            f"{_TRADE_API_ROOT}/portfolio/orders/"
-        ) and "/" not in path.rsplit("/", 1)[-1]
+        return (
+            method in {"GET", "DELETE"}
+            and path.startswith(f"{_TRADE_API_ROOT}/portfolio/orders/")
+            and "/" not in path.rsplit("/", 1)[-1]
+        )
 
     # -- Internal request execution --------------------------------------
 
@@ -816,8 +919,7 @@ class KalshiDemoRestClient:
                     error_type=type(exc).__name__,
                 )
                 raise TransportExhaustedError(
-                    f"{operation.value}: transport retries exhausted after "
-                    f"{attempt} attempt(s)"
+                    f"{operation.value}: transport retries exhausted after {attempt} attempt(s)"
                 ) from None
             except httpx.TransportError as exc:
                 # Any httpx.TransportError subclass not already matched
@@ -835,8 +937,7 @@ class KalshiDemoRestClient:
                     error_type=type(exc).__name__,
                 )
                 raise TransportFailureError(
-                    f"{operation.value}: non-retryable transport failure "
-                    f"({type(exc).__name__})"
+                    f"{operation.value}: non-retryable transport failure ({type(exc).__name__})"
                 ) from None
 
             status_code = response.status_code
@@ -898,9 +999,7 @@ class KalshiDemoRestClient:
                     f"{operation.value}: response body is not valid JSON"
                 ) from None
             if not isinstance(decoded, dict):
-                raise ResponseDecodeError(
-                    f"{operation.value}: response body is not a JSON object"
-                )
+                raise ResponseDecodeError(f"{operation.value}: response body is not a JSON object")
             return cast("dict[str, Any]", decoded)
 
         # Unreachable: the loop above always returns or raises before

@@ -16,7 +16,7 @@ Threat lenses: injection; credential leakage; capability escalation; replay/idem
 
 ## Sweep
 
-Create the 20 surface × lens review tasks. Run them through `security-adversarial-reviewer` in **bounded batches of at most four concurrent subagents**. Wait for and finish each batch before launching the next. A reviewer may report zero findings; never manufacture one.
+Create the 20 surface × lens review tasks. Run them through `security-finding-reviewer` in **bounded batches of at most four concurrent subagents**. Wait for and finish each batch before launching the next. A reviewer may report zero findings; never manufacture one.
 
 Each raw finding must include title, file/location, severity (`low|medium|high|critical`), description, surface, lens, and owner.
 
@@ -27,7 +27,9 @@ coverage. A failed reviewer or partial batch is blocking, not an empty result.
 
 ## Independent refutation
 
-For every raw finding, launch a fresh `security-adversarial-reviewer` context whose job is to reproduce/substantiate or refute that finding. Process in bounded batches of at most four. Treat an unsubstantiated finding as refuted/unverified, not confirmed. Preserve raw and refutation evidence.
+For every raw finding, launch a fresh `security-finding-reviewer` context whose job is to independently substantiate or refute that finding from repository evidence. Process in bounded batches of at most four. Treat an unsubstantiated finding as refuted/unverified, not confirmed. Preserve raw and refutation evidence. If a finding cannot be resolved without new executable test evidence, return that reproduction requirement to the parent; do not let the read-only reviewer widen its own authority.
+
+When the user's requested scope permits adding security tests, the parent may route a bounded reproduction to `security-test-author`. That role may author only adversarial/security tests by behavioral contract and never repairs `src/**`. The resulting test evidence returns to a fresh `security-finding-reviewer` or the parent for adjudication; the test author never self-certifies the finding or fix.
 
 ## Optional fix
 
@@ -42,7 +44,7 @@ If any fixes were made, run `verify-change` over the resulting diff and re-run t
 
 ## Observable workflow and telemetry
 
-Emit one started record and one terminal record with `.codex/scripts/skill_telemetry.py` for each invocation. Emit the consequential events below when that decision occurs; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
+Create exactly one telemetry run per Skill invocation. Start with `python .codex/scripts/skill_telemetry.py start <skill> invocation_started --reason-code <reason>` and capture the returned `run_id`. Reuse that same `run_id` for every `emit` event and for `finish <skill> invocation_finished --run-id <id> --outcome <terminal>`. Never generate a new run ID for each event. When an execution snapshot or UoW ID exists, attach it to the same run. Emit only the consequential events below; do not log generic tool calls, prompts, transcripts, secrets, or arbitrary model prose.
 
 Declared events: `surface_lens_result`, `finding_recorded`, `finding_refuted`, `fix_authorization`, `reverification_result`.
 

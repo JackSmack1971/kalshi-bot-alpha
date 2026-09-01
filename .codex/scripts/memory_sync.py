@@ -30,6 +30,20 @@ SECRET_VALUE = re.compile(
 )
 
 
+def _require_initialized_memory() -> None:
+    required = [
+        ROOT / ".codex/memory/PROTOCOL.md",
+        ROOT / ".codex/memory/INDEX.md",
+    ]
+    missing = [p.relative_to(ROOT).as_posix() for p in required if not p.is_file()]
+    if missing:
+        raise ValueError(
+            "runtime memory is not initialized; run "
+            "`python .codex/scripts/initialize_runtime_state.py --initialize` first; "
+            f"missing: {', '.join(missing)}"
+        )
+
+
 def append(
     domain: str,
     task: str,
@@ -39,6 +53,7 @@ def append(
     notes: str,
     index_tag: str | None,
 ) -> dict[str, str]:
+    _require_initialized_memory()
     if domain not in DOMAINS or status not in STATUSES or not all((task, touched, verified, notes)):
         raise ValueError("invalid domain, status, or empty entry field")
     if index_tag and index_tag not in {

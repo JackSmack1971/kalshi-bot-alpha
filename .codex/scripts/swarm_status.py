@@ -30,14 +30,34 @@ def main() -> int:
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--json", action="store_true")
     a = p.parse_args()
-    index = entries(ROOT / ".codex/memory/INDEX.md")
+    protocol = ROOT / ".codex/memory/PROTOCOL.md"
+    index_path = ROOT / ".codex/memory/INDEX.md"
+    domains_path = ROOT / ".codex/memory/domains"
+    initialized = protocol.is_file() and index_path.is_file() and domains_path.is_dir()
+    if not initialized:
+        payload = {
+            "runtime_state": "MISSING",
+            "instruction": "run `python .codex/scripts/initialize_runtime_state.py --initialize`",
+            "unresolved_counts": {tag: 0 for tag in TAGS},
+            "domain_latest_status": {},
+            "index_entries": 0,
+            "domain_entries": 0,
+        }
+        if a.json:
+            print(json.dumps(payload, sort_keys=True))
+        else:
+            print("Swarm status: runtime memory missing")
+            print(payload["instruction"])
+        return 1
+    index = entries(index_path)
     domains = {
         x.stem: entries(x)[-1] if entries(x) else {}
-        for x in (ROOT / ".codex/memory/domains").glob("*.md")
+        for x in domains_path.glob("*.md")
     }
     unresolved = {tag: sum(1 for e in index if f"[{tag}]" in e["title"]) for tag in TAGS}
     payload = {
         "unresolved_counts": unresolved,
+        "runtime_state": "READY",
         "domain_latest_status": {k: v.get("status", "") for k, v in sorted(domains.items())},
         "index_entries": len(index),
         "domain_entries": sum(

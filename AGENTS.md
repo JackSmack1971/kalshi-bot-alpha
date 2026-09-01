@@ -29,19 +29,21 @@ Priority order:
 
 Choose safety over speed, auditability over convenience, deterministic control over AI flexibility, explicit failure over silent degradation, and the smallest proven change over speculative abstraction.
 
-## Source precedence
+## Behavioral authority and task specificity
 
-When sources disagree, apply this order:
+Do not collapse behavioral-policy authority and task specificity into one linear precedence list. Resolve them in this order:
 
-1. Explicit current user instruction
-2. Demo-only, credential, authority, accounting, and fail-closed invariants
-3. Accepted architecture decisions, frozen schemas, and reviewed contracts
-4. Active implementation phase and exit criteria
-5. `Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`
-6. Current repository structure, tests, and established conventions
-7. Recommendations, examples, and illustrative defaults
+1. **Constitutional repository constraints** — demo-only operation, credential/process isolation, deterministic authority, accounting integrity, human-approval integrity, and fail-closed behavior. These constraints define the behavioral envelope and cannot be weakened by task intent.
+2. **Accepted architecture decisions, frozen schemas, and reviewed contracts.**
+3. **Current user task intent inside that envelope** — the user selects the objective, may narrow scope, may authorize broader phase scope where repository policy permits, and may choose among permitted alternatives. Task intent does not grant runtime authority or override constitutional constraints.
+4. **Active implementation phase and exit criteria.**
+5. **`Kalshi-Crypto-Paper-Trading-Bot-Blueprint-v3.md`.**
+6. **Current repository structure, tests, and established conventions.**
+7. **Recommendations, examples, and illustrative defaults.**
 
-A lower-precedence source must never weaken a higher-precedence safety invariant. Do not silently reconcile authoritative conflicts. Preserve the safer behavior, identify the conflict and affected invariant, and require an architecture decision before implementing disputed behavior.
+Within the same authority layer, prefer the more specific applicable repository instruction or reviewed contract. A more local, later, or task-specific instruction is not automatically more authoritative. Do not silently reconcile authoritative conflicts: preserve the higher-authority constraint, identify the conflict and affected invariant, and require a reviewed architecture/policy decision when the contract itself must change.
+
+This is behavioral policy only. Instructions influence decisions; sandbox, approvals, command/tool policy, network policy, credentials, environment capability, and user authorization control effects.
 
 ## Blueprint routing
 
@@ -142,9 +144,11 @@ Reusable procedures are in `.agents/skills/`. Use `safe-change-preflight`, `impl
 
 The former Claude JavaScript workflow launchers are native Codex orchestration skills under `.agents/skills/`: `implement-feature`, `phase-readiness-gate`, `swarm-standup`, `control-plane-change`, `contract-evolution`, and `security-sweep`. Their descriptions intentionally require explicit multi-agent/swarm intent where the original control plane required opt-in orchestration. They compose project-scoped custom roles in `.codex/agents/*.toml`; they do not replace human approval, deterministic authority, or active-phase discipline.
 
-Durable swarm memory is repository data under `.codex/memory/`. It is not Codex product memory. Follow `.codex/memory/PROTOCOL.md` and the `memory-domain-sync` skill.
+Durable swarm memory is mutable repository runtime data under `.codex/memory/`. It is not Codex product memory and is not part of the control-plane release archive or release identity. For a fresh installation, initialize only missing memory scaffolding from the immutable seed with `python .codex/scripts/initialize_runtime_state.py --initialize`; never overwrite existing memory during installation. Follow `.codex/memory/PROTOCOL.md` and the `memory-domain-sync` skill after initialization.
 
-Control-plane ownership and artifact classes are declared in `.codex/control-plane/manifest.json`.
+Control-plane ownership and artifact classes are declared in `.codex/control-plane/manifest.json`. The immutable release identity is `.codex/control-plane/definition-snapshot.json` plus `DEFINITION_HASHES.sha256`; mutable `.codex/memory/**`, runtime telemetry, and `.control-plane-state/**` are intentionally outside that release digest.
+
+`.codex/control-plane/enforcement-contract.json` declares external authority state that must be present for governed execution. It does not grant that authority. When execution-state evidence is available, compile it with `.codex/scripts/compile_effective_state.py`; missing external authority evidence remains `UNVERIFIED`, never implicitly satisfied.
 
 ## Completion bar
 

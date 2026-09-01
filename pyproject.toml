@@ -6,9 +6,11 @@ readme = "docs/ARCHITECTURE.md"
 requires-python = ">=3.12"
 license = { text = "Proprietary" }
 dependencies = [
+    "alembic>=1.16.0",
     "cryptography>=49.0.0",
     "httpx>=0.28.1",
     "pydantic>=2",
+    "sqlalchemy>=2.0.0",
     "structlog>=26.1.0",
     "websockets>=15.0",
 ]
@@ -26,6 +28,9 @@ dev = [
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
+
+[project.scripts]
+kalshi-bot = "kalshi_bot.cli:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/kalshi_bot"]

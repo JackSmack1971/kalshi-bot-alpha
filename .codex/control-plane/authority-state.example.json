@@ -1,0 +1,12 @@
+{
+  "project_trust": true,
+  "approval_policy": "on-request",
+  "permission_profile": ":workspace",
+  "unrestricted_mode": false,
+  "production_kalshi_credentials_present": false,
+  "codex_has_kalshi_execution_credentials": false,
+  "production_kalshi_network_enabled": false,
+  "managed_policy_revision": "example-only-not-a-live-policy",
+  "capability_snapshot_id": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "environment_id": "example-environment"
+}

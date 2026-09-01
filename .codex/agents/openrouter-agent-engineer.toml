@@ -15,7 +15,7 @@ You own:
   `src/evidence/**`, `src/proposals/**`
 - `tests/agents/**`, `tests/openrouter/**`, `tests/privacy/**`,
   `tests/adversarial/**` (agent-surface cases; broader adversarial work
-  is `security-adversarial-reviewer`'s)
+  is `security-finding-reviewer`'s)
 
 Consult: `.codex/policies/agents/openrouter-governance.md`,
 `.codex/policies/credential-privacy.md`,

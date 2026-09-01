@@ -160,7 +160,9 @@ def _seed_submission_store(path: Path) -> LedgerStore:
     return store
 
 
-def test_create_order_persists_pending_before_an_ambiguous_transport_failure(tmp_path: Path) -> None:
+def test_create_order_persists_pending_before_an_ambiguous_transport_failure(
+    tmp_path: Path,
+) -> None:
     requests: list[httpx.Request] = []
 
     def handler(request: httpx.Request) -> httpx.Response:
@@ -172,23 +174,38 @@ def test_create_order_persists_pending_before_an_ambiguous_transport_failure(tmp
         client, _, _ = _build_client(httpx.MockTransport(handler))
         with pytest.raises(AmbiguousOutcomeError):
             client.create_limit_order(
-                ticker="KXBTC-TEST", client_order_id="client-1", side="bid",
-                count=1, price="0.40", store=store,
-                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+                ticker="KXBTC-TEST",
+                client_order_id="client-1",
+                side="bid",
+                count=1,
+                price="0.40",
+                store=store,
+                intent_id="intent-1",
+                feature_snapshot_id="feature-1",
+                risk_decision_id="risk-1",
             )
         row = store.get_order("client-1")
         assert row is not None and row["state"] == "RECONCILING"
-        states = [row[0] for row in store._connection.execute(
-            "SELECT state FROM order_state_transitions WHERE client_order_id = ? ORDER BY rowid",
-            ("client-1",),
-        )]
+        states = [
+            row[0]
+            for row in store._connection.execute(
+                "SELECT state FROM order_state_transitions WHERE client_order_id = ? ORDER BY rowid",
+                ("client-1",),
+            )
+        ]
         assert states == ["SUBMISSION_PENDING", "OUTCOME_UNKNOWN", "RECONCILING"]
         assert len(requests) == 1
         with pytest.raises(DuplicateSubmissionError):
             client.create_limit_order(
-                ticker="KXBTC-TEST", client_order_id="client-1", side="bid",
-                count=1, price="0.40", store=store,
-                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+                ticker="KXBTC-TEST",
+                client_order_id="client-1",
+                side="bid",
+                count=1,
+                price="0.40",
+                store=store,
+                intent_id="intent-1",
+                feature_snapshot_id="feature-1",
+                risk_decision_id="risk-1",
             )
         assert len(requests) == 1
     finally:
@@ -197,14 +214,57 @@ def test_create_order_persists_pending_before_an_ambiguous_transport_failure(tmp
 
 def test_create_order_validation_fails_before_local_write_or_transport() -> None:
     requests: list[httpx.Request] = []
-    client, _, _ = _build_client(httpx.MockTransport(lambda request: requests.append(request)))
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(200, json={"markets": [], "cursor": ""})
+
+    client, _, _ = _build_client(httpx.MockTransport(handler))
     with pytest.raises(PreTransmissionFailure):
         client.create_limit_order(
-            ticker="KXBTC-TEST", client_order_id="client-2", side="bid",
-            count=1, price="0.40", store=None,  # type: ignore[arg-type]
-            intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+            ticker="KXBTC-TEST",
+            client_order_id="client-2",
+            side="bid",
+            count=1,
+            price="0.40",
+            store=None,
+            intent_id="intent-1",
+            feature_snapshot_id="feature-1",
+            risk_decision_id="risk-1",
         )
     assert not requests
+
+
+def test_create_order_uses_documented_events_route_and_post_only_payload(tmp_path: Path) -> None:
+    store = _seed_submission_store(tmp_path / "route.sqlite3")
+    requests: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        requests.append(request)
+        return httpx.Response(
+            200,
+            json={"order": {"order_id": "exchange-1", "client_order_id": "client-route"}},
+        )
+
+    try:
+        client, _, _ = _build_client(httpx.MockTransport(handler))
+        result = client.create_limit_order(
+            ticker="KXBTC-TEST",
+            client_order_id="client-route",
+            side="bid",
+            count=1,
+            price="0.40",
+            store=store,
+            intent_id="intent-1",
+            feature_snapshot_id="feature-1",
+            risk_decision_id="risk-1",
+        )
+        assert result.order_id == "exchange-1"
+        assert requests[0].url.path == "/trade-api/v2/portfolio/events/orders"
+        assert requests[0].content
+        assert '"post_only":true' in requests[0].content.decode()
+    finally:
+        store.close()
 
 
 def test_create_order_signing_failure_is_pretransmission(tmp_path: Path) -> None:
@@ -220,9 +280,15 @@ def test_create_order_signing_failure_is_pretransmission(tmp_path: Path) -> None
         )
         with pytest.raises(PreTransmissionFailure):
             client.create_limit_order(
-                ticker="KXBTC-TEST", client_order_id="client-3", side="bid",
-                count=1, price="0.40", store=store,
-                intent_id="intent-1", feature_snapshot_id="feature-1", risk_decision_id="risk-1",
+                ticker="KXBTC-TEST",
+                client_order_id="client-3",
+                side="bid",
+                count=1,
+                price="0.40",
+                store=store,
+                intent_id="intent-1",
+                feature_snapshot_id="feature-1",
+                risk_decision_id="risk-1",
             )
         row = store.get_order("client-3")
         assert row is not None and row["state"] == "SUBMISSION_PENDING"
@@ -549,9 +615,7 @@ def test_missing_required_field_raises_response_validation_error() -> None:
 
 def test_wrong_typed_required_field_raises_response_validation_error() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
-        return httpx.Response(
-            200, json={"exchange_active": "true", "trading_active": True}
-        )
+        return httpx.Response(200, json={"exchange_active": "true", "trading_active": True})
 
     transport = httpx.MockTransport(handler)
     client, _, _ = _build_client(transport)
@@ -1001,9 +1065,7 @@ def test_list_markets_rejects_status_wrong_case() -> None:
     assert sleeper.calls == []
 
 
-@pytest.mark.parametrize(
-    "good_status", ["unopened", "open", "paused", "closed", "settled"]
-)
+@pytest.mark.parametrize("good_status", ["unopened", "open", "paused", "closed", "settled"])
 def test_list_markets_accepts_every_documented_status_value(good_status: str) -> None:
     body = _markets_page([], "")
     transport = httpx.MockTransport(lambda request: httpx.Response(200, json=body))
@@ -1108,9 +1170,7 @@ def test_protocol_error_never_appears_in_logs() -> None:
     rest_client_module._logger = monkey_logger
     try:
         scripted = _ScriptedTransport([httpx.ProtocolError(secret_marker)])
-        client, _, sleeper = _build_client(
-            scripted, config=_make_config(rest_max_retries=3)
-        )
+        client, _, sleeper = _build_client(scripted, config=_make_config(rest_max_retries=3))
         with pytest.raises(TransportFailureError):
             client.get_exchange_status()
     finally:

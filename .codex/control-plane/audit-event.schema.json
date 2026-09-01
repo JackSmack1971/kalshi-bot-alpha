@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Codex control-plane causal audit event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "timestamp",
+    "run_id",
+    "sequence",
+    "parent_event_hash",
+    "event_hash",
+    "event",
+    "actor_role",
+    "operation",
+    "outcome",
+    "reason_code"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "run_id": {"type": "string", "minLength": 1, "maxLength": 100},
+    "sequence": {"type": "integer", "minimum": 1},
+    "parent_event_hash": {"type": ["string", "null"], "pattern": "^sha256:[a-f0-9]{64}$"},
+    "event_hash": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "event": {
+      "type": "string",
+      "enum": [
+        "run.started",
+        "snapshot.compiled",
+        "policy.resolved",
+        "authority.evaluated",
+        "approval.decision",
+        "capability.decision",
+        "uow.captured",
+        "verification.result",
+        "external_effect.recorded",
+        "run.completed"
+      ]
+    },
+    "actor_role": {"type": "string", "maxLength": 100},
+    "operation": {"type": "string", "maxLength": 120},
+    "outcome": {"type": "string", "enum": ["started", "allowed", "review", "denied", "passed", "failed", "blocked", "completed", "unverified"]},
+    "reason_code": {"type": "string", "pattern": "^[A-Z0-9_.-]{1,100}$"},
+    "execution_snapshot_id": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "uow_id": {"type": "string", "pattern": "^sha256:[a-f0-9]{64}$"},
+    "policy_ref": {"type": "string", "maxLength": 200},
+    "approval_ref": {"type": "string", "maxLength": 200},
+    "evidence_refs": {"type": "array", "items": {"type": "string", "pattern": "^(?!.*\\.\\.).+$"}},
+    "effect_refs": {"type": "array", "items": {"type": "string", "pattern": "^(?!.*\\.\\.).+$"}}
+  }
+}

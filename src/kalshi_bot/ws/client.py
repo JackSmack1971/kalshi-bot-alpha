@@ -59,10 +59,12 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import enum
+import inspect
 import json
 import random
 import time
 from collections.abc import AsyncIterator, Awaitable, Callable, Mapping
+from datetime import datetime, timezone
 from types import TracebackType
 from typing import Protocol
 
@@ -80,9 +82,24 @@ from kalshi_bot.ws.errors import (
     WebSocketConnectionError,
     WebSocketDisconnected,
 )
-from kalshi_bot.ws.models import TickerUpdate, TradeUpdate
+from kalshi_bot.market_data.orderbook import (
+    BookQuality,
+    OrderBookDelta,
+    OrderBookReconstructor,
+    OrderBookSnapshot,
+    FixedPointPrice,
+    Side,
+)
+from kalshi_bot.ws.models import (
+    OrderBookDeltaUpdate,
+    OrderBookSnapshotUpdate,
+    TickerUpdate,
+    TradeUpdate,
+)
 from kalshi_bot.ws.normalizer import (
     ErrorFrame,
+    OrderBookDeltaFrame,
+    OrderBookSnapshotFrame,
     MalformedFrame,
     OkFrame,
     SubscribedFrame,
@@ -181,6 +198,7 @@ class _Channel(enum.Enum):
 
     TICKER = "ticker"
     TRADE = "trade"
+    ORDERBOOK_DELTA = "orderbook_delta"
 
 
 class _Stop:
@@ -197,7 +215,7 @@ class _Stop:
 _STOP = _Stop()
 
 
-def _put_stop_sentinel(queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]") -> None:
+def _put_stop_sentinel(queue: "asyncio.Queue[object]") -> None:
     """Push ``_STOP`` onto ``queue``, evicting the oldest item first if
     the (now-bounded, see ``_MAX_CHANNEL_QUEUE_SIZE``) queue is full.
 
@@ -314,6 +332,14 @@ async def _default_sleeper(seconds: float) -> None:
     await asyncio.sleep(seconds)
 
 
+def _event_timestamp(event: OrderBookSnapshotUpdate | OrderBookDeltaUpdate) -> datetime:
+    if event.ts_ms is not None:
+        return datetime.fromtimestamp(event.ts_ms / 1000, tz=timezone.utc)
+    if event.ts:
+        return datetime.fromisoformat(event.ts.replace("Z", "+00:00"))
+    return datetime.now(timezone.utc)
+
+
 def _default_clock_ms() -> int:
     """Production millisecond clock, matching ``kalshi_bot.rest.client``'s
     same indirection point so tests never depend on wall-clock time."""
@@ -357,6 +383,7 @@ class KalshiDemoWebSocketClient:
         signer: RequestSigner,
         config: AppConfig,
         *,
+        on_reconnect: Callable[[], Awaitable[None] | None] | None = None,
         clock_ms: Callable[[], int] | None = None,
         connector: _Connector | None = None,
         jitter_source: Callable[[], float] | None = None,
@@ -373,6 +400,7 @@ class KalshiDemoWebSocketClient:
 
         self._signer = signer
         self._config = config
+        self._on_reconnect = on_reconnect
         self._clock_ms = clock_ms if clock_ms is not None else _default_clock_ms
         self._connector: _Connector = (
             connector if connector is not None else self._default_connector
@@ -393,9 +421,7 @@ class KalshiDemoWebSocketClient:
         self._command_id = 0
 
         self._active_channel_tickers: dict[_Channel, tuple[str, ...]] = {}
-        self._channel_queues: dict[
-            _Channel, "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"
-        ] = {}
+        self._channel_queues: dict[_Channel, "asyncio.Queue[object]"] = {}
         # The server-assigned subscription id for each channel's most
         # recently acked `subscribed` response, on the *current*
         # connection only -- cleared on every new dial (see `connect()`
@@ -422,6 +448,8 @@ class KalshiDemoWebSocketClient:
         # real instead. Cleared alongside `_channel_sids` on every new
         # dial.
         self._superseded_pending_channels: set[_Channel] = set()
+        self._orderbooks: dict[str, OrderBookReconstructor] = {}
+        self._orderbook_resync_pending = False
 
         self._malformed_frame_count = 0
         self._stale_frame_drop_count = 0
@@ -469,6 +497,13 @@ class KalshiDemoWebSocketClient:
         queue was at capacity (see ``_MAX_CHANNEL_QUEUE_SIZE``); the
         oldest queued item is dropped to make room for the newest."""
         return self._queue_full_drop_count
+
+    def healthy_orderbook(self, ticker: str) -> OrderBookSnapshot | None:
+        """Return a book only while its freshness and sequence state are healthy."""
+        book = self._orderbooks.get(ticker)
+        if book is None:
+            return None
+        return book.healthy(datetime.fromtimestamp(self._clock_ms() / 1000, tz=timezone.utc))
 
     @property
     def disconnect_events(self) -> tuple[WebSocketDisconnected, ...]:
@@ -532,6 +567,9 @@ class KalshiDemoWebSocketClient:
         self._channel_sids.clear()
         self._pending_channels.clear()
         self._superseded_pending_channels.clear()
+        for book in self._orderbooks.values():
+            book.reset()
+        self._clear_orderbook_queue()
 
         try:
             await self._resubscribe_all()
@@ -621,6 +659,9 @@ class KalshiDemoWebSocketClient:
         self._channel_sids.clear()
         self._pending_channels.clear()
         self._superseded_pending_channels.clear()
+        for book in self._orderbooks.values():
+            book.reset()
+        self._clear_orderbook_queue()
         _logger.info("ws_disconnected_clean")
 
     async def simulate_local_disconnect(self) -> None:
@@ -673,13 +714,25 @@ class KalshiDemoWebSocketClient:
             if isinstance(item, TradeUpdate):
                 yield item
 
+    async def subscribe_orderbooks(self, tickers: list[str]) -> AsyncIterator[OrderBookSnapshot]:
+        """Subscribe to sequenced order-book updates.
+
+        The iterator yields only ``HEALTHY`` reconstructed books.  A gap,
+        reconnect, or stale timeout produces no usable value until a fresh
+        snapshot has arrived and the sequence is again contiguous.
+        """
+        validated = _validate_tickers(tickers)
+        for ticker in validated:
+            self._orderbooks[ticker] = OrderBookReconstructor(ticker)
+        async for item in self._subscribe_channel(_Channel.ORDERBOOK_DELTA, tickers):
+            if isinstance(item, OrderBookSnapshot):
+                yield item
+
     async def _subscribe_channel(
         self, channel: _Channel, tickers: list[str]
-    ) -> AsyncIterator[TickerUpdate | TradeUpdate]:
+    ) -> AsyncIterator[object]:
         validated = _validate_tickers(tickers)
-        queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]" = asyncio.Queue(
-            maxsize=_MAX_CHANNEL_QUEUE_SIZE
-        )
+        queue: "asyncio.Queue[object]" = asyncio.Queue(maxsize=_MAX_CHANNEL_QUEUE_SIZE)
 
         previous_queue = self._channel_queues.get(channel)
         if previous_queue is not None:
@@ -767,7 +820,7 @@ class KalshiDemoWebSocketClient:
             self._clear_channel_state_if_owned(channel, queue)
 
     def _clear_channel_state_if_owned(
-        self, channel: _Channel, queue: "asyncio.Queue[TickerUpdate | TradeUpdate | _Stop]"
+        self, channel: _Channel, queue: "asyncio.Queue[object]"
     ) -> None:
         """Remove this call's own tracked state for ``channel`` -- but
         only if a newer subscribe_ticker/subscribe_trades call hasn't
@@ -1063,6 +1116,9 @@ class KalshiDemoWebSocketClient:
             self._channel_sids.clear()
             self._pending_channels.clear()
             self._superseded_pending_channels.clear()
+            for book in self._orderbooks.values():
+                book.reset()
+            self._clear_orderbook_queue()
 
             try:
                 await self._resubscribe_all()
@@ -1081,6 +1137,10 @@ class KalshiDemoWebSocketClient:
                 continue
 
             _logger.info("ws_reconnected", generation=generation)
+            if self._on_reconnect is not None:
+                callback_result = self._on_reconnect()
+                if inspect.isawaitable(callback_result):
+                    await callback_result
             return conn
 
     async def _reconnect_with_backoff(self, start_attempt: int) -> _WebSocketConnection | None:
@@ -1154,6 +1214,14 @@ class KalshiDemoWebSocketClient:
 
         if isinstance(result, TradeUpdate):
             self._route_to_queue(_Channel.TRADE, result, generation)
+            return
+
+        if isinstance(result, OrderBookSnapshotFrame):
+            self._route_orderbook_snapshot(result, generation)
+            return
+
+        if isinstance(result, OrderBookDeltaFrame):
+            self._route_orderbook_delta(result, generation)
             return
 
         if isinstance(result, SubscribedFrame):
@@ -1260,6 +1328,93 @@ class KalshiDemoWebSocketClient:
                 queue_full_drop_count=self._queue_full_drop_count,
             )
         queue.put_nowait(item)
+
+    def _route_orderbook_snapshot(self, frame: OrderBookSnapshotFrame, generation: int) -> None:
+        if generation != self._generation:
+            self._stale_frame_drop_count += 1
+            return
+        event = frame.event
+        book = self._orderbooks.get(event.market_ticker)
+        if book is None:
+            return
+        try:
+            snapshot = OrderBookSnapshot.from_rest(
+                event.market_ticker,
+                {"yes_dollars_fp": event.yes_dollars_fp, "no_dollars_fp": event.no_dollars_fp},
+                snapshot_timestamp=_event_timestamp(event),
+                sequence=frame.sequence,
+            )
+            healthy = book.apply_snapshot(snapshot)
+        except (TypeError, ValueError):
+            book.reset()
+            self._clear_orderbook_queue()
+            return
+        self._enqueue_healthy_orderbook(healthy)
+
+    def _route_orderbook_delta(self, frame: OrderBookDeltaFrame, generation: int) -> None:
+        if generation != self._generation:
+            self._stale_frame_drop_count += 1
+            return
+        event = frame.event
+        book = self._orderbooks.get(event.market_ticker)
+        if book is None:
+            return
+        try:
+            updated = book.apply_delta(
+                OrderBookDelta(
+                    market_ticker=event.market_ticker,
+                    sequence=frame.sequence,
+                    side=Side.YES if event.side == "yes" else Side.NO,
+                    price=FixedPointPrice.parse(event.price_dollars),
+                    delta=event.delta_fp,
+                    timestamp=_event_timestamp(event),
+                )
+            )
+        except (TypeError, ValueError):
+            book.reset()
+            self._clear_orderbook_queue()
+            return
+        if updated is None:
+            self._clear_orderbook_queue()
+            asyncio.ensure_future(self._request_orderbook_resync())
+        elif updated.quality is BookQuality.HEALTHY:
+            self._enqueue_healthy_orderbook(updated)
+
+    async def _request_orderbook_resync(self) -> None:
+        """Replace the damaged subscription so the server emits a snapshot."""
+        if self._orderbook_resync_pending:
+            return
+        self._orderbook_resync_pending = True
+        try:
+            tickers = self._active_channel_tickers.get(_Channel.ORDERBOOK_DELTA)
+            if not tickers or self._connection is None or self._closing:
+                return
+            sid = self._channel_sids.pop(_Channel.ORDERBOOK_DELTA, None)
+            if sid is not None:
+                await self._send_unsubscribe(_Channel.ORDERBOOK_DELTA, sid)
+            self._pending_channels.discard(_Channel.ORDERBOOK_DELTA)
+            await self._send_subscribe_and_track_pending(_Channel.ORDERBOOK_DELTA, tickers)
+        except Exception as exc:  # noqa: BLE001 - resync is fail-closed and retried by reconnect
+            _logger.warning("ws_orderbook_resync_failed", error_type=type(exc).__name__)
+        finally:
+            self._orderbook_resync_pending = False
+
+    def _clear_orderbook_queue(self) -> None:
+        queue = self._channel_queues.get(_Channel.ORDERBOOK_DELTA)
+        if queue is not None:
+            while not queue.empty():
+                with contextlib.suppress(asyncio.QueueEmpty):
+                    queue.get_nowait()
+
+    def _enqueue_healthy_orderbook(self, book: OrderBookSnapshot) -> None:
+        if self.healthy_orderbook(book.market_ticker) is None:
+            return
+        queue = self._channel_queues.get(_Channel.ORDERBOOK_DELTA)
+        if queue is not None:
+            if queue.full():
+                with contextlib.suppress(asyncio.QueueEmpty):
+                    queue.get_nowait()
+            queue.put_nowait(book)
 
     def _record_disconnect(self, *, reason: str, generation: int, attempt: int) -> None:
         event = WebSocketDisconnected(

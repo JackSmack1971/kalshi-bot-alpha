@@ -21,6 +21,7 @@ import pytest
 import kalshi_bot.ws.client as ws_client_module
 from kalshi_bot.auth.signer import SignedHeaders
 from kalshi_bot.config.models import AppConfig, CredentialReferences
+from kalshi_bot.market_data.orderbook import OrderBookSnapshot
 from kalshi_bot.observability import configure_logging, get_logger
 from kalshi_bot.observability.logging import _reset_registered_sensitive_values_for_tests
 from kalshi_bot.ws.client import KalshiDemoWebSocketClient, ReconnectPolicy, _Channel
@@ -33,6 +34,81 @@ from kalshi_bot.ws.errors import (
 from kalshi_bot.ws.models import TickerUpdate
 
 FAKE_ACCESS_KEY = "FAKE-ACCESS-KEY-FOR-WS-CLIENT-TESTS"
+
+
+def test_orderbook_consumer_suspends_on_gap_and_resumes_after_snapshot() -> None:
+    async def run() -> None:
+        conn = _FakeConnection()
+        client = _make_client(_FakeSigner(), _make_config(), connector=_ScriptedConnector([conn]))
+        try:
+            await client.connect()
+            gen = client.subscribe_orderbooks(["KXBTC-25JAN01"])
+            first_task = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+            generation = client._generation  # noqa: SLF001
+            client._dispatch_frame(
+                json.dumps(
+                    {
+                        "type": "orderbook_snapshot",
+                        "sid": 1,
+                        "seq": 10,
+                        "msg": {
+                            "market_ticker": "KXBTC-25JAN01",
+                            "yes_dollars_fp": [["0.50", "2"]],
+                            "no_dollars_fp": [],
+                        },
+                    }
+                ),
+                generation,
+            )
+            first = await asyncio.wait_for(first_task, timeout=1)
+            assert isinstance(first, OrderBookSnapshot)
+
+            client._dispatch_frame(
+                json.dumps(
+                    {
+                        "type": "orderbook_delta",
+                        "sid": 1,
+                        "seq": 12,
+                        "msg": {
+                            "market_ticker": "KXBTC-25JAN01",
+                            "price_dollars": "0.50",
+                            "delta_fp": "1",
+                            "side": "yes",
+                        },
+                    }
+                ),
+                generation,
+            )
+            assert client.healthy_orderbook("KXBTC-25JAN01") is None
+            suspended_task = asyncio.ensure_future(gen.__anext__())
+            await asyncio.sleep(0)
+            assert not suspended_task.done()
+
+            client._dispatch_frame(
+                json.dumps(
+                    {
+                        "type": "orderbook_snapshot",
+                        "sid": 1,
+                        "seq": 20,
+                        "msg": {
+                            "market_ticker": "KXBTC-25JAN01",
+                            "yes_dollars_fp": [["0.50", "9"]],
+                            "no_dollars_fp": [],
+                        },
+                    }
+                ),
+                generation,
+            )
+            fresh = await asyncio.wait_for(suspended_task, timeout=1)
+            assert fresh.yes_best_bid is not None
+            assert fresh.yes_best_bid.count.value == 9
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
 FAKE_SIGNATURE = "FAKE-SIGNATURE-FOR-WS-CLIENT-TESTS"
 
 
@@ -392,7 +468,7 @@ def test_malformed_frame_increments_counter_and_does_not_crash() -> None:
     asyncio.run(run())
 
 
-def test_unknown_channel_frame_including_orderbook_delta_is_ignored_not_malformed() -> None:
+def test_malformed_orderbook_delta_is_counted_and_unknown_channel_is_ignored() -> None:
     async def run() -> None:
         conn = _FakeConnection()
         connector = _ScriptedConnector([conn])
@@ -412,7 +488,7 @@ def test_unknown_channel_frame_including_orderbook_delta_is_ignored_not_malforme
             client._dispatch_frame(  # noqa: SLF001
                 json.dumps({"type": "market_lifecycle_v2", "sid": 1, "msg": {}}), generation
             )
-            assert client.malformed_frame_count == 0
+            assert client.malformed_frame_count == 1
         finally:
             await client.disconnect()
 
@@ -552,6 +628,36 @@ def test_reconnect_after_clean_drop_uses_bounded_backoff() -> None:
     asyncio.run(run())
 
 
+def test_successful_reconnect_runs_reconciliation_hook() -> None:
+    async def run() -> None:
+        conn1 = _FakeConnection()
+        conn2 = _FakeConnection()
+        connector = _ScriptedConnector([conn1, conn2])
+        reconnects: list[int] = []
+        client = _make_client(
+            _FakeSigner(),
+            _make_config(),
+            connector=connector,
+            clock_ms=_FakeClock(),
+            sleeper=_RecordingSleeper(),
+            jitter_source=lambda: 0.0,
+            on_reconnect=lambda: reconnects.append(1),
+        )
+        try:
+            await client.connect()
+            conn1.push_close_ok()
+            for _ in range(50):
+                await asyncio.sleep(0)
+                if len(connector.calls) >= 2:
+                    break
+            assert len(connector.calls) == 2
+            assert reconnects == [1]
+        finally:
+            await client.disconnect()
+
+    asyncio.run(run())
+
+
 def test_reconnect_after_protocol_error_records_closed_error_reason() -> None:
     async def run() -> None:
         conn1 = _FakeConnection()
@@ -643,7 +749,7 @@ def test_disconnect_during_backoff_prevents_further_connect_calls() -> None:
 
 
 def test_only_ticker_and_trade_channels_are_ever_reachable() -> None:
-    assert {c.value for c in _Channel} == {"ticker", "trade"}
+    assert {c.value for c in _Channel} == {"ticker", "trade", "orderbook_delta"}
 
     ticker_params = list(inspect.signature(KalshiDemoWebSocketClient.subscribe_ticker).parameters)
     trade_params = list(inspect.signature(KalshiDemoWebSocketClient.subscribe_trades).parameters)
