@@ -76,7 +76,11 @@ def definition_files() -> list[Path]:
 
 
 def _digest(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    # Definition identity must be stable across Windows and Linux checkouts.
+    # All definition files are text; canonicalize their line endings before
+    # hashing so Git's working-tree conversion cannot change the identity.
+    content = path.read_bytes().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 def build() -> dict:
@@ -100,11 +104,12 @@ def build() -> dict:
 
 def write_snapshot() -> dict:
     snapshot = build()
-    HASH_FILE.write_text(
-        "".join(f"{row['sha256']}  {row['path']}\n" for row in snapshot["files"]),
-        encoding="utf-8",
-    )
-    SNAPSHOT_FILE.write_text(json.dumps(snapshot, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    hash_text = "".join(f"{row['sha256']}  {row['path']}\n" for row in snapshot["files"])
+    snapshot_text = json.dumps(snapshot, indent=2, sort_keys=True) + "\n"
+    with HASH_FILE.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(hash_text)
+    with SNAPSHOT_FILE.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(snapshot_text)
     return snapshot
 
 
